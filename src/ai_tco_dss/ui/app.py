@@ -1,13 +1,15 @@
 """Streamlit entry point: ``uv run streamlit run src/ai_tco_dss/ui/app.py``.
 
-Start page: catalog counts and FX rate, obtained only through the Service_Layer.
+Start page: catalog counts and FX rate, then the View 1 tab with the memory-fit card.
+All data comes through the Service_Layer.
 """
 
 import streamlit as st
 
-from ai_tco_dss.domain import CatalogOverview
+from ai_tco_dss.domain import CatalogOverview, WorkloadProfile
 from ai_tco_dss.domain.errors import DssError
-from ai_tco_dss.services import catalog_overview
+from ai_tco_dss.services import catalog_overview, load_workload
+from ai_tco_dss.ui.cards import memory_fit_card
 from ai_tco_dss.ui.state import init_state
 
 
@@ -16,11 +18,17 @@ def _overview() -> CatalogOverview:
     return catalog_overview()
 
 
+@st.cache_resource
+def _default_workload() -> WorkloadProfile:
+    return load_workload()
+
+
 init_state(st.session_state)
 st.title("AI TCO DSS")
 
 try:
     overview = _overview()
+    workload = _default_workload()
 except DssError as exc:
     st.error(f"The catalog could not be loaded:\n\n{exc.message}")
 else:
@@ -31,3 +39,7 @@ else:
     )
     fx = overview.fx
     st.caption(f"FX rate {fx.rate:.4f} USD/EUR (source {fx.source_id}, rate date {fx.rate_date})")
+
+    (view_1,) = st.tabs(["View 1: Memory fit"])
+    with view_1:
+        memory_fit_card(overview, workload)

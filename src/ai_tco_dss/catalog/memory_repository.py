@@ -3,6 +3,7 @@
 from pathlib import Path
 
 from ai_tco_dss.catalog.fx import convert_catalog
+from ai_tco_dss.catalog.json_repository import read_workload_file
 from ai_tco_dss.domain import Catalog, WorkloadProfile
 
 
@@ -17,6 +18,5 @@ class InMemoryCatalogRepository:
         return convert_catalog(self._catalog, fx_override, is_override=True)
 
     def load_workload(self, path: Path | None = None) -> WorkloadProfile:
-        if path is not None:
-            raise NotImplementedError("loading other workload files is added in Task 5")
-        return self._workload
+        """The held default Workload_Profile, or the profile of the workload file `path`."""
+        return self._workload if path is None else read_workload_file(path)

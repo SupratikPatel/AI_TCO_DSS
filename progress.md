@@ -1,7 +1,9 @@
 # Progress — AI TCO DSS MVP
 
 ## Current Status
-Tasks 1 to 4 done (2026-11-07). Task 4 replaced the seed subset with the curated MVP catalog: 9 hardware files, 12 model files (8 open-weights, 4 commercial API), 14 quality Benchmark_Records, 6 EU rentals and updated reference data. Values were fetched on 2026-11-07 from vendor pages (NVIDIA, Apple, AMD, Anthropic, OpenAI, Google), Hugging Face model cards and `config.json`, Unsloth GGUF file sizes, the OpenRouter models API and rankings, Artificial Analysis (AA v5.0.1), Hetzner, Nebius, Fireworks, ECB and PwC tax summaries; `data/sources.json` now has 75 entries. Values without a web source (most hardware street prices, Apple configured prices, salaries, recruiting delays, some idle watts) stay `SPEC-03` / `assumption` and are listed in ledger C-032. The Validate_CLI has new MVP completeness rules (on by default only for the repository `data/` root, `--mvp` / `--no-mvp` to force), quality-score range checks, preset rules and popularity rules. At the user's request the rentals include other EU providers (Hetzner GEX131, Nebius RTX PRO 6000 and 8× H100, Fireworks 8× H100 Frankfurt); Deutsche Telekom, OVHcloud and Scaleway were researched but not added (ledger C-031). The start page therefore shows "Catalog: 9 hardware, 12 models, 6 rentals" instead of the "2 rentals" of the tasks.md demo. Open points for the author: the German employer tax ignores contribution ceilings (C-019), and Gemma 4 12B, gpt-oss-120b and Gemini 3.1 Pro have no quality score, so they fail every Quality_Floor (C-025). The full suite has 324 passing tests and `ai-tco-validate` reports 0 errors. Files are staged with `git add`, not committed. No engines exist yet; Task 5 (Workload and Sizing engines, View 1 card) is next and needs the `developing-with-streamlit` skill.
+Tasks 1 to 5 done (2026-11-07). Task 5 added the Workload_Engine (`engines/workload.py`), the Sizing_Engine (`engines/sizing.py`), workload loading for other files (`load_workload(path)` in both repositories and as a Service_Layer function), the `size` service, and the View 1 tab with the memory-fit Simulator_Card (`ui/cards.py`, `@st.fragment`), the pure chart factory `memory_fit_figure` (`ui/charts.py`) and the Okabe-Ito constants (`ui/theme.py`). Demo checked with AppTest and a headless app through the agent API: Mac Studio M5 Max 128GB + Qwen 3.8 Flash Next INT4 at 8 192 tokens is infeasible against 103.04 GB usable (shortfall 10.3 GB) and shows `sudo sysctl iogpu.wired_limit_mb=117760`; with the Mac override the usable line moves to 115.00 GB and the pairing fits (U_max 7). Req 16.6 deviations are 0.04 GB and 0.00 GB (below 1.0 GB, no ledger entry). The design's tiered-offload pool formula contradicted Req 18.6 and was replaced (ledger C-034). AA labels show "n/a" and `performance` is `None` until Task 6. The full suite has 424 passing tests and `ai-tco-validate` reports 0 errors. Files are staged with `git add`, not committed. Task 6 (Performance engine, measured-first resolver, calibration) is next.
+
+Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 hardware files, 12 model files (8 open-weights, 4 commercial API), 14 quality Benchmark_Records, 6 EU rentals and updated reference data. Values were fetched on 2026-11-07 from vendor pages (NVIDIA, Apple, AMD, Anthropic, OpenAI, Google), Hugging Face model cards and `config.json`, Unsloth GGUF file sizes, the OpenRouter models API and rankings, Artificial Analysis (AA v5.0.1), Hetzner, Nebius, Fireworks, ECB and PwC tax summaries; `data/sources.json` now has 75 entries. Values without a web source (most hardware street prices, Apple configured prices, salaries, recruiting delays, some idle watts) stay `SPEC-03` / `assumption` and are listed in ledger C-032. The Validate_CLI has new MVP completeness rules (on by default only for the repository `data/` root, `--mvp` / `--no-mvp` to force), quality-score range checks, preset rules and popularity rules. At the user's request the rentals include other EU providers (Hetzner GEX131, Nebius RTX PRO 6000 and 8× H100, Fireworks 8× H100 Frankfurt); Deutsche Telekom, OVHcloud and Scaleway were researched but not added (ledger C-031). The start page therefore shows "Catalog: 9 hardware, 12 models, 6 rentals" instead of the "2 rentals" of the tasks.md demo. Open points for the author: the German employer tax ignores contribution ceilings (C-019), and Gemma 4 12B, gpt-oss-120b and Gemini 3.1 Pro have no quality score, so they fail every Quality_Floor (C-025). After Task 4 the full suite had 324 passing tests.
 
 ## Task Status
 | Task | Title | Status | Completed |
@@ -54,27 +56,27 @@ Tasks 1 to 4 done (2026-11-07). Task 4 replaced the seed subset with the curated
 | 4.8 | Web-verify and write the reference data | done | 2026-11-07 |
 | 4.9 | Update the Corrections_Ledger for the curated data | done | 2026-11-07 |
 | 4.10 | Checkpoint and progress update: Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | done | 2026-11-07 |
-| 5 | Workload and Sizing engines, `size` service and View 1 card | not-started | |
-| 5.1 | Write failing Workload_Engine tests | not-started | |
-| 5.2 | Write failing Sizing_Engine tests | not-started | |
-| 5.3 | Write failing engine purity tests | not-started | |
-| 5.4 | Write failing View 1 chart tests | not-started | |
-| 5.5 | Write property test for workload formulas | not-started | |
-| 5.6 | Write property test for workload monotonicity | not-started | |
-| 5.7 | Write property test for usable memory by architecture | not-started | |
-| 5.8 | Write property test for the Mac default-split trap | not-started | |
-| 5.9 | Write property test for weight and KV-per-token formulas | not-started | |
-| 5.10 | Write property test for KV pool, concurrency and OOM | not-started | |
-| 5.11 | Write property test for memory breakdown and eviction flag | not-started | |
-| 5.12 | Write property test for memory monotonicity | not-started | |
-| 5.13 | Write property test for node-count handling | not-started | |
-| 5.14 | Write property test for quality, license and context flags | not-started | |
-| 5.15 | Write property test for View 1 chart structure | not-started | |
-| 5.16 | Implement the Workload_Engine and workload loading | not-started | |
-| 5.17 | Implement the Sizing_Engine | not-started | |
-| 5.18 | Implement the `size` service | not-started | |
-| 5.19 | Implement the View 1 chart and card | not-started | |
-| 5.20 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | not-started | |
+| 5 | Workload and Sizing engines, `size` service and View 1 card | done | 2026-11-07 |
+| 5.1 | Write failing Workload_Engine tests | done | 2026-11-07 |
+| 5.2 | Write failing Sizing_Engine tests | done | 2026-11-07 |
+| 5.3 | Write failing engine purity tests | done | 2026-11-07 |
+| 5.4 | Write failing View 1 chart tests | done | 2026-11-07 |
+| 5.5 | Write property test for workload formulas | done | 2026-11-07 |
+| 5.6 | Write property test for workload monotonicity | done | 2026-11-07 |
+| 5.7 | Write property test for usable memory by architecture | done | 2026-11-07 |
+| 5.8 | Write property test for the Mac default-split trap | done | 2026-11-07 |
+| 5.9 | Write property test for weight and KV-per-token formulas | done | 2026-11-07 |
+| 5.10 | Write property test for KV pool, concurrency and OOM | done | 2026-11-07 |
+| 5.11 | Write property test for memory breakdown and eviction flag | done | 2026-11-07 |
+| 5.12 | Write property test for memory monotonicity | done | 2026-11-07 |
+| 5.13 | Write property test for node-count handling | done | 2026-11-07 |
+| 5.14 | Write property test for quality, license and context flags | done | 2026-11-07 |
+| 5.15 | Write property test for View 1 chart structure | done | 2026-11-07 |
+| 5.16 | Implement the Workload_Engine and workload loading | done | 2026-11-07 |
+| 5.17 | Implement the Sizing_Engine | done | 2026-11-07 |
+| 5.18 | Implement the `size` service | done | 2026-11-07 |
+| 5.19 | Implement the View 1 chart and card | done | 2026-11-07 |
+| 5.20 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | done | 2026-11-07 |
 | 6 | Performance engine, measured-first resolver and calibration | not-started | |
 | 6.1 | Write failing Performance_Engine tests | not-started | |
 | 6.2 | Write failing settings tests | not-started | |
@@ -241,6 +243,16 @@ Tasks 1 to 4 done (2026-11-07). Task 4 replaced the seed subset with the curated
 | 2026-11-07 | Custom open-weights licenses (Qwen Community License 1.0, Kimi K3.1-Pro License) are stored as `MIT`; DGX Spark is stored as `discrete` memory | `LicenseType` and `MemoryArchitecture` lack fitting members and `domain/` is outside the Task 4 scope; contract change proposals in ledger C-015, C-017, C-024 | 10.7, 16.4, 19.2 |
 | 2026-11-07 | Extra EU rentals (user request): only offers that map to a catalog GPU and one of its valid node counts are added; hourly prices × 730 h; USD prices stay USD | RentalSpec sizes a rental as `gpu_count` nodes of `gpu_hardware_id` (ledger C-031) | 13.5, 25.1 |
 | 2026-11-07 | Baseline A default plan `claude-ultra` ($200); `claude-max` ($100) added | Anthropic renamed its plans (ledger C-018) | 24.1 |
+| 2026-11-07 | `SizingResult` memory values (`usable_memory_gb`, `usable_memory_default_gb`, `kv_pool_gb`, `os_reserved`) cover all effective nodes. `usable_system_ram_gb` is the installed system RAM × N for discrete hardware and `None` for unified memory; the eviction check of unified hardware uses the per-node usable memory (design step 8). The View 1 chart draws a system RAM line only when the value is not `None` | Req 35.1 omits the line for hardware without a separate system RAM value; the chart takes only `SizeResult` | 17.11, 18.3, 35.1 |
+| 2026-11-07 | Tiered-offload appliances: the Shelf takes the weights first, weights on device = max(0, weights − N × `system_ram_offload_gb`) | The design formula made every offloaded model OOM (ledger C-034) | 18.6 |
+| 2026-11-07 | Infeasibility reasons (node count not valid, weight capacity exceeded, OOM shortfall) are joined with "; " in `oom_reason`; `U_max` is still computed when only the node count is invalid | `SizingResult` has one reason field; Req 18.8 needs a recorded reason | 17.6, 18.8 |
+| 2026-11-07 | `size_deployment` rejects `commercial-api` models with `EngineInputError` naming the model id; the View 1 card shows the error as a warning and keeps the other pairings | API models have no weights to size; `CatalogOverview` lists all models | 38.2 |
+| 2026-11-07 | New Service_Layer function `load_workload(path=None, *, repo=None)`; repositories share `read_workload_file(path)`. Missing or unparseable files raise `WorkloadFileError(path, ())`; validation failures list every field path (e.g. `profile.active_users`) | Req 14.3 and 14.7 address the Service_Layer; the Dashboard needs the default workload without importing `catalog` | 14.3, 14.7, 37.7 |
+| 2026-11-07 | `size` returns `performance=None` and `aa_index_v5=None` until Task 6 | Task 5 demo: "AA labels show n/a until Task 6"; the measured-first resolver is Task 6 | 35.9, Task 6 |
+| 2026-11-07 | The memory-fit card also has a Nodes control (1, 2, 4, 8; default 1) besides the inputs listed in design.md | H100 has valid node count {8} only and would always show infeasible at 1 node | 18.1, 35.1 |
+| 2026-11-07 | View 1 uses Plotly although the Streamlit skill prefers Vega charts | Req 35.8 requires Plotly figure factories; Req 35.3 needs bar hatch patterns | 35.3, 35.8 |
+| 2026-11-07 | Engine purity AST test: `engines/` may import `ai_tco_dss.domain` and `ai_tco_dss.engines`; `decision/` may also import `ai_tco_dss.decision` and the engines. `engines/__init__.py` uses a tuple `__all__` | Package `__init__` re-exports and the decision layer calling pure engines do not break Req 38.2 | 38.2 |
+| 2026-11-07 | The optional property tests 5.5, 5.7 to 5.11 and 5.13 to 5.15 (Properties 9, 11 to 15, 17, 18, 54) were written | Same reason as for Tasks 3 and 4 | 5.5 to 5.15 |
 
 ## Changelog
 | Date | Task | Files created or modified |
@@ -249,6 +261,7 @@ Tasks 1 to 4 done (2026-11-07). Task 4 replaced the seed subset with the curated
 | 2026-11-07 | 2 | created: `src/ai_tco_dss/domain/{base,enums,errors,money,catalog,scenario,results,inputs,requests,export_schemas}.py`, `schemas/*.json` (8 files), `tests/unit/test_contracts.py`, `tests/unit/test_schema_export.py`, `tests/property/strategies.py`, `tests/property/test_contract_props.py`; modified: `src/ai_tco_dss/domain/__init__.py`, `src/ai_tco_dss/settings.py`, `pyproject.toml` (console script `ai-tco-schemas`), `uv.lock`, `specs/07_DATA_CORRECTIONS.md` (Contract Deviations), `progress.md` |
 | 2026-11-07 | 3 | created: `src/ai_tco_dss/catalog/{loading,fx,repository,json_repository,memory_repository,validate}.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/ui/state.py`, `data/sources.json`, `data/catalog/README.md`, `data/catalog/hardware/{mac-studio-m5-max-128gb,rtx-pro-6000-96gb}.json`, `data/catalog/models/{qwen-3-8-27b,claude-sonnet-5-5}.json`, `data/benchmarks/quality.json`, `data/reference/{fx,electricity,staffing_hubs,harnesses,use_cases,rentals,presets,popularity,baselines}.json`, `data/workloads/default.json`, `tests/fixtures/catalog_min/**`, `tests/unit/test_validate_cli.py`, `tests/unit/test_repository.py`, `tests/unit/test_import_boundaries.py`, `tests/property/test_catalog_props.py`; modified: `src/ai_tco_dss/catalog/__init__.py`, `src/ai_tco_dss/services/__init__.py`, `src/ai_tco_dss/ui/app.py`, `pyproject.toml` (console script `ai-tco-validate`), `README.md` (validate command), `specs/07_DATA_CORRECTIONS.md` (C-016), `tests/unit/test_repository_layout.py`, `tests/integration/test_app_smoke.py`, `progress.md` |
 | 2026-11-07 | 4 | created: `data/catalog/hardware/{rtx-5060-ti-16gb,rtx-5070-strata-64gb,mac-mini-m5-pro-64gb,mac-studio-m5-ultra-256gb,amd-strix-halo-128gb,dgx-spark-128gb,h100-80gb-sxm}.json`, `data/catalog/models/{gemma-4-12b,qwen-3-6-35b-a3b,gpt-oss-120b,qwen-3-8-flash-next,glm-5-3-flash,deepseek-v4-1-flash,kimi-k3-1-pro,claude-opus-5-5,gpt-6-1,gemini-3-1-pro}.json`, `tests/unit/test_mvp_catalog.py`, `tests/unit/test_reference_data.py`, `tests/property/test_preset_validator_props.py`; modified: `data/sources.json`, `data/catalog/hardware/{mac-studio-m5-max-128gb,rtx-pro-6000-96gb}.json`, `data/catalog/models/{qwen-3-8-27b,claude-sonnet-5-5}.json`, `data/benchmarks/quality.json`, `data/reference/{fx,electricity,staffing_hubs,rentals,popularity,baselines}.json`, `src/ai_tco_dss/catalog/loading.py`, `src/ai_tco_dss/catalog/validate.py`, `specs/07_DATA_CORRECTIONS.md` (C-001 to C-003, C-010, C-013 to C-016 updated; C-017 to C-033 added; Assumptions rows), `progress.md` |
+| 2026-11-07 | 5 | created: `src/ai_tco_dss/engines/workload.py`, `src/ai_tco_dss/engines/sizing.py`, `src/ai_tco_dss/ui/cards.py`, `src/ai_tco_dss/ui/charts.py`, `src/ai_tco_dss/ui/theme.py`, `tests/unit/test_workload.py`, `tests/unit/test_sizing.py`, `tests/unit/test_engine_purity.py`, `tests/unit/test_charts.py`, `tests/property/test_workload_props.py`, `tests/property/test_sizing_props.py`, `tests/property/test_ui_props.py`; modified: `src/ai_tco_dss/engines/__init__.py`, `src/ai_tco_dss/catalog/json_repository.py`, `src/ai_tco_dss/catalog/memory_repository.py`, `src/ai_tco_dss/services/__init__.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/ui/app.py`, `specs/07_DATA_CORRECTIONS.md` (C-034), `progress.md` |
 
 ## Known Deviations
 | Deviation | Ledger entries |
@@ -262,9 +275,10 @@ Tasks 1 to 4 done (2026-11-07). Task 4 replaced the seed subset with the curated
 | Gemma 4 12B, gpt-oss-120b and Gemini 3.1 Pro have no quality score and fail every Quality_Floor | C-025 |
 | Start page shows 6 rentals instead of the 2 of the Task 4 demo (extra EU providers added at the user's request) | C-031 |
 | Most hardware street prices stay spec 03 assumptions (not web-verified) | C-032 |
+| Tiered-offload KV pool uses a Shelf-first weight placement instead of the design.md step 6 formula | C-034 |
 
 ## Next Step
-Task 5 — Workload and Sizing engines, `size` service and View 1 card
+Task 6 — Performance engine, measured-first resolver and calibration
 
 ## Next Session Prompt
 ```text
@@ -274,11 +288,11 @@ You are continuing the AI TCO DSS MVP (TUM thesis, Python 3.12, uv). Read these 
 3. .kiro/specs/ai-tco-dss-mvp/requirements.md
 4. .kiro/specs/ai-tco-dss-mvp/design.md
 5. .kiro/specs/ai-tco-dss-mvp/tasks.md
-Then execute task 5 "Workload and Sizing engines, `size` service and View 1 card" from tasks.md, and only that task.
+Then execute task 6 "Performance engine, measured-first resolver and calibration" from tasks.md, and only that task.
 Task_Scope (identical to tasks.md):
-  Load: `CLAUDE.md` § "Project Rules"; `progress.md` (whole file); `requirements.md` § "Requirement 14: Workload Profile and Explicit Assumptions", § "Requirement 15: Effective Token Volume Computation", § "Requirement 16: Usable Memory and Operating System Traps", § "Requirement 17: Weights, KV Cache, KV Pool and Concurrency", § "Requirement 18: Multi-Node Topology and Tiered Offload", § "Requirement 19: Quality, License and Context Flags", § "Requirement 35: Views 1 and 2", § "Requirement 38: Service Layer and Ports-and-Adapters Architecture", § "Requirement 41: Test-Driven Development and Test Suites"; `design.md` § "Engine call convention", § "Workload_Engine (`engines/workload.py`)", § "Sizing_Engine (`engines/sizing.py`)", § "Service Layer (`services/`)", § "Dashboard (`ui/`)", § "Okabe-Ito archetype mapping (`ui/theme.py`, ledger entry C-004)", § "Correctness Properties" › "Workload and sizing", § "Testing Strategy"; `specs/01_WORKLOAD_AND_PHYSICS_ENGINE.md` § "1.1 Token Volume, Tokenizer Inflation, Thinking Effort & Verification Multipliers", § "1.2 Agentic Harness Scaffolding ($S_{\text{harness}}$), MCP Pruning & Mega-Sessions", § "1.3 Multi-Agent State Retention vs. The Conversational Eviction Tax", § "Stage 1: Memory Architecture, OS Split Traps, Attention Formats & 3-Tier Offload", § "Stage 3: Quantization Fidelity, 6-Layer Harnesses & Hardware Lifecycle Clocks", § "Stage 4: Multi-Node Topologies, Disaggregation & Heterogeneous Routing"; `src/ai_tco_dss/domain/`; `src/ai_tco_dss/catalog/`; `src/ai_tco_dss/services/`; `src/ai_tco_dss/ui/`; `data/`
-  Modify: `src/ai_tco_dss/engines/workload.py`, `src/ai_tco_dss/engines/sizing.py`, `src/ai_tco_dss/engines/__init__.py`, `src/ai_tco_dss/catalog/json_repository.py`, `src/ai_tco_dss/catalog/memory_repository.py`, `src/ai_tco_dss/services/__init__.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/ui/cards.py`, `src/ai_tco_dss/ui/charts.py`, `src/ai_tco_dss/ui/theme.py`, `src/ai_tco_dss/ui/app.py`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`, `tests/unit/test_workload.py`, `tests/unit/test_sizing.py`, `tests/unit/test_engine_purity.py`, `tests/unit/test_charts.py`, `tests/property/test_workload_props.py`, `tests/property/test_sizing_props.py`, `tests/property/test_ui_props.py`
-  Verify: uv run python scripts/verify.py tests/unit/test_workload.py tests/unit/test_sizing.py tests/unit/test_engine_purity.py tests/unit/test_charts.py tests/property/test_workload_props.py tests/property/test_sizing_props.py tests/property/test_ui_props.py
+  Load: `CLAUDE.md` § "Project Rules"; `progress.md` (whole file); `requirements.md` § "Requirement 9: Benchmark Records and Measured-First Resolution", § "Requirement 20: Decode Throughput", § "Requirement 21: Prefill, TTFT and Effective Throughput", § "Requirement 42: Calibration Tests and Calibration Report"; `design.md` § "Settings (`settings.py`)", § "Measured-first resolver (`engines/resolver.py`)", § "Performance_Engine (`engines/performance.py`)", § "Service Layer (`services/`)", § "Correctness Properties" › "Performance" and "Service layer and calibration", § "Testing Strategy" › "Calibration tests (`tests/calibration/`)"; `specs/01_WORKLOAD_AND_PHYSICS_ENGINE.md` § "Stage 2: Memory Bandwidth (Decode) vs. Compute (Prefill) & The MoE Law"; `specs/07_DATA_CORRECTIONS.md` § "Calibration Known Deviations"; `src/ai_tco_dss/settings.py`; `src/ai_tco_dss/engines/`; `src/ai_tco_dss/services/`; `src/ai_tco_dss/ui/cards.py`; `data/benchmarks/`
+  Modify: `src/ai_tco_dss/engines/resolver.py`, `src/ai_tco_dss/engines/performance.py`, `src/ai_tco_dss/engines/__init__.py`, `src/ai_tco_dss/settings.py`, `src/ai_tco_dss/services/__init__.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/services/calibration_report.py`, `src/ai_tco_dss/ui/cards.py`, `pyproject.toml`, `README.md`, `.gitignore`, `reports/.gitkeep`, `data/benchmarks/`, `data/sources.json`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`, `tests/unit/test_performance.py`, `tests/unit/test_settings.py`, `tests/unit/test_calibration_report.py`, `tests/calibration/test_calibration.py`, `tests/property/test_performance_props.py`, `tests/property/test_calibration_props.py`
+  Verify: uv run python scripts/verify.py tests/unit/test_performance.py tests/unit/test_settings.py tests/unit/test_calibration_report.py tests/calibration tests/property/test_performance_props.py tests/property/test_calibration_props.py
 Work test-first, change only Task_Scope files, run the task's verification command (it must exit 0),
 then update progress.md (Task Status, Current Status, Changelog, Next Step) and rewrite
 this prompt for the next not-started task before reporting completion.

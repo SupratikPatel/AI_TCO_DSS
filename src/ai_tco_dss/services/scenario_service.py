@@ -1,14 +1,38 @@
-"""Service_Layer orchestration. Task 3 provides `catalog_overview` only."""
+"""Service_Layer orchestration: `catalog_overview`, `load_workload` and `size` (Task 5)."""
+
+from pathlib import Path
 
 from ai_tco_dss.catalog import CatalogRepository, get_default_repository
-from ai_tco_dss.domain import CatalogItem, CatalogOverview, FxInfo
+from ai_tco_dss.domain import (
+    Catalog,
+    CatalogItem,
+    CatalogOverview,
+    FxInfo,
+    HardwareSpec,
+    LicenseType,
+    ModelSpec,
+    SizeRequest,
+    SizeResult,
+    SizingInput,
+    WorkloadInput,
+    WorkloadProfile,
+)
+from ai_tco_dss.domain.errors import UnknownIdentifierError
+from ai_tco_dss.engines import compute_workload, size_deployment
+from ai_tco_dss.settings import load_engine_parameters
+
+OPEN_LICENSES = (LicenseType.APACHE_2, LicenseType.MIT)
+
+
+def _repository(repo: CatalogRepository | None) -> CatalogRepository:
+    return repo if repo is not None else get_default_repository()
 
 
 def catalog_overview(
     *, repo: CatalogRepository | None = None, fx_override: float | None = None
 ) -> CatalogOverview:
     """Counts, selectable items and FX info for the start page and the sidebar (Req 6.1)."""
-    repository = repo if repo is not None else get_default_repository()
+    repository = _repository(repo)
     catalog = repository.catalog(fx_override)
     return CatalogOverview(
         counts=(
@@ -32,3 +56,61 @@ def catalog_overview(
             is_override=catalog.fx_is_override,
         ),
     )
+
+
+def load_workload(
+    path: Path | None = None, *, repo: CatalogRepository | None = None
+) -> WorkloadProfile:
+    """The Workload_Profile of `path` (None: the Default_Workload_File) (Req 14.3, 14.7).
+
+    Raises `WorkloadFileError` naming the path and each failing field.
+    """
+    return _repository(repo).load_workload(path)
+
+
+def _hardware(catalog: Catalog, hardware_id: str) -> HardwareSpec:
+    found = next((h for h in catalog.hardware if h.id == hardware_id), None)
+    if found is None:
+        raise UnknownIdentifierError("hardware", hardware_id)
+    return found
+
+
+def _model(catalog: Catalog, model_id: str) -> ModelSpec:
+    found = next((m for m in catalog.models if m.id == model_id), None)
+    if found is None:
+        raise UnknownIdentifierError("model", model_id)
+    return found
+
+
+def size(request: SizeRequest, *, repo: CatalogRepository | None = None) -> SizeResult:
+    """Sizing and workload of one hardware-model pairing for View 1 (Req 38.1, 38.7, 38.8).
+
+    Performance and the AA v5 score are added in Task 6 (`None` until then).
+    """
+    request = SizeRequest.model_validate(request)
+    catalog = _repository(repo).catalog(request.scenario.fx_override)
+    hardware = _hardware(catalog, request.hardware_id)
+    model = _model(catalog, request.model_id)
+    params = load_engine_parameters()
+    scenario = request.scenario
+    workload = compute_workload(
+        WorkloadInput(profile=scenario.workload, model=model, harnesses=catalog.harnesses), params
+    )
+    alternatives = tuple(
+        m.name
+        for m in catalog.models
+        if m.type == "open-weights" and m.license_type in OPEN_LICENSES
+    )
+    sizing = size_deployment(
+        SizingInput(
+            hardware=hardware,
+            model=model,
+            precision=request.precision,
+            requested_nodes=request.nodes,
+            options=scenario.sizing,
+            profile=scenario.workload,
+            license_alternatives=alternatives,
+        ),
+        params,
+    )
+    return SizeResult(sizing=sizing, performance=None, workload=workload, aa_index_v5=None)
