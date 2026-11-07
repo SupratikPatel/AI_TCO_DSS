@@ -78,3 +78,5 @@ Never push or commit, just git add the required files, the user will review and 
 6. Modify only files listed in the current Task_Scope.
 7. Record every detected data contradiction in `specs/07_DATA_CORRECTIONS.md` with old value, new value, sources and decision date.
 8. Before finishing a task, make sure the task's new tests pass and the full `pytest` suite reports zero failures and zero errors, then update `progress.md` and the Next Session Prompt; only then mark the task `done`.
+
+Streamlit work: before creating or changing any Streamlit code (files under `src/ai_tco_dss/ui/` or AppTest tests), load the `developing-with-streamlit` agent skill and follow it; details and the fallback path are in `.kiro/steering/streamlit-ui.md`.

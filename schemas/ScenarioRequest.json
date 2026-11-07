@@ -1,0 +1,623 @@
+{
+  "$defs": {
+    "CriterionWeights": {
+      "additionalProperties": false,
+      "description": "Raw weights; non-negativity is checked by the ranking (Req 29.11), not here.",
+      "properties": {
+        "effective_tps": {
+          "title": "Effective Tps",
+          "type": "number"
+        },
+        "popularity": {
+          "title": "Popularity",
+          "type": "number"
+        },
+        "quality": {
+          "title": "Quality",
+          "type": "number"
+        },
+        "risk": {
+          "title": "Risk",
+          "type": "number"
+        },
+        "tco_60m": {
+          "title": "Tco 60M",
+          "type": "number"
+        },
+        "ttft": {
+          "title": "Ttft",
+          "type": "number"
+        }
+      },
+      "required": [
+        "tco_60m",
+        "quality",
+        "effective_tps",
+        "ttft",
+        "risk",
+        "popularity"
+      ],
+      "title": "CriterionWeights",
+      "type": "object"
+    },
+    "DecisionOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "$ref": "#/$defs/RankingMethod",
+          "default": "saw"
+        },
+        "preset": {
+          "$ref": "#/$defs/PresetId",
+          "default": "best-fit"
+        },
+        "reference_api_model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Api Model Id"
+        },
+        "use_case": {
+          "$ref": "#/$defs/UseCaseId",
+          "default": "agentic-coding"
+        },
+        "weights": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CriterionWeights"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "DecisionOptions",
+      "type": "object"
+    },
+    "ElectricityTariffTier": {
+      "enum": [
+        "de-industrial-bdew",
+        "de-office",
+        "eu-nordic"
+      ],
+      "title": "ElectricityTariffTier",
+      "type": "string"
+    },
+    "EnterpriseFinancials": {
+      "additionalProperties": false,
+      "properties": {
+        "capital_opportunity_rate": {
+          "default": 0.045,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Capital Opportunity Rate",
+          "type": "number"
+        },
+        "cooling_pue": {
+          "default": 1.2,
+          "maximum": 3.0,
+          "minimum": 1.0,
+          "title": "Cooling Pue",
+          "type": "number"
+        },
+        "currency": {
+          "default": "USD",
+          "enum": [
+            "EUR",
+            "USD"
+          ],
+          "title": "Currency",
+          "type": "string"
+        },
+        "depreciation_years": {
+          "default": 3,
+          "minimum": 1,
+          "title": "Depreciation Years",
+          "type": "integer"
+        },
+        "developer_hourly_opportunity_cost": {
+          "default": 72.57,
+          "minimum": 0.0,
+          "title": "Developer Hourly Opportunity Cost",
+          "type": "number"
+        },
+        "devops_fte_allocation": {
+          "default": 0.5,
+          "maximum": 10.0,
+          "minimum": 0.0,
+          "title": "Devops Fte Allocation",
+          "type": "number"
+        },
+        "electricity_tariff_tier": {
+          "$ref": "#/$defs/ElectricityTariffTier",
+          "default": "de-industrial-bdew"
+        },
+        "enable_nvidia_nim_licensing": {
+          "default": false,
+          "title": "Enable Nvidia Nim Licensing",
+          "type": "boolean"
+        },
+        "engineering_hub_location": {
+          "$ref": "#/$defs/EuEngineeringHub",
+          "default": "ro-cluj-bucharest"
+        },
+        "include_resale_value": {
+          "default": false,
+          "title": "Include Resale Value",
+          "type": "boolean"
+        },
+        "include_wait_time_penalty": {
+          "default": false,
+          "title": "Include Wait Time Penalty",
+          "type": "boolean"
+        },
+        "local_offload_ratio": {
+          "default": 0.7,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Local Offload Ratio",
+          "type": "number"
+        },
+        "max_capex_budget_usd": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 100000.0,
+          "title": "Max Capex Budget Usd"
+        },
+        "nvidia_nim_license_per_gpu_yr_usd": {
+          "default": 4500.0,
+          "minimum": 0.0,
+          "title": "Nvidia Nim License Per Gpu Yr Usd",
+          "type": "number"
+        },
+        "require_third_party_harness": {
+          "default": true,
+          "title": "Require Third Party Harness",
+          "type": "boolean"
+        },
+        "strict_eu_sovereignty": {
+          "default": true,
+          "title": "Strict Eu Sovereignty",
+          "type": "boolean"
+        },
+        "subscription_plan_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subscription Plan Id"
+        }
+      },
+      "title": "EnterpriseFinancials",
+      "type": "object"
+    },
+    "EuEngineeringHub": {
+      "enum": [
+        "de-munich-hq",
+        "de-berlin-hamburg",
+        "ro-cluj-bucharest",
+        "pl-warsaw-krakow"
+      ],
+      "title": "EuEngineeringHub",
+      "type": "string"
+    },
+    "GatewayType": {
+      "enum": [
+        "litellm-python",
+        "bifrost-compiled"
+      ],
+      "title": "GatewayType",
+      "type": "string"
+    },
+    "HarnessType": {
+      "enum": [
+        "claude-code",
+        "codex",
+        "opencode",
+        "deepseek-dsh",
+        "custom-lean"
+      ],
+      "title": "HarnessType",
+      "type": "string"
+    },
+    "PrecisionFormat": {
+      "enum": [
+        "FP16",
+        "BF16",
+        "FP8",
+        "INT8",
+        "INT4",
+        "INT3",
+        "INT2"
+      ],
+      "title": "PrecisionFormat",
+      "type": "string"
+    },
+    "PresetId": {
+      "enum": [
+        "cheapest",
+        "best-fit",
+        "most-capable",
+        "popular"
+      ],
+      "title": "PresetId",
+      "type": "string"
+    },
+    "RankingMethod": {
+      "enum": [
+        "saw",
+        "topsis"
+      ],
+      "title": "RankingMethod",
+      "type": "string"
+    },
+    "RuntimeFormat": {
+      "enum": [
+        "auto",
+        "gguf",
+        "vllm",
+        "mlx"
+      ],
+      "title": "RuntimeFormat",
+      "type": "string"
+    },
+    "Scenario": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "$ref": "#/$defs/DecisionOptions"
+        },
+        "financials": {
+          "$ref": "#/$defs/EnterpriseFinancials"
+        },
+        "fx_override": {
+          "anyOf": [
+            {
+              "maximum": 2.0,
+              "minimum": 0.5,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fx Override"
+        },
+        "sizing": {
+          "$ref": "#/$defs/SizingOptions"
+        },
+        "workload": {
+          "$ref": "#/$defs/WorkloadProfile"
+        }
+      },
+      "required": [
+        "workload",
+        "financials",
+        "sizing",
+        "decision"
+      ],
+      "title": "Scenario",
+      "type": "object"
+    },
+    "SizingOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "apply_mac_wired_memory_override": {
+          "default": false,
+          "title": "Apply Mac Wired Memory Override",
+          "type": "boolean"
+        },
+        "enable_optimized_backend": {
+          "default": true,
+          "title": "Enable Optimized Backend",
+          "type": "boolean"
+        },
+        "gpu_memory_utilization": {
+          "default": 0.9,
+          "exclusiveMinimum": 0.0,
+          "maximum": 1.0,
+          "title": "Gpu Memory Utilization",
+          "type": "number"
+        },
+        "kv_precision": {
+          "$ref": "#/$defs/PrecisionFormat",
+          "default": "FP16"
+        },
+        "linux_amd_override": {
+          "default": false,
+          "title": "Linux Amd Override",
+          "type": "boolean"
+        },
+        "repo_workspace_gb": {
+          "default": 4.0,
+          "maximum": 6.0,
+          "minimum": 2.5,
+          "title": "Repo Workspace Gb",
+          "type": "number"
+        },
+        "requested_nodes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested Nodes"
+        },
+        "runtime_format": {
+          "$ref": "#/$defs/RuntimeFormat",
+          "default": "auto"
+        },
+        "runtime_overhead_gb": {
+          "default": 2.0,
+          "minimum": 0.0,
+          "title": "Runtime Overhead Gb",
+          "type": "number"
+        },
+        "speculative_mode": {
+          "$ref": "#/$defs/SpeculativeMode",
+          "default": "none"
+        },
+        "target_context_length": {
+          "default": 128000,
+          "minimum": 1,
+          "title": "Target Context Length",
+          "type": "integer"
+        },
+        "weight_precision": {
+          "$ref": "#/$defs/PrecisionFormat",
+          "default": "INT4"
+        }
+      },
+      "title": "SizingOptions",
+      "type": "object"
+    },
+    "SpeculativeMode": {
+      "enum": [
+        "none",
+        "apple-mtp-dflash",
+        "built-in-mtp",
+        "external-draft"
+      ],
+      "title": "SpeculativeMode",
+      "type": "string"
+    },
+    "ThinkingEffortPreset": {
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "extra-high"
+      ],
+      "title": "ThinkingEffortPreset",
+      "type": "string"
+    },
+    "UseCaseId": {
+      "enum": [
+        "writing-email",
+        "summarisation-rag",
+        "coding-assistant",
+        "agentic-coding"
+      ],
+      "title": "UseCaseId",
+      "type": "string"
+    },
+    "WorkScheduleMode": {
+      "enum": [
+        "interactive-workday",
+        "unattended-background-loop"
+      ],
+      "title": "WorkScheduleMode",
+      "type": "string"
+    },
+    "WorkloadProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "active_hours_per_month": {
+          "default": 176,
+          "maximum": 744,
+          "minimum": 1,
+          "title": "Active Hours Per Month",
+          "type": "integer"
+        },
+        "active_users": {
+          "default": 25,
+          "maximum": 100000,
+          "minimum": 1,
+          "title": "Active Users",
+          "type": "integer"
+        },
+        "avg_input_tokens": {
+          "default": 15000,
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Avg Input Tokens",
+          "type": "integer"
+        },
+        "avg_output_tokens": {
+          "default": 1500,
+          "maximum": 200000,
+          "minimum": 1,
+          "title": "Avg Output Tokens",
+          "type": "integer"
+        },
+        "batch_api_eligible_ratio": {
+          "default": 0.2,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Batch Api Eligible Ratio",
+          "type": "number"
+        },
+        "concurrent_agent_instances": {
+          "default": 8,
+          "minimum": 1,
+          "title": "Concurrent Agent Instances",
+          "type": "integer"
+        },
+        "context_length_p50": {
+          "default": 32000,
+          "minimum": 1024,
+          "title": "Context Length P50",
+          "type": "integer"
+        },
+        "context_length_p90": {
+          "default": 128000,
+          "minimum": 1024,
+          "title": "Context Length P90",
+          "type": "integer"
+        },
+        "context_length_p99": {
+          "default": 250000,
+          "maximum": 1000000,
+          "minimum": 1024,
+          "title": "Context Length P99",
+          "type": "integer"
+        },
+        "custom_scaffolding_tokens": {
+          "anyOf": [
+            {
+              "maximum": 100000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Custom Scaffolding Tokens"
+        },
+        "daily_requests_per_user": {
+          "default": 40,
+          "maximum": 10000,
+          "minimum": 1,
+          "title": "Daily Requests Per User",
+          "type": "integer"
+        },
+        "gateway_type": {
+          "$ref": "#/$defs/GatewayType",
+          "default": "litellm-python"
+        },
+        "harness_type": {
+          "$ref": "#/$defs/HarnessType",
+          "default": "claude-code"
+        },
+        "has_verification_agent_layer": {
+          "default": false,
+          "title": "Has Verification Agent Layer",
+          "type": "boolean"
+        },
+        "max_acceptable_ttft_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0.5,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 15.0,
+          "title": "Max Acceptable Ttft Seconds"
+        },
+        "mcp_code_mode_pruning": {
+          "default": false,
+          "title": "Mcp Code Mode Pruning",
+          "type": "boolean"
+        },
+        "mega_session_ratio": {
+          "default": 0.35,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Mega Session Ratio",
+          "type": "number"
+        },
+        "min_acceptable_tps": {
+          "anyOf": [
+            {
+              "minimum": 1.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 20.0,
+          "title": "Min Acceptable Tps"
+        },
+        "peak_concurrent_requests": {
+          "default": 5,
+          "minimum": 1,
+          "title": "Peak Concurrent Requests",
+          "type": "integer"
+        },
+        "prompt_cache_hit_rate": {
+          "default": 0.5,
+          "maximum": 0.95,
+          "minimum": 0.0,
+          "title": "Prompt Cache Hit Rate",
+          "type": "number"
+        },
+        "reasoning_token_multiplier": {
+          "default": 2.5,
+          "maximum": 10.0,
+          "minimum": 1.0,
+          "title": "Reasoning Token Multiplier",
+          "type": "number"
+        },
+        "thinking_effort_preset": {
+          "$ref": "#/$defs/ThinkingEffortPreset",
+          "default": "medium"
+        },
+        "work_schedule_mode": {
+          "$ref": "#/$defs/WorkScheduleMode",
+          "default": "interactive-workday"
+        },
+        "working_days_per_month": {
+          "default": 22,
+          "maximum": 31,
+          "minimum": 1,
+          "title": "Working Days Per Month",
+          "type": "integer"
+        }
+      },
+      "title": "WorkloadProfile",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "scenario": {
+      "$ref": "#/$defs/Scenario"
+    }
+  },
+  "required": [
+    "scenario"
+  ],
+  "title": "ScenarioRequest",
+  "type": "object"
+}

@@ -1,0 +1,7 @@
+{
+  "records": [
+    {"metric": "aa_index_v5", "value": 20.1, "model_id": "qwen-3-8-27b", "source_id": "IND-01", "tier": "third_party", "accessed": "2026-11-07", "note": "value from specs/06 IND-01; re-verify in Task 4"},
+    {"metric": "terminal_bench", "value": 73.0, "model_id": "qwen-3-8-27b", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+    {"metric": "aa_index_v5", "value": 48.2, "model_id": "claude-sonnet-5-5", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"}
+  ]
+}

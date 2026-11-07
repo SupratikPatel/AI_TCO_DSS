@@ -1,0 +1,9 @@
+{
+  "harnesses": [
+    {"id": "claude-code", "scaffolding_tokens_per_turn": {"value": 33000, "source_id": "YT-16", "tier": "community", "accessed": "2026-11-07", "note": "single-source"}},
+    {"id": "codex", "scaffolding_tokens_per_turn": {"value": 13000, "source_id": "SPEC-01", "tier": "assumption", "accessed": "2026-11-07"}},
+    {"id": "opencode", "scaffolding_tokens_per_turn": {"value": 7000, "source_id": "YT-16", "tier": "community", "accessed": "2026-11-07", "note": "single-source"}},
+    {"id": "deepseek-dsh", "scaffolding_tokens_per_turn": {"value": 4200, "source_id": "SPEC-01", "tier": "assumption", "accessed": "2026-11-07"}},
+    {"id": "custom-lean", "scaffolding_tokens_per_turn": {"value": 3000, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"}}
+  ]
+}

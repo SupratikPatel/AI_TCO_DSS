@@ -1,0 +1,23 @@
+{
+  "id": "qwen-3-8-27b",
+  "name": "Qwen 3.8-27B",
+  "family": "Qwen",
+  "type": "open-weights",
+  "license_type": "Apache-2.0",
+  "architecture": "dense",
+  "attention_mechanism": "hybrid-sparse",
+  "total_parameters_billions": {"value": 27, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+  "active_parameters_billions": {"value": 27, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+  "calibrated_weights_gb": [
+    {"precision": "INT3", "value": {"value": 12.5, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"}},
+    {"precision": "INT4", "value": {"value": 16.7, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"}},
+    {"precision": "INT8", "value": {"value": 29.5, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"}}
+  ],
+  "token_agreement_rates": [],
+  "num_layers": {"value": 64, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+  "active_kv_layer_ratio": {"value": 0.25, "source_id": "YT-16", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "num_kv_heads": {"value": 4, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "placeholder until Task 4 reads the Hugging Face config.json"},
+  "head_dim": {"value": 256, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "placeholder until Task 4 reads the Hugging Face config.json"},
+  "max_context_length": {"value": 262144, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+  "open_weights_output_price_per_1m": {"value": 1.875, "currency": "USD", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"}
+}

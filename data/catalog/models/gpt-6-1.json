@@ -1,0 +1,11 @@
+{
+  "id": "gpt-6-1",
+  "name": "GPT-6.1 Sol",
+  "family": "GPT",
+  "type": "commercial-api",
+  "license_type": "Proprietary-API",
+  "architecture": "dense",
+  "max_context_length": {"value": 1050000, "source_id": "OPENROUTER-MODELS", "tier": "third_party", "accessed": "2026-11-07"},
+  "api_prices": {"input_per_1m": {"value": 2.0, "currency": "USD", "source_id": "OPENAI-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "standard tier; prompts above 272K tokens cost 2x input"}, "output_per_1m": {"value": 10.0, "currency": "USD", "source_id": "OPENAI-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "standard tier; prompts above 272K tokens cost 2x input"}, "cache_read_per_1m": {"value": 0.1, "currency": "USD", "source_id": "OPENAI-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "standard tier; prompts above 272K tokens cost 2x input"}},
+  "eu_pinned_endpoint": {"value": true, "source_id": "OPENAI-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "regional processing (data residency) endpoints at +10 %"}
+}

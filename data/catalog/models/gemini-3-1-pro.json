@@ -1,0 +1,11 @@
+{
+  "id": "gemini-3-1-pro",
+  "name": "Gemini 3.1 Pro (Preview)",
+  "family": "Gemini",
+  "type": "commercial-api",
+  "license_type": "Proprietary-API",
+  "architecture": "dense",
+  "max_context_length": {"value": 1048576, "source_id": "OPENROUTER-MODELS", "tier": "third_party", "accessed": "2026-11-07"},
+  "api_prices": {"input_per_1m": {"value": 2.0, "currency": "USD", "source_id": "GOOGLE-GEMINI-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "prompts <= 200K tokens; gemini-3.1-pro-preview"}, "output_per_1m": {"value": 12.0, "currency": "USD", "source_id": "GOOGLE-GEMINI-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "prompts <= 200K tokens; gemini-3.1-pro-preview"}, "cache_read_per_1m": {"value": 0.2, "currency": "USD", "source_id": "GOOGLE-GEMINI-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "prompts <= 200K tokens; gemini-3.1-pro-preview"}},
+  "eu_pinned_endpoint": {"value": false, "source_id": "GOOGLE-VERTEX-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "Vertex AI lists Gemini 3.1 Pro Preview for the global endpoint only (ledger C-026)"}
+}

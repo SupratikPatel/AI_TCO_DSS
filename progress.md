@@ -1,7 +1,7 @@
 # Progress — AI TCO DSS MVP
 
 ## Current Status
-Task 1 done (2026-11-07). The uv toolchain (Python 3.12, `pyproject.toml`, `uv.lock`), ruff, mypy (strict) and pytest are configured. The package skeleton `src/ai_tco_dss/` has empty sub-packages, an empty `settings.py` and a placeholder Dashboard (title "AI TCO DSS", caption "Catalog not loaded yet"). `scripts/verify.py` and `scripts/relocate_specs.py` exist. The Project Rules are in `CLAUDE.md` and `.kiro/steering/project-rules.md`, and the Corrections_Ledger is in `specs/07_DATA_CORRECTIONS.md`. The suite has 89 passing tests (layout, toolchain, session artefacts, relocation, offline guard, app smoke). Files are staged with `git add`, not committed. No domain contracts, catalog data or engines exist yet; Task 2 starts the domain contracts.
+Tasks 1 to 4 done (2026-11-07). Task 4 replaced the seed subset with the curated MVP catalog: 9 hardware files, 12 model files (8 open-weights, 4 commercial API), 14 quality Benchmark_Records, 6 EU rentals and updated reference data. Values were fetched on 2026-11-07 from vendor pages (NVIDIA, Apple, AMD, Anthropic, OpenAI, Google), Hugging Face model cards and `config.json`, Unsloth GGUF file sizes, the OpenRouter models API and rankings, Artificial Analysis (AA v5.0.1), Hetzner, Nebius, Fireworks, ECB and PwC tax summaries; `data/sources.json` now has 75 entries. Values without a web source (most hardware street prices, Apple configured prices, salaries, recruiting delays, some idle watts) stay `SPEC-03` / `assumption` and are listed in ledger C-032. The Validate_CLI has new MVP completeness rules (on by default only for the repository `data/` root, `--mvp` / `--no-mvp` to force), quality-score range checks, preset rules and popularity rules. At the user's request the rentals include other EU providers (Hetzner GEX131, Nebius RTX PRO 6000 and 8× H100, Fireworks 8× H100 Frankfurt); Deutsche Telekom, OVHcloud and Scaleway were researched but not added (ledger C-031). The start page therefore shows "Catalog: 9 hardware, 12 models, 6 rentals" instead of the "2 rentals" of the tasks.md demo. Open points for the author: the German employer tax ignores contribution ceilings (C-019), and Gemma 4 12B, gpt-oss-120b and Gemini 3.1 Pro have no quality score, so they fail every Quality_Floor (C-025). The full suite has 324 passing tests and `ai-tco-validate` reports 0 errors. Files are staged with `git add`, not committed. No engines exist yet; Task 5 (Workload and Sizing engines, View 1 card) is next and needs the `developing-with-streamlit` skill.
 
 ## Task Status
 | Task | Title | Status | Completed |
@@ -18,42 +18,42 @@ Task 1 done (2026-11-07). The uv toolchain (Python 3.12, `pyproject.toml`, `uv.l
 | 1.9 | Create the Corrections_Ledger `specs/07_DATA_CORRECTIONS.md` | done | 2026-11-07 |
 | 1.10 | Create `progress.md` | done | 2026-11-07 |
 | 1.11 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | done | 2026-11-07 |
-| 2 | Domain contracts and schema export | not-started | |
-| 2.1 | Write failing unit tests for the contracts | not-started | |
-| 2.2 | Write failing tests for the schema export | not-started | |
-| 2.3 | Write property test for contract JSON round trip | not-started | |
-| 2.4 | Write property test for FX round trip | not-started | |
-| 2.5 | Implement domain base, enums, errors and money helpers | not-started | |
-| 2.6 | Implement catalog and scenario contracts and `EngineParameters` | not-started | |
-| 2.7 | Implement result, input and request contracts | not-started | |
-| 2.8 | Implement the schema export command | not-started | |
-| 2.9 | Record contract deviations in the ledger | not-started | |
-| 2.10 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | not-started | |
-| 3 | Catalog repository, Validate_CLI, seed subset and Dashboard skeleton | not-started | |
-| 3.1 | Create the minimal fixture catalog and write failing Validate_CLI tests | not-started | |
-| 3.2 | Write failing repository tests | not-started | |
-| 3.3 | Write failing import-boundary tests | not-started | |
-| 3.4 | Extend the smoke and layout tests | not-started | |
-| 3.5 | Write property test for provenance coverage | not-started | |
-| 3.6 | Write property test for validator fault reporting | not-started | |
-| 3.7 | Write property test for repository FX conversion | not-started | |
-| 3.8 | Implement catalog loading and FX conversion | not-started | |
-| 3.9 | Implement the Validate_CLI | not-started | |
-| 3.10 | Implement the repositories | not-started | |
-| 3.11 | Write the seed data subset | not-started | |
-| 3.12 | Implement `catalog_overview` and the Dashboard skeleton | not-started | |
-| 3.13 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | not-started | |
-| 4 | Curated MVP catalog with web-verified values | not-started | |
-| 4.1 | Write failing MVP catalog tests | not-started | |
-| 4.2 | Write failing reference data tests | not-started | |
-| 4.3 | Write property test for preset and popularity validation | not-started | |
-| 4.4 | Add MVP completeness, preset and popularity rules to the Validate_CLI | not-started | |
-| 4.5 | Web-verify and write the nine hardware files | not-started | |
-| 4.6 | Web-verify and write the eight open-weights model files and quality records | not-started | |
-| 4.7 | Web-verify and write the four commercial API model files | not-started | |
-| 4.8 | Web-verify and write the reference data | not-started | |
-| 4.9 | Update the Corrections_Ledger for the curated data | not-started | |
-| 4.10 | Checkpoint and progress update: Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | not-started | |
+| 2 | Domain contracts and schema export | done | 2026-11-07 |
+| 2.1 | Write failing unit tests for the contracts | done | 2026-11-07 |
+| 2.2 | Write failing tests for the schema export | done | 2026-11-07 |
+| 2.3 | Write property test for contract JSON round trip | done | 2026-11-07 |
+| 2.4 | Write property test for FX round trip | done | 2026-11-07 |
+| 2.5 | Implement domain base, enums, errors and money helpers | done | 2026-11-07 |
+| 2.6 | Implement catalog and scenario contracts and `EngineParameters` | done | 2026-11-07 |
+| 2.7 | Implement result, input and request contracts | done | 2026-11-07 |
+| 2.8 | Implement the schema export command | done | 2026-11-07 |
+| 2.9 | Record contract deviations in the ledger | done | 2026-11-07 |
+| 2.10 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | done | 2026-11-07 |
+| 3 | Catalog repository, Validate_CLI, seed subset and Dashboard skeleton | done | 2026-11-07 |
+| 3.1 | Create the minimal fixture catalog and write failing Validate_CLI tests | done | 2026-11-07 |
+| 3.2 | Write failing repository tests | done | 2026-11-07 |
+| 3.3 | Write failing import-boundary tests | done | 2026-11-07 |
+| 3.4 | Extend the smoke and layout tests | done | 2026-11-07 |
+| 3.5 | Write property test for provenance coverage | done | 2026-11-07 |
+| 3.6 | Write property test for validator fault reporting | done | 2026-11-07 |
+| 3.7 | Write property test for repository FX conversion | done | 2026-11-07 |
+| 3.8 | Implement catalog loading and FX conversion | done | 2026-11-07 |
+| 3.9 | Implement the Validate_CLI | done | 2026-11-07 |
+| 3.10 | Implement the repositories | done | 2026-11-07 |
+| 3.11 | Write the seed data subset | done | 2026-11-07 |
+| 3.12 | Implement `catalog_overview` and the Dashboard skeleton | done | 2026-11-07 |
+| 3.13 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | done | 2026-11-07 |
+| 4 | Curated MVP catalog with web-verified values | done | 2026-11-07 |
+| 4.1 | Write failing MVP catalog tests | done | 2026-11-07 |
+| 4.2 | Write failing reference data tests | done | 2026-11-07 |
+| 4.3 | Write property test for preset and popularity validation | done | 2026-11-07 |
+| 4.4 | Add MVP completeness, preset and popularity rules to the Validate_CLI | done | 2026-11-07 |
+| 4.5 | Web-verify and write the nine hardware files | done | 2026-11-07 |
+| 4.6 | Web-verify and write the eight open-weights model files and quality records | done | 2026-11-07 |
+| 4.7 | Web-verify and write the four commercial API model files | done | 2026-11-07 |
+| 4.8 | Web-verify and write the reference data | done | 2026-11-07 |
+| 4.9 | Update the Corrections_Ledger for the curated data | done | 2026-11-07 |
+| 4.10 | Checkpoint and progress update: Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | done | 2026-11-07 |
 | 5 | Workload and Sizing engines, `size` service and View 1 card | not-started | |
 | 5.1 | Write failing Workload_Engine tests | not-started | |
 | 5.2 | Write failing Sizing_Engine tests | not-started | |
@@ -215,11 +215,40 @@ Task 1 done (2026-11-07). The uv toolchain (Python 3.12, `pyproject.toml`, `uv.l
 | 2026-11-07 | The relocation script aborts every move when any target conflicts | Task 1.7 requires the conflict check before any change | 1.11 |
 | 2026-11-07 | The prior-conversation check in tasks.md ignores phrases inside double quotes and does not list the bare words "prior conversation" | Task 1.2 quotes the phrases as examples and uses "prior conversation" to name the check itself | 4.4, Task 1.2 |
 | 2026-11-07 | The offline guard blocks every non-loopback `socket.connect`; loopback (127.0.0.1, ::1, localhost) stays allowed | Windows asyncio builds its internal socket pair through a loopback connect, which AppTest needs; loopback is not network access | 41.8, Task 1.4 |
+| 2026-11-07 | Input and output contracts for the Baseline and Decision engines (`ApiCost`, `BaselineD`, `RentalCost`, `HybridCost`, `CandidateSet`, `FilteredCandidates`, `RankingResult` and their `*Input`s) are defined now as first drafts | The Modify lists of Tasks 7 to 9 do not include `src/ai_tco_dss/domain/`, and Req 7.1 needs every engine input and output to be a contract; a later field change must be recorded as a scope deviation | 7.1, Tasks 7, 8, 9 |
+| 2026-11-07 | `IsoDate` accepts only `date` objects and `YYYY-MM-DD` strings | Pydantic lax mode would accept integers as Unix timestamps; Req 40.5 requires rejecting non-ISO dates | 8.3, 40.5 |
+| 2026-11-07 | Defaults live in `settings.Settings`; bounds live in the `EngineParameters` contract. `load_engine_parameters` turns the first violation into `ConfigurationError(setting, value)` | One place for defaults and one for bounds (design D-05) | 9.10, Task 2.6 |
+| 2026-11-07 | `PresetSpec` has an `accessed` field | `presets.json` in design.md "JSON file formats" carries `accessed`, which `extra="forbid"` would otherwise reject | 32.1, Task 2.6 |
+| 2026-11-07 | Result contracts keep the spec 04 defaults (`oom_reason=None`, `context_eviction_risk=False`, `thunderbolt_mesh_cables=0`, etc.) | Avoids default deviations that serve no purpose (Req 7.7) | 7.7, Task 2.7 |
+| 2026-11-07 | `SizeRequest.nodes` is a float with default 1.0; `CatalogOverview` uses `CatalogItem(id, label)` and `FxInfo(rate, source_id, rate_date, is_override)` | Non-integer node counts must reach the Req 18.7 engine check; design.md leaves the overview field types open | 18.7, 6.1, Task 2.7 |
+| 2026-11-07 | Enums use `StrEnum` with the spec 04 member names and values | Same values as `(str, Enum)`; ruff UP042 prefers `StrEnum` | 7.7 |
+| 2026-11-07 | Process note: the Task 2 tests were first run after `base`, `enums`, `errors` and `money` were already written. They still failed at import because no contract, settings or export code existed | Recorded for transparency (Project Rule 2) | 41.1, Task 2 |
+| 2026-11-07 | The `data/` seed subset equals the test fixture `tests/fixtures/catalog_min/`: `mac-studio-m5-max-128gb`, `rtx-pro-6000-96gb`, `qwen-3-8-27b` and `claude-sonnet-5-5` (the reference API model that `baselines.json` must name). Unverified spec 03 numbers carry source `SPEC-03` with tier `assumption` | Task 3 adds no web-verified data; Task 4 replaces these values | 3.11, 8.3, Task 4 |
+| 2026-11-07 | New registry entries: `SPEC-01`, `SPEC-02`, `SPEC-03` (tier `assumption`), `ECB-FX`, `HETZNER-GEX63`, `HETZNER-GEX430` (tier `official`). IND tiers by publisher type: IND-01, IND-02, IND-05 `third_party`; IND-03, IND-04, IND-06 to IND-09 `official`; IND-10 `community` | Req 8.2 rule; Task 4 re-checks it in its tests | 8.1, 8.2 |
+| 2026-11-07 | The start page shows "Catalog: H hardware, M models, R rentals" plus the FX rate and source | Task 4's demo expects the rental count, and Task 4 may not modify `ui/` | 6.1, Task 4 |
+| 2026-11-07 | The loader reports at most one error per (file, field path); the first, most specific message wins. A duplicate id is reported once, on the first file, and names every file | Avoids two lines for one fault (e.g. provenance and contract both rejecting an invalid tier) | 11.4, 11.5 |
+| 2026-11-07 | `load_workload(path)` with a non-default path raises `NotImplementedError` until Task 5 | Task 5 owns `load_workload` (Req 14.7) | 14.7, Task 5 |
+| 2026-11-07 | The GEX430 setup fee (EUR 3,599) and the rental system RAM values carry `ASSUMPTION-MVP` until Task 4 verifies them; `popularity.json` has an empty assumption snapshot | No verified source yet | 10.6, 32.6, Task 4 |
+| 2026-11-07 | The optional property tests 3.5 to 3.7 (Properties 2, 3, 5) were written | Leaving them `not-started` would make them the next step in tasks.md order | 3.5, 3.6, 3.7 |
+| 2026-11-07 | Added `run.bat`, `run.sh` and `.gitattributes` (LF for `*.sh`, CRLF for `*.bat`) outside any Task_Scope, at the user's explicit request. The scripts check for uv, run `uv sync --locked`, start Streamlit headless on port 8501 (which skips the first-run e-mail prompt) and open the browser. README is unchanged, so it still documents exactly one Dashboard command | One-click start for the thesis author; Req 6.3 limits README to one Dashboard command | 6.3, 6.4 |
+| 2026-11-07 | Streamlit agent skill `developing-with-streamlit` installed (`uv run streamlit skills --yes`; global fallback to `~/.agents/skills` and `~/.claude/skills`, copied to `~/.kiro/skills`). At the user's request it is now mandatory before any Streamlit code change: new steering file `.kiro/steering/streamlit-ui.md` (`inclusion: always`), a non-numbered note appended to `CLAUDE.md` (existing lines and the eight rules unchanged), a "Streamlit skill" convention in `tasks.md` § "Overview", and two lines in the Next Session Prompt | The skill supplies reference docs matched to the installed Streamlit 1.67.0 for Tasks 5 to 12 (fragments, AppTest, caching, layout) | 5.2 (unchanged), 37.5, 37.6, Tasks 5 to 12 |
+| 2026-11-07 | MVP completeness rules run only when `load_catalog(..., mvp=True)`; the Validate_CLI sets it automatically for the repository `data/` root (`--mvp` / `--no-mvp` override). `JsonCatalogRepository` keeps `mvp=False` | The fixture catalog must still validate (task 4.4); adding or removing catalog files must not stop the Dashboard (Req 11.2) | 10.11, 11.2 |
+| 2026-11-07 | Quality scores outside [0, 100] are always errors; a score of 0 is an error in MVP mode | Req 10.8: an unavailable score stays absent instead of 0 | 10.8 |
+| 2026-11-07 | Preset and popularity checks are the pure functions `loading.preset_violations` and `loading.popularity_violations`, also used by the Property 52 test | One rule implementation for the CLI and the property test | 32.8 |
+| 2026-11-07 | Model ids: `gemma-4-12b`, `qwen-3-8-27b`, `qwen-3-6-35b-a3b`, `gpt-oss-120b`, `qwen-3-8-flash-next`, `glm-5-3-flash`, `deepseek-v4-1-flash`, `kimi-k3-1-pro`, `claude-opus-5-5`, `claude-sonnet-5-5`, `gpt-6-1` (GPT-6.1 Sol, the $2/$10 model of spec 03), `gemini-3-1-pro` (Gemini 3.1 Pro Preview). Hardware ids follow spec 03 §2 | Stable ids for later tasks | 10.1, 10.3, 10.4 |
+| 2026-11-07 | `calibrated_weights_gb`: INT2/INT3/INT4/INT8 = Unsloth UD-Q2_K_XL / UD-Q3_K_XL / UD-Q4_K_XL / Q8_0 | This mapping reproduces the 111.3 GB Flash Next INT4 reference of Req 16.6 (ledger C-028) | 17.1, 16.6 |
+| 2026-11-07 | `terminal_bench` = vendor-reported Terminal-Bench 2.x, `swe_bench` = SWE-bench Pro; frontier models report only Terminal-Bench 4.0 and use the scaled AA fallback | Scores of different benchmark versions are not comparable (ledger C-029) | 31.2, 31.4 |
+| 2026-11-07 | Custom open-weights licenses (Qwen Community License 1.0, Kimi K3.1-Pro License) are stored as `MIT`; DGX Spark is stored as `discrete` memory | `LicenseType` and `MemoryArchitecture` lack fitting members and `domain/` is outside the Task 4 scope; contract change proposals in ledger C-015, C-017, C-024 | 10.7, 16.4, 19.2 |
+| 2026-11-07 | Extra EU rentals (user request): only offers that map to a catalog GPU and one of its valid node counts are added; hourly prices × 730 h; USD prices stay USD | RentalSpec sizes a rental as `gpu_count` nodes of `gpu_hardware_id` (ledger C-031) | 13.5, 25.1 |
+| 2026-11-07 | Baseline A default plan `claude-ultra` ($200); `claude-max` ($100) added | Anthropic renamed its plans (ledger C-018) | 24.1 |
 
 ## Changelog
 | Date | Task | Files created or modified |
 |---|---|---|
 | 2026-11-07 | 1 | created: `pyproject.toml`, `uv.lock`, `.python-version`, `.gitignore`, `scripts/verify.py`, `scripts/relocate_specs.py`, `.kiro/steering/project-rules.md`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`, `src/ai_tco_dss/__init__.py`, `src/ai_tco_dss/settings.py`, `src/ai_tco_dss/{domain,catalog,engines,decision,services,ui}/__init__.py`, `src/ai_tco_dss/ui/app.py`, `tests/conftest.py`, `tests/unit/test_repository_layout.py`, `tests/unit/test_toolchain.py`, `tests/unit/test_session_artefacts.py`, `tests/unit/test_relocate_specs.py`, `tests/unit/test_offline_guard.py`, `tests/integration/test_app_smoke.py`; modified: `README.md` (commands), `CLAUDE.md` (appended `## Project Rules`) |
+| 2026-11-07 | 2 | created: `src/ai_tco_dss/domain/{base,enums,errors,money,catalog,scenario,results,inputs,requests,export_schemas}.py`, `schemas/*.json` (8 files), `tests/unit/test_contracts.py`, `tests/unit/test_schema_export.py`, `tests/property/strategies.py`, `tests/property/test_contract_props.py`; modified: `src/ai_tco_dss/domain/__init__.py`, `src/ai_tco_dss/settings.py`, `pyproject.toml` (console script `ai-tco-schemas`), `uv.lock`, `specs/07_DATA_CORRECTIONS.md` (Contract Deviations), `progress.md` |
+| 2026-11-07 | 3 | created: `src/ai_tco_dss/catalog/{loading,fx,repository,json_repository,memory_repository,validate}.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/ui/state.py`, `data/sources.json`, `data/catalog/README.md`, `data/catalog/hardware/{mac-studio-m5-max-128gb,rtx-pro-6000-96gb}.json`, `data/catalog/models/{qwen-3-8-27b,claude-sonnet-5-5}.json`, `data/benchmarks/quality.json`, `data/reference/{fx,electricity,staffing_hubs,harnesses,use_cases,rentals,presets,popularity,baselines}.json`, `data/workloads/default.json`, `tests/fixtures/catalog_min/**`, `tests/unit/test_validate_cli.py`, `tests/unit/test_repository.py`, `tests/unit/test_import_boundaries.py`, `tests/property/test_catalog_props.py`; modified: `src/ai_tco_dss/catalog/__init__.py`, `src/ai_tco_dss/services/__init__.py`, `src/ai_tco_dss/ui/app.py`, `pyproject.toml` (console script `ai-tco-validate`), `README.md` (validate command), `specs/07_DATA_CORRECTIONS.md` (C-016), `tests/unit/test_repository_layout.py`, `tests/integration/test_app_smoke.py`, `progress.md` |
+| 2026-11-07 | 4 | created: `data/catalog/hardware/{rtx-5060-ti-16gb,rtx-5070-strata-64gb,mac-mini-m5-pro-64gb,mac-studio-m5-ultra-256gb,amd-strix-halo-128gb,dgx-spark-128gb,h100-80gb-sxm}.json`, `data/catalog/models/{gemma-4-12b,qwen-3-6-35b-a3b,gpt-oss-120b,qwen-3-8-flash-next,glm-5-3-flash,deepseek-v4-1-flash,kimi-k3-1-pro,claude-opus-5-5,gpt-6-1,gemini-3-1-pro}.json`, `tests/unit/test_mvp_catalog.py`, `tests/unit/test_reference_data.py`, `tests/property/test_preset_validator_props.py`; modified: `data/sources.json`, `data/catalog/hardware/{mac-studio-m5-max-128gb,rtx-pro-6000-96gb}.json`, `data/catalog/models/{qwen-3-8-27b,claude-sonnet-5-5}.json`, `data/benchmarks/quality.json`, `data/reference/{fx,electricity,staffing_hubs,rentals,popularity,baselines}.json`, `src/ai_tco_dss/catalog/loading.py`, `src/ai_tco_dss/catalog/validate.py`, `specs/07_DATA_CORRECTIONS.md` (C-001 to C-003, C-010, C-013 to C-016 updated; C-017 to C-033 added; Assumptions rows), `progress.md` |
 
 ## Known Deviations
 | Deviation | Ledger entries |
@@ -227,9 +256,15 @@ Task 1 done (2026-11-07). The uv toolchain (Python 3.12, `pyproject.toml`, `uv.l
 | Rental GPU is RTX PRO 6000 Max-Q; sizing reuses the workstation item | C-009 |
 | Multi-node single-stream decode ignores the per-node bandwidth gain of tensor parallelism (Req 20.1 applied literally) | C-011 |
 | CSV export delivers one ZIP with two CSV files instead of two downloads | C-012 |
+| Recruiting delays are stored as whole months rounded up (8 / 7 / 3 / 4) instead of the spec 03 decimals | C-016 |
+| Custom open-weights licenses of Qwen 3.8 Flash Next and Kimi K3.1 Pro are stored as `MIT` (no fitting `LicenseType` member) | C-015, C-017 |
+| DGX Spark is sized as `discrete` memory (115.2 GB usable instead of ~118 GB) | C-024 |
+| Gemma 4 12B, gpt-oss-120b and Gemini 3.1 Pro have no quality score and fail every Quality_Floor | C-025 |
+| Start page shows 6 rentals instead of the 2 of the Task 4 demo (extra EU providers added at the user's request) | C-031 |
+| Most hardware street prices stay spec 03 assumptions (not web-verified) | C-032 |
 
 ## Next Step
-Task 2 — Domain contracts and schema export
+Task 5 — Workload and Sizing engines, `size` service and View 1 card
 
 ## Next Session Prompt
 ```text
@@ -239,13 +274,15 @@ You are continuing the AI TCO DSS MVP (TUM thesis, Python 3.12, uv). Read these 
 3. .kiro/specs/ai-tco-dss-mvp/requirements.md
 4. .kiro/specs/ai-tco-dss-mvp/design.md
 5. .kiro/specs/ai-tco-dss-mvp/tasks.md
-Then execute task 2 "Domain contracts and schema export" from tasks.md, and only that task.
+Then execute task 5 "Workload and Sizing engines, `size` service and View 1 card" from tasks.md, and only that task.
 Task_Scope (identical to tasks.md):
-  Load: `CLAUDE.md` § "Project Rules"; `progress.md` (whole file); `requirements.md` § "Glossary", § "Requirement 7: Domain Contracts", § "Requirement 12: Currency and FX Conversion", § "Requirement 40: Extension Seams for Post-MVP Features"; `design.md` § "Domain base (`domain/base.py`)", § "Settings (`settings.py`)", § "Engine call convention", § "Data Models" (all subsections), § "Error Handling", § "Correctness Properties" › "Property 1" and "Property 6"; `specs/04_PYDANTIC_SCHEMAS_AND_CONTRACTS.md` (whole file); `specs/07_DATA_CORRECTIONS.md` § "Contract Deviations"
-  Modify: `src/ai_tco_dss/domain/`, `src/ai_tco_dss/settings.py`, `pyproject.toml`, `uv.lock`, `schemas/`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`, `tests/unit/test_contracts.py`, `tests/unit/test_schema_export.py`, `tests/property/strategies.py`, `tests/property/test_contract_props.py`
-  Verify: uv run python scripts/verify.py tests/unit/test_contracts.py tests/unit/test_schema_export.py tests/property/test_contract_props.py
+  Load: `CLAUDE.md` § "Project Rules"; `progress.md` (whole file); `requirements.md` § "Requirement 14: Workload Profile and Explicit Assumptions", § "Requirement 15: Effective Token Volume Computation", § "Requirement 16: Usable Memory and Operating System Traps", § "Requirement 17: Weights, KV Cache, KV Pool and Concurrency", § "Requirement 18: Multi-Node Topology and Tiered Offload", § "Requirement 19: Quality, License and Context Flags", § "Requirement 35: Views 1 and 2", § "Requirement 38: Service Layer and Ports-and-Adapters Architecture", § "Requirement 41: Test-Driven Development and Test Suites"; `design.md` § "Engine call convention", § "Workload_Engine (`engines/workload.py`)", § "Sizing_Engine (`engines/sizing.py`)", § "Service Layer (`services/`)", § "Dashboard (`ui/`)", § "Okabe-Ito archetype mapping (`ui/theme.py`, ledger entry C-004)", § "Correctness Properties" › "Workload and sizing", § "Testing Strategy"; `specs/01_WORKLOAD_AND_PHYSICS_ENGINE.md` § "1.1 Token Volume, Tokenizer Inflation, Thinking Effort & Verification Multipliers", § "1.2 Agentic Harness Scaffolding ($S_{\text{harness}}$), MCP Pruning & Mega-Sessions", § "1.3 Multi-Agent State Retention vs. The Conversational Eviction Tax", § "Stage 1: Memory Architecture, OS Split Traps, Attention Formats & 3-Tier Offload", § "Stage 3: Quantization Fidelity, 6-Layer Harnesses & Hardware Lifecycle Clocks", § "Stage 4: Multi-Node Topologies, Disaggregation & Heterogeneous Routing"; `src/ai_tco_dss/domain/`; `src/ai_tco_dss/catalog/`; `src/ai_tco_dss/services/`; `src/ai_tco_dss/ui/`; `data/`
+  Modify: `src/ai_tco_dss/engines/workload.py`, `src/ai_tco_dss/engines/sizing.py`, `src/ai_tco_dss/engines/__init__.py`, `src/ai_tco_dss/catalog/json_repository.py`, `src/ai_tco_dss/catalog/memory_repository.py`, `src/ai_tco_dss/services/__init__.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/ui/cards.py`, `src/ai_tco_dss/ui/charts.py`, `src/ai_tco_dss/ui/theme.py`, `src/ai_tco_dss/ui/app.py`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`, `tests/unit/test_workload.py`, `tests/unit/test_sizing.py`, `tests/unit/test_engine_purity.py`, `tests/unit/test_charts.py`, `tests/property/test_workload_props.py`, `tests/property/test_sizing_props.py`, `tests/property/test_ui_props.py`
+  Verify: uv run python scripts/verify.py tests/unit/test_workload.py tests/unit/test_sizing.py tests/unit/test_engine_purity.py tests/unit/test_charts.py tests/property/test_workload_props.py tests/property/test_sizing_props.py tests/property/test_ui_props.py
 Work test-first, change only Task_Scope files, run the task's verification command (it must exit 0),
 then update progress.md (Task Status, Current Status, Changelog, Next Step) and rewrite
 this prompt for the next not-started task before reporting completion.
 Stage changed files with git add; do not commit or push.
+Before creating or changing any Streamlit code (src/ai_tco_dss/ui/ or AppTest tests),
+activate the developing-with-streamlit skill (see .kiro/steering/streamlit-ui.md).
 ```

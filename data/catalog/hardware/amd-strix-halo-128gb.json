@@ -1,0 +1,26 @@
+{
+  "id": "amd-strix-halo-128gb",
+  "name": "AMD Ryzen AI Max+ 395 Mini PC (Strix Halo 128GB)",
+  "vendor": "AMD",
+  "deployment_mode": "per-seat-workstation",
+  "memory_architecture": "amd-unified",
+  "interconnect": "Unified-Single",
+  "supported_native_precisions": ["FP16", "BF16", "INT8", "INT4", "INT3"],
+  "valid_node_counts": {"value": [1], "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "requirements 10.5"},
+  "gpus_per_unit": {"value": 1, "source_id": "AMD-RYZEN-AI-MAX-395", "tier": "official", "accessed": "2026-11-07"},
+  "advertised_memory_gb": {"value": 128, "source_id": "AMD-RYZEN-AI-MAX-395", "tier": "official", "accessed": "2026-11-07"},
+  "os_reserved_memory_ratio": {"value": 0.25, "source_id": "YT-06", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "linux_max_usable_memory_gb": {"value": 118, "source_id": "YT-06", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "memory_bandwidth_gbs": {"value": 256, "source_id": "AMD-RYZEN-AI-MAX-395", "tier": "official", "accessed": "2026-11-07", "note": "256-bit LPDDR5x-8000"},
+  "base_prefill_tps_at_32k": {"value": 148, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "spec 03 lists 148 tok/s and 1.9 h for 1M tokens"},
+  "idle_watts": {"value": 15, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+  "load_watts": {"value": 150, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "AMD default TDP 55 W, cTDP 45-120 W (SoC only)"},
+  "street_price": {"value": 3449, "currency": "EUR", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "YT-06 quotes USD 3,449 for the Framework 128 GB kit; not web-verified"},
+  "datacenter_multiplier": {"value": 1.0, "source_id": "SPEC-02", "tier": "assumption", "accessed": "2026-11-07"},
+  "cabling_kits": [],
+  "lifecycle_clocks": {
+    "software_support_years": {"value": 2.5, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+    "resale_value_retention_3yr": {"value": 0.5, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"},
+    "cuda_or_rocm_status": "supported"
+  }
+}

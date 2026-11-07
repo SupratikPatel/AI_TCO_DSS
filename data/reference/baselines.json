@@ -1,0 +1,9 @@
+{
+  "plans": [
+    {"id": "claude-max", "name": "Claude Max (5x Pro usage)", "price_per_seat_month": {"value": 100, "currency": "USD", "source_id": "CLAUDE-PLANS", "tier": "official", "accessed": "2026-11-07", "note": "excl. tax"}},
+    {"id": "claude-ultra", "name": "Claude Ultra (10x Pro usage)", "price_per_seat_month": {"value": 200, "currency": "USD", "source_id": "CLAUDE-PLANS", "tier": "official", "accessed": "2026-11-07", "note": "excl. tax; replaces the spec 02 'Claude Max 20x' plan (ledger C-018)"}}
+  ],
+  "default_plan_id": "claude-ultra",
+  "gateway_fee_per_month": {"value": 500, "currency": "USD", "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"},
+  "reference_api_model_id": "claude-sonnet-5-5"
+}

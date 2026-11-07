@@ -1,0 +1,11 @@
+{
+  "id": "claude-opus-5-5",
+  "name": "Claude Opus 5.5",
+  "family": "Claude",
+  "type": "commercial-api",
+  "license_type": "Proprietary-API",
+  "architecture": "dense",
+  "max_context_length": {"value": 1000000, "source_id": "ANTHROPIC-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "full 1M context at standard pricing"},
+  "api_prices": {"input_per_1m": {"value": 4.0, "currency": "USD", "source_id": "ANTHROPIC-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "global inference; cache read = 0.05 x input"}, "output_per_1m": {"value": 20.0, "currency": "USD", "source_id": "ANTHROPIC-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "global inference; cache read = 0.05 x input"}, "cache_read_per_1m": {"value": 0.2, "currency": "USD", "source_id": "ANTHROPIC-PRICING", "tier": "official", "accessed": "2026-11-07", "note": "global inference; cache read = 0.05 x input"}},
+  "eu_pinned_endpoint": {"value": true, "source_id": "SPEC-02", "tier": "assumption", "accessed": "2026-11-07", "note": "EU processing via partner platforms (Bedrock EU, Vertex AI EU); first-party API offers global or US only"}
+}

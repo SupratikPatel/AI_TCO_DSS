@@ -1,0 +1,24 @@
+{
+  "id": "h100-80gb-sxm",
+  "name": "NVIDIA H100 SXM (80GB)",
+  "vendor": "NVIDIA",
+  "deployment_mode": "centralized-server",
+  "memory_architecture": "discrete",
+  "interconnect": "NVLink",
+  "supported_native_precisions": ["FP16", "BF16", "FP8", "INT8", "INT4"],
+  "valid_node_counts": {"value": [8], "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "requirements 10.5"},
+  "gpus_per_unit": {"value": 1, "source_id": "NVIDIA-H100", "tier": "official", "accessed": "2026-11-07"},
+  "advertised_memory_gb": {"value": 80, "source_id": "NVIDIA-H100", "tier": "official", "accessed": "2026-11-07"},
+  "memory_bandwidth_gbs": {"value": 3350, "source_id": "NVIDIA-H100", "tier": "official", "accessed": "2026-11-07"},
+  "base_prefill_tps_at_32k": {"value": 18000, "source_id": "IND-02", "tier": "third_party", "accessed": "2026-11-07"},
+  "idle_watts": {"value": 70, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+  "load_watts": {"value": 700, "source_id": "NVIDIA-H100", "tier": "official", "accessed": "2026-11-07", "note": "max TDP of the SXM module"},
+  "street_price": {"value": 32000, "currency": "EUR", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "per GPU; NVIDIA publishes no data-centre list price"},
+  "datacenter_multiplier": {"value": 1.3, "source_id": "SPEC-02", "tier": "assumption", "accessed": "2026-11-07", "note": "lower bound of the 8-GPU rack range 1.3-2.5 (spec 02 section 2.1)"},
+  "cabling_kits": [],
+  "lifecycle_clocks": {
+    "software_support_years": {"value": 5.0, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+    "resale_value_retention_3yr": {"value": 0.5, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"},
+    "cuda_or_rocm_status": "supported"
+  }
+}

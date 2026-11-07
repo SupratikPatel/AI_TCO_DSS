@@ -1,0 +1,18 @@
+{
+  "records": [
+    {"metric": "aa_index_v5", "value": 59.1, "model_id": "claude-opus-5-5", "source_id": "IND-01", "tier": "third_party", "accessed": "2026-11-07", "note": "AA Intelligence Index v5.0.1, max effort"},
+    {"metric": "aa_index_v5", "value": 54.5, "model_id": "claude-sonnet-5-5", "source_id": "IND-01", "tier": "third_party", "accessed": "2026-11-07", "note": "AA Intelligence Index v5.0.1, max effort"},
+    {"metric": "aa_index_v5", "value": 54.6, "model_id": "gpt-6-1", "source_id": "IND-01", "tier": "third_party", "accessed": "2026-11-07", "note": "AA Intelligence Index v5.0.1, GPT-6.1 Sol max effort"},
+    {"metric": "aa_index_v5", "value": 46.5, "model_id": "kimi-k3-1-pro", "source_id": "IND-01", "tier": "third_party", "accessed": "2026-11-07", "note": "AA Intelligence Index v5.0.1"},
+    {"metric": "aa_index_v5", "value": 32.6, "model_id": "deepseek-v4-1-flash", "source_id": "IND-01", "tier": "third_party", "accessed": "2026-11-07", "note": "AA Intelligence Index v5.0.1, DeepSeek V4.1 Flash 1017 revision, max effort"},
+    {"metric": "aa_index_v5", "value": 27.8, "model_id": "glm-5-3-flash", "source_id": "IND-01", "tier": "third_party", "accessed": "2026-11-07", "note": "AA Intelligence Index v5.0.1"},
+    {"metric": "aa_index_v5", "value": 20.1, "model_id": "qwen-3-8-27b", "source_id": "IND-01", "tier": "third_party", "accessed": "2026-11-07", "note": "AA Intelligence Index v5.0.1, xhigh effort"},
+    {"metric": "terminal_bench", "value": 73.0, "model_id": "qwen-3-8-27b", "source_id": "HF-QWEN-3-8-27B", "tier": "official", "accessed": "2026-11-07", "note": "Terminal-Bench 2.1 (Terminus), vendor-reported"},
+    {"metric": "terminal_bench", "value": 51.5, "model_id": "qwen-3-6-35b-a3b", "source_id": "HF-QWEN-3-6-35B-A3B", "tier": "official", "accessed": "2026-11-07", "note": "Terminal-Bench 2.0 (Terminus-2), vendor-reported"},
+    {"metric": "terminal_bench", "value": 84.3, "model_id": "glm-5-3-flash", "source_id": "HF-GLM-5-3-FLASH", "tier": "official", "accessed": "2026-11-07", "note": "Terminal-Bench 2.1 (Claude Code), vendor-reported"},
+    {"metric": "terminal_bench", "value": 90.6, "model_id": "deepseek-v4-1-flash", "source_id": "HF-DEEPSEEK-V4-1-FLASH", "tier": "official", "accessed": "2026-11-07", "note": "Terminal-Bench 2.1 (DeepSeek Harness minimal), vendor-reported"},
+    {"metric": "swe_bench", "value": 61.7, "model_id": "qwen-3-8-27b", "source_id": "HF-QWEN-3-8-27B", "tier": "official", "accessed": "2026-11-07", "note": "SWE-bench Pro, vendor-reported"},
+    {"metric": "swe_bench", "value": 62.5, "model_id": "qwen-3-8-flash-next", "source_id": "HF-QWEN-3-8-FLASH-NEXT", "tier": "official", "accessed": "2026-11-07", "note": "SWE-bench Pro, vendor-reported"},
+    {"metric": "swe_bench", "value": 49.5, "model_id": "qwen-3-6-35b-a3b", "source_id": "HF-QWEN-3-6-35B-A3B", "tier": "official", "accessed": "2026-11-07", "note": "SWE-bench Pro, vendor-reported"}
+  ]
+}

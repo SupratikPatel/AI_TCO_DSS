@@ -141,3 +141,23 @@ def test_req_1_6_package_layout() -> None:
 def test_req_1_8_test_directories() -> None:
     for name in TEST_DIRS:
         assert (ROOT / "tests" / name).is_dir(), name
+
+
+REFERENCE_FILES = (
+    "fx.json",
+    "electricity.json",
+    "staffing_hubs.json",
+    "harnesses.json",
+    "use_cases.json",
+    "rentals.json",
+)
+
+
+def test_req_1_7_data_layout() -> None:
+    data = ROOT / "data"
+    assert (data / "sources.json").is_file()
+    for name in ("catalog/hardware", "catalog/models", "benchmarks", "reference"):
+        assert (data / name).is_dir(), name
+    for name in REFERENCE_FILES:
+        assert (data / "reference" / name).is_file(), name
+    assert (data / "workloads" / "default.json").is_file()

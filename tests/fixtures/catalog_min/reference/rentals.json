@@ -1,0 +1,20 @@
+{
+  "rentals": [
+    {
+      "id": "hetzner-gex63", "name": "Hetzner GEX63", "provider": "Hetzner", "region": "DE/FI",
+      "gpu_hardware_id": "rtx-pro-6000-96gb",
+      "gpu_count": {"value": 1, "source_id": "HETZNER-GEX63", "tier": "official", "accessed": "2026-11-06"},
+      "system_ram_total_installed_gb": {"value": 128, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "to verify in Task 4"},
+      "monthly_price": {"value": 999, "currency": "EUR", "source_id": "HETZNER-GEX63", "tier": "official", "accessed": "2026-11-06"},
+      "setup_fee": {"value": 999, "currency": "EUR", "source_id": "HETZNER-GEX63", "tier": "official", "accessed": "2026-11-06"}
+    },
+    {
+      "id": "hetzner-gex430", "name": "Hetzner GEX430", "provider": "Hetzner", "region": "DE/FI",
+      "gpu_hardware_id": "rtx-pro-6000-96gb",
+      "gpu_count": {"value": 4, "source_id": "HETZNER-GEX430", "tier": "official", "accessed": "2026-11-06"},
+      "system_ram_total_installed_gb": {"value": 512, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "to verify in Task 4"},
+      "monthly_price": {"value": 3599, "currency": "EUR", "source_id": "HETZNER-GEX430", "tier": "official", "accessed": "2026-11-06"},
+      "setup_fee": {"value": 3599, "currency": "EUR", "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "requirements 10.6 value; verify in Task 4"}
+    }
+  ]
+}

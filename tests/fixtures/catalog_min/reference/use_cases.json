@@ -1,0 +1,12 @@
+{
+  "use_cases": [
+    {"id": "writing-email", "label": "Writing and email", "matching_benchmark": "aa_index_v5", "second_choice_benchmark": null,
+     "quality_floor": {"value": 14.0, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"}},
+    {"id": "summarisation-rag", "label": "Summarisation and RAG", "matching_benchmark": "aa_index_v5", "second_choice_benchmark": null,
+     "quality_floor": {"value": 18.0, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"}},
+    {"id": "coding-assistant", "label": "Coding assistant", "matching_benchmark": "terminal_bench", "second_choice_benchmark": "swe_bench",
+     "quality_floor": {"value": 40.0, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"}},
+    {"id": "agentic-coding", "label": "Agentic coding", "matching_benchmark": "terminal_bench", "second_choice_benchmark": "swe_bench",
+     "quality_floor": {"value": 55.0, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"}}
+  ]
+}

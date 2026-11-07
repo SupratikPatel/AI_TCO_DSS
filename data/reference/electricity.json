@@ -1,0 +1,7 @@
+{
+  "tariffs": [
+    {"id": "de-industrial-bdew", "price_per_kwh": {"value": 0.172, "currency": "EUR", "source_id": "IND-05", "tier": "third_party", "accessed": "2026-11-07", "note": "SME industry, excl. VAT, BDEW August 2026"}},
+    {"id": "de-office", "price_per_kwh": {"value": 0.28, "currency": "EUR", "source_id": "IND-05", "tier": "third_party", "accessed": "2026-11-07", "note": "value from specs/06 IND-05; not re-verified"}},
+    {"id": "eu-nordic", "price_per_kwh": {"value": 0.095, "currency": "EUR", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"}}
+  ]
+}

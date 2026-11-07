@@ -1,0 +1,9 @@
+{
+  "plans": [
+    {"id": "claude-max-20x", "name": "Claude Max 20x",
+     "price_per_seat_month": {"value": 200, "currency": "USD", "source_id": "SPEC-02", "tier": "assumption", "accessed": "2026-11-07"}}
+  ],
+  "default_plan_id": "claude-max-20x",
+  "gateway_fee_per_month": {"value": 500, "currency": "USD", "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"},
+  "reference_api_model_id": "claude-sonnet-5-5"
+}

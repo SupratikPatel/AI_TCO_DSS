@@ -1,0 +1,26 @@
+{
+  "id": "mac-studio-m5-max-128gb",
+  "name": "Mac Studio (M5 Max 128GB)",
+  "vendor": "Apple",
+  "deployment_mode": "per-seat-workstation",
+  "memory_architecture": "apple-unified",
+  "interconnect": "Thunderbolt-5-RDMA",
+  "supported_native_precisions": ["FP16", "BF16", "INT8", "INT4", "INT3"],
+  "valid_node_counts": {"value": [1], "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "requirements 10.5"},
+  "gpus_per_unit": {"value": 1, "source_id": "APPLE-MAC-STUDIO-SPECS", "tier": "official", "accessed": "2026-11-07"},
+  "advertised_memory_gb": {"value": 128, "source_id": "APPLE-MAC-STUDIO-SPECS", "tier": "official", "accessed": "2026-11-07"},
+  "os_reserved_memory_ratio": {"value": 0.195, "source_id": "YT-02", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "tuned_max_usable_memory_gb": {"value": 115, "source_id": "YT-02", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "memory_bandwidth_gbs": {"value": 614, "source_id": "APPLE-MAC-STUDIO-SPECS", "tier": "official", "accessed": "2026-11-07", "note": "128 GB needs the 40-core GPU M5 Max (ledger C-021)"},
+  "base_prefill_tps_at_32k": {"value": 1650, "source_id": "YT-21", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "idle_watts": {"value": 7, "source_id": "APPLE-MAC-STUDIO-POWER", "tier": "official", "accessed": "2026-11-07", "note": "M5 Max measurement configuration (36 GB)"},
+  "load_watts": {"value": 200, "source_id": "APPLE-MAC-STUDIO-POWER", "tier": "official", "accessed": "2026-11-07", "note": "maximum, M5 Max measurement configuration (36 GB)"},
+  "street_price": {"value": 5099, "currency": "EUR", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "Apple DE store lists only base prices (M5 Max from EUR 2,999 / 3,659) on 2026-11-07; 128 GB price not verified"},
+  "datacenter_multiplier": {"value": 1.0, "source_id": "SPEC-02", "tier": "assumption", "accessed": "2026-11-07"},
+  "cabling_kits": [],
+  "lifecycle_clocks": {
+    "software_support_years": {"value": 5.0, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+    "resale_value_retention_3yr": {"value": 0.6, "source_id": "YT-22", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+    "cuda_or_rocm_status": "active-flagship"
+  }
+}

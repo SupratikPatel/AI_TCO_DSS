@@ -1,0 +1,987 @@
+{
+  "$defs": {
+    "BaselineResult": {
+      "additionalProperties": false,
+      "properties": {
+        "a_monthly": {
+          "$ref": "#/$defs/Metric"
+        },
+        "b_monthly": {
+          "$ref": "#/$defs/Metric"
+        },
+        "baseline_a_eligible": {
+          "title": "Baseline A Eligible",
+          "type": "boolean"
+        },
+        "baseline_a_ineligibility_reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Baseline A Ineligibility Reasons",
+          "type": "array"
+        },
+        "c_monthly": {
+          "$ref": "#/$defs/Metric"
+        },
+        "compliance_tax_delta_monthly": {
+          "title": "Compliance Tax Delta Monthly",
+          "type": "number"
+        },
+        "currency": {
+          "const": "USD",
+          "default": "USD",
+          "title": "Currency",
+          "type": "string"
+        },
+        "reference_model_id": {
+          "title": "Reference Model Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reference_model_id",
+        "a_monthly",
+        "b_monthly",
+        "c_monthly",
+        "baseline_a_eligible",
+        "baseline_a_ineligibility_reasons",
+        "compliance_tax_delta_monthly"
+      ],
+      "title": "BaselineResult",
+      "type": "object"
+    },
+    "BenchmarkMetric": {
+      "enum": [
+        "decode_tps",
+        "prefill_tps",
+        "aggregate_tps",
+        "ttft_s",
+        "aa_index_v5",
+        "terminal_bench",
+        "swe_bench"
+      ],
+      "title": "BenchmarkMetric",
+      "type": "string"
+    },
+    "CandidateEvaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "api_model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Api Model Id"
+        },
+        "archetype": {
+          "title": "Archetype",
+          "type": "string"
+        },
+        "candidate_id": {
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "capex": {
+          "title": "Capex",
+          "type": "number"
+        },
+        "cost_60m": {
+          "title": "Cost 60M",
+          "type": "number"
+        },
+        "eu_compliant": {
+          "title": "Eu Compliant",
+          "type": "boolean"
+        },
+        "failures": {
+          "items": {
+            "$ref": "#/$defs/FilterFailure"
+          },
+          "title": "Failures",
+          "type": "array"
+        },
+        "hardware_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Hardware Id"
+        },
+        "kind": {
+          "$ref": "#/$defs/CandidateKind"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "local_candidate_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Local Candidate Id"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "monthly_cost": {
+          "title": "Monthly Cost",
+          "type": "number"
+        },
+        "nodes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Nodes"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        },
+        "performance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PerformanceResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "popularity": {
+          "title": "Popularity",
+          "type": "number"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PrecisionFormat"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "price_origin": {
+          "$ref": "#/$defs/ValueOrigin"
+        },
+        "quality": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/QualityScore"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rental_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rental Id"
+        },
+        "risk": {
+          "title": "Risk",
+          "type": "number"
+        },
+        "sizing": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SizingResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tco": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TcoResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "utilization": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Utilization"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "kind",
+        "label",
+        "archetype",
+        "hardware_id",
+        "nodes",
+        "model_id",
+        "precision",
+        "rental_id",
+        "api_model_id",
+        "local_candidate_id",
+        "sizing",
+        "performance",
+        "tco",
+        "capex",
+        "monthly_cost",
+        "cost_60m",
+        "price_origin",
+        "quality",
+        "risk",
+        "popularity",
+        "utilization",
+        "eu_compliant",
+        "failures",
+        "notes"
+      ],
+      "title": "CandidateEvaluation",
+      "type": "object"
+    },
+    "CandidateKind": {
+      "enum": [
+        "onprem",
+        "api",
+        "rental",
+        "hybrid"
+      ],
+      "title": "CandidateKind",
+      "type": "string"
+    },
+    "FilterFailure": {
+      "additionalProperties": false,
+      "properties": {
+        "measured": {
+          "title": "Measured",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "measured",
+        "threshold"
+      ],
+      "title": "FilterFailure",
+      "type": "object"
+    },
+    "FormulaTrace": {
+      "additionalProperties": false,
+      "description": "Symbolic and substituted formula for the audit drawer (Req 36.1).",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "result": {
+          "title": "Result",
+          "type": "number"
+        },
+        "substituted": {
+          "title": "Substituted",
+          "type": "string"
+        },
+        "symbolic": {
+          "title": "Symbolic",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "symbolic",
+        "substituted",
+        "result",
+        "unit"
+      ],
+      "title": "FormulaTrace",
+      "type": "object"
+    },
+    "Metric": {
+      "additionalProperties": false,
+      "description": "A computed number with its Value_Origin.",
+      "properties": {
+        "origin": {
+          "$ref": "#/$defs/ValueOrigin"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "origin"
+      ],
+      "title": "Metric",
+      "type": "object"
+    },
+    "MonthlyTcoPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "baseline_a_subscription_cumulative": {
+          "title": "Baseline A Subscription Cumulative",
+          "type": "number"
+        },
+        "baseline_b_global_api_cumulative": {
+          "title": "Baseline B Global Api Cumulative",
+          "type": "number"
+        },
+        "baseline_c_eu_sovereign_api_cumulative": {
+          "title": "Baseline C Eu Sovereign Api Cumulative",
+          "type": "number"
+        },
+        "baseline_d_openrouter_value_cumulative": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Baseline D Openrouter Value Cumulative"
+        },
+        "eu_dedicated_rental_cumulative": {
+          "title": "Eu Dedicated Rental Cumulative",
+          "type": "number"
+        },
+        "hybrid_split_cumulative": {
+          "title": "Hybrid Split Cumulative",
+          "type": "number"
+        },
+        "month": {
+          "maximum": 60,
+          "minimum": 1,
+          "title": "Month",
+          "type": "integer"
+        },
+        "on_prem_cumulative": {
+          "title": "On Prem Cumulative",
+          "type": "number"
+        }
+      },
+      "required": [
+        "month",
+        "on_prem_cumulative",
+        "eu_dedicated_rental_cumulative",
+        "baseline_a_subscription_cumulative",
+        "baseline_b_global_api_cumulative",
+        "baseline_c_eu_sovereign_api_cumulative",
+        "baseline_d_openrouter_value_cumulative",
+        "hybrid_split_cumulative"
+      ],
+      "title": "MonthlyTcoPoint",
+      "type": "object"
+    },
+    "PerformanceResult": {
+      "additionalProperties": false,
+      "properties": {
+        "decode_tps": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effective_tps": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prefill_1m_minutes": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "prefill_tps": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "traces": {
+          "items": {
+            "$ref": "#/$defs/FormulaTrace"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "ttft_s": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "decode_tps",
+        "prefill_tps",
+        "ttft_s",
+        "effective_tps",
+        "warnings",
+        "traces"
+      ],
+      "title": "PerformanceResult",
+      "type": "object"
+    },
+    "PrecisionFormat": {
+      "enum": [
+        "FP16",
+        "BF16",
+        "FP8",
+        "INT8",
+        "INT4",
+        "INT3",
+        "INT2"
+      ],
+      "title": "PrecisionFormat",
+      "type": "string"
+    },
+    "QualityScore": {
+      "additionalProperties": false,
+      "properties": {
+        "benchmark": {
+          "$ref": "#/$defs/BenchmarkMetric"
+        },
+        "fallback_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Fallback Note"
+        },
+        "origin": {
+          "$ref": "#/$defs/ValueOrigin"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "benchmark",
+        "origin",
+        "fallback_note"
+      ],
+      "title": "QualityScore",
+      "type": "object"
+    },
+    "SizingResult": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_state_memory_required_gb": {
+          "title": "Agent State Memory Required Gb",
+          "type": "number"
+        },
+        "alpha_scaling": {
+          "title": "Alpha Scaling",
+          "type": "number"
+        },
+        "context_eviction_risk": {
+          "default": false,
+          "title": "Context Eviction Risk",
+          "type": "boolean"
+        },
+        "eu_commercial_license_valid": {
+          "default": true,
+          "title": "Eu Commercial License Valid",
+          "type": "boolean"
+        },
+        "hardware_id": {
+          "title": "Hardware Id",
+          "type": "string"
+        },
+        "is_feasible": {
+          "title": "Is Feasible",
+          "type": "boolean"
+        },
+        "kv_per_token_bytes": {
+          "title": "Kv Per Token Bytes",
+          "type": "number"
+        },
+        "kv_pool_gb": {
+          "title": "Kv Pool Gb",
+          "type": "number"
+        },
+        "m_kv_single_gb": {
+          "title": "M Kv Single Gb",
+          "type": "number"
+        },
+        "max_concurrent_users": {
+          "title": "Max Concurrent Users",
+          "type": "integer"
+        },
+        "max_usable_context": {
+          "title": "Max Usable Context",
+          "type": "integer"
+        },
+        "meets_128k_agentic_context_floor": {
+          "default": true,
+          "title": "Meets 128K Agentic Context Floor",
+          "type": "boolean"
+        },
+        "memory_breakdown": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Memory Breakdown",
+          "type": "array"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "nodes_required": {
+          "title": "Nodes Required",
+          "type": "integer"
+        },
+        "oom_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Oom Reason"
+        },
+        "precision": {
+          "$ref": "#/$defs/PrecisionFormat"
+        },
+        "requested_nodes": {
+          "title": "Requested Nodes",
+          "type": "integer"
+        },
+        "thunderbolt_mesh_cables": {
+          "default": 0,
+          "title": "Thunderbolt Mesh Cables",
+          "type": "integer"
+        },
+        "token_agreement_rate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Token Agreement Rate"
+        },
+        "traces": {
+          "items": {
+            "$ref": "#/$defs/FormulaTrace"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "triggered_mac_default_split_trap": {
+          "default": false,
+          "title": "Triggered Mac Default Split Trap",
+          "type": "boolean"
+        },
+        "usable_memory_default_gb": {
+          "title": "Usable Memory Default Gb",
+          "type": "number"
+        },
+        "usable_memory_gb": {
+          "title": "Usable Memory Gb",
+          "type": "number"
+        },
+        "usable_system_ram_gb": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Usable System Ram Gb"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "weights": {
+          "$ref": "#/$defs/Metric"
+        }
+      },
+      "required": [
+        "hardware_id",
+        "model_id",
+        "precision",
+        "requested_nodes",
+        "nodes_required",
+        "alpha_scaling",
+        "is_feasible",
+        "usable_memory_gb",
+        "usable_memory_default_gb",
+        "usable_system_ram_gb",
+        "weights",
+        "kv_per_token_bytes",
+        "m_kv_single_gb",
+        "kv_pool_gb",
+        "max_concurrent_users",
+        "max_usable_context",
+        "agent_state_memory_required_gb",
+        "memory_breakdown",
+        "warnings",
+        "traces"
+      ],
+      "title": "SizingResult",
+      "type": "object"
+    },
+    "TcoResult": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregate_tps": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "capacity_insufficient": {
+          "title": "Capacity Insufficient",
+          "type": "boolean"
+        },
+        "capacity_tokens_month": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Capacity Tokens Month"
+        },
+        "capex": {
+          "$ref": "#/$defs/Metric"
+        },
+        "cost_60m": {
+          "title": "Cost 60M",
+          "type": "number"
+        },
+        "gpu_count": {
+          "title": "Gpu Count",
+          "type": "integer"
+        },
+        "meets_70_percent_utilization_threshold": {
+          "title": "Meets 70 Percent Utilization Threshold",
+          "type": "boolean"
+        },
+        "monthly_opex": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Monthly Opex",
+          "type": "array"
+        },
+        "monthly_opex_total": {
+          "title": "Monthly Opex Total",
+          "type": "number"
+        },
+        "munich_vs_romania_personnel_savings_monthly": {
+          "title": "Munich Vs Romania Personnel Savings Monthly",
+          "type": "number"
+        },
+        "resale_retention_3yr": {
+          "title": "Resale Retention 3Yr",
+          "type": "number"
+        },
+        "traces": {
+          "items": {
+            "$ref": "#/$defs/FormulaTrace"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "units": {
+          "title": "Units",
+          "type": "integer"
+        },
+        "utilization": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Utilization"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "units",
+        "gpu_count",
+        "capex",
+        "monthly_opex",
+        "monthly_opex_total",
+        "munich_vs_romania_personnel_savings_monthly",
+        "aggregate_tps",
+        "capacity_tokens_month",
+        "utilization",
+        "meets_70_percent_utilization_threshold",
+        "capacity_insufficient",
+        "resale_retention_3yr",
+        "cost_60m",
+        "warnings",
+        "traces"
+      ],
+      "title": "TcoResult",
+      "type": "object"
+    },
+    "TimelineResult": {
+      "additionalProperties": false,
+      "properties": {
+        "anchor_candidate_id": {
+          "title": "Anchor Candidate Id",
+          "type": "string"
+        },
+        "break_even_months": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Break Even Months",
+          "type": "array"
+        },
+        "hybrid_api_model_id": {
+          "title": "Hybrid Api Model Id",
+          "type": "string"
+        },
+        "include_resale": {
+          "title": "Include Resale",
+          "type": "boolean"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/MonthlyTcoPoint"
+          },
+          "maxItems": 60,
+          "minItems": 60,
+          "title": "Points",
+          "type": "array"
+        },
+        "rental_id": {
+          "title": "Rental Id",
+          "type": "string"
+        },
+        "single_stream_break_even_years": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "anchor_candidate_id",
+        "rental_id",
+        "hybrid_api_model_id",
+        "points",
+        "break_even_months",
+        "include_resale"
+      ],
+      "title": "TimelineResult",
+      "type": "object"
+    },
+    "ValueOrigin": {
+      "additionalProperties": false,
+      "properties": {
+        "origin": {
+          "enum": [
+            "measured",
+            "formula"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "origin",
+        "source_ids"
+      ],
+      "title": "ValueOrigin",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "baselines": {
+      "$ref": "#/$defs/BaselineResult"
+    },
+    "candidate": {
+      "$ref": "#/$defs/CandidateEvaluation"
+    },
+    "timeline": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TimelineResult"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "candidate",
+    "timeline",
+    "baselines"
+  ],
+  "title": "TcoProjection",
+  "type": "object"
+}

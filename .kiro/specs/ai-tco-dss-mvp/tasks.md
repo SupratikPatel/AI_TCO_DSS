@@ -11,6 +11,7 @@ Conventions used by every task:
 - **Verification.** `uv run python scripts/verify.py <focus paths>` runs the focus tests (it skips a focus path that does not exist because an optional `*` test file was not written, and prints a notice), then `ruff check`, `ruff format --check`, `mypy`, the Validate_CLI (once the `ai-tco-validate` console script is declared in `pyproject.toml`) and the full `pytest` suite. It exits 0 only if every step passes. It works in PowerShell 5.1 and bash.
 - **Property tests.** Each property from `design.md` § "Correctness Properties" is one sub-task and one `hypothesis` test (at least 100 examples) whose docstring names the property number and the criterion ids. Property tests for criteria that begin with "FOR ALL" or are labelled as a property are required by Requirement 41.5 and are not marked optional. All other property tests are marked optional with `*`; the task's required unit tests cover their criteria.
 - **Project Rules.** The rules in `CLAUDE.md` § "Project Rules" apply from Task 2 onwards (Task 1 creates them).
+- **Streamlit skill.** Every task that creates or changes files under `src/ai_tco_dss/ui/` or Dashboard tests that use AppTest (Tasks 5 to 12) first activates the `developing-with-streamlit` agent skill and follows the bundled references for the installed Streamlit version (`.kiro/steering/streamlit-ui.md`).
 
 ## Tasks
 

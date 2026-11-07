@@ -1,0 +1,1906 @@
+{
+  "$defs": {
+    "BaselineResult": {
+      "additionalProperties": false,
+      "properties": {
+        "a_monthly": {
+          "$ref": "#/$defs/Metric"
+        },
+        "b_monthly": {
+          "$ref": "#/$defs/Metric"
+        },
+        "baseline_a_eligible": {
+          "title": "Baseline A Eligible",
+          "type": "boolean"
+        },
+        "baseline_a_ineligibility_reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Baseline A Ineligibility Reasons",
+          "type": "array"
+        },
+        "c_monthly": {
+          "$ref": "#/$defs/Metric"
+        },
+        "compliance_tax_delta_monthly": {
+          "title": "Compliance Tax Delta Monthly",
+          "type": "number"
+        },
+        "currency": {
+          "const": "USD",
+          "default": "USD",
+          "title": "Currency",
+          "type": "string"
+        },
+        "reference_model_id": {
+          "title": "Reference Model Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reference_model_id",
+        "a_monthly",
+        "b_monthly",
+        "c_monthly",
+        "baseline_a_eligible",
+        "baseline_a_ineligibility_reasons",
+        "compliance_tax_delta_monthly"
+      ],
+      "title": "BaselineResult",
+      "type": "object"
+    },
+    "BenchmarkMetric": {
+      "enum": [
+        "decode_tps",
+        "prefill_tps",
+        "aggregate_tps",
+        "ttft_s",
+        "aa_index_v5",
+        "terminal_bench",
+        "swe_bench"
+      ],
+      "title": "BenchmarkMetric",
+      "type": "string"
+    },
+    "CandidateEvaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "api_model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Api Model Id"
+        },
+        "archetype": {
+          "title": "Archetype",
+          "type": "string"
+        },
+        "candidate_id": {
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "capex": {
+          "title": "Capex",
+          "type": "number"
+        },
+        "cost_60m": {
+          "title": "Cost 60M",
+          "type": "number"
+        },
+        "eu_compliant": {
+          "title": "Eu Compliant",
+          "type": "boolean"
+        },
+        "failures": {
+          "items": {
+            "$ref": "#/$defs/FilterFailure"
+          },
+          "title": "Failures",
+          "type": "array"
+        },
+        "hardware_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Hardware Id"
+        },
+        "kind": {
+          "$ref": "#/$defs/CandidateKind"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "local_candidate_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Local Candidate Id"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "monthly_cost": {
+          "title": "Monthly Cost",
+          "type": "number"
+        },
+        "nodes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Nodes"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        },
+        "performance": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PerformanceResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "popularity": {
+          "title": "Popularity",
+          "type": "number"
+        },
+        "precision": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PrecisionFormat"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "price_origin": {
+          "$ref": "#/$defs/ValueOrigin"
+        },
+        "quality": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/QualityScore"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rental_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rental Id"
+        },
+        "risk": {
+          "title": "Risk",
+          "type": "number"
+        },
+        "sizing": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SizingResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tco": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TcoResult"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "utilization": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Utilization"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "kind",
+        "label",
+        "archetype",
+        "hardware_id",
+        "nodes",
+        "model_id",
+        "precision",
+        "rental_id",
+        "api_model_id",
+        "local_candidate_id",
+        "sizing",
+        "performance",
+        "tco",
+        "capex",
+        "monthly_cost",
+        "cost_60m",
+        "price_origin",
+        "quality",
+        "risk",
+        "popularity",
+        "utilization",
+        "eu_compliant",
+        "failures",
+        "notes"
+      ],
+      "title": "CandidateEvaluation",
+      "type": "object"
+    },
+    "CandidateKind": {
+      "enum": [
+        "onprem",
+        "api",
+        "rental",
+        "hybrid"
+      ],
+      "title": "CandidateKind",
+      "type": "string"
+    },
+    "Criterion": {
+      "enum": [
+        "tco_60m",
+        "quality",
+        "effective_tps",
+        "ttft",
+        "risk",
+        "popularity"
+      ],
+      "title": "Criterion",
+      "type": "string"
+    },
+    "CriterionScore": {
+      "additionalProperties": false,
+      "properties": {
+        "contribution": {
+          "title": "Contribution",
+          "type": "number"
+        },
+        "criterion": {
+          "$ref": "#/$defs/Criterion"
+        },
+        "missing": {
+          "title": "Missing",
+          "type": "boolean"
+        },
+        "normalised": {
+          "title": "Normalised",
+          "type": "number"
+        },
+        "raw": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Raw"
+        },
+        "weight": {
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "criterion",
+        "raw",
+        "missing",
+        "normalised",
+        "weight",
+        "contribution"
+      ],
+      "title": "CriterionScore",
+      "type": "object"
+    },
+    "CriterionWeights": {
+      "additionalProperties": false,
+      "description": "Raw weights; non-negativity is checked by the ranking (Req 29.11), not here.",
+      "properties": {
+        "effective_tps": {
+          "title": "Effective Tps",
+          "type": "number"
+        },
+        "popularity": {
+          "title": "Popularity",
+          "type": "number"
+        },
+        "quality": {
+          "title": "Quality",
+          "type": "number"
+        },
+        "risk": {
+          "title": "Risk",
+          "type": "number"
+        },
+        "tco_60m": {
+          "title": "Tco 60M",
+          "type": "number"
+        },
+        "ttft": {
+          "title": "Ttft",
+          "type": "number"
+        }
+      },
+      "required": [
+        "tco_60m",
+        "quality",
+        "effective_tps",
+        "ttft",
+        "risk",
+        "popularity"
+      ],
+      "title": "CriterionWeights",
+      "type": "object"
+    },
+    "DecisionOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "$ref": "#/$defs/RankingMethod",
+          "default": "saw"
+        },
+        "preset": {
+          "$ref": "#/$defs/PresetId",
+          "default": "best-fit"
+        },
+        "reference_api_model_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Api Model Id"
+        },
+        "use_case": {
+          "$ref": "#/$defs/UseCaseId",
+          "default": "agentic-coding"
+        },
+        "weights": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CriterionWeights"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "title": "DecisionOptions",
+      "type": "object"
+    },
+    "ElectricityTariffTier": {
+      "enum": [
+        "de-industrial-bdew",
+        "de-office",
+        "eu-nordic"
+      ],
+      "title": "ElectricityTariffTier",
+      "type": "string"
+    },
+    "EnterpriseFinancials": {
+      "additionalProperties": false,
+      "properties": {
+        "capital_opportunity_rate": {
+          "default": 0.045,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Capital Opportunity Rate",
+          "type": "number"
+        },
+        "cooling_pue": {
+          "default": 1.2,
+          "maximum": 3.0,
+          "minimum": 1.0,
+          "title": "Cooling Pue",
+          "type": "number"
+        },
+        "currency": {
+          "default": "USD",
+          "enum": [
+            "EUR",
+            "USD"
+          ],
+          "title": "Currency",
+          "type": "string"
+        },
+        "depreciation_years": {
+          "default": 3,
+          "minimum": 1,
+          "title": "Depreciation Years",
+          "type": "integer"
+        },
+        "developer_hourly_opportunity_cost": {
+          "default": 72.57,
+          "minimum": 0.0,
+          "title": "Developer Hourly Opportunity Cost",
+          "type": "number"
+        },
+        "devops_fte_allocation": {
+          "default": 0.5,
+          "maximum": 10.0,
+          "minimum": 0.0,
+          "title": "Devops Fte Allocation",
+          "type": "number"
+        },
+        "electricity_tariff_tier": {
+          "$ref": "#/$defs/ElectricityTariffTier",
+          "default": "de-industrial-bdew"
+        },
+        "enable_nvidia_nim_licensing": {
+          "default": false,
+          "title": "Enable Nvidia Nim Licensing",
+          "type": "boolean"
+        },
+        "engineering_hub_location": {
+          "$ref": "#/$defs/EuEngineeringHub",
+          "default": "ro-cluj-bucharest"
+        },
+        "include_resale_value": {
+          "default": false,
+          "title": "Include Resale Value",
+          "type": "boolean"
+        },
+        "include_wait_time_penalty": {
+          "default": false,
+          "title": "Include Wait Time Penalty",
+          "type": "boolean"
+        },
+        "local_offload_ratio": {
+          "default": 0.7,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Local Offload Ratio",
+          "type": "number"
+        },
+        "max_capex_budget_usd": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 100000.0,
+          "title": "Max Capex Budget Usd"
+        },
+        "nvidia_nim_license_per_gpu_yr_usd": {
+          "default": 4500.0,
+          "minimum": 0.0,
+          "title": "Nvidia Nim License Per Gpu Yr Usd",
+          "type": "number"
+        },
+        "require_third_party_harness": {
+          "default": true,
+          "title": "Require Third Party Harness",
+          "type": "boolean"
+        },
+        "strict_eu_sovereignty": {
+          "default": true,
+          "title": "Strict Eu Sovereignty",
+          "type": "boolean"
+        },
+        "subscription_plan_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subscription Plan Id"
+        }
+      },
+      "title": "EnterpriseFinancials",
+      "type": "object"
+    },
+    "EuEngineeringHub": {
+      "enum": [
+        "de-munich-hq",
+        "de-berlin-hamburg",
+        "ro-cluj-bucharest",
+        "pl-warsaw-krakow"
+      ],
+      "title": "EuEngineeringHub",
+      "type": "string"
+    },
+    "FilterFailure": {
+      "additionalProperties": false,
+      "properties": {
+        "measured": {
+          "title": "Measured",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "measured",
+        "threshold"
+      ],
+      "title": "FilterFailure",
+      "type": "object"
+    },
+    "FormulaTrace": {
+      "additionalProperties": false,
+      "description": "Symbolic and substituted formula for the audit drawer (Req 36.1).",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "result": {
+          "title": "Result",
+          "type": "number"
+        },
+        "substituted": {
+          "title": "Substituted",
+          "type": "string"
+        },
+        "symbolic": {
+          "title": "Symbolic",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "symbolic",
+        "substituted",
+        "result",
+        "unit"
+      ],
+      "title": "FormulaTrace",
+      "type": "object"
+    },
+    "GatewayType": {
+      "enum": [
+        "litellm-python",
+        "bifrost-compiled"
+      ],
+      "title": "GatewayType",
+      "type": "string"
+    },
+    "HarnessType": {
+      "enum": [
+        "claude-code",
+        "codex",
+        "opencode",
+        "deepseek-dsh",
+        "custom-lean"
+      ],
+      "title": "HarnessType",
+      "type": "string"
+    },
+    "Metric": {
+      "additionalProperties": false,
+      "description": "A computed number with its Value_Origin.",
+      "properties": {
+        "origin": {
+          "$ref": "#/$defs/ValueOrigin"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "unit",
+        "origin"
+      ],
+      "title": "Metric",
+      "type": "object"
+    },
+    "MonthlyTcoPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "baseline_a_subscription_cumulative": {
+          "title": "Baseline A Subscription Cumulative",
+          "type": "number"
+        },
+        "baseline_b_global_api_cumulative": {
+          "title": "Baseline B Global Api Cumulative",
+          "type": "number"
+        },
+        "baseline_c_eu_sovereign_api_cumulative": {
+          "title": "Baseline C Eu Sovereign Api Cumulative",
+          "type": "number"
+        },
+        "baseline_d_openrouter_value_cumulative": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Baseline D Openrouter Value Cumulative"
+        },
+        "eu_dedicated_rental_cumulative": {
+          "title": "Eu Dedicated Rental Cumulative",
+          "type": "number"
+        },
+        "hybrid_split_cumulative": {
+          "title": "Hybrid Split Cumulative",
+          "type": "number"
+        },
+        "month": {
+          "maximum": 60,
+          "minimum": 1,
+          "title": "Month",
+          "type": "integer"
+        },
+        "on_prem_cumulative": {
+          "title": "On Prem Cumulative",
+          "type": "number"
+        }
+      },
+      "required": [
+        "month",
+        "on_prem_cumulative",
+        "eu_dedicated_rental_cumulative",
+        "baseline_a_subscription_cumulative",
+        "baseline_b_global_api_cumulative",
+        "baseline_c_eu_sovereign_api_cumulative",
+        "baseline_d_openrouter_value_cumulative",
+        "hybrid_split_cumulative"
+      ],
+      "title": "MonthlyTcoPoint",
+      "type": "object"
+    },
+    "PerformanceResult": {
+      "additionalProperties": false,
+      "properties": {
+        "decode_tps": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effective_tps": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prefill_1m_minutes": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "prefill_tps": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "traces": {
+          "items": {
+            "$ref": "#/$defs/FormulaTrace"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "ttft_s": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "decode_tps",
+        "prefill_tps",
+        "ttft_s",
+        "effective_tps",
+        "warnings",
+        "traces"
+      ],
+      "title": "PerformanceResult",
+      "type": "object"
+    },
+    "PrecisionFormat": {
+      "enum": [
+        "FP16",
+        "BF16",
+        "FP8",
+        "INT8",
+        "INT4",
+        "INT3",
+        "INT2"
+      ],
+      "title": "PrecisionFormat",
+      "type": "string"
+    },
+    "PresetId": {
+      "enum": [
+        "cheapest",
+        "best-fit",
+        "most-capable",
+        "popular"
+      ],
+      "title": "PresetId",
+      "type": "string"
+    },
+    "QualityScore": {
+      "additionalProperties": false,
+      "properties": {
+        "benchmark": {
+          "$ref": "#/$defs/BenchmarkMetric"
+        },
+        "fallback_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Fallback Note"
+        },
+        "origin": {
+          "$ref": "#/$defs/ValueOrigin"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "value",
+        "benchmark",
+        "origin",
+        "fallback_note"
+      ],
+      "title": "QualityScore",
+      "type": "object"
+    },
+    "RankedCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "criteria": {
+          "items": {
+            "$ref": "#/$defs/CriterionScore"
+          },
+          "title": "Criteria",
+          "type": "array"
+        },
+        "d_minus": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "D Minus"
+        },
+        "d_plus": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "D Plus"
+        },
+        "evaluation": {
+          "$ref": "#/$defs/CandidateEvaluation"
+        },
+        "rank": {
+          "title": "Rank",
+          "type": "integer"
+        },
+        "saw_rank": {
+          "title": "Saw Rank",
+          "type": "integer"
+        },
+        "saw_score": {
+          "title": "Saw Score",
+          "type": "number"
+        },
+        "topsis_closeness": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Topsis Closeness"
+        },
+        "topsis_rank": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Topsis Rank"
+        }
+      },
+      "required": [
+        "rank",
+        "evaluation",
+        "saw_score",
+        "saw_rank",
+        "criteria",
+        "topsis_closeness",
+        "d_plus",
+        "d_minus",
+        "topsis_rank"
+      ],
+      "title": "RankedCandidate",
+      "type": "object"
+    },
+    "RankingMethod": {
+      "enum": [
+        "saw",
+        "topsis"
+      ],
+      "title": "RankingMethod",
+      "type": "string"
+    },
+    "Recommendation": {
+      "additionalProperties": false,
+      "properties": {
+        "explanation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Explanation"
+        },
+        "method": {
+          "$ref": "#/$defs/RankingMethod"
+        },
+        "ranked": {
+          "items": {
+            "$ref": "#/$defs/RankedCandidate"
+          },
+          "title": "Ranked",
+          "type": "array"
+        },
+        "ranking_error": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ranking Error"
+        },
+        "rejected": {
+          "items": {
+            "$ref": "#/$defs/CandidateEvaluation"
+          },
+          "title": "Rejected",
+          "type": "array"
+        },
+        "use_case": {
+          "$ref": "#/$defs/UseCaseId"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "weights_normalised": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CriterionWeights"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "use_case",
+        "method",
+        "weights_normalised",
+        "ranked",
+        "rejected",
+        "explanation",
+        "ranking_error",
+        "warnings"
+      ],
+      "title": "Recommendation",
+      "type": "object"
+    },
+    "RuntimeFormat": {
+      "enum": [
+        "auto",
+        "gguf",
+        "vllm",
+        "mlx"
+      ],
+      "title": "RuntimeFormat",
+      "type": "string"
+    },
+    "Scenario": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "$ref": "#/$defs/DecisionOptions"
+        },
+        "financials": {
+          "$ref": "#/$defs/EnterpriseFinancials"
+        },
+        "fx_override": {
+          "anyOf": [
+            {
+              "maximum": 2.0,
+              "minimum": 0.5,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fx Override"
+        },
+        "sizing": {
+          "$ref": "#/$defs/SizingOptions"
+        },
+        "workload": {
+          "$ref": "#/$defs/WorkloadProfile"
+        }
+      },
+      "required": [
+        "workload",
+        "financials",
+        "sizing",
+        "decision"
+      ],
+      "title": "Scenario",
+      "type": "object"
+    },
+    "SizingOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "apply_mac_wired_memory_override": {
+          "default": false,
+          "title": "Apply Mac Wired Memory Override",
+          "type": "boolean"
+        },
+        "enable_optimized_backend": {
+          "default": true,
+          "title": "Enable Optimized Backend",
+          "type": "boolean"
+        },
+        "gpu_memory_utilization": {
+          "default": 0.9,
+          "exclusiveMinimum": 0.0,
+          "maximum": 1.0,
+          "title": "Gpu Memory Utilization",
+          "type": "number"
+        },
+        "kv_precision": {
+          "$ref": "#/$defs/PrecisionFormat",
+          "default": "FP16"
+        },
+        "linux_amd_override": {
+          "default": false,
+          "title": "Linux Amd Override",
+          "type": "boolean"
+        },
+        "repo_workspace_gb": {
+          "default": 4.0,
+          "maximum": 6.0,
+          "minimum": 2.5,
+          "title": "Repo Workspace Gb",
+          "type": "number"
+        },
+        "requested_nodes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requested Nodes"
+        },
+        "runtime_format": {
+          "$ref": "#/$defs/RuntimeFormat",
+          "default": "auto"
+        },
+        "runtime_overhead_gb": {
+          "default": 2.0,
+          "minimum": 0.0,
+          "title": "Runtime Overhead Gb",
+          "type": "number"
+        },
+        "speculative_mode": {
+          "$ref": "#/$defs/SpeculativeMode",
+          "default": "none"
+        },
+        "target_context_length": {
+          "default": 128000,
+          "minimum": 1,
+          "title": "Target Context Length",
+          "type": "integer"
+        },
+        "weight_precision": {
+          "$ref": "#/$defs/PrecisionFormat",
+          "default": "INT4"
+        }
+      },
+      "title": "SizingOptions",
+      "type": "object"
+    },
+    "SizingResult": {
+      "additionalProperties": false,
+      "properties": {
+        "agent_state_memory_required_gb": {
+          "title": "Agent State Memory Required Gb",
+          "type": "number"
+        },
+        "alpha_scaling": {
+          "title": "Alpha Scaling",
+          "type": "number"
+        },
+        "context_eviction_risk": {
+          "default": false,
+          "title": "Context Eviction Risk",
+          "type": "boolean"
+        },
+        "eu_commercial_license_valid": {
+          "default": true,
+          "title": "Eu Commercial License Valid",
+          "type": "boolean"
+        },
+        "hardware_id": {
+          "title": "Hardware Id",
+          "type": "string"
+        },
+        "is_feasible": {
+          "title": "Is Feasible",
+          "type": "boolean"
+        },
+        "kv_per_token_bytes": {
+          "title": "Kv Per Token Bytes",
+          "type": "number"
+        },
+        "kv_pool_gb": {
+          "title": "Kv Pool Gb",
+          "type": "number"
+        },
+        "m_kv_single_gb": {
+          "title": "M Kv Single Gb",
+          "type": "number"
+        },
+        "max_concurrent_users": {
+          "title": "Max Concurrent Users",
+          "type": "integer"
+        },
+        "max_usable_context": {
+          "title": "Max Usable Context",
+          "type": "integer"
+        },
+        "meets_128k_agentic_context_floor": {
+          "default": true,
+          "title": "Meets 128K Agentic Context Floor",
+          "type": "boolean"
+        },
+        "memory_breakdown": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Memory Breakdown",
+          "type": "array"
+        },
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "nodes_required": {
+          "title": "Nodes Required",
+          "type": "integer"
+        },
+        "oom_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Oom Reason"
+        },
+        "precision": {
+          "$ref": "#/$defs/PrecisionFormat"
+        },
+        "requested_nodes": {
+          "title": "Requested Nodes",
+          "type": "integer"
+        },
+        "thunderbolt_mesh_cables": {
+          "default": 0,
+          "title": "Thunderbolt Mesh Cables",
+          "type": "integer"
+        },
+        "token_agreement_rate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Token Agreement Rate"
+        },
+        "traces": {
+          "items": {
+            "$ref": "#/$defs/FormulaTrace"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "triggered_mac_default_split_trap": {
+          "default": false,
+          "title": "Triggered Mac Default Split Trap",
+          "type": "boolean"
+        },
+        "usable_memory_default_gb": {
+          "title": "Usable Memory Default Gb",
+          "type": "number"
+        },
+        "usable_memory_gb": {
+          "title": "Usable Memory Gb",
+          "type": "number"
+        },
+        "usable_system_ram_gb": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Usable System Ram Gb"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        },
+        "weights": {
+          "$ref": "#/$defs/Metric"
+        }
+      },
+      "required": [
+        "hardware_id",
+        "model_id",
+        "precision",
+        "requested_nodes",
+        "nodes_required",
+        "alpha_scaling",
+        "is_feasible",
+        "usable_memory_gb",
+        "usable_memory_default_gb",
+        "usable_system_ram_gb",
+        "weights",
+        "kv_per_token_bytes",
+        "m_kv_single_gb",
+        "kv_pool_gb",
+        "max_concurrent_users",
+        "max_usable_context",
+        "agent_state_memory_required_gb",
+        "memory_breakdown",
+        "warnings",
+        "traces"
+      ],
+      "title": "SizingResult",
+      "type": "object"
+    },
+    "SourceEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "publisher": {
+          "minLength": 1,
+          "title": "Publisher",
+          "type": "string"
+        },
+        "reference": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference"
+        },
+        "source_id": {
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        },
+        "tier": {
+          "$ref": "#/$defs/SourceTier"
+        },
+        "title": {
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "source_id",
+        "title",
+        "publisher",
+        "tier"
+      ],
+      "title": "SourceEntry",
+      "type": "object"
+    },
+    "SourceTier": {
+      "enum": [
+        "official",
+        "third_party",
+        "community",
+        "formula",
+        "assumption"
+      ],
+      "title": "SourceTier",
+      "type": "string"
+    },
+    "SpeculativeMode": {
+      "enum": [
+        "none",
+        "apple-mtp-dflash",
+        "built-in-mtp",
+        "external-draft"
+      ],
+      "title": "SpeculativeMode",
+      "type": "string"
+    },
+    "TcoResult": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregate_tps": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "capacity_insufficient": {
+          "title": "Capacity Insufficient",
+          "type": "boolean"
+        },
+        "capacity_tokens_month": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Capacity Tokens Month"
+        },
+        "capex": {
+          "$ref": "#/$defs/Metric"
+        },
+        "cost_60m": {
+          "title": "Cost 60M",
+          "type": "number"
+        },
+        "gpu_count": {
+          "title": "Gpu Count",
+          "type": "integer"
+        },
+        "meets_70_percent_utilization_threshold": {
+          "title": "Meets 70 Percent Utilization Threshold",
+          "type": "boolean"
+        },
+        "monthly_opex": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Monthly Opex",
+          "type": "array"
+        },
+        "monthly_opex_total": {
+          "title": "Monthly Opex Total",
+          "type": "number"
+        },
+        "munich_vs_romania_personnel_savings_monthly": {
+          "title": "Munich Vs Romania Personnel Savings Monthly",
+          "type": "number"
+        },
+        "resale_retention_3yr": {
+          "title": "Resale Retention 3Yr",
+          "type": "number"
+        },
+        "traces": {
+          "items": {
+            "$ref": "#/$defs/FormulaTrace"
+          },
+          "title": "Traces",
+          "type": "array"
+        },
+        "units": {
+          "title": "Units",
+          "type": "integer"
+        },
+        "utilization": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Utilization"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "units",
+        "gpu_count",
+        "capex",
+        "monthly_opex",
+        "monthly_opex_total",
+        "munich_vs_romania_personnel_savings_monthly",
+        "aggregate_tps",
+        "capacity_tokens_month",
+        "utilization",
+        "meets_70_percent_utilization_threshold",
+        "capacity_insufficient",
+        "resale_retention_3yr",
+        "cost_60m",
+        "warnings",
+        "traces"
+      ],
+      "title": "TcoResult",
+      "type": "object"
+    },
+    "ThinkingEffortPreset": {
+      "enum": [
+        "none",
+        "low",
+        "medium",
+        "extra-high"
+      ],
+      "title": "ThinkingEffortPreset",
+      "type": "string"
+    },
+    "TimelineResult": {
+      "additionalProperties": false,
+      "properties": {
+        "anchor_candidate_id": {
+          "title": "Anchor Candidate Id",
+          "type": "string"
+        },
+        "break_even_months": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            ],
+            "type": "array"
+          },
+          "title": "Break Even Months",
+          "type": "array"
+        },
+        "hybrid_api_model_id": {
+          "title": "Hybrid Api Model Id",
+          "type": "string"
+        },
+        "include_resale": {
+          "title": "Include Resale",
+          "type": "boolean"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/MonthlyTcoPoint"
+          },
+          "maxItems": 60,
+          "minItems": 60,
+          "title": "Points",
+          "type": "array"
+        },
+        "rental_id": {
+          "title": "Rental Id",
+          "type": "string"
+        },
+        "single_stream_break_even_years": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Metric"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "anchor_candidate_id",
+        "rental_id",
+        "hybrid_api_model_id",
+        "points",
+        "break_even_months",
+        "include_resale"
+      ],
+      "title": "TimelineResult",
+      "type": "object"
+    },
+    "UseCaseId": {
+      "enum": [
+        "writing-email",
+        "summarisation-rag",
+        "coding-assistant",
+        "agentic-coding"
+      ],
+      "title": "UseCaseId",
+      "type": "string"
+    },
+    "ValueOrigin": {
+      "additionalProperties": false,
+      "properties": {
+        "origin": {
+          "enum": [
+            "measured",
+            "formula"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "source_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Source Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "origin",
+        "source_ids"
+      ],
+      "title": "ValueOrigin",
+      "type": "object"
+    },
+    "WorkScheduleMode": {
+      "enum": [
+        "interactive-workday",
+        "unattended-background-loop"
+      ],
+      "title": "WorkScheduleMode",
+      "type": "string"
+    },
+    "WorkloadProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "active_hours_per_month": {
+          "default": 176,
+          "maximum": 744,
+          "minimum": 1,
+          "title": "Active Hours Per Month",
+          "type": "integer"
+        },
+        "active_users": {
+          "default": 25,
+          "maximum": 100000,
+          "minimum": 1,
+          "title": "Active Users",
+          "type": "integer"
+        },
+        "avg_input_tokens": {
+          "default": 15000,
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Avg Input Tokens",
+          "type": "integer"
+        },
+        "avg_output_tokens": {
+          "default": 1500,
+          "maximum": 200000,
+          "minimum": 1,
+          "title": "Avg Output Tokens",
+          "type": "integer"
+        },
+        "batch_api_eligible_ratio": {
+          "default": 0.2,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Batch Api Eligible Ratio",
+          "type": "number"
+        },
+        "concurrent_agent_instances": {
+          "default": 8,
+          "minimum": 1,
+          "title": "Concurrent Agent Instances",
+          "type": "integer"
+        },
+        "context_length_p50": {
+          "default": 32000,
+          "minimum": 1024,
+          "title": "Context Length P50",
+          "type": "integer"
+        },
+        "context_length_p90": {
+          "default": 128000,
+          "minimum": 1024,
+          "title": "Context Length P90",
+          "type": "integer"
+        },
+        "context_length_p99": {
+          "default": 250000,
+          "maximum": 1000000,
+          "minimum": 1024,
+          "title": "Context Length P99",
+          "type": "integer"
+        },
+        "custom_scaffolding_tokens": {
+          "anyOf": [
+            {
+              "maximum": 100000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Custom Scaffolding Tokens"
+        },
+        "daily_requests_per_user": {
+          "default": 40,
+          "maximum": 10000,
+          "minimum": 1,
+          "title": "Daily Requests Per User",
+          "type": "integer"
+        },
+        "gateway_type": {
+          "$ref": "#/$defs/GatewayType",
+          "default": "litellm-python"
+        },
+        "harness_type": {
+          "$ref": "#/$defs/HarnessType",
+          "default": "claude-code"
+        },
+        "has_verification_agent_layer": {
+          "default": false,
+          "title": "Has Verification Agent Layer",
+          "type": "boolean"
+        },
+        "max_acceptable_ttft_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0.5,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 15.0,
+          "title": "Max Acceptable Ttft Seconds"
+        },
+        "mcp_code_mode_pruning": {
+          "default": false,
+          "title": "Mcp Code Mode Pruning",
+          "type": "boolean"
+        },
+        "mega_session_ratio": {
+          "default": 0.35,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Mega Session Ratio",
+          "type": "number"
+        },
+        "min_acceptable_tps": {
+          "anyOf": [
+            {
+              "minimum": 1.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 20.0,
+          "title": "Min Acceptable Tps"
+        },
+        "peak_concurrent_requests": {
+          "default": 5,
+          "minimum": 1,
+          "title": "Peak Concurrent Requests",
+          "type": "integer"
+        },
+        "prompt_cache_hit_rate": {
+          "default": 0.5,
+          "maximum": 0.95,
+          "minimum": 0.0,
+          "title": "Prompt Cache Hit Rate",
+          "type": "number"
+        },
+        "reasoning_token_multiplier": {
+          "default": 2.5,
+          "maximum": 10.0,
+          "minimum": 1.0,
+          "title": "Reasoning Token Multiplier",
+          "type": "number"
+        },
+        "thinking_effort_preset": {
+          "$ref": "#/$defs/ThinkingEffortPreset",
+          "default": "medium"
+        },
+        "work_schedule_mode": {
+          "$ref": "#/$defs/WorkScheduleMode",
+          "default": "interactive-workday"
+        },
+        "working_days_per_month": {
+          "default": 22,
+          "maximum": 31,
+          "minimum": 1,
+          "title": "Working Days Per Month",
+          "type": "integer"
+        }
+      },
+      "title": "WorkloadProfile",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "baselines": {
+      "$ref": "#/$defs/BaselineResult"
+    },
+    "fx_is_override": {
+      "title": "Fx Is Override",
+      "type": "boolean"
+    },
+    "fx_rate": {
+      "title": "Fx Rate",
+      "type": "number"
+    },
+    "fx_rate_date": {
+      "format": "date",
+      "title": "Fx Rate Date",
+      "type": "string"
+    },
+    "fx_source_id": {
+      "title": "Fx Source Id",
+      "type": "string"
+    },
+    "recommendation": {
+      "$ref": "#/$defs/Recommendation"
+    },
+    "scenario": {
+      "$ref": "#/$defs/Scenario"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/SourceEntry"
+      },
+      "title": "Sources",
+      "type": "array"
+    },
+    "timeline": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TimelineResult"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scenario",
+    "recommendation",
+    "baselines",
+    "timeline",
+    "fx_rate",
+    "fx_source_id",
+    "fx_rate_date",
+    "fx_is_override",
+    "sources",
+    "warnings"
+  ],
+  "title": "ScenarioResult",
+  "type": "object"
+}

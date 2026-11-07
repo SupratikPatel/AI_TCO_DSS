@@ -1,0 +1,24 @@
+{
+  "id": "dgx-spark-128gb",
+  "name": "NVIDIA DGX Spark (128GB)",
+  "vendor": "NVIDIA",
+  "deployment_mode": "centralized-server",
+  "memory_architecture": "discrete",
+  "interconnect": "DGX-Ring-Cable",
+  "supported_native_precisions": ["FP16", "BF16", "FP8", "INT8", "INT4"],
+  "valid_node_counts": {"value": [1, 2, 4], "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "requirements 10.5"},
+  "gpus_per_unit": {"value": 1, "source_id": "NVIDIA-DGX-SPARK", "tier": "official", "accessed": "2026-11-07"},
+  "advertised_memory_gb": {"value": 128, "source_id": "NVIDIA-DGX-SPARK", "tier": "official", "accessed": "2026-11-07", "note": "coherent unified LPDDR5x; sized as discrete (ledger C-024)"},
+  "memory_bandwidth_gbs": {"value": 273, "source_id": "NVIDIA-DGX-SPARK", "tier": "official", "accessed": "2026-11-07"},
+  "base_prefill_tps_at_32k": {"value": 2000, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+  "idle_watts": {"value": 45, "source_id": "YT-16", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "load_watts": {"value": 140, "source_id": "NVIDIA-DGX-SPARK", "tier": "official", "accessed": "2026-11-07", "note": "GB10 TDP; power supply 240 W (ledger C-023)"},
+  "street_price": {"value": 6950, "currency": "EUR", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "YT-16 quotes USD 6,950; not web-verified"},
+  "datacenter_multiplier": {"value": 1.0, "source_id": "SPEC-02", "tier": "assumption", "accessed": "2026-11-07"},
+  "cabling_kits": [],
+  "lifecycle_clocks": {
+    "software_support_years": {"value": 5.0, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+    "resale_value_retention_3yr": {"value": 0.5, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"},
+    "cuda_or_rocm_status": "active-flagship"
+  }
+}

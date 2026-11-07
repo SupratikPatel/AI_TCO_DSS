@@ -1,0 +1,15 @@
+{
+  "id": "claude-sonnet-5-5",
+  "name": "Claude Sonnet 5.5",
+  "family": "Claude",
+  "type": "commercial-api",
+  "license_type": "Proprietary-API",
+  "architecture": "dense",
+  "max_context_length": {"value": 200000, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "to verify in Task 4"},
+  "api_prices": {
+    "input_per_1m": {"value": 2.00, "currency": "USD", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+    "output_per_1m": {"value": 10.00, "currency": "USD", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+    "cache_read_per_1m": {"value": 0.10, "currency": "USD", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"}
+  },
+  "eu_pinned_endpoint": {"value": true, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"}
+}

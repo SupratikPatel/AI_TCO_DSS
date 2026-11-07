@@ -1,0 +1,26 @@
+{
+  "id": "rtx-5070-strata-64gb",
+  "name": "NVIDIA GeForce RTX 5070 12GB + 64GB DDR5 (Strata offload)",
+  "vendor": "NVIDIA",
+  "deployment_mode": "tiered-offload-appliance",
+  "memory_architecture": "discrete",
+  "interconnect": "PCIe-Gen5",
+  "supported_native_precisions": ["FP16", "BF16", "FP8", "INT8", "INT4", "INT3"],
+  "valid_node_counts": {"value": [1], "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "requirements 10.5"},
+  "gpus_per_unit": {"value": 1, "source_id": "NVIDIA-RTX-5070-FAMILY", "tier": "official", "accessed": "2026-11-07"},
+  "advertised_memory_gb": {"value": 12, "source_id": "NVIDIA-RTX-5070-FAMILY", "tier": "official", "accessed": "2026-11-07"},
+  "system_ram_offload_gb": {"value": 64, "source_id": "YT-01", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "system_ram_total_installed_gb": {"value": 64, "source_id": "YT-01", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "memory_bandwidth_gbs": {"value": 672, "source_id": "GURU3D-RTX-5070", "tier": "third_party", "accessed": "2026-11-07", "note": "192-bit GDDR7 at 28 Gbps (ledger C-022)"},
+  "base_prefill_tps_at_32k": {"value": 2800, "source_id": "YT-01", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "idle_watts": {"value": 20, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+  "load_watts": {"value": 250, "source_id": "NVIDIA-RTX-5070-FAMILY", "tier": "official", "accessed": "2026-11-07", "note": "card Total Graphics Power; rest of the desktop not included"},
+  "street_price": {"value": 1848, "currency": "EUR", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "complete desktop with 64 GB DDR5; not web-verified"},
+  "datacenter_multiplier": {"value": 1.0, "source_id": "SPEC-02", "tier": "assumption", "accessed": "2026-11-07"},
+  "cabling_kits": [],
+  "lifecycle_clocks": {
+    "software_support_years": {"value": 5.0, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+    "resale_value_retention_3yr": {"value": 0.5, "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07"},
+    "cuda_or_rocm_status": "active-flagship"
+  }
+}

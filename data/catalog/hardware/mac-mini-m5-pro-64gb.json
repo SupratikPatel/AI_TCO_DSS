@@ -1,0 +1,26 @@
+{
+  "id": "mac-mini-m5-pro-64gb",
+  "name": "Mac mini (M5 Pro 64GB)",
+  "vendor": "Apple",
+  "deployment_mode": "per-seat-workstation",
+  "memory_architecture": "apple-unified",
+  "interconnect": "Thunderbolt-5-RDMA",
+  "supported_native_precisions": ["FP16", "BF16", "INT8", "INT4", "INT3"],
+  "valid_node_counts": {"value": [1], "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07", "note": "requirements 10.5"},
+  "gpus_per_unit": {"value": 1, "source_id": "APPLE-MAC-MINI-SPECS", "tier": "official", "accessed": "2026-11-07"},
+  "advertised_memory_gb": {"value": 64, "source_id": "APPLE-MAC-MINI-SPECS", "tier": "official", "accessed": "2026-11-07"},
+  "os_reserved_memory_ratio": {"value": 0.25, "source_id": "YT-18", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+  "tuned_max_usable_memory_gb": {"value": 58, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+  "memory_bandwidth_gbs": {"value": 307, "source_id": "APPLE-MAC-MINI-SPECS", "tier": "official", "accessed": "2026-11-07"},
+  "base_prefill_tps_at_32k": {"value": 1200, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+  "idle_watts": {"value": 6, "source_id": "APPLE-MAC-MINI-POWER", "tier": "official", "accessed": "2026-11-07", "note": "M5 Pro, 64 GB, 8 TB configuration"},
+  "load_watts": {"value": 145, "source_id": "APPLE-MAC-MINI-POWER", "tier": "official", "accessed": "2026-11-07", "note": "maximum, M5 Pro, 64 GB, 8 TB configuration"},
+  "street_price": {"value": 2699, "currency": "EUR", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "Apple DE store lists only base prices (M5 Pro from EUR 1,999 / 2,219) on 2026-11-07; 64 GB price not verified"},
+  "datacenter_multiplier": {"value": 1.0, "source_id": "SPEC-02", "tier": "assumption", "accessed": "2026-11-07"},
+  "cabling_kits": [],
+  "lifecycle_clocks": {
+    "software_support_years": {"value": 5.0, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+    "resale_value_retention_3yr": {"value": 0.6, "source_id": "YT-22", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
+    "cuda_or_rocm_status": "active-flagship"
+  }
+}

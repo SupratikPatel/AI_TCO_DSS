@@ -1,0 +1,22 @@
+{
+  "id": "gpt-oss-120b",
+  "name": "gpt-oss-120b",
+  "family": "gpt-oss",
+  "type": "open-weights",
+  "license_type": "Apache-2.0",
+  "architecture": "moe",
+  "attention_mechanism": "hybrid-sparse",
+  "total_parameters_billions": {"value": 117, "source_id": "HF-GPT-OSS-120B", "tier": "official", "accessed": "2026-11-07"},
+  "active_parameters_billions": {"value": 5.1, "source_id": "HF-GPT-OSS-120B", "tier": "official", "accessed": "2026-11-07"},
+  "calibrated_weights_gb": [
+    {"precision": "INT4", "value": {"value": 63.0, "source_id": "UNSLOTH-GGUF", "tier": "official", "accessed": "2026-11-07", "note": "native MXFP4 experts; UD-Q4_K_XL"}}
+  ],
+  "token_agreement_rates": [],
+  "num_layers": {"value": 36, "source_id": "HF-GPT-OSS-120B", "tier": "official", "accessed": "2026-11-07"},
+  "active_kv_layer_ratio": {"value": 0.5, "source_id": "HF-GPT-OSS-120B", "tier": "official", "accessed": "2026-11-07", "note": "18 of 36 layers full attention; 18 sliding-window layers (128 tokens)"},
+  "num_kv_heads": {"value": 8, "source_id": "HF-GPT-OSS-120B", "tier": "official", "accessed": "2026-11-07"},
+  "head_dim": {"value": 64, "source_id": "HF-GPT-OSS-120B", "tier": "official", "accessed": "2026-11-07"},
+  "max_context_length": {"value": 131072, "source_id": "HF-GPT-OSS-120B", "tier": "official", "accessed": "2026-11-07"},
+  "supports_builtin_mtp": false,
+  "open_weights_output_price_per_1m": {"value": 0.074, "currency": "USD", "source_id": "OPENROUTER-MODELS", "tier": "third_party", "accessed": "2026-11-07"}
+}

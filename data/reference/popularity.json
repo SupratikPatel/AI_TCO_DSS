@@ -1,0 +1,8 @@
+{"snapshot_date": "2026-11-06", "source_id": "OPENROUTER-RANKINGS", "tier": "third_party", "accessed": "2026-11-07",
+ "entries": [
+   {"model_id": "deepseek-v4-1-flash", "value": 17237.6},
+   {"model_id": "glm-5-3-flash", "value": 14058.8},
+   {"model_id": "claude-opus-5-5", "value": 6592.3},
+   {"model_id": "gpt-6-1", "value": 3755.2},
+   {"model_id": "kimi-k3-1-pro", "value": 3527.0}
+ ]}

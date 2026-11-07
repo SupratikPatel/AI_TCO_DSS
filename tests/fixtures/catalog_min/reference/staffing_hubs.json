@@ -1,0 +1,28 @@
+{
+  "hubs": [
+    {
+      "id": "de-munich-hq",
+      "base_salary": {"value": 120000, "currency": "EUR", "source_id": "IND-06", "tier": "official", "accessed": "2026-11-07"},
+      "employer_social_tax_pct": {"value": 21.0, "source_id": "IND-06", "tier": "official", "accessed": "2026-11-07"},
+      "recruiting_delay_months": {"value": 8, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "7.7 rounded up to whole months (ledger C-016)"}
+    },
+    {
+      "id": "de-berlin-hamburg",
+      "base_salary": {"value": 100000, "currency": "EUR", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+      "employer_social_tax_pct": {"value": 21.0, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+      "recruiting_delay_months": {"value": 7, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "6.5 rounded up to whole months (ledger C-016)"}
+    },
+    {
+      "id": "ro-cluj-bucharest",
+      "base_salary": {"value": 75000, "currency": "EUR", "source_id": "IND-06", "tier": "official", "accessed": "2026-11-07"},
+      "employer_social_tax_pct": {"value": 2.25, "source_id": "IND-06", "tier": "official", "accessed": "2026-11-07"},
+      "recruiting_delay_months": {"value": 3, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "2.5 rounded up to whole months (ledger C-016)"}
+    },
+    {
+      "id": "pl-warsaw-krakow",
+      "base_salary": {"value": 82000, "currency": "EUR", "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07"},
+      "employer_social_tax_pct": {"value": 12.0, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "open, ledger C-010"},
+      "recruiting_delay_months": {"value": 4, "source_id": "SPEC-03", "tier": "assumption", "accessed": "2026-11-07", "note": "3.2 rounded up to whole months (ledger C-016)"}
+    }
+  ]
+}
