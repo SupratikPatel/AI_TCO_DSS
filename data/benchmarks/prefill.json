@@ -1,0 +1,5 @@
+{
+  "records": [
+    {"metric": "prefill_tps", "value": 2800.0, "model_id": "qwen-3-8-flash-next", "hardware_id": "rtx-5070-strata-64gb", "precision": "INT4", "context_tokens": 32768, "source_id": "YT-01", "tier": "community", "accessed": "2026-11-07", "note": "single-source"}
+  ]
+}

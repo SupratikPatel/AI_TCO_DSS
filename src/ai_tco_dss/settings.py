@@ -6,6 +6,8 @@ there are listed in the ledger's Assumptions table. Bounds live in the
 into ``ConfigurationError`` (Req 9.10).
 """
 
+from itertools import pairwise
+
 from pydantic import ValidationError
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -94,10 +96,19 @@ def _configuration_error(exc: ValidationError) -> ConfigurationError:
     return ConfigurationError(setting, error.get("input"))
 
 
+def _check_delta_ctx(breakpoints: tuple[tuple[int, float], ...]) -> None:
+    """Req 20.6: at least one breakpoint, contexts increasing, factors not increasing."""
+    pairs = list(pairwise(breakpoints))
+    if not breakpoints or any(c1 <= c0 or d1 > d0 for (c0, d0), (c1, d1) in pairs):
+        raise ConfigurationError("delta_ctx_breakpoints", breakpoints)
+
+
 def load_engine_parameters() -> EngineParameters:
     """Build `EngineParameters` from defaults and `AI_TCO_*` environment variables."""
     try:
         settings = Settings()
-        return EngineParameters.model_validate(settings.model_dump())
+        params = EngineParameters.model_validate(settings.model_dump())
     except ValidationError as exc:
         raise _configuration_error(exc) from exc
+    _check_delta_ctx(params.delta_ctx_breakpoints)
+    return params

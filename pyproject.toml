@@ -16,6 +16,7 @@ dependencies = [
 [project.scripts]
 ai-tco-schemas = "ai_tco_dss.domain.export_schemas:main"
 ai-tco-validate = "ai_tco_dss.catalog.validate:main"
+ai-tco-calibrate = "ai_tco_dss.services.calibration_report:main"
 
 [build-system]
 requires = ["hatchling"]
