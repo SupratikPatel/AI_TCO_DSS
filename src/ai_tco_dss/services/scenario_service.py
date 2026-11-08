@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 
 from ai_tco_dss.catalog import CatalogRepository, get_default_repository
+from ai_tco_dss.decision import apply_hard_filters, generate_candidates, rank_candidates
 from ai_tco_dss.domain import (
     BaselineDInput,
     BaselineInput,
@@ -13,12 +14,14 @@ from ai_tco_dss.domain import (
     BenchmarkQuery,
     BenchmarkSet,
     CandidateEvaluation,
+    CandidateInput,
     CandidateKind,
     Catalog,
     CatalogItem,
     CatalogOverview,
     DeploymentMode,
     EngineParameters,
+    FilterInput,
     FxInfo,
     HardwareSpec,
     HybridCostInput,
@@ -28,8 +31,13 @@ from ai_tco_dss.domain import (
     PerformanceResult,
     PrecisionFormat,
     QualityScore,
+    RankingInput,
+    Recommendation,
+    RecommendRequest,
     RentalCostInput,
     Scenario,
+    ScenarioRequest,
+    ScenarioResult,
     SizeRequest,
     SizeResult,
     SizingInput,
@@ -286,7 +294,7 @@ def _archetype(hardware: HardwareSpec) -> str:
     return "Sovereign Centralized Server / PD-Disagg"
 
 
-def project_tco(request: TcoRequest, *, repo: CatalogRepository | None = None) -> TcoProjection:
+def _project_onprem(request: TcoRequest, *, repo: CatalogRepository | None = None) -> TcoProjection:
     """TCO of one on-premise candidate plus Baselines A to C for View 2 and the audit drawer
     (Req 13.7, 22-26, 38.7, 38.8), anchored on the explicitly selected deployment."""
     request = TcoRequest.model_validate(request)
@@ -387,3 +395,122 @@ def project_tco(request: TcoRequest, *, repo: CatalogRepository | None = None) -
         params,
     )
     return TcoProjection(candidate=candidate, timeline=timeline, baselines=baselines)
+
+
+def recommend(
+    request: RecommendRequest, *, repo: CatalogRepository | None = None
+) -> Recommendation:
+    """Enumerate, filter and rank using one repository snapshot (Req 27-29/38)."""
+    request = RecommendRequest.model_validate(request)
+    catalog = _repository(repo).catalog(request.scenario.fx_override)
+    return _recommend(catalog, request.scenario, load_engine_parameters())
+
+
+def _recommend(catalog: Catalog, scenario: Scenario, params: EngineParameters) -> Recommendation:
+    preset = next((p for p in catalog.presets if p.id == scenario.decision.preset), None)
+    use_case = next((u for u in catalog.use_cases if u.id == scenario.decision.use_case), None)
+    if preset is None:
+        raise UnknownIdentifierError("preset", scenario.decision.preset)
+    if use_case is None:
+        raise UnknownIdentifierError("use case", scenario.decision.use_case)
+    if scenario.decision.reference_api_model_id:
+        _model(catalog, scenario.decision.reference_api_model_id)
+    candidates = generate_candidates(CandidateInput(catalog=catalog, scenario=scenario), params)
+    filtered = apply_hard_filters(
+        FilterInput(candidates=candidates.candidates, scenario=scenario, use_case=use_case), params
+    )
+    ranking = rank_candidates(
+        RankingInput(
+            feasible=filtered.feasible,
+            weights=scenario.decision.weights or preset.weights,
+            method=scenario.decision.method,
+        ),
+        params,
+    )
+    return Recommendation(
+        use_case=scenario.decision.use_case,
+        method=ranking.method,
+        weights_normalised=ranking.weights_normalised,
+        ranked=ranking.ranked,
+        rejected=filtered.rejected,
+        explanation=ranking.explanation,
+        ranking_error=ranking.ranking_error,
+        warnings=candidates.warnings,
+    )
+
+
+def _anchor(recommendation: Recommendation) -> str | None:
+    if recommendation.ranked:
+        top = recommendation.ranked[0].evaluation
+        if top.kind == CandidateKind.ONPREM:
+            return top.candidate_id
+    all_candidates = (*[r.evaluation for r in recommendation.ranked], *recommendation.rejected)
+    hybrid = next((c for c in all_candidates if c.kind == CandidateKind.HYBRID), None)
+    return hybrid.local_candidate_id if hybrid else None
+
+
+def evaluate_scenario(
+    request: ScenarioRequest, *, repo: CatalogRepository | None = None
+) -> ScenarioResult:
+    """Complete scenario plus the on-premise timeline anchor of design D-09."""
+    request = ScenarioRequest.model_validate(request)
+    repository = _repository(repo)
+    scenario = request.scenario
+    catalog = repository.catalog(scenario.fx_override)
+    recommendation = _recommend(catalog, scenario, load_engine_parameters())
+    anchor_id = _anchor(recommendation)
+    projection = (
+        _project_onprem(TcoRequest(scenario=scenario, candidate_id=anchor_id), repo=repository)
+        if anchor_id
+        else None
+    )
+    return ScenarioResult(
+        scenario=scenario,
+        recommendation=recommendation,
+        baselines=projection.baselines
+        if projection
+        else _baselines(catalog, scenario, load_engine_parameters()),
+        timeline=projection.timeline if projection else None,
+        fx_rate=catalog.fx_active_rate,
+        fx_source_id=catalog.fx.source_id,
+        fx_rate_date=catalog.fx.rate_date,
+        fx_is_override=catalog.fx_is_override,
+        sources=catalog.sources,
+        warnings=recommendation.warnings,
+    )
+
+
+def project_tco(request: TcoRequest, *, repo: CatalogRepository | None = None) -> TcoProjection:
+    """Project any generated candidate; preserve the independent on-premise simulator."""
+    request = TcoRequest.model_validate(request)
+    repository = _repository(repo)
+    result = recommend(RecommendRequest(scenario=request.scenario), repo=repository)
+    candidates = (*[r.evaluation for r in result.ranked], *result.rejected)
+    candidate = next((c for c in candidates if c.candidate_id == request.candidate_id), None)
+    if candidate is None:
+        if request.candidate_id.startswith("onprem:"):
+            return _project_onprem(request, repo=repository)
+        if not request.candidate_id.startswith(("api:", "rental:", "hybrid:")):
+            raise EngineInputError("candidate_id", "onprem:, api:, rental: or hybrid: identifier")
+        raise UnknownIdentifierError("candidate", request.candidate_id)
+    anchor_id = (
+        candidate.candidate_id if candidate.kind == CandidateKind.ONPREM else _anchor(result)
+    )
+    projection = (
+        _project_onprem(
+            TcoRequest(scenario=request.scenario, candidate_id=anchor_id), repo=repository
+        )
+        if anchor_id
+        else None
+    )
+    return TcoProjection(
+        candidate=candidate,
+        timeline=projection.timeline if projection else None,
+        baselines=projection.baselines
+        if projection
+        else _baselines(
+            repository.catalog(request.scenario.fx_override),
+            request.scenario,
+            load_engine_parameters(),
+        ),
+    )

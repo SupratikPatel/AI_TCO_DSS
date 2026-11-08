@@ -44,8 +44,29 @@
 | C-039 | 2026-11-07 | `TcoInput` has no target context or backend factor (Task 7) | design.md TCO_Engine: aggregate-throughput records match the target context (Req 23.3); eviction wait_h = target_context / (prefill × β) / 3600 (Req 22.8) | target context = round(`sizing.m_kv_single_gb` × 10⁹ / `sizing.kv_per_token_bytes`) (the Sizing_Engine computes M_kv_single = kv_per_token × context / 10⁹); wait_h uses the Performance_Engine prefill rate without β | design.md § "TCO_Engine", § "Performance_Engine" | `TcoInput` carries no `SizingOptions` and `src/ai_tco_dss/domain/` is outside the Task 7 scope. β = 1.0 is the default (optimized backend); with `enable_optimized_backend = false` the eviction wait time is understated by the factor 1/0.035. Contract change proposal: `options: SizingOptions` on `TcoInput` |
 | C-040 | 2026-11-07 | Gateway fee provenance in Baseline C (Task 7) | requirements 24.11: Value_Origin lists the source_ids of the prices and Reference_Data used | Baseline C lists the token-price source_ids only; the gateway fee source (`ASSUMPTION-MVP` in `baselines.json`) is missing | requirements 24.11, design.md § "Baseline_Engine" | `BaselineInput.gateway_fee_usd` and `ApiCostInput.gateway_fee_usd` are plain floats, and `src/ai_tco_dss/domain/` is outside the Task 7 scope. Contract change proposal: `gateway_fee: Money` on both inputs |
 | C-041 | 2026-11-07 | Hybrid resale boundary | Req 25.5 omits resale, while Req 25.3 requires the 100% local hybrid to equal the resale-adjusted on-premise timeline | Subtract the same local resale value from both on-premise and hybrid timeline series when enabled | requirements 25.3, 25.5, 26.3 | Preserve the local=100% equality; standalone HybridCost.cost_60m remains gross (its input has no resale switch) |
+| C-042 | 2026-11-08 | Hybrid hard-filter contract gap | CandidateEvaluation lacks endpoint/context facts and component evaluations | Add filter facts and component results; evaluate each component, with reduced local demand | requirements 27.4, 28.3/7; design Decision pipeline | Scope extends to domain/results.py and three generated result schemas; details below |
+| C-043 | 2026-11-08 | Rental RAM total versus per-node sizing | Design copies total rental RAM into a field multiplied by nodes | Construct per-node RAM as rental total / GPU count; preserve catalog total | RentalSpec; design rental sizing; requirements 18, 27.3 | Full hardware inputs are part of the local cache key; details below |
 
 ## Contract Deviations (spec 04 → domain contracts)
+
+Task 9 scope extension authorized by the 2026-11-08 implementation request:
+`domain/results.py` and the generated `schemas/{Recommendation,ScenarioResult,TcoProjection}.json`
+are included to resolve C-042. Existing fields and constructors remain compatible.
+
+- **C-042 (2026-11-08): hybrid filter evidence.** Old: `CandidateEvaluation` carried only
+  weighted metrics, with no endpoint/context facts; `FilterInput` has no catalog. New:
+  `model_max_context_tokens`, `api_has_eu_endpoint` and `components` (local and API
+  evaluations) travel with each result. All nine rules inspect applicable components;
+  failures identify every offending component. The local component is recomputed with
+  `TcoInput.demand_share = local_offload_ratio`, keeping utilization, flags and traces
+  consistent. Sources: requirements 27.4, 28.3/7 and design Decision pipeline.
+- **C-043 (2026-11-08): rental host RAM units.** Old design wording copied the rental's
+  total server RAM into a hardware field which sizing multiplies by node count. New:
+  divide rental RAM by GPU count when constructing the per-node sizing input, preserving
+  the rental total in the sizing result. Cache keys include the complete hardware input
+  and demand share, preventing reuse across distinct host-memory configurations. Sources:
+  `RentalSpec.system_ram_total_installed_gb`, design rental sizing and requirements 18/27.3.
+  No catalog value changed; direct oracle tests cover all six rentals and every model.
 "absent" means the field is not in spec 04; "removed" means the domain contract has no such field. All numeric catalog fields are additionally wrapped in `Sourced[T]` / `Money` (design D-01), and spec 04 `Dict`/`List` fields become tuples (D-03).
 
 | Contract | Field / member | Old | New | Sources | Date |

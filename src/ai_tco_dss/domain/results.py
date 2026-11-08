@@ -199,6 +199,10 @@ class CandidateEvaluation(Contract):
     eu_compliant: bool
     failures: tuple[FilterFailure, ...]
     notes: tuple[str, ...]
+    # Filter facts travel with the evaluation; hybrid averages cannot establish feasibility.
+    model_max_context_tokens: int | None = None
+    api_has_eu_endpoint: bool = False
+    components: tuple["CandidateEvaluation", ...] = ()
 
 
 class CandidateSet(Contract):

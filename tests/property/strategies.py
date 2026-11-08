@@ -21,6 +21,7 @@ from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 
 from ai_tco_dss.domain import (
+    CandidateEvaluation,
     Contract,
     LifecycleClocks,
     ModelSpec,
@@ -162,7 +163,33 @@ def _timeline_points() -> st.SearchStrategy[tuple[MonthlyTcoPoint, ...]]:
     )
 
 
+def _candidate_tree() -> st.SearchStrategy[CandidateEvaluation]:
+    """Generate bounded recursive component trees instead of recursing at construction.
+
+    Exercise leaf, hybrid and nested JSON round trips; max_leaves limits example size,
+    not the production contract's component depth.
+    """
+    fields = {
+        name: for_type(info.annotation, list(info.metadata))
+        for name, info in CandidateEvaluation.model_fields.items()
+        if name != "components"
+    }
+    leaves = st.builds(CandidateEvaluation, components=st.just(()), **fields)
+    return st.recursive(
+        leaves,
+        lambda children: st.builds(
+            CandidateEvaluation,
+            components=st.lists(children, min_size=1, max_size=2).map(tuple),
+            **fields,
+        ),
+        max_leaves=4,
+    )
+
+
 FIELD_OVERRIDES: dict[tuple[str, str], Callable[[], st.SearchStrategy[Any]]] = {
+    ("CandidateEvaluation", "components"): lambda: st.lists(_candidate_tree(), max_size=2).map(
+        tuple
+    ),
     ("Scenario", "fx_override"): lambda: FX_OVERRIDE,
     ("TimelineResult", "points"): _timeline_points,
 }

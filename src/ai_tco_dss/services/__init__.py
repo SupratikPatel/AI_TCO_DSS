@@ -2,9 +2,18 @@
 
 from ai_tco_dss.services.scenario_service import (
     catalog_overview,
+    evaluate_scenario,
     load_workload,
     project_tco,
+    recommend,
     size,
 )
 
-__all__ = ["catalog_overview", "load_workload", "project_tco", "size"]
+__all__ = [
+    "catalog_overview",
+    "evaluate_scenario",
+    "load_workload",
+    "project_tco",
+    "recommend",
+    "size",
+]

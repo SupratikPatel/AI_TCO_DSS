@@ -1,17 +1,23 @@
 # Progress — AI TCO DSS MVP
 
 ## Current Status
+Task 9 implementation is complete: deterministic candidates, all nine hard filters with complete rejection reasons, measured-first quality/fallback ratios, six-criterion SAW, explanations, recommend/evaluate services and FastAPI routes, and the actual Stitch Ranking screen with working Normal-mode controls. Python remains the numerical authority. Default inputs yield 36 admissible / 637 rejected candidates; the leading option is RTX Pro 6000 Blackwell 96 GB x4 + DeepSeek V4.1 Flash INT4 (SAW 0.817 rounded). TOPSIS remains Task 10.
+
+The hybrid contract gap is resolved with explicit context/endpoint facts and component evaluations, with local utilization recomputed at the local demand share (C-042). Rental host RAM is divided per node only when constructing the sizing input, preserving the server total and keeping hardware configurations distinct in the local cache (C-043). The request explicitly authorizes the necessary extension to `domain/results.py` and three generated result schemas.
+
+Task 9 validation: focused Python/API tests, SAW property tests, recursive contract round trips, strict mypy, ruff/format, catalog validation, frontend type/lint/build, seven component tests, OpenAPI drift and launcher startup/proxy/cleanup pass. Browser evidence covers both themes at 1280/1440/768/390 CSS px, real controls, all rejection reasons, empty/server/loading states, delayed stale responses and independent memory inputs. See `frontend/TASK9_REVIEW.md` and `frontend/ranking-comparison.html`. **Final verification:** `uv run python scripts/verify.py tests/unit/test_decision.py tests/integration/test_service_end_to_end.py` passes all 49 focused tests, ruff/format, strict mypy and catalog validation; its full suite reports **703 passed, 3 calibration xfailed, 3 failures solely from missing thesis/thesis_notes.md and thesis/literature.bib**. All **23 Chromium flows/screenshots**, seven component tests, frontend type/lint/build, OpenAPI drift and launcher checks pass. Five warm recommend calls have median **0.247 s**. The unrelated missing-thesis gate is retained without changing its tests.
+
 Windows shortcut: double-click `run.bat` to sync Python dependencies, install web dependencies on first use, start the React UI/API and open the browser. Keep its console open; Ctrl+C stops both services. Updated at the author's request on 2026-11-08; launcher startup/proxy/cleanup verification passes.
 
 Tasks 1–7 remain complete. **Task 8's React/TypeScript + Vite/Tailwind/shadcn foundation and FastAPI size/TCO vertical slice are implemented and visually verified.** Root `npm run dev` starts Vite at 127.0.0.1:5173 and Python at 127.0.0.1:8000, proxies API calls and terminates both children. Python remains the numerical authority; the existing rental/hybrid/timeline implementation is reused unchanged.
 
-All twelve canonical Stitch screens have local HTML and screenshot exports, design-system JSON, a resource/dimension manifest and implementation tokens under `design/stitch/`. Real Chromium screenshots cover memory/TCO in both themes at 1280/1440/768/390 CSS px, plus loading/catalog-error/OOM states. See `design/stitch/REVIEW.md` and `comparison.html`. The UI includes separate memory/TCO controls, real charts/tables, display-only EUR, validated scenario edits, stale-request protection, retained last-valid results and explicit loading/error/infeasible states. Rankings, full Expert weights/TOPSIS, final chart/KPI polish and audit/downloads remain Tasks 9–12; production serving/CI and Streamlit retirement remain Task 13.
+All twelve canonical Stitch screens have local HTML and screenshot exports, design-system JSON, a resource/dimension manifest and implementation tokens under `design/stitch/`. Real Chromium screenshots cover ranking/memory/TCO in both themes at 1280/1440/768/390 CSS px, plus loading/catalog-error/OOM states. See `design/stitch/REVIEW.md`, `comparison.html` and the Task 9 frontend review. The UI includes separate memory/TCO controls, real charts/tables, display-only EUR, validated scenario edits, stale-request protection, retained last-valid simulator results and explicit loading/error/infeasible states. Full Expert weights/TOPSIS, final chart/KPI polish and audit/downloads remain Tasks 10–12; production serving/CI and Streamlit retirement remain Task 13.
 
-Verification: API/service parity and errors pass; frontend type/lint/build, generated-type drift, five component/state tests, browser flows/screenshots and launcher startup/proxy/cleanup pass. Python ruff/format, strict mypy and catalog validation pass. The required verification helper reaches the full suite: **652 passed, 3 calibration xfailed, 3 failed solely because thesis/thesis_notes.md and thesis/literature.bib are missing**. The three historical relocation failures caused by the already-approved web notices were resolved with an exact amendment whitelist that still compares the remaining original content. Unrelated thesis files/tests are preserved and not newly staged.
+Task 8 verification: API/service parity and errors pass; frontend type/lint/build, generated-type drift, five component/state tests, browser flows/screenshots and launcher startup/proxy/cleanup pass. Python ruff/format, strict mypy and catalog validation pass. The required verification helper reaches the full suite: **652 passed, 3 calibration xfailed, 3 failed solely because thesis/thesis_notes.md and thesis/literature.bib are missing**. The three historical relocation failures caused by the already-approved web notices were resolved with an exact amendment whitelist that still compares the remaining original content. Unrelated thesis files/tests are preserved and not newly staged.
 
-**Administrative completion gate:** Task 8 and subtask 8.6 remain `in-progress` solely under CLAUDE.md Project Rule 8 (full pytest must have zero failures). No functional or browser acceptance work remains for the Task 8 slice. Do not invent thesis documents or weaken their tests to satisfy the gate. Once the author restores those documents or explicitly changes that gate, rerun verification and close Task 8; the next implementation task is Task 9. Numerical-calibration issues and .kiro relocation remain deferred.
+**Administrative completion gate:** Tasks 8/9 and subtasks 8.6/9.6 remain `in-progress` under CLAUDE.md Project Rule 8 (full pytest must have zero failures). No functional acceptance work remains for these implemented slices. Do not invent thesis documents or weaken their tests to satisfy the gate. Once the author restores those documents or explicitly changes that gate, rerun verification and close both tasks; the next implementation task is Task 10. Numerical-calibration issues and .kiro relocation remain deferred.
 
-Open points for the author from Task 7: Req 22.3 limits H_active to 730 h while the Workload_Profile allows 744 h, so profiles above 730 h get no on-premise TCO (C-038, requirement change proposal). `TcoInput` lacks `SizingOptions`, so the target context is derived from the sizing result and the eviction wait time ignores β_backend (C-039); Baseline C does not list the gateway-fee source id because the baseline inputs carry the fee as a float (C-040); both have contract change proposals. No hardware item has a cabling kit, so multi-node CapEx has no switch cost. `project_tco` fills `quality=None`, `risk=0.0` and `popularity=0.0` with a note until the Decision_Engine of Task 9 computes them. During the demo one cold server start logged a plotly/pandas "partially initialized module" error in the unchanged View 1 chart; it did not reproduce on a second cold start or in three fresh sessions.
+Open points for the author from Task 7: Req 22.3 limits H_active to 730 h while the Workload_Profile allows 744 h, so profiles above 730 h get no on-premise TCO (C-038, requirement change proposal). `TcoInput` lacks `SizingOptions`, so the target context is derived from the sizing result and the eviction wait time ignores β_backend (C-039); Baseline C does not list the gateway-fee source id because the baseline inputs carry the fee as a float (C-040); both have contract change proposals. No hardware item has a cabling kit, so multi-node CapEx has no switch cost. Task 9 now resolves quality, risk and popularity for generated `project_tco` candidates. During the demo one cold server start logged a plotly/pandas "partially initialized module" error in the unchanged View 1 chart; it did not reproduce on a second cold start or in three fresh sessions.
 
 Task 6 summary: Task 6 added the measured-first resolver (`engines/resolver.py`, `select_benchmark`), the Performance_Engine (`engines/performance.py`: `compute_performance`, `compute_api_performance`, `delta_ctx`), a δ_ctx breakpoint check in `settings.py`, the Calibration_Report CLI (`services/calibration_report.py`, console script `ai-tco-calibrate`, writes `reports/calibration.csv`), the first decode and prefill Benchmark_Records (`data/benchmarks/decode.json` with 6 records, `prefill.json` with 1 record, all from the spec 06 YouTube summaries, tier `community`) and the performance table of the View 1 card. `size` now returns `PerformanceResult` for feasible pairings and the AA v5 `QualityScore`. Demo checked with a headless app through the agent API: Mac mini M5 Pro 64GB + Qwen 3.8-27B INT4 at 8 192 tokens shows decode 14.7 tok/s `measured (YT-18)`, prefill 1,200 tok/s, TTFT 20.0 s and effective TPS 13.6 tok/s `formula`, and the bar label "AA v5 20.1". `uv run ai-tco-calibrate` prints decode: 6 records, MAPE 252.0 % (dominated by the offload record C-036; the other five are 5.1 % to 59.3 %), prefill: 1 record, MAPE 0.0 % (circular, C-037). Three calibration cases are expected failures with ledger ids C-035 (Flash Next on M5 Ultra, 2 records) and C-036 (DeepSeek INT2 on Strata). After Task 6 the full suite had 512 passing tests and 3 xfailed.
 
@@ -133,13 +139,13 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 8.4 | Implement React shell, scenario controls and real memory/TCO panels matching Stitch | done | 2026-11-08 |
 | 8.5 | Implement root npm run dev orchestration and frontend type/build/component/browser checks | done | 2026-11-08 |
 | 8.6 | Run browser reference comparisons, verify Python and web checks, update progress and next prompt | in-progress | |
-| 9 | Decision engine (SAW), use cases, presets and Normal-mode web recommendations | not-started | |
-| 9.1 | Write failing candidate, filter, quality, SAW and service tests | not-started | |
-| 9.2 | Implement quality resolution, candidate enumeration and all hard filters | not-started | |
-| 9.3 | Implement criterion normalization, ranking and explanations | not-started | |
-| 9.4 | Expose recommend/evaluate through FastAPI and generate client types | not-started | |
-| 9.5 | Build the Stitch ranking tab and Normal-mode flow with real result states | not-started | |
-| 9.6 | Verify Python/API/frontend/browser checks and update progress | not-started | |
+| 9 | Decision engine (SAW), use cases, presets and Normal-mode web recommendations | in-progress | |
+| 9.1 | Write failing candidate, filter, quality, SAW and service tests | done | 2026-11-08 |
+| 9.2 | Implement quality resolution, candidate enumeration and all hard filters | done | 2026-11-08 |
+| 9.3 | Implement criterion normalization, ranking and explanations | done | 2026-11-08 |
+| 9.4 | Expose recommend/evaluate through FastAPI and generate client types | done | 2026-11-08 |
+| 9.5 | Build the Stitch ranking tab and Normal-mode flow with real result states | done | 2026-11-08 |
+| 9.6 | Verify Python/API/frontend/browser checks and update progress | in-progress | |
 | 10 | TOPSIS, Expert web controls and FX override | not-started | |
 | 10.1 | Write failing TOPSIS and Expert interaction tests | not-started | |
 | 10.2 | Implement TOPSIS and service/API pass-through | not-started | |
@@ -260,6 +266,9 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 2026-11-08 | Task 8 adds Python scenario-default/validation and options metadata endpoints, editable shadcn primitives and a direct .venv process launcher | Defaults/valid node counts stay in Python; Vite proxies a stateless API; launcher cleanup is tested without depending on shell activation | 43.1, 43.2, 43.5, 43.7, 43.9 |
 | 2026-11-08 | Historical relocation checks allow only the exact approved migration amendments; full Task 8 status stays in progress for missing thesis documents | Preserve original domain text and existing unrelated tests; prompt-order test follows the user/Project Rule 1 progress-first instruction; Project Rule 8 still requires a zero-failure full suite | 1.10, 41.2, Task 8.6 |
 
+| 2026-11-08 | Task 9 resolves hybrid filtering using explicit component results/context/endpoint facts; rental server RAM is converted to a per-node sizing input. Scope extends to domain/results.py and generated result schemas, as required by the user's contract-gap instruction | Weighted averages cannot prove component feasibility; sizing multiplies host RAM by nodes. Recursive property generation now exercises nested component round trips without reducing assertions | C-042, C-043; Req 27-29, 38, 43 |
+| 2026-11-08 | Ranking is the initial tab; Normal changes use Python defaults plus only use case/users/preset, with SAW preset weights. Shared KPIs now reference rank 1 rather than the independent TCO simulator | Real recommendation workflow; preserve simulator independence. Full Expert controls, TOPSIS and final KPI polish remain later tasks | Req 33, 34; Tasks 9-11 |
+
 ## Changelog
 | Date | Task | Files created or modified |
 |---|---|---|
@@ -278,6 +287,8 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 2026-11-08 | 8 | Implemented frontend/, root npm workspace/lock, scripts/dev.mjs + launcher test, OpenAPI export/type-drift scripts, src/ai_tco_dss/api/, Python dependencies/lock and API/foundation tests; exported all Stitch assets and visual review/comparison under design/stitch/; adapted exact approved-amendment handling in repository-layout tests; updated README, migration/reference docs, tasks and progress. Size/TCO browser slice verified; completion gate remains in progress only for three unrelated missing-thesis test failures. |
 
 | 2026-11-08 | 8 | Author-requested Windows launcher update: run.bat now starts the React UI/API and opens the browser via scripts/dev.mjs --open; README updated. Startup/proxy/cleanup test passes. This explicitly requested launcher change extends the earlier Task 8 file scope to run.bat. |
+
+| 2026-11-08 | 9 | Created decision/{candidates,filters,quality,ranking}.py; added recommend/evaluate orchestration and routes, result filter facts/components, regenerated three JSON schemas and frontend types; created Ranking.tsx, Normal scenario helper, decision/property/API/component/browser tests, recursive strategy support, reviewed screenshots/comparison and frontend/TASK9_REVIEW.md; updated services/API exports, shared app/KPIs/styles, legacy web expectations, ledger and progress. No commit or push. |
 
 ## Known Deviations
 | Deviation | Ledger entries |
@@ -300,38 +311,50 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | Baseline C does not list the gateway-fee source id | C-040 |
 
 | Hybrid and on-premise timelines share the resale adjustment to preserve the 100% local boundary | C-041 |
+| Hybrid filtering requires explicit component facts and reduced local demand; rental host RAM is a server total | C-042, C-043 |
 
 ## Next Step
-Task 8 - Stitch web foundation, FastAPI boundary and size/TCO vertical slice (completion gate only; next implementation is Task 9)
+Task 9 - Decision engine (SAW), use cases, presets and Normal-mode web recommendations: final verification/completion gate. Implementation is complete; next implementation is Task 10 (TOPSIS, Expert web controls and FX override).
 
 ## Next Session Prompt
 ```text
-Read progress.md first. Then review the session contracts in this order:
+Continue AI TCO DSS at C:\TUM\Thesis\AI_TCO_DSS.
+
+Read progress.md first, then:
 1. CLAUDE.md
-2. progress.md
-3. .kiro/specs/ai-tco-dss-mvp/requirements.md (especially Requirement 43)
-4. .kiro/specs/ai-tco-dss-mvp/design.md (active web delivery architecture)
-5. .kiro/specs/ai-tco-dss-mvp/tasks.md
-6. specs/08_MVP_DESIGN_REFERENCE.md and specs/09_WEB_FRONTEND_MIGRATION.md
+2. specs/09_WEB_FRONTEND_MIGRATION.md
+3. specs/08_MVP_DESIGN_REFERENCE.md
+4. .kiro/specs/ai-tco-dss-mvp/requirements.md (27-33, 38, 43)
+5. .kiro/specs/ai-tco-dss-mvp/design.md (Decision pipeline, Service Layer)
+6. .kiro/specs/ai-tco-dss-mvp/tasks.md
 
-Resume Task 8 "Stitch web foundation, FastAPI boundary and size/TCO vertical slice" completion gate only.
-The web/API implementation and browser reference review are already done; do not rebuild them.
-Task_Scope (identical to tasks.md):
+Resume Task 9 verification/completion gate. Its implementation is complete.
+Task_Scope:
   Load: `CLAUDE.md` section "Project Rules"; `progress.md` (whole file); `requirements.md` section "Requirement 43: Dedicated Web Frontend and Stitch Fidelity"; `design.md` section "Web delivery architecture (active)"; `specs/05_VISUALIZATION_UX_AND_SYSTEM_DESIGN.md`
-  Modify: `frontend/`, `package.json`, `package-lock.json`, `design/stitch/`, `src/ai_tco_dss/api/`, `pyproject.toml`, `uv.lock`, `scripts/`, `tests/unit/`, `tests/integration/`, `.gitignore`, `README.md`, `specs/08_MVP_DESIGN_REFERENCE.md`, `specs/09_WEB_FRONTEND_MIGRATION.md`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`, `.kiro/specs/ai-tco-dss-mvp/tasks.md`
-  Verify: uv run python scripts/verify.py tests/unit/test_api.py tests/integration/test_web_api.py
+  Modify: `src/ai_tco_dss/decision/`, `src/ai_tco_dss/services/`, `src/ai_tco_dss/api/`, `frontend/`, `tests/`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`
+  Verify: uv run python scripts/verify.py tests/unit/test_decision.py tests/integration/test_service_end_to_end.py
 
-Last full suite: 652 passed, 3 known calibration xfailed, 3 failures from missing
-thesis/thesis_notes.md and thesis/literature.bib in pre-existing unrelated tests.
-Do not invent these documents, change their tests, or mark the zero-failure gate passed.
-If restored by the author (or if the author explicitly changes the gate), rerun verification,
-mark Task 8/8.6 done and set the next step to Task 9:
-"Decision engine (SAW), use cases, presets and Normal-mode web recommendations".
-If still missing, report the unrelated gate and retain current status; no implementation is blocked.
-Read design/stitch/REVIEW.md before changing screenshots. Root npm run dev is working.
-Web checks: npm run typecheck, npm run lint, npm run build, npm test,
-npm run types:check, npm run test:browser (Chromium), npm run test:launcher.
-The browser baselines are Windows Chromium DPR 1. Preserve all pre-existing staged changes.
-No numerical calibration, .kiro relocation or Streamlit styling. Stage only relevant changes.
-Do not commit or push.
+Task 9 includes candidates, all nine filters, quality/fallbacks, SAW/explanations,
+recommend/evaluate services and API routes, and the real Normal-mode Ranking screen.
+Default: 36 ranked / 637 rejected; RTX Pro 6000 x4 + DeepSeek V4.1 Flash INT4 leads.
+C-042 extends domain/results.py plus three generated schemas with filter facts/components.
+Hybrids inspect both components; local utilization uses the reduced token demand.
+C-043 preserves total rental RAM using a per-node sizing input and distinct cache keys.
+The recursive contract generator tests nested component JSON round trips.
+
+Review frontend/TASK9_REVIEW.md and frontend/ranking-comparison.html.
+Run npm typecheck, lint, build, test, types:check and test:browser.
+Run test:launcher separately from browser tests (shared ports 5173/8000).
+run.bat starts the UI/API and opens the browser.
+
+Task 8 and Task 9 stay in progress only while the unrelated full-suite gate applies.
+Full suite: 703 passed, 3 calibration xfailed, 3 failures solely from missing
+thesis/thesis_notes.md and thesis/literature.bib. All 49 focused and 23 browser checks pass.
+Do not invent these documents, weaken tests or revisit calibration xfails.
+Once the author restores them or changes the gate, rerun verification and close both tasks.
+Next implementation: Task 10 TOPSIS, Expert controls and FX override; obtain authorization
+if continuing implementation while the completion gate remains unresolved.
+Keep calculations in Python; audit/export is Task 12 and web cutover is Task 13.
+Preserve all pre-existing staged/untracked changes. Stage relevant changes only.
+Do not commit or push. Update this file and its next-session prompt after work.
 ```

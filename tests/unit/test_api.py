@@ -17,7 +17,7 @@ def test_req_43_health_openapi_and_no_fabricated_rankings(client):
     schema = client.get("/openapi.json").json()
     assert schema["paths"]["/api/v1/size"]["post"]["requestBody"]
     assert "SizeResult" in schema["components"]["schemas"]
-    assert client.post("/api/v1/recommend").status_code == 404
+    assert client.post("/api/v1/recommend").status_code == 422
 
 
 def test_req_43_validation_errors(client):

@@ -13,7 +13,11 @@ from ai_tco_dss.domain import (
     CatalogOverview,
     DecisionOptions,
     EnterpriseFinancials,
+    Recommendation,
+    RecommendRequest,
     Scenario,
+    ScenarioRequest,
+    ScenarioResult,
     SizeRequest,
     SizeResult,
     SizingOptions,
@@ -140,3 +144,13 @@ def validate_scenario(scenario: Scenario) -> Scenario:
 @app.post("/api/v1/tco", response_model=TcoProjection)
 def tco(request: TcoRequest) -> TcoProjection:
     return services.project_tco(request)
+
+
+@app.post("/api/v1/recommend", response_model=Recommendation)
+def recommend(request: RecommendRequest) -> Recommendation:
+    return services.recommend(request)
+
+
+@app.post("/api/v1/evaluate", response_model=ScenarioResult)
+def evaluate(request: ScenarioRequest) -> ScenarioResult:
+    return services.evaluate_scenario(request)

@@ -66,6 +66,11 @@
     "CandidateEvaluation": {
       "additionalProperties": false,
       "properties": {
+        "api_has_eu_endpoint": {
+          "default": false,
+          "title": "Api Has Eu Endpoint",
+          "type": "boolean"
+        },
         "api_model_id": {
           "anyOf": [
             {
@@ -88,6 +93,14 @@
         "capex": {
           "title": "Capex",
           "type": "number"
+        },
+        "components": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CandidateEvaluation"
+          },
+          "title": "Components",
+          "type": "array"
         },
         "cost_60m": {
           "title": "Cost 60M",
@@ -136,6 +149,18 @@
         "model_id": {
           "title": "Model Id",
           "type": "string"
+        },
+        "model_max_context_tokens": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model Max Context Tokens"
         },
         "monthly_cost": {
           "title": "Monthly Cost",
