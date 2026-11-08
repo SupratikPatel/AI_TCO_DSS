@@ -5,6 +5,8 @@ All values are USD with Value_Origin `formula` (Req 24.11).
 Pure: results depend only on the input contract and `EngineParameters`.
 """
 
+import math
+
 from ai_tco_dss.domain import (
     ApiCost,
     ApiCostInput,
@@ -14,12 +16,20 @@ from ai_tco_dss.domain import (
     BaselineInput,
     BaselineResult,
     EngineParameters,
+    HybridCost,
+    HybridCostInput,
     Metric,
+    MonthlyTcoPoint,
+    RentalCost,
+    RentalCostInput,
+    TimelineInput,
+    TimelineResult,
     ValueOrigin,
     WorkloadProfile,
     WorkloadResult,
 )
 from ai_tco_dss.domain.errors import EngineInputError
+from ai_tco_dss.engines.tco import resale_value
 
 USD = "USD"
 EU_RESIDENCY_SURCHARGE = 1.10
@@ -192,4 +202,128 @@ def compute_baseline_d(inp: BaselineDInput, params: EngineParameters) -> Baselin
     return BaselineD(
         monthly=_usd(value, *effective.origin.source_ids, price.source_id),
         unavailable_reason=None,
+    )
+
+
+def compute_rental_cost(inp: RentalCostInput, params: EngineParameters) -> RentalCost:
+    """Req 25.1/7: setup paid once, rental and personnel recur monthly in USD."""
+    rental = inp.rental
+    values = (rental.setup_fee.value, rental.monthly_price.value, inp.personnel_monthly_usd)
+    if any(not math.isfinite(v) or v < 0 for v in values):
+        raise EngineInputError("rental costs", "finite, non-negative USD amounts")
+    if rental.setup_fee.currency != USD or rental.monthly_price.currency != USD:
+        raise EngineInputError("rental currency", "USD")
+    return RentalCost(
+        rental_id=rental.id,
+        setup_fee_usd=values[0],
+        monthly_usd=values[1],
+        personnel_monthly_usd=values[2],
+        cost_60m=values[0] + 60 * (values[1] + values[2]),
+        origin=ValueOrigin(
+            origin="formula",
+            source_ids=tuple(
+                dict.fromkeys((rental.setup_fee.source_id, rental.monthly_price.source_id))
+            ),
+        ),
+    )
+
+
+def compute_hybrid_cost(inp: HybridCostInput, params: EngineParameters) -> HybridCost:
+    """Req 25.2-6: keep full local OpEx and CapEx, add the unoffloaded API share."""
+    ratio = inp.local_offload_ratio
+    if not isinstance(ratio, (int, float)) or not math.isfinite(ratio) or not 0 <= ratio <= 1:
+        raise EngineInputError("local_offload_ratio", "[0.0, 1.0]")
+    if not math.isfinite(inp.api_c_monthly_usd) or inp.api_c_monthly_usd < 0:
+        raise EngineInputError("api_c_monthly_usd", "finite, non-negative USD")
+    monthly = inp.local.monthly_opex_total + (1 - ratio) * inp.api_c_monthly_usd
+    capex = inp.local.capex.value
+    return HybridCost(
+        local_offload_ratio=ratio,
+        capex_usd=capex,
+        monthly_usd=monthly,
+        cost_60m=capex + 60 * monthly,
+        origin=inp.local.capex.origin,
+    )
+
+
+COMPARISON_FIELDS = (
+    "eu_dedicated_rental_cumulative",
+    "baseline_a_subscription_cumulative",
+    "baseline_b_global_api_cumulative",
+    "baseline_c_eu_sovereign_api_cumulative",
+    "baseline_d_openrouter_value_cumulative",
+    "hybrid_split_cumulative",
+)
+
+
+def compute_timeline(inp: TimelineInput, params: EngineParameters) -> TimelineResult:
+    """Req 26: unrounded monthly cash costs, first integer crossing, optional resale."""
+    points = []
+    for month in range(1, 61):
+        resale = (
+            resale_value(inp.onprem.capex.value, inp.onprem.resale_retention_3yr, month)
+            if inp.include_resale
+            else 0.0
+        )
+        points.append(
+            MonthlyTcoPoint(
+                month=month,
+                on_prem_cumulative=inp.onprem.capex.value
+                + month * inp.onprem.monthly_opex_total
+                - resale,
+                eu_dedicated_rental_cumulative=inp.rental.setup_fee_usd
+                + month * (inp.rental.monthly_usd + inp.rental.personnel_monthly_usd),
+                baseline_a_subscription_cumulative=month * inp.baselines.a_monthly.value,
+                baseline_b_global_api_cumulative=month * inp.baselines.b_monthly.value,
+                baseline_c_eu_sovereign_api_cumulative=month * inp.baselines.c_monthly.value,
+                baseline_d_openrouter_value_cumulative=month * inp.baseline_d.monthly.value
+                if inp.baseline_d.monthly
+                else None,
+                hybrid_split_cumulative=inp.hybrid.capex_usd
+                + month * inp.hybrid.monthly_usd
+                - resale,
+            )
+        )
+    crossings = tuple(
+        (
+            field,
+            next(
+                (
+                    p.month
+                    for p in points
+                    if getattr(p, field) is not None and p.on_prem_cumulative <= getattr(p, field)
+                ),
+                None,
+            ),
+        )
+        for field in COMPARISON_FIELDS
+    )
+    years = None
+    if (
+        inp.decode_tps
+        and inp.decode_tps.value > 0
+        and inp.open_output_price
+        and inp.open_output_price.value > 0
+    ):
+        years = Metric(
+            value=inp.onprem.capex.value
+            / (inp.decode_tps.value * 3600 * 8760 * inp.open_output_price.value / 1e6),
+            unit="years",
+            origin=ValueOrigin(
+                origin="formula",
+                source_ids=tuple(
+                    dict.fromkeys(
+                        (*inp.decode_tps.origin.source_ids, inp.open_output_price.source_id)
+                    )
+                ),
+            ),
+        )
+    return TimelineResult(
+        anchor_candidate_id=inp.anchor_candidate_id,
+        rental_id=inp.rental.rental_id,
+        hybrid_api_model_id=inp.hybrid_api_model_id,
+        points=tuple(points),
+        break_even_months=crossings,
+        single_stream_break_even_years=years,
+        include_resale=inp.include_resale,
     )

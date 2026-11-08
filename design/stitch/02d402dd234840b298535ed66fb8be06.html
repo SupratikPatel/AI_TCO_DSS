@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"inverse-primary":"#97cbff","secondary-fixed":"#7ff9c7","on-error-container":"#93000a","on-primary-fixed":"#001d33","surface-container-low":"#f1f3ff","surface-bright":"#f9f9ff","tertiary-fixed-dim":"#ffba40","error":"#ba1a1a","surface-container":"#e9edff","primary-fixed-dim":"#97cbff","on-secondary-fixed-variant":"#005139","surface-tint":"#00639b","on-secondary-container":"#007352","secondary":"#006c4d","outline-variant":"#c0c7d2","tertiary":"#734d00","on-tertiary-container":"#ffedd8","on-secondary-fixed":"#002115","primary":"#00598c","surface-container-lowest":"#ffffff","secondary-fixed-dim":"#61dcac","surface-container-high":"#e1e8fd","on-tertiary-fixed-variant":"#614000","background":"#f9f9ff","on-tertiary":"#ffffff","on-primary-container":"#e7f1ff","surface":"#f9f9ff","surface-container-highest":"#dce2f7","surface-dim":"#d3daef","tertiary-fixed":"#ffddae","on-secondary":"#ffffff","error-container":"#ffdad6","primary-container":"#0072b2","primary-fixed":"#cee5ff","on-surface":"#141b2b","inverse-on-surface":"#edf0ff","secondary-container":"#7ff9c7","on-error":"#ffffff","inverse-surface":"#293040","surface-variant":"#dce2f7","on-surface-variant":"#404750","on-primary":"#ffffff","outline":"#707881","on-background":"#141b2b","on-tertiary-fixed":"#281800","on-primary-fixed-variant":"#004a76","tertiary-container":"#926400"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-lg":"1rem","space-xl":"1.5rem","space-md":"0.75rem","margin":"1rem","gutter":"1rem","space-xs":"0.25rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","space-sm":"0.5rem"},"fontFamily":{"headline-lg":["Inter"],"label-md":["JetBrains Mono"],"body-md":["Inter"],"metric-display":["JetBrains Mono"],"body-sm":["Inter"],"headline-xl":["Inter"],"body-lg":["Inter"],"label-sm":["JetBrains Mono"],"headline-md":["Inter"],"metric-display-mobile":["JetBrains Mono"],"label-lg":["JetBrains Mono"],"headline-sm":["Inter"],"headline-xl-mobile":["Inter"]},"fontSize":{"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"500"}],"body-md":["13px",{"lineHeight":"20px","fontWeight":"400"}],"metric-display":["28px",{"lineHeight":"34px","letterSpacing":"-0.03em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-lg":["15px",{"lineHeight":"24px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-md":["18px",{"lineHeight":"26px","letterSpacing":"-0.015em","fontWeight":"600"}],"metric-display-mobile":["22px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-sm":["15px",{"lineHeight":"22px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"700"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-[280px] bg-surface-container-lowest border-r border-outline-variant z-50 flex flex-col justify-between p-5 overflow-y-auto"><div class="flex flex-col gap-5"><div class="flex items-center gap-3 pb-3 border-b border-surface-container-high"><div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm flex-shrink-0"><span class="material-symbols-outlined text-[20px]">memory</span></div><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">AI TCO DSS</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider truncate">Sovereign AI Cost Advisor</span></div></div><div class="flex bg-surface-container-low p-0.5 rounded-lg border border-outline-variant"><button class="flex-1 py-1.5 px-3 rounded text-center font-label-md text-label-md bg-surface-container-lowest text-primary shadow-sm font-semibold transition-all" type="button">Normal</button><button class="flex-1 py-1.5 px-3 rounded text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" type="button">Expert</button></div><div class="flex flex-col gap-4"><div class="flex flex-col gap-1.5"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Use case</label><div class="relative"><select class="w-full h-9 bg-surface-container-lowest border border-outline-variant rounded-lg px-3 pr-8 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary appearance-none"><option selected="">Agentic coding</option><option>Enterprise RAG</option><option>Foundation Training</option><option>Realtime Speech Synthesis</option></select><span class="material-symbols-outlined absolute right-2.5 top-2 text-[18px] text-on-surface-variant pointer-events-none">expand_more</span></div></div><div class="flex flex-col gap-1.5"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Active users</label><input class="w-full h-9 bg-surface-container-lowest border border-outline-variant rounded-lg px-3 font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary" type="number" value="25"/></div><div class="flex flex-col gap-1.5"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Preset</label><div class="grid grid-cols-2 gap-1.5"><button class="py-1.5 px-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface transition-colors truncate" type="button">Cheapest</button><button class="py-1.5 px-2 rounded-lg border border-primary bg-primary text-on-primary font-label-sm text-label-sm font-medium shadow-sm transition-colors truncate" type="button">Best fit</button><button class="py-1.5 px-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface transition-colors truncate" type="button">Most capable</button><button class="py-1.5 px-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface transition-colors truncate" type="button">Popular</button></div></div><div class="flex flex-col gap-1.5"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Display currency</label><div class="flex bg-surface-container-low p-0.5 rounded-lg border border-outline-variant"><button class="flex-1 py-1 px-2 rounded font-label-md text-label-md bg-surface-container-lowest text-on-surface font-semibold shadow-sm" type="button">USD</button><button class="flex-1 py-1 px-2 rounded font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" type="button">EUR</button></div></div></div><div class="border-t border-surface-container-high pt-3"><details class="group" open=""><summary class="flex items-center justify-between cursor-pointer list-none py-1.5 text-on-surface hover:text-primary transition-colors"><span class="font-label-md text-label-md font-semibold flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">tune</span>Expert settings</span><span class="material-symbols-outlined text-[18px] text-on-surface-variant transition-transform group-open:rotate-180">expand_more</span></summary><div class="pt-2.5 flex flex-col gap-3 font-body-sm text-body-sm text-on-surface-variant"><div class="flex flex-col gap-1"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Staffing hub</label><div class="relative"><select class="w-full h-8 bg-surface-container-lowest border border-outline-variant rounded-lg px-2.5 pr-7 font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary appearance-none"><option>Munich / HQ</option><option selected="">Romania Hub (Bucharest)</option><option>Warsaw</option><option>Remote EU</option></select><span class="material-symbols-outlined absolute right-2 top-1.5 text-[18px] text-on-surface-variant pointer-events-none">expand_more</span></div></div><div class="grid grid-cols-2 gap-2"><div class="flex flex-col gap-1"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Tariff (€/kWh)</label><input class="w-full h-8 bg-surface-container-lowest border border-outline-variant rounded-lg px-2.5 font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary tabular-nums" step="0.01" type="number" value="0.18"/></div><div class="flex flex-col gap-1"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Facility PUE</label><input class="w-full h-8 bg-surface-container-lowest border border-outline-variant rounded-lg px-2.5 font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary tabular-nums" step="0.01" type="number" value="1.25"/></div></div><div class="flex flex-col gap-1"><div class="flex justify-between items-center"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">FTE Allocation</label><span class="font-label-sm text-label-sm font-semibold text-primary tabular-nums">0.75 FTE MLOps</span></div><input class="w-full h-1.5 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-[#00598c]" max="3" min="0.1" step="0.05" type="range" value="0.75"/></div><div class="flex flex-col gap-1"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">FX Override (USD/EUR)</label><input class="w-full h-8 bg-surface-container-lowest border border-outline-variant rounded-lg px-2.5 font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary tabular-nums" step="0.0001" type="number" value="1.1165"/></div><div class="border-t border-surface-container-high pt-2.5 flex flex-col gap-2"><div class="flex justify-between items-center"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold tracking-wide">Criterion Weights</span><span class="text-[10px] font-mono text-on-surface-variant bg-surface-container px-1 rounded">Sum: 100%</span></div><div class="flex flex-col gap-1.5"><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">CapEx / OpEx TCO</span><span class="font-mono font-bold text-primary">30%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#00598c]" max="100" min="0" type="range" value="30"/></div><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">Inference Latency (TTFT)</span><span class="font-mono font-bold text-primary">20%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#00598c]" max="100" min="0" type="range" value="20"/></div><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">Throughput (tok/s)</span><span class="font-mono font-bold text-primary">15%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#00598c]" max="100" min="0" type="range" value="15"/></div><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">EU Sovereignty</span><span class="font-mono font-bold text-secondary">20%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#006c4d]" max="100" min="0" type="range" value="20"/></div><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">Model Quality</span><span class="font-mono font-bold text-primary">10%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#00598c]" max="100" min="0" type="range" value="10"/></div><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">Lock-in Risk</span><span class="font-mono font-bold text-primary">5%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#00598c]" max="100" min="0" type="range" value="5"/></div></div></div><div class="border-t border-surface-container-high pt-2 flex flex-col gap-1.5"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Ranking method</label><div class="flex bg-surface-container-low p-0.5 rounded-lg border border-outline-variant"><button class="flex-1 py-1 px-2 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">SAW</button><button class="flex-1 py-1 px-2 rounded font-label-sm text-label-sm bg-primary text-on-primary font-bold shadow-xs transition-colors" type="button">TOPSIS</button></div></div></div></details></div><nav class="flex flex-col gap-1 border-t border-surface-container-high pt-3" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="cost-decision-matrix" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span>Cost Decision Matrix</a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="sovereign-clusters" href="#"><span class="material-symbols-outlined text-[18px]">dns</span>Sovereign Clusters</a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="sensitivity-analysis" href="#"><span class="material-symbols-outlined text-[18px]">stacked_line_chart</span>Sensitivity Analysis</a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="audit-compliance" href="#"><span class="material-symbols-outlined text-[18px]">verified_user</span>EU AI Compliance</a></nav></div><div class="pt-4 border-t border-surface-container-high flex flex-col gap-2"><div class="flex items-center gap-1.5"><span class="inline-block w-2 h-2 rounded-full bg-secondary flex-shrink-0"></span><span class="font-label-sm text-label-sm text-secondary font-medium tracking-tight">EU Sovereign Qualified Node</span></div><p class="font-label-sm text-label-sm text-on-surface-variant leading-relaxed">Catalog: 9 hardware, 12 models, 6 rentals · FX 1.1165 USD/EUR (ECB, 2026-11-06)</p></div></aside><div class="pl-[280px]"><header class="fixed top-0 left-[280px] right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant z-40 flex items-center justify-between px-gutter-desktop"><div class="flex items-center gap-4 min-w-0"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">verified</span><span class="font-headline-sm text-headline-sm text-on-surface truncate">Project: Sovereign Inference Q4</span></div><span class="text-outline-variant font-body-sm">|</span><div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm"><span class="material-symbols-outlined text-[16px]">schedule</span><span class="">Calculated 2 mins ago</span></div></div><div class="flex items-center gap-3"><div class="flex items-center bg-surface-container-low rounded-lg p-1 border border-outline-variant"><button class="w-7 h-7 flex items-center justify-center rounded bg-surface-container-lowest text-primary shadow-xs" title="Light mode" type="button"><span class="material-symbols-outlined text-[16px]">light_mode</span></button><button class="w-7 h-7 flex items-center justify-center rounded text-on-surface-variant hover:text-on-surface" title="Dark mode" type="button"><span class="material-symbols-outlined text-[16px]">dark_mode</span></button></div><button class="h-8 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container text-on-surface font-body-sm text-body-sm flex items-center gap-1.5 transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">chat_bubble</span><span class="">Feedback</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Global Context & KPI Ribbon -->
+<div class="bg-surface-container-lowest px-margin-desktop py-space-md shadow-sm">
+<div class="flex flex-col gap-space-md">
+<!-- Breadcrumb and Run Selector -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
+<span class="hover:text-primary cursor-pointer">Sovereign TCO DSS</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface font-semibold">Evaluation Run #88219</span>
+<span class="bg-surface-container-high text-primary px-space-xs py-0.5 rounded font-label-sm text-label-sm">Deterministic Simulation</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Model Scope:</span>
+<span class="bg-surface-container-low text-on-surface px-space-sm py-1 rounded font-label-md text-label-md">Qwen-2.5-Coder-32B-Instruct</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant ml-2">Horizon:</span>
+<span class="font-label-md text-label-md text-primary font-semibold">60 Months (FY26–FY31)</span>
+</div>
+</div>
+<!-- KPI Summary Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter-desktop">
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm flex flex-col gap-1">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Baseline Run 5-Yr Capex</span>
+<span class="material-symbols-outlined text-[18px] text-primary">account_balance_wallet</span>
+</div>
+<div class="font-metric-display text-metric-display text-on-surface tabular-nums">$68,450</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-secondary">
+<span class="material-symbols-outlined text-[14px]">trending_down</span>
+<span>-12.4% vs Munich On-prem Co-loc</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm flex flex-col gap-1">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Run Rate OpEx (Monthly)</span>
+<span class="material-symbols-outlined text-[18px] text-primary">speed</span>
+</div>
+<div class="font-metric-display text-metric-display text-on-surface tabular-nums">$3,165<span class="font-label-md text-label-md text-on-surface-variant">/mo</span></div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">
+            Power: 0.18 €/kWh · 0.75 FTE Staffing
+          </div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm flex flex-col gap-1">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Optimal Convergence (t*)</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">alt_route</span>
+</div>
+<div class="font-metric-display text-metric-display text-secondary tabular-nums">M14 <span class="font-label-md text-label-md text-on-surface-variant">(Nov '27)</span></div>
+<div class="font-label-sm text-label-sm text-secondary">
+            Compliant baseline crossover confirmed
+          </div>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm flex flex-col gap-1">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">EU AI Act Integrity</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">gavel</span>
+</div>
+<div class="font-metric-display text-metric-display text-on-surface tabular-nums">100% <span class="font-label-md text-label-md text-secondary">Level 4</span></div>
+<div class="font-label-sm text-label-sm text-on-surface-variant truncate">
+            No Third-Country Cloud Extradition
+          </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Perspective View Selection Navigation Tabs -->
+<div class="bg-surface-container-lowest px-margin-desktop shadow-sm mt-1">
+<div class="flex items-center gap-space-lg overflow-x-auto">
+<button class="py-space-md font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">table_chart</span>
+<span>View 1: Unit Economics Matrix</span>
+</button>
+<button class="py-space-md font-body-md text-body-md text-primary font-semibold shadow-xs flex items-center gap-1.5 bg-surface-container-low px-space-md rounded-t-lg" type="button">
+<span class="material-symbols-outlined text-[18px]">stacked_line_chart</span>
+<span>View 2: 60-Month TCO Trajectory</span>
+<span class="bg-primary text-on-primary text-[10px] font-label-sm px-1.5 py-0.5 rounded-full">ACTIVE</span>
+</button>
+<button class="py-space-md font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">compare_arrows</span>
+<span>View 3: Pareto Frontier (Quality vs Cost)</span>
+</button>
+<button class="py-space-md font-body-md text-body-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">layers</span>
+<span>View 4: Stack &amp; Staffing Sensitivity</span>
+</button>
+</div>
+</div>
+<!-- Main Content Space -->
+<div class="px-margin-desktop py-space-xl flex flex-col gap-space-xl">
+<!-- Header of the View -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm px-2 py-0.5 rounded font-semibold uppercase">Simulation Suite</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Deterministic Cash-Flow Vector Engine</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+          Cumulative Cost Trajectory (60 Months) — Behavior Variants &amp; Edge Cases
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-4xl mt-1 leading-relaxed">
+          Comparing the deterministic cumulative cost curves across critical edge states: high-capex divergent trajectories lacking break-even within 5 years, enterprise baseline subscription convergence (<span class="font-mono text-primary font-medium">t*</span> crossover analysis), and parameter breach fallback models.
+        </p>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<button class="h-9 px-3 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container font-label-md text-label-md flex items-center gap-1.5 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Export CSV Series</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md flex items-center gap-1.5 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span>Recalculate Bounds</span>
+</button>
+</div>
+</div>
+<!-- 3-Column Comparison Grid for Variants A, B, and C -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-gutter-desktop items-stretch">
+<!-- ================= CARD A: NO BREAK-EVEN ================= -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col justify-between">
+<div class="flex flex-col gap-space-sm">
+<!-- Card Badge and Title -->
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium">Variant A: High Capex Divergence</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">No Cross-Over Convergence</h2>
+</div>
+<span class="bg-surface-container-high text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full font-medium">
+              Variant A
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            On-premise RTX 6000 Ada cluster starts with heavy hardware initial investment &amp; overhead; cumulative slope stays above cloud baselines without intersecting within 60 months.
+          </p>
+<!-- SVG Chart Area with Dotted Crosshair and Hover Tooltip -->
+<div class="relative w-full h-72 bg-surface-container-low/60 rounded-lg p-2.5 overflow-hidden flex flex-col justify-between select-none">
+<!-- Grid lines background -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none" viewbox="0 0 320 220">
+<!-- Y-gridlines -->
+<line stroke="#c0c7d2" stroke-dasharray="2,2" stroke-width="0.7" x1="35" x2="310" y1="30" y2="30"></line>
+<line stroke="#c0c7d2" stroke-dasharray="2,2" stroke-width="0.7" x1="35" x2="310" y1="80" y2="80"></line>
+<line stroke="#c0c7d2" stroke-dasharray="2,2" stroke-width="0.7" x1="35" x2="310" y1="130" y2="130"></line>
+<line stroke="#c0c7d2" stroke-dasharray="2,2" stroke-width="0.7" x1="35" x2="310" y1="180" y2="180"></line>
+<!-- Axes labels -->
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" text-anchor="end" x="32" y="33">$300k</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" text-anchor="end" x="32" y="83">$220k</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" text-anchor="end" x="32" y="133">$140k</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" text-anchor="end" x="32" y="183">$60k</text>
+<!-- Month X-labels -->
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" x="40" y="205">M0</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" x="105" y="205">M18</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" x="195" y="205">M36</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" x="285" y="205">M60</text>
+<!-- Series 1: On-premise (Solid Blue #0072B2) Starts at $120k and climbs to $295k (strictly superior) -->
+<path d="M 40 142 C 100 120, 180 85, 305 32" fill="none" stroke="#0072B2" stroke-width="2.5"></path>
+<!-- Series 2: Baseline C EU-Pin (Amber #E69F00) Starts at $10k and climbs to $235k -->
+<path d="M 40 195 C 120 165, 200 125, 305 70" fill="none" stroke="#E69F00" stroke-width="2"></path>
+<!-- Series 3: EU Dedicated GPU Rental (Green #009E73) Starts at $20k and climbs to $190k -->
+<path d="M 40 190 C 120 170, 210 145, 305 105" fill="none" stroke="#009E73" stroke-width="2"></path>
+<!-- Series 4: Baseline B Hyperscale API (Dark slate #404750) Starts at $5k and climbs to $165k -->
+<path d="M 40 198 C 110 185, 200 160, 305 125" fill="none" stroke="#404750" stroke-dasharray="4,3" stroke-width="1.8"></path>
+<!-- Active Crosshair Line at Month 36 (x = 200) -->
+<line stroke="#707881" stroke-dasharray="3,3" stroke-width="1.2" x1="200" x2="200" y1="20" y2="195"></line>
+<!-- Dot markers on Month 36 -->
+<circle cx="200" cy="80" fill="#0072B2" r="4.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<circle cx="200" cy="126" fill="#E69F00" r="3.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<circle cx="200" cy="148" fill="#009E73" r="3.5" stroke="#ffffff" stroke-width="1.5"></circle>
+</svg>
+<!-- Precision Interactive Tooltip Overlay (Pinned at Month 36) -->
+<div class="absolute left-[38%] top-3 z-20 bg-inverse-surface text-inverse-on-surface p-2.5 rounded-lg shadow-md font-label-sm text-label-sm w-48 pointer-events-none">
+<div class="flex items-center justify-between pb-1 border-b border-surface-variant/30 mb-1.5">
+<span class="font-bold font-mono tracking-tight text-white flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                  Month: M36 (3.0 yrs)
+                </span>
+<span class="text-[10px] text-surface-container-high uppercase">Observed</span>
+</div>
+<div class="flex flex-col gap-1 font-body-sm">
+<div class="flex justify-between items-center">
+<span class="text-inverse-primary truncate font-medium">On-premise (4×RTX)</span>
+<span class="font-mono text-white font-semibold tabular-nums">$258,410</span>
+</div>
+<div class="flex justify-between items-center text-surface-dim">
+<span class="truncate">Baseline C (EU-Pin)</span>
+<span class="font-mono tabular-nums text-tertiary-fixed-dim">$204,180</span>
+</div>
+<div class="flex justify-between items-center text-surface-dim">
+<span class="truncate">EU Dedicated GPU</span>
+<span class="font-mono tabular-nums text-secondary-fixed">$148,220</span>
+</div>
+</div>
+<div class="mt-1 pt-1 border-t border-surface-variant/30 text-[10px] text-surface-container-high font-mono flex items-center justify-between">
+<span>Spread to nearest:</span>
+<span class="text-tertiary-fixed font-bold">+$54,230</span>
+</div>
+</div>
+</div>
+<!-- Series Legend Chips -->
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">
+<span class="w-2.5 h-0.5 bg-primary-container"></span> On-premise Cluster
+            </span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">
+<span class="w-2.5 h-0.5 bg-tertiary"></span> Baseline C (EU-Pin)
+            </span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">
+<span class="w-2.5 h-0.5 bg-secondary"></span> EU Dedicated GPU
+            </span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">
+<span class="w-2.5 h-0.5 bg-on-surface-variant"></span> Baseline B (API)
+            </span>
+</div>
+</div>
+<!-- Annotation / Warning Pill at Bottom of Card A -->
+<div class="mt-space-md pt-space-sm bg-tertiary-container/10 p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary">warning</span>
+<span class="font-label-md text-label-md text-tertiary font-medium">⚠️ No break-even within 60 months</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Spread @ M60: +$60.2k</span>
+</div>
+</div>
+<!-- ================= CARD B: BASELINE A ELIGIBLE (COMPLIANT) ================= -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col justify-between">
+<div class="flex flex-col gap-space-sm">
+<!-- Card Badge and Title -->
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium">Variant B: Subscribed Horizon</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Baseline A Subscribed &amp; Admissible</h2>
+</div>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-0.5 rounded-full font-semibold">
+              Variant B
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Full compliance baseline includes eligible Enterprise SaaS seats (#CC79A7 dashed). Clear amortization cross-over <span class="font-mono text-primary font-bold">t* = M14</span> validates early On-premise cluster ROI.
+          </p>
+<!-- SVG Chart Area with t* Crossover Point -->
+<div class="relative w-full h-72 bg-surface-container-low/60 rounded-lg p-2.5 overflow-hidden flex flex-col justify-between select-none">
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none" viewbox="0 0 320 220">
+<!-- Y-gridlines -->
+<line stroke="#c0c7d2" stroke-dasharray="2,2" stroke-width="0.7" x1="35" x2="310" y1="30" y2="30"></line>
+<line stroke="#c0c7d2" stroke-dasharray="2,2" stroke-width="0.7" x1="35" x2="310" y1="80" y2="80"></line>
+<line stroke="#c0c7d2" stroke-dasharray="2,2" stroke-width="0.7" x1="35" x2="310" y1="130" y2="130"></line>
+<line stroke="#c0c7d2" stroke-dasharray="2,2" stroke-width="0.7" x1="35" x2="310" y1="180" y2="180"></line>
+<!-- Axes labels -->
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" text-anchor="end" x="32" y="33">$350k</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" text-anchor="end" x="32" y="83">$250k</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" text-anchor="end" x="32" y="133">$150k</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" text-anchor="end" x="32" y="183">$50k</text>
+<!-- Month X-labels -->
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" x="40" y="205">M0</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" x="98" y="205">M14</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" x="180" y="205">M36</text>
+<text fill="#707881" font-family="JetBrains Mono" font-size="9" x="285" y="205">M60</text>
+<!-- Baseline A: Enterprise SaaS Fixed Seat (#CC79A7 reddish purple dashed line) - steep cumulative cost -->
+<!-- Starts at $15k and climbs rapidly to $340k -->
+<path d="M 40 188 C 80 160, 160 90, 305 28" fill="none" stroke="#CC79A7" stroke-dasharray="5,4" stroke-width="2.5"></path>
+<!-- On-premise cluster (Solid blue #0072B2) Starts at $68k (y=155) and grows flatter to $210k (y=95) -->
+<path d="M 40 155 C 90 148, 180 125, 305 92" fill="none" stroke="#0072B2" stroke-width="2.5"></path>
+<!-- Baseline C: EU-Pin (Amber #E69F00) Starts at $15k and climbs to $230k (y=85) -->
+<path d="M 40 192 C 120 165, 200 125, 305 85" fill="none" stroke="#E69F00" stroke-width="1.8"></path>
+<!-- Hybrid Burst (Dotted Cyan/Slate) -->
+<path d="M 40 195 C 130 170, 220 140, 305 110" fill="none" stroke="#006c4d" stroke-dasharray="3,3" stroke-width="1.5"></path>
+<!-- Break-Even Vertical Marker line t* at M14 (x = 104) -->
+<line stroke="#0072B2" stroke-dasharray="2,2" stroke-width="1.5" x1="104" x2="104" y1="20" y2="195"></line>
+<!-- Intersection marker circle -->
+<circle cx="104" cy="146" fill="#0072B2" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="104" cy="146" fill="#CC79A7" r="3"></circle>
+</svg>
+<!-- Break-even Annotation Badge pinned over t* -->
+<div class="absolute left-[28%] top-5 z-10 bg-surface-container-lowest border-2 border-primary text-on-surface px-2.5 py-1.5 rounded-lg shadow-md font-label-sm text-label-sm">
+<div class="flex items-center gap-1 font-bold text-primary">
+<span class="material-symbols-outlined text-[15px]">flag</span>
+<span>Break-Even t* = M14</span>
+</div>
+<div class="text-[11px] font-mono text-on-surface-variant mt-0.5">
+                On-prem cheaper &gt; 14 mos
+              </div>
+</div>
+<!-- Savings banner inside lower right corner -->
+<div class="absolute right-3 bottom-8 bg-secondary/10 px-2 py-1 rounded text-secondary font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">savings</span>
+<span>5-Yr Savings: $128,400</span>
+</div>
+</div>
+<!-- Series Legend Chips -->
+<div class="flex flex-wrap gap-1.5 pt-1">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">
+<span class="w-2.5 h-0.5 bg-[#CC79A7] border-b border-dashed border-[#CC79A7]"></span> Baseline A (SaaS Seat)
+            </span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">
+<span class="w-2.5 h-0.5 bg-primary-container"></span> On-premise Cluster
+            </span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">
+<span class="w-2.5 h-0.5 bg-tertiary"></span> Baseline C (EU-Pin)
+            </span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm text-on-surface">
+<span class="w-2.5 h-0.5 bg-secondary"></span> Hybrid Burst
+            </span>
+</div>
+</div>
+<!-- Validated Admissibility Confirmation Pill -->
+<div class="mt-space-md pt-space-sm bg-secondary-container/20 p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">verified</span>
+<span class="font-label-md text-label-md text-secondary font-semibold">Baseline A: Compliant &amp; Admissible</span>
+</div>
+<span class="font-label-sm text-label-sm font-mono text-on-surface">t* = 14.2 mos</span>
+</div>
+</div>
+<!-- ================= CARD C: EMPTY STATE ================= -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col justify-between">
+<div class="flex flex-col gap-space-sm">
+<!-- Card Badge and Title -->
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-medium">Variant C: Operational Null</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Zero Data / Filter Breach State</h2>
+</div>
+<span class="bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full font-medium">
+              Variant C
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Fallback UX rendering when user inputs breach operational latency or power constraints, or when all candidate sovereign topologies fail hard filters.
+          </p>
+<!-- Empty State Chart Canvas Area -->
+<div class="w-full h-72 bg-surface-container-low/50 rounded-lg p-space-lg flex flex-col items-center justify-center text-center">
+<!-- Slash line chart icon -->
+<div class="w-14 h-14 rounded-full bg-surface-container-high flex items-center justify-center text-outline mb-3 shadow-inner">
+<span class="material-symbols-outlined text-[30px]">query_stats</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold mb-1">
+              No data available
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs leading-relaxed mb-4">
+              All candidate configurations breach operational constraints or no financial parameters have been supplied. Relax constraints or adjust staffing/PUE parameters.
+            </p>
+<button class="h-9 px-4 rounded-lg bg-surface-container-highest hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-2 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+<span>Reset Filters &amp; Presets</span>
+</button>
+</div>
+<!-- Empty Legend Placeholder -->
+<div class="flex items-center justify-center gap-2 py-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span>Trajectories uncalculated (0 active nodes)</span>
+</div>
+</div>
+<!-- Informational Status Pill at Bottom of Card C -->
+<div class="mt-space-md pt-space-sm bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span class="font-label-md text-label-md">Operational Bounds: SLA Violation</span>
+</div>
+<span class="font-label-sm text-label-sm font-mono text-outline">Exit Code 409</span>
+</div>
+</div>
+</div>
+<!-- Technical Specification / Methodology & Inspection Panel -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg">
+<div class="flex flex-col lg:flex-row justify-between lg:items-center gap-space-md pb-space-md border-b border-surface-container">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+            Behavioral Contract &amp; Visual Spec: 60-Month Trajectory
+          </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            Mathematical formulation, colorblind-safe Okabe-Ito series bindings, and hover tooltip interaction behaviors.
+          </p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant px-2 py-1 rounded">
+            Math Core: §4.2 Discretized Cash Flow
+          </span>
+<span class="font-label-sm text-label-sm bg-surface-container-low text-secondary px-2 py-1 rounded font-semibold">
+            WCAG 2.1 AA Compliant
+          </span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter-desktop mt-space-md">
+<!-- Spec 1: Tooltip Behavior -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">1. Crosshair &amp; Tooltip UX</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            The cursor snaps to discrete monthly increments (<code class="font-mono text-[11px] bg-surface-container px-1 py-0.5 rounded">M0...M60</code>). A vertical dashed line guides multi-series comparison. Active series display exact dollar amounts, comparative spreads, and amortized monthly derivatives.
+          </p>
+<div class="bg-surface-container-low p-space-sm rounded font-label-sm text-label-sm flex flex-col gap-1 text-on-surface">
+<div>• <strong class="text-on-surface font-mono">Divergent State:</strong> Displays absolute variance without false convergence projections.</div>
+<div>• <strong class="text-on-surface font-mono">Convergent State:</strong> Explicitly renders <code class="font-mono text-primary font-bold">t*</code> timestamp with ROI milestone.</div>
+</div>
+</div>
+<!-- Spec 2: Okabe-Ito Palette Binding -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold tracking-wider">2. Okabe-Ito Series Encoding</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            Series retain persistent identity across all dashboard screens according to verified analytical color scales:
+          </p>
+<div class="grid grid-cols-2 gap-1.5 font-label-sm text-label-sm">
+<div class="bg-surface-container-low p-1.5 rounded flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#0072B2] flex-shrink-0"></span>
+<span class="truncate">#0072B2 On-prem</span>
+</div>
+<div class="bg-surface-container-low p-1.5 rounded flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#009E73] flex-shrink-0"></span>
+<span class="truncate">#009E73 EU GPU</span>
+</div>
+<div class="bg-surface-container-low p-1.5 rounded flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#E69F00] flex-shrink-0"></span>
+<span class="truncate">#E69F00 EU-Pin</span>
+</div>
+<div class="bg-surface-container-low p-1.5 rounded flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-[#CC79A7] flex-shrink-0"></span>
+<span class="truncate">#CC79A7 Baseline A</span>
+</div>
+</div>
+</div>
+<!-- Spec 3: Edge Case Guardrails -->
+<div class="flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-tertiary uppercase font-bold tracking-wider">3. Constraint Handling</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            When hardware procurement models diverge due to low utilization rates, or when SLA filters produce zero admissible sovereign candidates:
+          </p>
+<div class="bg-surface-container-low p-space-sm rounded font-label-sm text-label-sm flex flex-col gap-1 text-on-surface">
+<div>• <strong class="text-on-surface font-mono">No t* Tagging:</strong> Suppress break-even pins when trajectory delta remains strictly positive.</div>
+<div>• <strong class="text-on-surface font-mono">Eligible Baseline A:</strong> Fully preserved without spurious security block warnings.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Regulatory Audit Bar (Pinned Footer) -->
+<div class="sticky bottom-0 bg-surface-container-lowest/95 backdrop-blur-md px-margin-desktop py-space-sm shadow-md flex flex-wrap items-center justify-between gap-space-sm z-30">
+<div class="flex items-center gap-space-sm">
+<span class="inline-block w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">
+        Audit Trail: Decision Run #88219
+      </span>
+<span class="text-outline-variant font-body-sm">|</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">
+        Validated against Article 53 (EU AI Act &amp; High-Impact AI Compute Registration)
+      </span>
+</div>
+<div class="flex items-center gap-space-md font-label-sm text-label-sm text-on-surface-variant">
+<span>Cryptographic Hash: <code class="font-mono text-on-surface">sha256:4b91...fe02</code></span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+        Audit Certified
+      </span>
+</div>
+</div>
+</div></main></div>
+</body></html>

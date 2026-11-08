@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"inverse-primary":"#97cbff","secondary-fixed":"#7ff9c7","on-error-container":"#93000a","on-primary-fixed":"#001d33","surface-container-low":"#f1f3ff","surface-bright":"#f9f9ff","tertiary-fixed-dim":"#ffba40","error":"#ba1a1a","surface-container":"#e9edff","primary-fixed-dim":"#97cbff","on-secondary-fixed-variant":"#005139","surface-tint":"#00639b","on-secondary-container":"#007352","secondary":"#006c4d","outline-variant":"#c0c7d2","tertiary":"#734d00","on-tertiary-container":"#ffedd8","on-secondary-fixed":"#002115","primary":"#00598c","surface-container-lowest":"#ffffff","secondary-fixed-dim":"#61dcac","surface-container-high":"#e1e8fd","on-tertiary-fixed-variant":"#614000","background":"#f9f9ff","on-tertiary":"#ffffff","on-primary-container":"#e7f1ff","surface":"#f9f9ff","surface-container-highest":"#dce2f7","surface-dim":"#d3daef","tertiary-fixed":"#ffddae","on-secondary":"#ffffff","error-container":"#ffdad6","primary-container":"#0072b2","primary-fixed":"#cee5ff","on-surface":"#141b2b","inverse-on-surface":"#edf0ff","secondary-container":"#7ff9c7","on-error":"#ffffff","inverse-surface":"#293040","surface-variant":"#dce2f7","on-surface-variant":"#404750","on-primary":"#ffffff","outline":"#707881","on-background":"#141b2b","on-tertiary-fixed":"#281800","on-primary-fixed-variant":"#004a76","tertiary-container":"#926400"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-lg":"1rem","space-xl":"1.5rem","space-md":"0.75rem","margin":"1rem","gutter":"1rem","space-xs":"0.25rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","space-sm":"0.5rem"},"fontFamily":{"headline-lg":["Inter"],"label-md":["JetBrains Mono"],"body-md":["Inter"],"metric-display":["JetBrains Mono"],"body-sm":["Inter"],"headline-xl":["Inter"],"body-lg":["Inter"],"label-sm":["JetBrains Mono"],"headline-md":["Inter"],"metric-display-mobile":["JetBrains Mono"],"label-lg":["JetBrains Mono"],"headline-sm":["Inter"],"headline-xl-mobile":["Inter"]},"fontSize":{"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0em","fontWeight":"500"}],"body-md":["13px",{"lineHeight":"20px","fontWeight":"400"}],"metric-display":["28px",{"lineHeight":"34px","letterSpacing":"-0.03em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-lg":["15px",{"lineHeight":"24px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-md":["18px",{"lineHeight":"26px","letterSpacing":"-0.015em","fontWeight":"600"}],"metric-display-mobile":["22px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-sm":["15px",{"lineHeight":"22px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"700"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-[280px] bg-surface-container-lowest border-r border-outline-variant z-50 flex flex-col justify-between p-5 overflow-y-auto"><div class="flex flex-col gap-5"><div class="flex items-center gap-3 pb-3 border-b border-surface-container-high"><div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm flex-shrink-0"><span class="material-symbols-outlined text-[20px]">memory</span></div><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate">AI TCO DSS</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider truncate">Sovereign AI Cost Advisor</span></div></div><div class="flex bg-surface-container-low p-0.5 rounded-lg border border-outline-variant"><button class="flex-1 py-1.5 px-3 rounded text-center font-label-md text-label-md bg-surface-container-lowest text-primary shadow-sm font-semibold transition-all" type="button">Normal</button><button class="flex-1 py-1.5 px-3 rounded text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" type="button">Expert</button></div><div class="flex flex-col gap-4"><div class="flex flex-col gap-1.5"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Use case</label><div class="relative"><select class="w-full h-9 bg-surface-container-lowest border border-outline-variant rounded-lg px-3 pr-8 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary appearance-none"><option selected="">Agentic coding</option><option>Enterprise RAG</option><option>Foundation Training</option><option>Realtime Speech Synthesis</option></select><span class="material-symbols-outlined absolute right-2.5 top-2 text-[18px] text-on-surface-variant pointer-events-none">expand_more</span></div></div><div class="flex flex-col gap-1.5"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Active users</label><input class="w-full h-9 bg-surface-container-lowest border border-outline-variant rounded-lg px-3 font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary" type="number" value="25"/></div><div class="flex flex-col gap-1.5"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Preset</label><div class="grid grid-cols-2 gap-1.5"><button class="py-1.5 px-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface transition-colors truncate" type="button">Cheapest</button><button class="py-1.5 px-2 rounded-lg border border-primary bg-primary text-on-primary font-label-sm text-label-sm font-medium shadow-sm transition-colors truncate" type="button">Best fit</button><button class="py-1.5 px-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface transition-colors truncate" type="button">Most capable</button><button class="py-1.5 px-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface-variant font-label-sm text-label-sm hover:text-on-surface transition-colors truncate" type="button">Popular</button></div></div><div class="flex flex-col gap-1.5"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Display currency</label><div class="flex bg-surface-container-low p-0.5 rounded-lg border border-outline-variant"><button class="flex-1 py-1 px-2 rounded font-label-md text-label-md bg-surface-container-lowest text-on-surface font-semibold shadow-sm" type="button">USD</button><button class="flex-1 py-1 px-2 rounded font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" type="button">EUR</button></div></div></div><div class="border-t border-surface-container-high pt-3"><details class="group" open=""><summary class="flex items-center justify-between cursor-pointer list-none py-1.5 text-on-surface hover:text-primary transition-colors"><span class="font-label-md text-label-md font-semibold flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">tune</span>Expert settings</span><span class="material-symbols-outlined text-[18px] text-on-surface-variant transition-transform group-open:rotate-180">expand_more</span></summary><div class="pt-2.5 flex flex-col gap-3 font-body-sm text-body-sm text-on-surface-variant"><div class="flex flex-col gap-1"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Staffing hub</label><div class="relative"><select class="w-full h-8 bg-surface-container-lowest border border-outline-variant rounded-lg px-2.5 pr-7 font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary appearance-none"><option>Munich / HQ</option><option selected="">Romania Hub (Bucharest)</option><option>Warsaw</option><option>Remote EU</option></select><span class="material-symbols-outlined absolute right-2 top-1.5 text-[18px] text-on-surface-variant pointer-events-none">expand_more</span></div></div><div class="grid grid-cols-2 gap-2"><div class="flex flex-col gap-1"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Tariff (€/kWh)</label><input class="w-full h-8 bg-surface-container-lowest border border-outline-variant rounded-lg px-2.5 font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary tabular-nums" step="0.01" type="number" value="0.18"/></div><div class="flex flex-col gap-1"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Facility PUE</label><input class="w-full h-8 bg-surface-container-lowest border border-outline-variant rounded-lg px-2.5 font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary tabular-nums" step="0.01" type="number" value="1.25"/></div></div><div class="flex flex-col gap-1"><div class="flex justify-between items-center"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">FTE Allocation</label><span class="font-label-sm text-label-sm font-semibold text-primary tabular-nums">0.75 FTE MLOps</span></div><input class="w-full h-1.5 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-[#00598c]" max="3" min="0.1" step="0.05" type="range" value="0.75"/></div><div class="flex flex-col gap-1"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">FX Override (USD/EUR)</label><input class="w-full h-8 bg-surface-container-lowest border border-outline-variant rounded-lg px-2.5 font-label-md text-label-md text-on-surface focus:outline-none focus:border-primary tabular-nums" step="0.0001" type="number" value="1.1165"/></div><div class="border-t border-surface-container-high pt-2.5 flex flex-col gap-2"><div class="flex justify-between items-center"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold tracking-wide">Criterion Weights</span><span class="text-[10px] font-mono text-on-surface-variant bg-surface-container px-1 rounded">Sum: 100%</span></div><div class="flex flex-col gap-1.5"><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">CapEx / OpEx TCO</span><span class="font-mono font-bold text-primary">30%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#00598c]" max="100" min="0" type="range" value="30"/></div><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">Inference Latency (TTFT)</span><span class="font-mono font-bold text-primary">20%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#00598c]" max="100" min="0" type="range" value="20"/></div><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">Throughput (tok/s)</span><span class="font-mono font-bold text-primary">15%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#00598c]" max="100" min="0" type="range" value="15"/></div><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">EU Sovereignty</span><span class="font-mono font-bold text-secondary">20%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#006c4d]" max="100" min="0" type="range" value="20"/></div><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">Model Quality</span><span class="font-mono font-bold text-primary">10%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#00598c]" max="100" min="0" type="range" value="10"/></div><div class="flex flex-col gap-0.5"><div class="flex justify-between text-[11px]"><span class="text-on-surface truncate">Lock-in Risk</span><span class="font-mono font-bold text-primary">5%</span></div><input class="w-full h-1 bg-surface-container-high rounded cursor-pointer accent-[#00598c]" max="100" min="0" type="range" value="5"/></div></div></div><div class="border-t border-surface-container-high pt-2 flex flex-col gap-1.5"><label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">Ranking method</label><div class="flex bg-surface-container-low p-0.5 rounded-lg border border-outline-variant"><button class="flex-1 py-1 px-2 rounded font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" type="button">SAW</button><button class="flex-1 py-1 px-2 rounded font-label-sm text-label-sm bg-primary text-on-primary font-bold shadow-xs transition-colors" type="button">TOPSIS</button></div></div></div></details></div><nav class="flex flex-col gap-1 border-t border-surface-container-high pt-3" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="cost-decision-matrix" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span>Cost Decision Matrix</a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="sovereign-clusters" href="#"><span class="material-symbols-outlined text-[18px]">dns</span>Sovereign Clusters</a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="sensitivity-analysis" href="#"><span class="material-symbols-outlined text-[18px]">stacked_line_chart</span>Sensitivity Analysis</a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="audit-compliance" href="#"><span class="material-symbols-outlined text-[18px]">verified_user</span>EU AI Compliance</a></nav></div><div class="pt-4 border-t border-surface-container-high flex flex-col gap-2"><div class="flex items-center gap-1.5"><span class="inline-block w-2 h-2 rounded-full bg-secondary flex-shrink-0"></span><span class="font-label-sm text-label-sm text-secondary font-medium tracking-tight">EU Sovereign Qualified Node</span></div><p class="font-label-sm text-label-sm text-on-surface-variant leading-relaxed">Catalog: 9 hardware, 12 models, 6 rentals · FX 1.1165 USD/EUR (ECB, 2026-11-06)</p></div></aside><div class="pl-[280px]"><header class="fixed top-0 left-[280px] right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md border-b border-outline-variant z-40 flex items-center justify-between px-gutter-desktop"><div class="flex items-center gap-4 min-w-0"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">verified</span><span class="font-headline-sm text-headline-sm text-on-surface truncate">Project: Sovereign Inference Q4</span></div><span class="text-outline-variant font-body-sm">|</span><div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm"><span class="material-symbols-outlined text-[16px]">schedule</span><span class="">Calculated 2 mins ago</span></div></div><div class="flex items-center gap-3"><div class="flex items-center bg-surface-container-low rounded-lg p-1 border border-outline-variant"><button class="w-7 h-7 flex items-center justify-center rounded bg-surface-container-lowest text-primary shadow-xs" title="Light mode" type="button"><span class="material-symbols-outlined text-[16px]">light_mode</span></button><button class="w-7 h-7 flex items-center justify-center rounded text-on-surface-variant hover:text-on-surface" title="Dark mode" type="button"><span class="material-symbols-outlined text-[16px]">dark_mode</span></button></div><button class="h-8 px-3 rounded-lg border border-outline-variant bg-surface-container-lowest hover:bg-surface-container text-on-surface font-body-sm text-body-sm flex items-center gap-1.5 transition-colors" type="button"><span class="material-symbols-outlined text-[16px]">chat_bubble</span><span class="">Feedback</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- TIER 1: KPI RIBBON (Fixed top metric summary) -->
+<section class="w-full bg-surface-container-lowest px-gutter-desktop py-space-md shadow-sm">
+<div class="max-w-[1600px] mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-space-md">
+<!-- KPI 1 -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Recommended Baseline</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+</div>
+<div class="mt-2">
+<div class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight truncate">4× RTX 6000 Ada</div>
+<div class="font-label-sm text-label-sm text-secondary font-medium mt-0.5">Top-Ranked TOPSIS (C*=0.884)</div>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Selected VRAM Pool</span>
+<span class="material-symbols-outlined text-[16px] text-primary">memory</span>
+</div>
+<div class="mt-2">
+<div class="font-metric-display text-metric-display text-on-surface tabular-nums">384 <span class="font-label-md text-label-md text-on-surface-variant font-normal">GB VRAM</span></div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">239.1 GB used (62.3% load)</div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Target Context</span>
+<span class="material-symbols-outlined text-[16px] text-primary">layers</span>
+</div>
+<div class="mt-2">
+<div class="font-metric-display text-metric-display text-on-surface tabular-nums">8,192 <span class="font-label-md text-label-md text-on-surface-variant font-normal">tokens</span></div>
+<div class="font-label-sm text-label-sm text-primary font-medium mt-0.5">25 Concurrent Devs @ SLA</div>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Inference Sizing</span>
+<span class="material-symbols-outlined text-[16px] text-secondary">speed</span>
+</div>
+<div class="mt-2">
+<div class="font-metric-display text-metric-display text-secondary tabular-nums">44.8 <span class="font-label-md text-label-md text-on-surface-variant font-normal">tok/s</span></div>
+<div class="font-label-sm text-label-sm text-secondary font-medium mt-0.5">TTFT: 3.20s (SLA Pass)</div>
+</div>
+</div>
+<!-- KPI 5 -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">5Y TCO Amortized</span>
+<span class="material-symbols-outlined text-[16px] text-primary">euro</span>
+</div>
+<div class="mt-2">
+<div class="font-metric-display text-metric-display text-on-surface tabular-nums">€148,420</div>
+<div class="font-label-sm text-label-sm text-secondary font-medium mt-0.5">-41.2% vs Cloud Hyperscale</div>
+</div>
+</div>
+<!-- KPI 6 -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant">Memory Feasibility</span>
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+</div>
+<div class="mt-2">
+<div class="font-metric-display text-metric-display text-primary tabular-nums">3 <span class="font-body-md text-body-md text-on-surface-variant">/ 5 Feasible</span></div>
+<div class="font-label-sm text-label-sm text-error font-medium mt-0.5">2 OOM Edge Infeasible</div>
+</div>
+</div>
+</div>
+</section>
+<!-- TIER 2: TABBED WORKSPACE -->
+<section class="w-full px-gutter-desktop py-space-lg max-w-[1600px] mx-auto flex flex-col gap-space-xl">
+<!-- Tab Bar -->
+<div class="flex items-center justify-between border-b border-surface-container-highest pb-0">
+<div class="flex gap-space-lg -mb-px">
+<a class="py-space-md px-space-xs font-headline-sm text-headline-sm text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[18px]">format_list_numbered</span>
+          Ranking
+        </a>
+<a class="py-space-md px-space-xs font-headline-sm text-headline-sm text-primary font-semibold border-b-2 border-primary flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[18px] text-primary">memory</span>
+          View 1: Memory fit
+          <span class="bg-primary/10 text-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full font-medium">Deterministic</span>
+</a>
+<a class="py-space-md px-space-xs font-headline-sm text-headline-sm text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-[18px]">query_stats</span>
+          View 2: 60-month TCO
+        </a>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Engine:</span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded font-label-sm text-label-sm font-semibold text-on-surface">FlashAttention-2 / PagedAttention</span>
+</div>
+</div>
+<!-- VIEW 1: MEMORY FIT CONTENT AREA -->
+<div class="flex flex-col gap-space-xl">
+<!-- 1. Header & Control Row -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm border-b border-surface-container-high pb-space-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">Hardware VRAM &amp; Unified Memory Allocation Matrix</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Deterministic memory sizing for LLM weights, KV cache, and parked agentic context</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="h-9 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+              Reset Defaults
+            </button>
+<button class="h-9 px-3.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1.5 shadow-sm hover:bg-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+              Recompute Sizing
+            </button>
+</div>
+</div>
+<!-- Filter & Control Inputs -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-space-md items-end">
+<!-- Hardware multiselect chips -->
+<div class="xl:col-span-4 flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant tracking-wider">Hardware Candidates</label>
+<span class="font-label-sm text-label-sm text-primary cursor-pointer hover:underline">+ Add hardware</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 p-1.5 bg-surface-container-low rounded-lg min-h-[38px]">
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest text-on-surface px-2 py-0.5 rounded-md font-label-sm text-label-sm shadow-xs">
+                RTX Pro 6000 Ada (96GB)
+                <span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-error cursor-pointer">close</span>
+</span>
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest text-on-surface px-2 py-0.5 rounded-md font-label-sm text-label-sm shadow-xs">
+                Mac Studio M2 Ultra (192GB)
+                <span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-error cursor-pointer">close</span>
+</span>
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest text-on-surface px-2 py-0.5 rounded-md font-label-sm text-label-sm shadow-xs">
+                H100 SXM5 (80GB)
+                <span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-error cursor-pointer">close</span>
+</span>
+<span class="inline-flex items-center gap-1 bg-surface-container-lowest text-on-surface px-2 py-0.5 rounded-md font-label-sm text-label-sm shadow-xs">
+                L40S (48GB)
+                <span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-error cursor-pointer">close</span>
+</span>
+</div>
+</div>
+<!-- Model select -->
+<div class="xl:col-span-2 flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant tracking-wider">Selected Model</label>
+<div class="relative">
+<select class="w-full h-9 bg-surface-container-low rounded-lg px-3 pr-8 font-body-md text-body-md text-on-surface focus:outline-none appearance-none font-medium">
+<option selected="">gpt-oss-120b</option>
+<option>Llama-3.3-70B</option>
+<option>Qwen2.5-Coder-32B</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2 text-[18px] text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Precision select -->
+<div class="xl:col-span-2 flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant tracking-wider">Quantization Precision</label>
+<div class="relative">
+<select class="w-full h-9 bg-surface-container-low rounded-lg px-3 pr-8 font-label-md text-label-md text-on-surface focus:outline-none appearance-none font-semibold">
+<option selected="">INT4 (AWQ)</option>
+<option>FP8 (E4M3)</option>
+<option>BF16 (Unquantized)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-2 text-[18px] text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Target context input -->
+<div class="xl:col-span-2 flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant tracking-wider">Target Context (tok)</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 bg-surface-container-low rounded-lg px-3 font-label-md text-label-md text-on-surface font-semibold tabular-nums focus:outline-none" type="text" value="8,192"/>
+<span class="absolute right-2 font-label-sm text-label-sm text-on-surface-variant">tok</span>
+</div>
+</div>
+<!-- Nodes segmented control -->
+<div class="xl:col-span-2 flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant tracking-wider">Nodes / Sockets</label>
+<div class="flex bg-surface-container-low p-0.5 rounded-lg">
+<button class="flex-1 py-1 font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">1</button>
+<button class="flex-1 py-1 font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">2</button>
+<button class="flex-1 py-1 font-label-md text-label-md bg-surface-container-lowest text-primary font-bold rounded shadow-xs" type="button">4</button>
+<button class="flex-1 py-1 font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">8</button>
+</div>
+</div>
+</div>
+<!-- Secondary Toggles Row -->
+<div class="flex flex-wrap items-center justify-between gap-space-md pt-space-xs border-t border-surface-container-high/60">
+<div class="flex items-center gap-space-xl">
+<!-- Mac wired toggle -->
+<label class="inline-flex items-center gap-2.5 cursor-pointer">
+<div class="relative inline-flex items-center">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest peer-checked:bg-primary rounded-full transition-colors"></div>
+<div class="absolute left-0.5 top-0.5 w-4 h-4 bg-surface-container-lowest rounded-full transition-transform peer-checked:translate-x-4 shadow-sm"></div>
+</div>
+<span class="font-label-sm text-label-sm font-medium text-on-surface">Mac wired-memory override (<code class="text-primary font-mono">sysctl 117.7GB</code>)</span>
+</label>
+<!-- Linux AMD override -->
+<label class="inline-flex items-center gap-2.5 cursor-pointer">
+<div class="relative inline-flex items-center">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest peer-checked:bg-primary rounded-full transition-colors"></div>
+<div class="absolute left-0.5 top-0.5 w-4 h-4 bg-surface-container-lowest rounded-full transition-transform peer-checked:translate-x-4 shadow-sm"></div>
+</div>
+<span class="font-label-sm text-label-sm font-medium text-on-surface">Linux AMD ROCm override (<code class="text-on-surface-variant font-mono">HSA_OVERRIDE_GFX</code>)</span>
+</label>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Parked Agent Tokens/User: <span class="font-mono text-on-surface font-semibold">1,024</span></span>
+<span class="text-outline-variant font-body-sm">•</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Batch SLA Mode: <span class="font-mono text-on-surface font-semibold">Continuous Paged</span></span>
+</div>
+</div>
+</div>
+<!-- 2. Main Chart: Horizontal Stacked Memory Breakdown -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col gap-space-lg">
+<!-- Chart Header & Okabe-Ito Legend -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md border-b border-surface-container-high pb-space-md">
+<div>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Memory Allocation vs. Usable Capacity (per Node / Cluster)</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Horizontal stacked breakdown showing exact GB footprint against hardware limits</p>
+</div>
+<!-- Legend Items (Okabe-Ito Palette) -->
+<div class="flex flex-wrap items-center gap-3 text-[11px] font-mono">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-xs bg-[#0072B2]"></span>
+<span class="text-on-surface">Weights</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-xs bg-[#56B4E9]"></span>
+<span class="text-on-surface">KV Cache (25 Users @ 8k)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-xs bg-[#009E73]"></span>
+<span class="text-on-surface">Agent State</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-xs bg-[#F0E442]"></span>
+<span class="text-on-surface">OS Reserve</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-xs bg-[#CC79A7]"></span>
+<span class="text-on-surface">CUDA/Metal Runtime</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3.5 h-0 border-b-2 border-dashed border-black"></span>
+<span class="text-on-surface font-semibold">Usable Ceiling</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-xs" style="background: repeating-linear-gradient(45deg, #D55E00, #D55E00 4px, #ff8080 4px, #ff8080 8px);"></span>
+<span class="text-error font-semibold">OOM Infeasible Overflow</span>
+</div>
+</div>
+</div>
+<!-- Chart Stacked Bars Area -->
+<div class="flex flex-col gap-space-xl pt-space-xs">
+<!-- Pairing 1: RTX Pro 6000 Ada x4 -->
+<div class="flex flex-col gap-1.5">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm font-medium gap-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">RTX Pro 6000 Ada × 4</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">384 GB aggregate · gpt-oss-120b INT4</span>
+<span class="bg-secondary/15 text-secondary text-[11px] font-mono px-2 py-0.2 rounded-full font-semibold">FEASIBLE</span>
+</div>
+<div class="font-label-md text-label-md text-on-surface font-mono">
+<span class="text-primary font-bold">239.1 GB</span> / 384.0 GB <span class="text-on-surface-variant font-normal">(62.3% capacity · 144.9 GB headroom)</span>
+</div>
+</div>
+<!-- Visual Bar Container (Scale: 0 to 450 GB max relative width) -->
+<div class="w-full h-8 bg-surface-container-low rounded-lg relative overflow-hidden flex shadow-inner">
+<!-- Usable threshold line indicator (at 384GB / 450GB ≈ 85.3%) -->
+<div class="absolute top-0 bottom-0 left-[85.3%] w-0 border-r-2 border-dashed border-black z-20" title="Usable memory threshold 384 GB"></div>
+<!-- Segment: Weights 64.2 GB (14.26%) -->
+<div class="h-full bg-[#0072B2] relative group flex items-center justify-center text-[10px] text-white font-mono" style="width: 14.26%;" title="Weights: 64.2 GB">
+                64.2G
+              </div>
+<!-- Segment: KV cache 98.4 GB (21.86%) -->
+<div class="h-full bg-[#56B4E9] relative group flex items-center justify-center text-[10px] text-white font-mono" style="width: 21.86%;" title="KV cache: 98.4 GB">
+                98.4G
+              </div>
+<!-- Segment: Agent state 42.0 GB (9.33%) -->
+<div class="h-full bg-[#009E73] relative group flex items-center justify-center text-[10px] text-white font-mono" style="width: 9.33%;" title="Agent state: 42.0 GB">
+                42.0G
+              </div>
+<!-- Segment: OS 16.0 GB (3.55%) -->
+<div class="h-full bg-[#F0E442] relative group flex items-center justify-center text-[10px] text-black font-mono font-semibold" style="width: 3.55%;" title="OS reserved: 16.0 GB">
+                16G
+              </div>
+<!-- Segment: Overhead 18.5 GB (4.11%) -->
+<div class="h-full bg-[#CC79A7] relative group flex items-center justify-center text-[10px] text-white font-mono" style="width: 4.11%;" title="CUDA runtime: 18.5 GB">
+                18.5G
+              </div>
+<!-- Empty buffer -->
+<div class="flex-1 bg-surface-container-high/40 flex items-center px-3">
+<span class="font-label-sm text-label-sm text-secondary font-mono font-semibold">144.9 GB Headroom Buffer</span>
+</div>
+</div>
+</div>
+<!-- Pairing 2: H100 SXM5 80GB x 2 -->
+<div class="flex flex-col gap-1.5">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm font-medium gap-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">H100 SXM5 80GB × 2</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">160 GB aggregate · Llama-3.3-70B FP8</span>
+<span class="bg-secondary/15 text-secondary text-[11px] font-mono px-2 py-0.2 rounded-full font-semibold">FEASIBLE (TIGHT)</span>
+</div>
+<div class="font-label-md text-label-md text-on-surface font-mono">
+<span class="text-tertiary font-bold">159.0 GB</span> / 160.0 GB <span class="text-on-surface-variant font-normal">(99.4% capacity · 1.0 GB headroom)</span>
+</div>
+</div>
+<!-- Bar (Scaled relative to 450 GB max: 160GB ceiling = 35.5%) -->
+<div class="w-full h-8 bg-surface-container-low rounded-lg relative overflow-hidden flex shadow-inner">
+<div class="absolute top-0 bottom-0 left-[35.55%] w-0 border-r-2 border-dashed border-black z-20" title="Usable memory threshold 160 GB"></div>
+<!-- Weights 72.8 GB (16.17%) -->
+<div class="h-full bg-[#0072B2] flex items-center justify-center text-[10px] text-white font-mono" style="width: 16.17%;" title="Weights: 72.8 GB">72.8G</div>
+<!-- KV cache 48.0 GB (10.66%) -->
+<div class="h-full bg-[#56B4E9] flex items-center justify-center text-[10px] text-white font-mono" style="width: 10.66%;" title="KV cache: 48.0 GB">48.0G</div>
+<!-- Agent state 18.2 GB (4.04%) -->
+<div class="h-full bg-[#009E73] flex items-center justify-center text-[10px] text-white font-mono" style="width: 4.04%;" title="Agent state: 18.2 GB">18.2G</div>
+<!-- OS 8.0 GB (1.77%) -->
+<div class="h-full bg-[#F0E442] flex items-center justify-center text-[10px] text-black font-mono font-semibold" style="width: 1.77%;" title="OS: 8.0 GB">8G</div>
+<!-- Runtime 12.0 GB (2.66%) -->
+<div class="h-full bg-[#CC79A7] flex items-center justify-center text-[10px] text-white font-mono" style="width: 2.66%;" title="Runtime: 12.0 GB">12G</div>
+<!-- Tight Buffer -->
+<div class="flex-1 bg-surface-container-high/30 flex items-center px-4">
+<span class="font-label-sm text-label-sm text-tertiary font-mono font-bold tracking-tight">Warning: 1.0 GB Headroom (Near Thrashing)</span>
+</div>
+</div>
+</div>
+<!-- Pairing 3: Mac Studio M2 Ultra 192GB x 1 (OOM Wired Trap) -->
+<div class="flex flex-col gap-1.5">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm font-medium gap-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Mac Studio M2 Ultra 192GB × 1</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">117.7 GB Wired Limit Override · gpt-oss-120b INT4</span>
+<span class="bg-error/15 text-error text-[11px] font-mono px-2 py-0.2 rounded-full font-bold">OOM (+18.4 GB)</span>
+</div>
+<div class="font-label-md text-label-md text-error font-mono">
+<span class="font-bold">136.1 GB Total Req</span> vs 117.7 GB Wired Ceiling <span class="font-normal">(-18.4 GB deficit)</span>
+</div>
+</div>
+<!-- Bar (Scaled relative to 450 GB max: 117.7GB ceiling = 26.15%) -->
+<div class="w-full h-8 bg-surface-container-low rounded-lg relative overflow-hidden flex shadow-inner">
+<!-- Ceiling at 117.7 GB (26.15%) -->
+<div class="absolute top-0 bottom-0 left-[26.15%] w-0 border-r-2 border-dashed border-black z-20" title="Wired Memory Ceiling: 117.7 GB"></div>
+<!-- Weights 64.2 GB (14.26%) -->
+<div class="h-full bg-[#0072B2] flex items-center justify-center text-[10px] text-white font-mono" style="width: 14.26%;">64.2G</div>
+<!-- KV cache 52.0 GB (11.55%) -->
+<div class="h-full bg-[#56B4E9] flex items-center justify-center text-[10px] text-white font-mono" style="width: 11.55%;">52.0G</div>
+<!-- Usable line reached! Overflow begins for Agent State + OS + Runtime -->
+<!-- Agent state 28.0 GB (6.22%) -->
+<div class="h-full bg-[#009E73] flex items-center justify-center text-[10px] text-white font-mono" style="width: 6.22%;">28.0G</div>
+<!-- OS reserved 24.0 GB (5.33%) -->
+<div class="h-full bg-[#F0E442] flex items-center justify-center text-[10px] text-black font-mono font-semibold" style="width: 5.33%;">24.0G</div>
+<!-- Infeasible Overflow Zone with Hatch Pattern (4.08% / 18.4 GB overflow representation) -->
+<div class="h-full relative flex items-center justify-center font-mono font-bold text-white text-[11px] px-2 shadow-sm" style="width: 8.5%; background: repeating-linear-gradient(45deg, #D55E00, #D55E00 6px, #ff8080 6px, #ff8080 12px);">
+                OOM
+              </div>
+<div class="flex-1 bg-surface-container-high/20 flex items-center px-4">
+<span class="font-label-sm text-label-sm text-error font-mono font-bold">CRASH: macOS Metal driver aborts on alloc buffer exceedance</span>
+</div>
+</div>
+</div>
+<!-- Pairing 4: L40S 48GB x 4 -->
+<div class="flex flex-col gap-1.5">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm font-medium gap-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">L40S 48GB × 4</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">192 GB aggregate · Qwen2.5-Coder-32B BF16</span>
+<span class="bg-secondary/15 text-secondary text-[11px] font-mono px-2 py-0.2 rounded-full font-semibold">FEASIBLE</span>
+</div>
+<div class="font-label-md text-label-md text-on-surface font-mono">
+<span class="text-primary font-bold">177.4 GB</span> / 192.0 GB <span class="text-on-surface-variant font-normal">(92.4% capacity · 14.6 GB headroom)</span>
+</div>
+</div>
+<!-- Bar (Scaled relative to 450 GB max: 192GB ceiling = 42.66%) -->
+<div class="w-full h-8 bg-surface-container-low rounded-lg relative overflow-hidden flex shadow-inner">
+<div class="absolute top-0 bottom-0 left-[42.66%] w-0 border-r-2 border-dashed border-black z-20" title="Usable memory threshold 192 GB"></div>
+<!-- Weights 65.4 GB (14.53%) -->
+<div class="h-full bg-[#0072B2] flex items-center justify-center text-[10px] text-white font-mono" style="width: 14.53%;">65.4G</div>
+<!-- KV cache 62.0 GB (13.77%) -->
+<div class="h-full bg-[#56B4E9] flex items-center justify-center text-[10px] text-white font-mono" style="width: 13.77%;">62.0G</div>
+<!-- Agent state 24.0 GB (5.33%) -->
+<div class="h-full bg-[#009E73] flex items-center justify-center text-[10px] text-white font-mono" style="width: 5.33%;">24.0G</div>
+<!-- OS 12.0 GB (2.66%) -->
+<div class="h-full bg-[#F0E442] flex items-center justify-center text-[10px] text-black font-mono font-semibold" style="width: 2.66%;">12G</div>
+<!-- Runtime 14.0 GB (3.11%) -->
+<div class="h-full bg-[#CC79A7] flex items-center justify-center text-[10px] text-white font-mono" style="width: 3.11%;">14G</div>
+<!-- Buffer -->
+<div class="flex-1 bg-surface-container-high/40 flex items-center px-4">
+<span class="font-label-sm text-label-sm text-secondary font-mono font-semibold">14.6 GB Headroom</span>
+</div>
+</div>
+</div>
+<!-- Pairing 5: RTX 4090 24GB x 4 (Catastrophic OOM) -->
+<div class="flex flex-col gap-1.5">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between text-body-sm font-medium gap-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">RTX 4090 24GB × 4</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">96 GB aggregate · gpt-oss-120b INT4</span>
+<span class="bg-error/15 text-error text-[11px] font-mono px-2 py-0.2 rounded-full font-bold">OOM (+54.2 GB)</span>
+</div>
+<div class="font-label-md text-label-md text-error font-mono">
+<span class="font-bold">150.2 GB Required</span> vs 96.0 GB Hard Limit <span class="font-normal">(-54.2 GB Deficit)</span>
+</div>
+</div>
+<!-- Bar (Scaled relative to 450 GB max: 96GB ceiling = 21.33%) -->
+<div class="w-full h-8 bg-surface-container-low rounded-lg relative overflow-hidden flex shadow-inner">
+<div class="absolute top-0 bottom-0 left-[21.33%] w-0 border-r-2 border-dashed border-black z-20" title="Usable memory threshold 96 GB"></div>
+<!-- Weights 64.2 GB (14.26%) -->
+<div class="h-full bg-[#0072B2] flex items-center justify-center text-[10px] text-white font-mono" style="width: 14.26%;">64.2G</div>
+<!-- Partial KV cache that barely fits up to 96GB (7.07%) -->
+<div class="h-full bg-[#56B4E9] flex items-center justify-center text-[10px] text-white font-mono" style="width: 7.07%;">31.8G</div>
+<!-- Enormous hatched overflow bar representing remainder of KV + Agent + OS + Runtime (12.04%) -->
+<div class="h-full relative flex items-center justify-center font-mono font-bold text-white text-[11px] px-3 shadow-md" style="width: 16.5%; background: repeating-linear-gradient(45deg, #D55E00, #D55E00 6px, #ff8080 6px, #ff8080 12px);">
+                OOM (+54.2 GB)
+              </div>
+<div class="flex-1 bg-surface-container-high/20 flex items-center px-4">
+<span class="font-label-sm text-label-sm text-error font-mono font-semibold">Immediate CUDA OOM at startup: Cluster cannot load 120B model weights + KV cache</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Scale Axis Marker -->
+<div class="w-full flex justify-between font-label-sm text-label-sm text-on-surface-variant border-t border-surface-container-high pt-2 font-mono">
+<span>0 GB</span>
+<span>96 GB</span>
+<span>160 GB</span>
+<span>192 GB</span>
+<span>256 GB</span>
+<span>384 GB</span>
+<span>450 GB (Cluster Ceiling)</span>
+</div>
+</div>
+<!-- 3. Callout Box (Mac Default-Split Trap) -->
+<div class="bg-surface-container-low border-l-4 border-[#E69F00] p-space-lg rounded-xl shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-[#E69F00]/15 flex items-center justify-center text-[#926400] flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[24px]">terminal</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">macOS Unified Memory Wired Allocation Trap</span>
+<span class="bg-[#E69F00]/20 text-[#734d00] font-label-sm text-label-sm px-2 py-0.5 rounded font-mono font-semibold">CRITICAL PITFALL</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
+              By default, macOS limits process wired memory to ~75% of physical unified memory (144 GB on 192 GB models), causing sudden Metal OOM terminations even with free RAM available. To unlock 92% headroom (up to 176 GB), apply the kernel sysctl override:
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-2 w-full md:w-auto flex-shrink-0">
+<div class="bg-inverse-surface text-inverse-on-surface px-3 py-2 rounded-lg font-mono text-[12px] flex items-center gap-3">
+<code>sudo sysctl iogpu.wired_limit_mb=117760</code>
+<button class="text-on-surface-variant hover:text-white transition-colors" title="Copy to clipboard" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 4. Detailed Result Cards -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">Deterministic Profiling Breakdown</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Pairing-level empirical benchmarks and SLA throughput guarantees</p>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Showing 4 Evaluation Candidates</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+<!-- Card 1: RTX Pro 6000 Ada -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-[3px] bg-[#009E73]"></div>
+<div class="flex flex-col gap-space-md">
+<!-- Card Header -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">RTX Pro 6000 Ada (96GB × 4)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">gpt-oss-120b · INT4 AWQ</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 bg-[#E6F5ED] text-[#009E73] border border-[#B2E5D0] px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                    Feasible
+                  </span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded font-mono font-bold text-primary text-[12px]">C* 0.884</span>
+</div>
+</div>
+<!-- Key Facts Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-surface-container-low p-2.5 rounded-lg font-mono text-[11px]">
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Max Users</span>
+<span class="font-bold text-on-surface">38 devs</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Usable VRAM</span>
+<span class="font-bold text-on-surface">384.0 GB</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Headroom</span>
+<span class="font-bold text-secondary">+144.9 GB</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">AA v5 Score</span>
+<span class="font-bold text-primary">88.5 / 100</span>
+</div>
+</div>
+<!-- Performance Micro Table -->
+<div class="flex flex-col divide-y divide-surface-container-high font-mono text-[12px]">
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Decode TPS</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface">42.1 tok/s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: BENCH-SPEC03</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Prefill TPS</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface">184.2 tok/s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: VLLM-PAGED</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Time to First Token (TTFT)</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-secondary">3.20 s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: TIKTOKEN-8K</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Effective TPS (SLA weighted)</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-primary">44.8 tok/s</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-1.5 py-0.5 rounded">formula: WEIGHTED-SLA</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">1M-Token Batch Prefill</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface">18.2 min</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-1.5 py-0.5 rounded">formula: SPEC-BATCH</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: H100 SXM5 80GB -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-[3px] bg-[#0072B2]"></div>
+<div class="flex flex-col gap-space-md">
+<!-- Card Header -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">H100 SXM5 (80GB × 2)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Llama-3.3-70B · FP8</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 bg-[#E6F5ED] text-[#009E73] border border-[#B2E5D0] px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                    Feasible
+                  </span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded font-mono font-bold text-primary text-[12px]">C* 0.841</span>
+</div>
+</div>
+<!-- Key Facts Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-surface-container-low p-2.5 rounded-lg font-mono text-[11px]">
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Max Users</span>
+<span class="font-bold text-on-surface">28 devs</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Usable VRAM</span>
+<span class="font-bold text-on-surface">160.0 GB</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Headroom</span>
+<span class="font-bold text-tertiary">1.0 GB (Tight!)</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">AA v5 Score</span>
+<span class="font-bold text-primary">89.2 / 100</span>
+</div>
+</div>
+<!-- Performance Micro Table -->
+<div class="flex flex-col divide-y divide-surface-container-high font-mono text-[12px]">
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Decode TPS</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface">68.4 tok/s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: TENSORRT-LLM</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Prefill TPS</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface">412.0 tok/s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: TENSORRT-LLM</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Time to First Token (TTFT)</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-secondary">1.40 s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: TIKTOKEN-8K</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Effective TPS (SLA weighted)</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-primary">72.1 tok/s</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-1.5 py-0.5 rounded">formula: WEIGHTED-SLA</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">1M-Token Batch Prefill</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface">7.4 min</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-1.5 py-0.5 rounded">formula: SPEC-BATCH</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: Mac Studio M2 Ultra (Infeasible OOM) -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-[3px] bg-error"></div>
+<div class="flex flex-col gap-space-md">
+<!-- Card Header -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Mac Studio M2 Ultra (192GB × 1)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">gpt-oss-120b · INT4</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 bg-[#FDF3E6] text-error border border-[#FED7D7] px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">cancel</span>
+                    Infeasible (OOM)
+                  </span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded font-mono font-bold text-error text-[12px]">Blocked</span>
+</div>
+</div>
+<!-- Key Facts Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-surface-container-low p-2.5 rounded-lg font-mono text-[11px]">
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Max Users</span>
+<span class="font-bold text-error">0 (Crash 8k)</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Wired Ceiling</span>
+<span class="font-bold text-on-surface">117.8 GB</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Deficit</span>
+<span class="font-bold text-error">-18.4 GB</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">AA v5 Score</span>
+<span class="font-bold text-on-surface-variant">N/A (OOM)</span>
+</div>
+</div>
+<!-- Performance Micro Table Showing Failures -->
+<div class="flex flex-col divide-y divide-surface-container-high font-mono text-[12px]">
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Decode TPS</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface-variant">14.2 tok/s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: MLX-LLM</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Prefill TPS</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface-variant">48.0 tok/s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: MLX-LLM</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Time to First Token (TTFT)</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-error">9.80 s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: TIKTOKEN-8K</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Effective TPS</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-error">Failed</span>
+<span class="bg-error/15 text-error text-[10px] px-1.5 py-0.5 rounded font-semibold">formula: OOM-EXCEEDED</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">1M-Token Batch Prefill</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-error">Aborted (OOM)</span>
+<span class="bg-error/15 text-error text-[10px] px-1.5 py-0.5 rounded font-semibold">formula: METAL-ABORT</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4: L40S 48GB x 4 -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-[3px] bg-[#E69F00]"></div>
+<div class="flex flex-col gap-space-md">
+<!-- Card Header -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">L40S (48GB × 4)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Qwen2.5-Coder-32B · BF16</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 bg-[#E6F5ED] text-[#009E73] border border-[#B2E5D0] px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                    Feasible
+                  </span>
+<span class="bg-surface-container-high px-2 py-0.5 rounded font-mono font-bold text-primary text-[12px]">C* 0.812</span>
+</div>
+</div>
+<!-- Key Facts Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-surface-container-low p-2.5 rounded-lg font-mono text-[11px]">
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Max Users</span>
+<span class="font-bold text-on-surface">31 devs</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Usable VRAM</span>
+<span class="font-bold text-on-surface">192.0 GB</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">Headroom</span>
+<span class="font-bold text-secondary">+14.6 GB</span>
+</div>
+<div>
+<span class="text-on-surface-variant block uppercase text-[9px]">AA v5 Score</span>
+<span class="font-bold text-primary">84.1 / 100</span>
+</div>
+</div>
+<!-- Performance Micro Table -->
+<div class="flex flex-col divide-y divide-surface-container-high font-mono text-[12px]">
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Decode TPS</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface">36.7 tok/s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: VLLM-PAGED</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Prefill TPS</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface">210.5 tok/s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: VLLM-PAGED</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Time to First Token (TTFT)</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-secondary">2.80 s</span>
+<span class="bg-primary/10 text-primary text-[10px] px-1.5 py-0.5 rounded font-semibold">measured: TIKTOKEN-8K</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">Effective TPS (SLA weighted)</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-primary">39.4 tok/s</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-1.5 py-0.5 rounded">formula: WEIGHTED-SLA</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1.5">
+<span class="text-on-surface-variant font-sans">1M-Token Batch Prefill</span>
+<div class="flex items-center gap-2">
+<span class="font-bold text-on-surface">14.1 min</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[10px] px-1.5 py-0.5 rounded">formula: SPEC-BATCH</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TIER 3 AUDIT DRAWER (Collapsed Verification Bar) -->
+<div class="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-space-md mt-space-md">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-secondary">verified_user</span>
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface">Audit &amp; Export Verification</span>
+</div>
+<span class="text-outline-variant font-body-sm hidden sm:inline">|</span>
+<div class="flex items-center gap-1.5 font-mono text-[11px] text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded">
+<span>Run Hash:</span>
+<span class="text-primary font-bold">0x8F92A07C44E1...B41</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm w-full sm:w-auto">
+<button class="flex-1 sm:flex-none h-8 px-3 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">data_object</span>
+          Export JSON
+        </button>
+<button class="flex-1 sm:flex-none h-8 px-3 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">folder_zip</span>
+          Export CSV (zip)
+        </button>
+<button class="h-8 w-8 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant flex items-center justify-center transition-colors" title="Expand audit log details" type="button">
+<span class="material-symbols-outlined text-[18px]">expand_less</span>
+</button>
+</div>
+</div>
+</section>
+</div></main></div>
+</body></html>

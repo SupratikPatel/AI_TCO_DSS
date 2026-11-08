@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI TCO DSS — Design System & Style Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Token swatch shadow */
+    .swatch-shadow {
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 pb-24">
+
+  <!-- Header Banner -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-30 shadow-xs">
+    <div class="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 rounded-lg bg-[#0072b2] flex items-center justify-center text-white font-bold text-lg shadow-sm">
+          DSS
+        </div>
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h1 class="text-xl font-bold text-slate-900 tracking-tight">AI TCO DSS — Style Guide & Component Spec</h1>
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono font-medium bg-blue-50 text-[#0072b2] border border-blue-200">v3.8 Light</span>
+          </div>
+          <p class="text-xs text-slate-500 mt-0.5">Sovereign AI Decision Support System Design Language & Living Component Catalog</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 text-xs font-mono text-slate-600 bg-slate-100 px-3.5 py-1.5 rounded-md border border-slate-200">
+        <span>Framework: Tailwind CSS</span>
+        <span class="text-slate-300">|</span>
+        <span>Type: Inter + JetBrains Mono</span>
+        <span class="text-slate-300">|</span>
+        <span>Tokens: Okabe-Ito (Colorblind-Safe)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-8 py-10 space-y-16">
+
+    <!-- 01: COLOR TOKENS & OKABE-ITO DATA PALETTE -->
+    <section>
+      <div class="flex items-baseline justify-between border-b border-slate-200 pb-3 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <span class="text-xs px-2 py-0.5 rounded bg-slate-200 font-mono text-slate-700">01</span>
+            Color Tokens & Palette Specification
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">Foundation surface, border, typography, interactive, and Okabe-Ito 8-color accessible data scale.</p>
+        </div>
+        <span class="text-xs font-mono text-slate-400">All tokens labeled with hex code & role</span>
+      </div>
+
+      <!-- Surface & UI Tokens -->
+      <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">Core UI & Surface Tokens</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+        <!-- Background -->
+        <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-xs">
+          <div class="h-14 rounded bg-[#f8fafc] border border-slate-200 mb-2.5"></div>
+          <div class="text-xs font-semibold text-slate-800">Background</div>
+          <div class="text-[11px] font-mono text-slate-500 mt-0.5">#f8fafc</div>
+          <div class="text-[10px] text-slate-400 mt-1 font-mono">surface-base</div>
+        </div>
+        <!-- Card Surface -->
+        <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-xs">
+          <div class="h-14 rounded bg-[#ffffff] border border-slate-200 mb-2.5"></div>
+          <div class="text-xs font-semibold text-slate-800">Card Surface</div>
+          <div class="text-[11px] font-mono text-slate-500 mt-0.5">#ffffff</div>
+          <div class="text-[10px] text-slate-400 mt-1 font-mono">card-bg / lowest</div>
+        </div>
+        <!-- Border Subtle -->
+        <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-xs">
+          <div class="h-14 rounded bg-[#e2e8f0] border border-slate-300 mb-2.5"></div>
+          <div class="text-xs font-semibold text-slate-800">Border Default</div>
+          <div class="text-[11px] font-mono text-slate-500 mt-0.5">#e2e8f0</div>
+          <div class="text-[10px] text-slate-400 mt-1 font-mono">border-slate-200</div>
+        </div>
+        <!-- Text Primary -->
+        <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-xs">
+          <div class="h-14 rounded bg-[#0f172a] mb-2.5"></div>
+          <div class="text-xs font-semibold text-slate-800">Text Primary</div>
+          <div class="text-[11px] font-mono text-slate-500 mt-0.5">#0f172a</div>
+          <div class="text-[10px] text-slate-400 mt-1 font-mono">slate-900 / 95%</div>
+        </div>
+        <!-- Text Secondary -->
+        <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-xs">
+          <div class="h-14 rounded bg-[#64748b] mb-2.5"></div>
+          <div class="text-xs font-semibold text-slate-800">Text Secondary</div>
+          <div class="text-[11px] font-mono text-slate-500 mt-0.5">#64748b</div>
+          <div class="text-[10px] text-slate-400 mt-1 font-mono">slate-500 / 60%</div>
+        </div>
+        <!-- Primary Accent -->
+        <div class="bg-white rounded-lg border border-slate-200 p-3 shadow-xs ring-1 ring-blue-500/20">
+          <div class="h-14 rounded bg-[#0072b2] mb-2.5"></div>
+          <div class="text-xs font-semibold text-blue-900">Primary Accent</div>
+          <div class="text-[11px] font-mono text-blue-700 font-medium mt-0.5">#0072b2</div>
+          <div class="text-[10px] text-slate-400 mt-1 font-mono">brand-blue / CTA</div>
+        </div>
+      </div>
+
+      <!-- Okabe-Ito 8-Color Data Palette -->
+      <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-xs">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-700">Okabe-Ito Colorblind-Safe Data Palette (8 Colors)</h3>
+            <p class="text-xs text-slate-500">Universal color vision deficiency safe palette utilized across all DSS charts, stacked bars, and multi-criteria allocations.</p>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 font-medium">
+            <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Deutan / Protan / Tritan Certified
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
+          <!-- 1. Blue -->
+          <div class="rounded-lg border border-slate-200 overflow-hidden">
+            <div class="h-16 bg-[#0072B2] flex items-end p-2 text-white font-mono text-[11px] font-semibold">#0072B2</div>
+            <div class="p-2.5 bg-slate-50">
+              <div class="text-xs font-bold text-slate-800">Blue</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">Model Weights / On-premise</div>
+            </div>
+          </div>
+          <!-- 2. Sky Blue -->
+          <div class="rounded-lg border border-slate-200 overflow-hidden">
+            <div class="h-16 bg-[#56B4E9] flex items-end p-2 text-slate-900 font-mono text-[11px] font-semibold">#56B4E9</div>
+            <div class="p-2.5 bg-slate-50">
+              <div class="text-xs font-bold text-slate-800">Sky Blue</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">Active KV Cache</div>
+            </div>
+          </div>
+          <!-- 3. Bluish Green -->
+          <div class="rounded-lg border border-slate-200 overflow-hidden">
+            <div class="h-16 bg-[#009E73] flex items-end p-2 text-white font-mono text-[11px] font-semibold">#009E73</div>
+            <div class="p-2.5 bg-slate-50">
+              <div class="text-xs font-bold text-slate-800">Bluish Green</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">Parked Agent State</div>
+            </div>
+          </div>
+          <!-- 4. Yellow -->
+          <div class="rounded-lg border border-slate-200 overflow-hidden">
+            <div class="h-16 bg-[#F0E442] flex items-end p-2 text-slate-900 font-mono text-[11px] font-semibold">#F0E442</div>
+            <div class="p-2.5 bg-slate-50">
+              <div class="text-xs font-bold text-slate-800">Yellow</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">OS / Host Reserved</div>
+            </div>
+          </div>
+          <!-- 5. Reddish Purple -->
+          <div class="rounded-lg border border-slate-200 overflow-hidden">
+            <div class="h-16 bg-[#CC79A7] flex items-end p-2 text-white font-mono text-[11px] font-semibold">#CC79A7</div>
+            <div class="p-2.5 bg-slate-50">
+              <div class="text-xs font-bold text-slate-800">Reddish Purple</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">CUDA / Runtime Overhead</div>
+            </div>
+          </div>
+          <!-- 6. Vermillion -->
+          <div class="rounded-lg border border-slate-200 overflow-hidden">
+            <div class="h-16 bg-[#D55E00] flex items-end p-2 text-white font-mono text-[11px] font-semibold">#D55E00</div>
+            <div class="p-2.5 bg-slate-50">
+              <div class="text-xs font-bold text-slate-800">Vermillion</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">OOM Deficit / Breach</div>
+            </div>
+          </div>
+          <!-- 7. Orange -->
+          <div class="rounded-lg border border-slate-200 overflow-hidden">
+            <div class="h-16 bg-[#E69F00] flex items-end p-2 text-slate-900 font-mono text-[11px] font-semibold">#E69F00</div>
+            <div class="p-2.5 bg-slate-50">
+              <div class="text-xs font-bold text-slate-800">Orange</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">API Managed Endpoints</div>
+            </div>
+          </div>
+          <!-- 8. Black / Dark Charcoal -->
+          <div class="rounded-lg border border-slate-200 overflow-hidden">
+            <div class="h-16 bg-[#000000] flex items-end p-2 text-white font-mono text-[11px] font-semibold">#000000</div>
+            <div class="p-2.5 bg-slate-50">
+              <div class="text-xs font-bold text-slate-800">Charcoal / Black</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">Physical Ceiling Markers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02: TYPOGRAPHY SCALE, CORNER RADIUS & SPACING -->
+    <section>
+      <div class="flex items-baseline justify-between border-b border-slate-200 pb-3 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <span class="text-xs px-2 py-0.5 rounded bg-slate-200 font-mono text-slate-700">02</span>
+            Typography Scale, Radius & Spacing Hierarchy
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">Hierarchical type specimens, monospace metrics, corner radiuses, and spacing increments.</p>
+        </div>
+        <span class="text-xs font-mono text-slate-400">Tokens: Title, Header, Subheader, Body, Caption, Monospace</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Typography Scale -->
+        <div class="lg:col-span-8 bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-6">
+          <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">Typography Scale Specimen</h3>
+
+          <!-- Title -->
+          <div class="flex flex-col md:flex-row md:items-baseline justify-between pb-4 border-b border-slate-100 gap-2">
+            <div class="w-48 shrink-0">
+              <span class="text-xs font-semibold text-blue-700 font-mono">Title</span>
+              <div class="text-[11px] text-slate-400 font-mono">24px (1.5rem) / 700 Bold</div>
+            </div>
+            <div class="text-2xl font-bold text-slate-900 tracking-tight flex-1">
+              Deterministic Inference Decision Matrix
+            </div>
+          </div>
+
+          <!-- Header -->
+          <div class="flex flex-col md:flex-row md:items-baseline justify-between pb-4 border-b border-slate-100 gap-2">
+            <div class="w-48 shrink-0">
+              <span class="text-xs font-semibold text-blue-700 font-mono">Header</span>
+              <div class="text-[11px] text-slate-400 font-mono">18px (1.125rem) / 600 SemiBold</div>
+            </div>
+            <div class="text-lg font-semibold text-slate-900 tracking-tight flex-1">
+              Candidate Architecture & Quantization Ranking
+            </div>
+          </div>
+
+          <!-- Subheader -->
+          <div class="flex flex-col md:flex-row md:items-baseline justify-between pb-4 border-b border-slate-100 gap-2">
+            <div class="w-48 shrink-0">
+              <span class="text-xs font-semibold text-blue-700 font-mono">Subheader</span>
+              <div class="text-[11px] text-slate-400 font-mono">14px (0.875rem) / 600 SemiBold</div>
+            </div>
+            <div class="text-sm font-semibold text-slate-800 flex-1">
+              Hardware VRAM & Unified Memory Allocation (Per Node / Cluster)
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="flex flex-col md:flex-row md:items-baseline justify-between pb-4 border-b border-slate-100 gap-2">
+            <div class="w-48 shrink-0">
+              <span class="text-xs font-semibold text-blue-700 font-mono">Body</span>
+              <div class="text-[11px] text-slate-400 font-mono">13px (0.8125rem) / 400 Regular</div>
+            </div>
+            <div class="text-[13px] text-slate-700 leading-relaxed flex-1">
+              Multi-criteria ranking utilizes deterministic TOPSIS with normalized Euclidean distances, optimizing 60-month CapEx/OpEx, latency constraints, and strict EU data residency guarantees.
+            </div>
+          </div>
+
+          <!-- Caption -->
+          <div class="flex flex-col md:flex-row md:items-baseline justify-between pb-4 border-b border-slate-100 gap-2">
+            <div class="w-48 shrink-0">
+              <span class="text-xs font-semibold text-blue-700 font-mono">Caption</span>
+              <div class="text-[11px] text-slate-400 font-mono">11px (0.6875rem) / 500 Medium</div>
+            </div>
+            <div class="text-[11px] text-slate-500 font-medium flex-1">
+              Audit trail verified against Article 53 (EU AI Act) and ISO/IEC 27001 Annex A.12 cryptographic standards.
+            </div>
+          </div>
+
+          <!-- Monospace Numbers / Data -->
+          <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-2">
+            <div class="w-48 shrink-0">
+              <span class="text-xs font-semibold text-blue-700 font-mono">Monospace Data</span>
+              <div class="text-[11px] text-slate-400 font-mono">13px / 500 SemiBold Mono</div>
+            </div>
+            <div class="font-mono text-[13px] font-semibold text-slate-900 flex-1 flex items-center gap-4">
+              <span class="text-[#0072b2]">$308,347.20</span>
+              <span class="text-slate-400 font-normal">|</span>
+              <span class="text-emerald-700">44.8 tok/s</span>
+              <span class="text-slate-400 font-normal">|</span>
+              <span class="text-slate-600">3.20 s TTFT</span>
+              <span class="text-slate-400 font-normal">|</span>
+              <span class="text-purple-700">C* = 0.884</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Radius & Spacing -->
+        <div class="lg:col-span-4 space-y-6">
+          <!-- Corner Radius Scale -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-xs">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4">Corner Radius Scale</h3>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="p-3 border border-slate-200 bg-slate-50 rounded-sm text-center">
+                <div class="text-xs font-bold text-slate-800">rounded-sm</div>
+                <div class="text-[11px] font-mono text-slate-500">2px / 0.125rem</div>
+                <div class="text-[10px] text-slate-400 mt-1">Status pills, badges</div>
+              </div>
+              <div class="p-3 border border-slate-200 bg-slate-50 rounded text-center">
+                <div class="text-xs font-bold text-slate-800">rounded</div>
+                <div class="text-[11px] font-mono text-slate-500">4px / 0.25rem</div>
+                <div class="text-[10px] text-slate-400 mt-1">Tags, form controls</div>
+              </div>
+              <div class="p-3 border border-slate-200 bg-slate-50 rounded-md text-center">
+                <div class="text-xs font-bold text-slate-800">rounded-md</div>
+                <div class="text-[11px] font-mono text-slate-500">6px / 0.375rem</div>
+                <div class="text-[10px] text-slate-400 mt-1">Buttons, inputs</div>
+              </div>
+              <div class="p-3 border border-slate-200 bg-slate-50 rounded-lg text-center">
+                <div class="text-xs font-bold text-slate-800">rounded-lg</div>
+                <div class="text-[11px] font-mono text-slate-500">8px / 0.5rem</div>
+                <div class="text-[10px] text-slate-400 mt-1">Cards, dialogs</div>
+              </div>
+              <div class="p-3 border border-slate-200 bg-slate-50 rounded-xl text-center col-span-2">
+                <div class="text-xs font-bold text-slate-800">rounded-xl</div>
+                <div class="text-[11px] font-mono text-slate-500">12px / 0.75rem</div>
+                <div class="text-[10px] text-slate-400 mt-1">Primary dashboard metric containers & matrix tables</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spacing Scale -->
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-xs">
+            <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4">Spacing Scale (Rhythm)</h3>
+            <div class="space-y-2.5 font-mono text-xs">
+              <div class="flex items-center gap-3">
+                <div class="w-14 text-slate-500">4px (1)</div>
+                <div class="h-3.5 bg-blue-100 border border-blue-300 w-1 rounded-xs"></div>
+                <span class="text-[11px] text-slate-400 font-sans">Micro padding, icon gap</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-14 text-slate-500">8px (2)</div>
+                <div class="h-3.5 bg-blue-100 border border-blue-300 w-2 rounded-xs"></div>
+                <span class="text-[11px] text-slate-400 font-sans">Badge padding, element inline gaps</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-14 text-slate-500">12px (3)</div>
+                <div class="h-3.5 bg-blue-100 border border-blue-300 w-3 rounded-xs"></div>
+                <span class="text-[11px] text-slate-400 font-sans">Compact cell padding, button py</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-14 text-slate-500">16px (4)</div>
+                <div class="h-3.5 bg-blue-100 border border-blue-300 w-4 rounded-xs"></div>
+                <span class="text-[11px] text-slate-400 font-sans">Default card inner padding</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-14 text-slate-500">24px (6)</div>
+                <div class="h-3.5 bg-blue-100 border border-blue-300 w-6 rounded-xs"></div>
+                <span class="text-[11px] text-slate-400 font-sans">Section vertical gutters</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-14 text-slate-500">32px (8)</div>
+                <div class="h-3.5 bg-blue-100 border border-blue-300 w-8 rounded-xs"></div>
+                <span class="text-[11px] text-slate-400 font-sans">Major layout boundaries</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03: STATUS BADGES & ALERTS (EXACT SPECIFICATION) -->
+    <section>
+      <div class="flex items-baseline justify-between border-b border-slate-200 pb-3 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <span class="text-xs px-2 py-0.5 rounded bg-slate-200 font-mono text-slate-700">03</span>
+            Status Badges & Alert System
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">Dual-encoded semantic badges, provenance indicators, and system feedback alerts.</p>
+        </div>
+        <span class="text-xs font-mono text-slate-400">WCAG AA accessible contrast</span>
+      </div>
+
+      <!-- Complete Status Badges Grid -->
+      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs mb-8">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4">Specified Status Badges & Pills</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <!-- 1. Viable -->
+          <div class="border border-slate-200 rounded-lg p-3 bg-slate-50">
+            <div class="text-[11px] font-mono text-slate-400 mb-2">role: viable</div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-300">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              Viable
+            </span>
+          </div>
+
+          <!-- 2. Below threshold -->
+          <div class="border border-slate-200 rounded-lg p-3 bg-slate-50">
+            <div class="text-[11px] font-mono text-slate-400 mb-2">role: below threshold</div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-300">
+              <svg class="w-3 h-3 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              Below Threshold
+            </span>
+          </div>
+
+          <!-- 3. Idle capacity warning -->
+          <div class="border border-slate-200 rounded-lg p-3 bg-slate-50">
+            <div class="text-[11px] font-mono text-slate-400 mb-2">role: idle warning</div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold bg-yellow-50 text-yellow-800 border border-yellow-300">
+              <svg class="w-3 h-3 text-yellow-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              Idle Capacity Warning
+            </span>
+          </div>
+
+          <!-- 4. Capacity-insufficient -->
+          <div class="border border-slate-200 rounded-lg p-3 bg-slate-50">
+            <div class="text-[11px] font-mono text-slate-400 mb-2">role: capacity insufficient</div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-300">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+              Capacity-Insufficient
+            </span>
+          </div>
+
+          <!-- 5. Measured (Provenance) -->
+          <div class="border border-slate-200 rounded-lg p-3 bg-slate-50">
+            <div class="text-[11px] font-mono text-slate-400 mb-2">provenance: measured</div>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-blue-100 text-[#0072b2] border border-blue-200">
+              <svg class="w-2.5 h-2.5 text-[#0072b2]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+              measured
+            </span>
+          </div>
+
+          <!-- 6. Formula (Provenance) -->
+          <div class="border border-slate-200 rounded-lg p-3 bg-slate-50">
+            <div class="text-[11px] font-mono text-slate-400 mb-2">provenance: formula</div>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono font-medium bg-slate-100 text-slate-700 border border-slate-300">
+              <svg class="w-2.5 h-2.5 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              formula
+            </span>
+          </div>
+
+          <!-- 7. Assumption (Yellow Badge) -->
+          <div class="border border-slate-200 rounded-lg p-3 bg-slate-50">
+            <div class="text-[11px] font-mono text-slate-400 mb-2">provenance: assumption</div>
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[11px] font-mono font-semibold bg-[#F0E442]/30 text-amber-900 border border-amber-400">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+              assumption
+            </span>
+          </div>
+
+          <!-- 8. NON-COMPLIANT / BLOCKED -->
+          <div class="border border-slate-200 rounded-lg p-3 bg-slate-50">
+            <div class="text-[11px] font-mono text-slate-400 mb-2">sovereignty: non-compliant</div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-bold bg-[#D55E00]/10 text-[#D55E00] border border-[#D55E00]/40">
+              <svg class="w-3.5 h-3.5 text-[#D55E00]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.366zm1.414-1.414L6.525 5.11a6 6 0 018.366 8.366zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"/></svg>
+              NON-COMPLIANT / BLOCKED
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts Grid (Info / Warning / Error / Success) -->
+      <div class="space-y-3.5">
+        <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">System Alerts (Info, Warning, Error, Success)</h3>
+
+        <!-- Info Alert -->
+        <div class="rounded-lg border border-blue-200 bg-blue-50/70 p-4 flex items-start gap-3 shadow-xs">
+          <div class="p-1 rounded bg-blue-100 text-[#0072b2] shrink-0 mt-0.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <h4 class="text-xs font-bold text-blue-900 uppercase tracking-wide">Info Notification</h4>
+              <span class="text-[10px] font-mono text-blue-600 bg-blue-100/60 px-1.5 py-0.2 rounded">INFO_ALERT</span>
+            </div>
+            <p class="text-xs text-blue-800 mt-1 leading-relaxed">
+              Deterministic solver switched to continuous paged batching. Concurrency baseline set to 25 simultaneous agentic streams.
+            </p>
+          </div>
+        </div>
+
+        <!-- Warning Alert -->
+        <div class="rounded-lg border border-amber-300 bg-amber-50/80 p-4 flex items-start gap-3 shadow-xs">
+          <div class="p-1 rounded bg-amber-100 text-amber-800 shrink-0 mt-0.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <h4 class="text-xs font-bold text-amber-900 uppercase tracking-wide">Capacity Sizing Warning</h4>
+              <span class="text-[10px] font-mono text-amber-700 bg-amber-100 px-1.5 py-0.2 rounded">THRESHOLD_ALERT</span>
+            </div>
+            <p class="text-xs text-amber-800 mt-1 leading-relaxed">
+              H100 SXM5 80GB dual cluster exhibits tight headroom (1.0 GB buffer remaining). High risk of memory thrashing if agent context expands past 8,192 tokens.
+            </p>
+          </div>
+        </div>
+
+        <!-- Error Alert -->
+        <div class="rounded-lg border border-rose-300 bg-rose-50/80 p-4 flex items-start gap-3 shadow-xs">
+          <div class="p-1 rounded bg-rose-100 text-rose-700 shrink-0 mt-0.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <h4 class="text-xs font-bold text-rose-900 uppercase tracking-wide">KPIs Could Not Be Computed</h4>
+              <span class="text-[10px] font-mono text-rose-700 bg-rose-100 px-1.5 py-0.2 rounded font-semibold">CRITICAL</span>
+            </div>
+            <p class="text-xs text-rose-800 mt-1 leading-relaxed">
+              All evaluated infrastructure candidates violate one or more operational constraints (VRAM hard ceiling, strict EU sovereignty, or SLA TTFT threshold). Historical baseline cleared.
+            </p>
+          </div>
+        </div>
+
+        <!-- Success Alert -->
+        <div class="rounded-lg border border-emerald-300 bg-emerald-50/80 p-4 flex items-start gap-3 shadow-xs">
+          <div class="p-1 rounded bg-emerald-100 text-emerald-700 shrink-0 mt-0.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <h4 class="text-xs font-bold text-emerald-900 uppercase tracking-wide">Verification Audit Passed</h4>
+              <span class="text-[10px] font-mono text-emerald-700 bg-emerald-100 px-1.5 py-0.2 rounded">VERIFIED</span>
+            </div>
+            <p class="text-xs text-emerald-800 mt-1 leading-relaxed">
+              Cryptographic run hash 0x8F92A07C44E1 successfully reconciled against ECB Bloomberg reference fixing and EU AI Act Annex A.12 repository.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04: LIVING UI COMPONENT SPECIMENS -->
+    <section>
+      <div class="flex items-baseline justify-between border-b border-slate-200 pb-3 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <span class="text-xs px-2 py-0.5 rounded bg-slate-200 font-mono text-slate-700">04</span>
+            Core Component Specifications
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">One concrete interactive implementation of every platform UI component pattern.</p>
+        </div>
+        <span class="text-xs font-mono text-slate-400">Labeled & Interactive states</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- Component 1: Metric Card -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Component // Metric Card</span>
+            <span class="text-[11px] font-mono text-[#0072b2] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">KPI Ribbon Pattern</span>
+          </div>
+
+          <div class="border border-slate-200 rounded-xl p-5 bg-white shadow-xs relative overflow-hidden">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">60M Baseline TCO Delta</div>
+                <div class="text-2xl font-bold font-mono text-slate-900 mt-1">-$15,773</div>
+              </div>
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-slate-100">
+              <span class="inline-flex items-center text-xs font-semibold text-emerald-600">
+                4.8% savings
+              </span>
+              <span class="text-xs text-slate-500">vs Cloud Managed API Tier</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Component 2: Segmented Control & Tabs -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Component // Segmented Control & Tabs</span>
+            <span class="text-[11px] font-mono text-slate-500">View Navigation</span>
+          </div>
+
+          <div class="space-y-4">
+            <!-- Segmented Control -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Segmented Control (MCDA Mode)</label>
+              <div class="inline-flex p-1 bg-slate-100 rounded-lg border border-slate-200 w-full sm:w-auto">
+                <button class="px-4 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-md">SAW</button>
+                <button class="px-4 py-1.5 text-xs font-semibold text-white bg-[#0072b2] shadow-xs rounded-md">TOPSIS (Active)</button>
+                <button class="px-4 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 rounded-md">VIKOR</button>
+              </div>
+            </div>
+
+            <!-- Tabs -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1.5">Tab Navigation Bar</label>
+              <div class="flex items-center border-b border-slate-200 gap-6 text-xs">
+                <button class="pb-2.5 font-semibold text-[#0072b2] border-b-2 border-[#0072b2] flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                  Ranking (8)
+                </button>
+                <button class="pb-2.5 font-medium text-slate-500 hover:text-slate-800 flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                  View 1: Memory fit
+                </button>
+                <button class="pb-2.5 font-medium text-slate-500 hover:text-slate-800 flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  View 2: 60-month TCO
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Component 3: Select & Multiselect Chips -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Component // Select & Multiselect</span>
+            <span class="text-[11px] font-mono text-slate-500">Filter Inputs</span>
+          </div>
+
+          <!-- Select -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Single Select (Deployment Region)</label>
+            <div class="relative">
+              <select class="w-full bg-slate-50 border border-slate-200 rounded-md px-3 py-2 text-xs text-slate-900 focus:outline-hidden focus:ring-1 focus:ring-[#0072b2] focus:border-[#0072b2] appearance-none">
+                <option>Romania Hub (Bucharest - Tier IV Data Center)</option>
+                <option>Frankfurt Hub (Equinix FR2)</option>
+                <option>Paris Cloud Zone (Scaleway DC5)</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multiselect Chips -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Multiselect Chips (Evaluated Hardware)</label>
+            <div class="p-2 border border-slate-200 rounded-md bg-white flex flex-wrap gap-1.5 items-center">
+              <span class="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200">
+                RTX Pro 6000 Ada (96GB)
+                <button class="text-slate-400 hover:text-slate-600">&times;</button>
+              </span>
+              <span class="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200">
+                H100 SXM5 (80GB)
+                <button class="text-slate-400 hover:text-slate-600">&times;</button>
+              </span>
+              <span class="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200">
+                L40S (48GB)
+                <button class="text-slate-400 hover:text-slate-600">&times;</button>
+              </span>
+              <button class="text-xs text-[#0072b2] font-semibold hover:underline px-2 py-1">+ Add chip</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Component 4: Text Input with Error Message -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Component // Text Input With Validation</span>
+            <span class="text-[11px] font-mono text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-100">Error State</span>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Target Context Window (Tokens)</label>
+            <div class="relative">
+              <input type="text" value="131,072" class="w-full bg-rose-50/40 border border-rose-400 rounded-md px-3 py-2 text-xs font-mono text-slate-900 focus:outline-hidden focus:ring-1 focus:ring-rose-500">
+              <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-rose-500">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+              </div>
+            </div>
+            <p class="text-[11px] text-rose-600 mt-1.5 flex items-center gap-1 font-medium">
+              Context length exceeds physical VRAM limits on all 96GB nodes (Max supported: 65,536).
+            </p>
+          </div>
+
+          <div class="pt-2">
+            <label class="block text-xs font-semibold text-slate-700 mb-1">Standard Numeric Input (Valid State)</label>
+            <input type="text" value="8,192" class="w-full bg-slate-50 border border-slate-200 rounded-md px-3 py-2 text-xs font-mono text-slate-900 focus:outline-hidden focus:ring-1 focus:ring-[#0072b2] focus:border-[#0072b2]">
+          </div>
+        </div>
+
+        <!-- Component 5: Toggle & Slider -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs space-y-5">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Component // Toggle & Slider</span>
+            <span class="text-[11px] font-mono text-slate-500">Parameter Controls</span>
+          </div>
+
+          <!-- Toggles -->
+          <div class="space-y-3">
+            <label class="block text-xs font-semibold text-slate-700">Toggle Switches</label>
+            <div class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 bg-slate-50">
+              <div>
+                <div class="text-xs font-semibold text-slate-800">Mac wired-memory override</div>
+                <div class="text-[10px] font-mono text-slate-500">sysctl iogpu.wired_limit_mb=117760</div>
+              </div>
+              <!-- Toggle Active -->
+              <button class="w-11 h-6 bg-[#0072b2] rounded-full relative p-0.5 transition-colors">
+                <span class="w-5 h-5 bg-white rounded-full block shadow-sm transform translate-x-5 transition-transform"></span>
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between p-2.5 rounded-lg border border-slate-200 bg-slate-50">
+              <div>
+                <div class="text-xs font-semibold text-slate-800">Linux AMD ROCm override</div>
+                <div class="text-[10px] font-mono text-slate-500">HSA_OVERRIDE_GFX_VERSION</div>
+              </div>
+              <!-- Toggle Inactive -->
+              <button class="w-11 h-6 bg-slate-300 rounded-full relative p-0.5 transition-colors">
+                <span class="w-5 h-5 bg-white rounded-full block shadow-sm transform translate-x-0 transition-transform"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Slider -->
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label class="text-xs font-semibold text-slate-700">CapEx / OpEx Criterion Weight</label>
+              <span class="text-xs font-mono font-bold text-[#0072b2]">30%</span>
+            </div>
+            <div class="relative flex items-center">
+              <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                <div class="h-full bg-[#0072b2] w-[30%]"></div>
+              </div>
+              <div class="absolute left-[30%] -ml-2 w-4 h-4 bg-white border-2 border-[#0072b2] rounded-full shadow-sm"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Component 6: Primary & Secondary Buttons -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Component // Action Buttons</span>
+            <span class="text-[11px] font-mono text-slate-500">Hierarchy</span>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <div class="text-xs text-slate-500 mb-2 font-mono">Primary Button (Solid brand)</div>
+              <div class="flex gap-3">
+                <button class="px-4 py-2 bg-[#0072b2] hover:bg-[#005a8e] text-white text-xs font-semibold rounded-md shadow-xs flex items-center gap-2">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  Generate FinOps Brief
+                </button>
+                <button class="px-4 py-2 bg-[#0072b2]/50 text-white text-xs font-semibold rounded-md cursor-not-allowed">
+                  Disabled Primary
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs text-slate-500 mb-2 font-mono">Secondary / Outline Button</div>
+              <div class="flex gap-3">
+                <button class="px-4 py-2 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded-md shadow-xs flex items-center gap-2">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                  Export Matrix (CSV)
+                </button>
+                <button class="px-4 py-2 bg-slate-100 text-slate-400 border border-slate-200 text-xs font-semibold rounded-md cursor-not-allowed">
+                  Disabled Secondary
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs text-slate-500 mb-2 font-mono">Destructive Action Button</div>
+              <button class="px-3.5 py-1.5 bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 text-xs font-semibold rounded-md">
+                Reset Custom Overrides
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Component 7: Expanders (Collapsed & Expanded) -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs lg:col-span-2 space-y-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Component // Collapsed & Expanded Expanders</span>
+            <span class="text-[11px] font-mono text-slate-500">Accordions / Disclosures</span>
+          </div>
+
+          <!-- Collapsed State -->
+          <div class="border border-slate-200 rounded-lg overflow-hidden bg-slate-50">
+            <button class="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-100/60 transition-colors">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xs font-bold text-slate-800">Rejected Candidates (23 Excluded)</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-rose-100 text-rose-700 border border-rose-200">23 Non-Compliant</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-400">
+                <span class="text-[11px] font-mono">Click to expand</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </button>
+          </div>
+
+          <!-- Expanded State -->
+          <div class="border border-slate-200 rounded-lg overflow-hidden bg-white shadow-xs">
+            <button class="w-full px-4 py-3 flex items-center justify-between text-left bg-slate-50 border-b border-slate-200">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xs font-bold text-slate-800">macOS Unified Memory Wired Allocation Trap</span>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-100 text-amber-900 border border-amber-300">CRITICAL PITFALL</span>
+              </div>
+              <div class="flex items-center gap-2 text-slate-600">
+                <span class="text-[11px] font-mono">Expanded</span>
+                <svg class="w-4 h-4 transform rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </div>
+            </button>
+            <div class="p-4 bg-white text-xs text-slate-700 space-y-2">
+              <p>
+                By default, macOS limits process wired memory to ~75% of physical unified memory (144 GB on 192 GB systems), causing silent Metal buffer aborts during KV cache allocation even with free RAM available.
+              </p>
+              <div class="flex items-center justify-between bg-slate-900 text-emerald-400 p-2.5 rounded-md font-mono text-[11px]">
+                <span>sudo sysctl iogpu.wired_limit_mb=117760</span>
+                <span class="text-slate-400 hover:text-white cursor-pointer text-[10px]">Copy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Component 8: Data Table (Dense Matrix Standard) -->
+        <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-xs lg:col-span-2">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-mono font-semibold text-slate-400 uppercase tracking-wider">Component // Data Table Specimen</span>
+            <span class="text-[11px] font-mono text-slate-500">Dense Decision Table (8-column specimen)</span>
+          </div>
+
+          <div class="overflow-x-auto rounded-lg border border-slate-200 custom-scrollbar">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-100/80 border-b border-slate-200 text-slate-600 font-semibold font-mono text-[11px]">
+                  <th class="py-2.5 px-3">RANK</th>
+                  <th class="py-2.5 px-3">CANDIDATE ARCHITECTURE</th>
+                  <th class="py-2.5 px-3">TYPE</th>
+                  <th class="py-2.5 px-3 text-right">60M TCO</th>
+                  <th class="py-2.5 px-3 text-right">QUALITY</th>
+                  <th class="py-2.5 px-3 text-right">THROUGHPUT</th>
+                  <th class="py-2.5 px-3 text-right">TTFT</th>
+                  <th class="py-2.5 px-3 text-center">SOVEREIGNTY</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <!-- Highlighted Row #1 -->
+                <tr class="bg-blue-50/50 hover:bg-blue-50 transition-colors">
+                  <td class="py-2.5 px-3 font-mono font-bold text-[#0072b2]">#1</td>
+                  <td class="py-2.5 px-3 font-semibold text-slate-900">
+                    RTX Pro 6000 Ada (96GB × 4)
+                    <div class="text-[10px] text-slate-500 font-normal">gpt-oss-120b INT4 · On-premise Tier-IV</div>
+                  </td>
+                  <td class="py-2.5 px-3">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-blue-100 text-[#0072b2] font-semibold">On-premise</span>
+                  </td>
+                  <td class="py-2.5 px-3 text-right font-mono font-semibold text-slate-900">$308,347</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-700">88.5</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-700">42.1 tok/s</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-700">3.20 s</td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      <svg class="w-3 h-3 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                      EU Compliant
+                    </span>
+                  </td>
+                </tr>
+                <!-- Standard Row #2 -->
+                <tr class="hover:bg-slate-50 transition-colors">
+                  <td class="py-2.5 px-3 font-mono font-medium text-slate-500">#2</td>
+                  <td class="py-2.5 px-3 font-medium text-slate-800">
+                    H100 SXM5 (80GB × 2)
+                    <div class="text-[10px] text-slate-400 font-normal">Llama-3.3-70B FP8 · Scaleway Paris</div>
+                  </td>
+                  <td class="py-2.5 px-3">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-100 text-emerald-800 font-semibold">EU Rental</span>
+                  </td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-800">$384,120</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-700">89.2</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-700">68.4 tok/s</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-emerald-600 font-semibold">1.40 s</td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      <svg class="w-3 h-3 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                      EU Compliant
+                    </span>
+                  </td>
+                </tr>
+                <!-- Blocked / Non-Compliant Row -->
+                <tr class="hover:bg-slate-50 transition-colors bg-rose-50/20">
+                  <td class="py-2.5 px-3 font-mono font-medium text-slate-400">#7</td>
+                  <td class="py-2.5 px-3 font-medium text-slate-700">
+                    Baseline B: Global Managed API
+                    <div class="text-[10px] text-slate-400 font-normal">Multi-tenant US data transit</div>
+                  </td>
+                  <td class="py-2.5 px-3">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-amber-100 text-amber-800 font-semibold">API</span>
+                  </td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-800">$268,790</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-700">94.5</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-700">72.0 tok/s</td>
+                  <td class="py-2.5 px-3 text-right font-mono text-slate-700">1.10 s</td>
+                  <td class="py-2.5 px-3 text-center">
+                    <span class="inline-flex items-center gap-1 text-[11px] font-bold text-[#D55E00] bg-[#D55E00]/10 px-2 py-0.5 rounded border border-[#D55E00]/30">
+                      BLOCKED
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
+

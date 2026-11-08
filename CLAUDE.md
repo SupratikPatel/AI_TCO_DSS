@@ -80,3 +80,10 @@ Never push or commit, just git add the required files, the user will review and 
 8. Before finishing a task, make sure the task's new tests pass and the full `pytest` suite reports zero failures and zero errors, then update `progress.md` and the Next Session Prompt; only then mark the task `done`.
 
 Streamlit work: before creating or changing any Streamlit code (files under `src/ai_tco_dss/ui/` or AppTest tests), load the `developing-with-streamlit` agent skill and follow it; details and the fallback path are in `.kiro/steering/streamlit-ui.md`.
+
+Web frontend direction (2026-11-07): follow `specs/09_WEB_FRONTEND_MIGRATION.md` and
+Requirement 43. The frontend uses React/TypeScript, Vite, Tailwind and shadcn/ui;
+FastAPI calls the Python service layer. Python remains the numerical authority.
+Freeze Streamlit styling work. Its skill applies only to deliberate legacy maintenance.
+Visual completion requires a real-browser comparison with the exported Stitch references.
+The revised Tasks 8-13 supersede the earlier pending scopes and sequence.

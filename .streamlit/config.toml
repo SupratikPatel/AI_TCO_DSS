@@ -1,0 +1,20 @@
+[theme]
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+codeFont = "JetBrains Mono:https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+baseRadius = "0.5rem"
+showWidgetBorder = true
+showSidebarBorder = true
+
+[theme.light]
+primaryColor = "#0072B2"
+backgroundColor = "#F9F9FF"
+secondaryBackgroundColor = "#F1F3FF"
+textColor = "#141B2B"
+borderColor = "#DCE2F7"
+
+[theme.dark]
+primaryColor = "#56B4E9"
+backgroundColor = "#0E1118"
+secondaryBackgroundColor = "#171D2A"
+textColor = "#EDF0FF"
+borderColor = "#30394A"

@@ -30,6 +30,37 @@ DISPLAY = DisplaySettings(currency="USD", fx_rate=1.1165)
 GB = st.floats(min_value=0.0, max_value=4096.0, allow_nan=False)
 
 
+@given(
+    utilization=st.floats(min_value=0, max_value=2, allow_nan=False),
+    currency=st.sampled_from(["USD", "EUR"]),
+)
+def test_property_55_timeline_styles_and_threshold(utilization, currency):
+    """Req 35.4-8/10, 37.1/3: all series and the exact 70% boundary."""
+    from ai_tco_dss.domain import TcoRequest
+    from ai_tco_dss.services import project_tco
+    from ai_tco_dss.ui.charts import tco_timeline_figure
+
+    scenario = Scenario(
+        workload=WorkloadProfile(),
+        financials=EnterpriseFinancials(),
+        sizing=SizingOptions(),
+        decision=DecisionOptions(),
+    )
+    result = project_tco(
+        TcoRequest(scenario=scenario, candidate_id="onprem:rtx-pro-6000-96gb:4x:gpt-oss-120b:INT4")
+    )
+    result = result.model_copy(
+        update={"candidate": result.candidate.model_copy(update={"utilization": utilization})}
+    )
+    fig = tco_timeline_figure(result, DisplaySettings(currency=currency, fx_rate=1.1165))
+    lines = [t for t in fig.data if len(t.x) == 60]
+    assert len(lines) == 7
+    assert all(t.line.color in theme.OKABE_ITO for t in lines)
+    assert any("Danger Zone" in a.text for a in fig.layout.annotations) == (utilization < 0.70)
+    assert all(list(t.x) == list(range(1, 61)) for t in lines)
+    assert currency in fig.layout.yaxis.title.text
+
+
 @cache
 def _template() -> SizeResult:
     scenario = Scenario(

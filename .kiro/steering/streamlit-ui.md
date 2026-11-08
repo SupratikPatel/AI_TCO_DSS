@@ -1,12 +1,14 @@
 ---
-inclusion: always
+inclusion: manual
 ---
 
-# Streamlit UI work
+# Legacy Streamlit maintenance only
 
-Before creating or changing any Streamlit code (any file under `src/ai_tco_dss/ui/`, or a test that uses `streamlit.testing.v1.AppTest`), activate the `developing-with-streamlit` skill and follow it. The skill finds the reference docs bundled with the installed Streamlit version, so the code matches that version.
+The author rejected the Streamlit approximation on 2026-11-07. The target frontend
+is React/TypeScript with Vite, Tailwind and shadcn/ui, connected to Python via FastAPI.
+Read `specs/09_WEB_FRONTEND_MIGRATION.md` and Requirement 43. Do not use this file as
+an instruction to style the legacy UI or constrain the web design to native widgets.
 
-- Most relevant references for this project: `performance.md` (Simulator_Cards with `@st.fragment`, `st.cache_data`, `st.cache_resource`), `testing.md` (AppTest), `session-state.md`, `layouts.md`, `dashboards.md`, `charts.md`, `theme.md`.
-- If the skill is not available, read the bundled docs directly: `.venv/Lib/site-packages/streamlit/.agents/skills/developing-with-streamlit/SKILL.md` (Windows) or `.venv/lib/python3.12/site-packages/streamlit/.agents/skills/developing-with-streamlit/SKILL.md` (macOS, Linux), and the `references/` folder next to it.
-- To reinstall the skill: run `uv run streamlit skills --yes`. On Windows without Developer Mode this installs globally to `~/.agents/skills` and `~/.claude/skills`; copy `developing-with-streamlit` from there to `~/.kiro/skills/` for Kiro.
-- Project rules still apply: the Okabe-Ito palette and archetype styles of `specs/07_DATA_CORRECTIONS.md`, UI imports only from `ai_tco_dss.services`, `ai_tco_dss.domain` and `ai_tco_dss.ui`, and one `@st.fragment` per Simulator_Card.
+Use the developing-with-streamlit skill only if deliberately maintaining existing
+Streamlit code while the migration is underway. Preserve numeric regressions when
+retiring mixed AppTest/calculation test files. Retire this legacy guidance at cutover.

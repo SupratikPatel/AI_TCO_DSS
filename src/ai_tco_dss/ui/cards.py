@@ -26,7 +26,7 @@ from ai_tco_dss.domain import (
 )
 from ai_tco_dss.domain.errors import DssError
 from ai_tco_dss.services import project_tco, size
-from ai_tco_dss.ui.charts import memory_fit_figure
+from ai_tco_dss.ui.charts import memory_fit_figure, tco_timeline_figure
 from ai_tco_dss.ui.formatting import tco_cost_rows, viability_badge
 from ai_tco_dss.ui.state import DISPLAY_CURRENCY, RENDER_COUNTS
 
@@ -185,8 +185,7 @@ def _index(options: list[str], value: str) -> int:
 
 @st.fragment
 def timeline_card(overview: CatalogOverview, workload: WorkloadProfile) -> None:
-    """View 2: cost table of one on-premise candidate against Baselines A to C
-    (Req 22, 23, 24, 34.3). The 60-month chart follows in Task 8."""
+    """View 2: a cumulative timeline beside the cost table (Req 22-26, 35)."""
     _count_render(TIMELINE)
     hardware = {item.id: item.label for item in overview.hardware}
     models = {item.id: item.label for item in overview.models}
@@ -225,13 +224,22 @@ def timeline_card(overview: CatalogOverview, workload: WorkloadProfile) -> None:
             hub = st.selectbox(
                 "Staffing hub", hubs, index=_index(hubs, DEFAULT_HUB), key="timeline_hub"
             )
+        with st.container(horizontal=True):
+            resale = st.toggle("Include resale value", value=False, key="timeline_resale")
+            ratio = st.slider("Local routing share", 0.0, 1.0, 0.70, 0.05, key="timeline_ratio")
+            strict = st.toggle("Strict EU sovereignty", value=True, key="timeline_strict")
         if hardware_id is None or model_id is None or hub is None:
             st.info("Select hardware, a model and a staffing hub.")
             return
         candidate_id = f"onprem:{hardware_id}:{nodes or 1}x:{model_id}:{precision.value}"
         scenario = Scenario(
             workload=workload,
-            financials=EnterpriseFinancials(engineering_hub_location=EuEngineeringHub(hub)),
+            financials=EnterpriseFinancials(
+                engineering_hub_location=EuEngineeringHub(hub),
+                include_resale_value=resale,
+                local_offload_ratio=ratio,
+                strict_eu_sovereignty=strict,
+            ),
             sizing=SizingOptions(weight_precision=precision),
             decision=DecisionOptions(),
         )
@@ -246,11 +254,39 @@ def timeline_card(overview: CatalogOverview, workload: WorkloadProfile) -> None:
         if candidate.sizing is not None and not candidate.sizing.is_feasible:
             st.warning(candidate.sizing.oom_reason or "infeasible", title="Infeasible deployment")
         st.caption(f"Viability: {viability_badge(tco.utilization if tco else None)}")
-        st.table(
-            tco_cost_rows(projection),
-            border="horizontal",
-            hide_index=True,
-            alt=f"Cost components, Utilization and Baselines A to C for {candidate.label}",
-        )
+        chart, accounting = st.columns([1.8, 1], gap="large")
+        with chart:
+            st.subheader("Cumulative cost trajectory")
+            st.caption("60 months · hardware, operations and cloud alternatives")
+            display = DisplaySettings(
+                currency=st.session_state[DISPLAY_CURRENCY], fx_rate=overview.fx.rate
+            )
+            st.plotly_chart(
+                tco_timeline_figure(projection, display),
+                key="timeline_chart",
+                alt="60-month costs: on-premise, EU rental, APIs, subscriptions and hybrid routing",
+            )
+            if projection.timeline:
+                st.caption(
+                    f"Rental: {projection.timeline.rental_id} · "
+                    f"Hybrid API: {projection.timeline.hybrid_api_model_id}"
+                )
+                st.caption(
+                    "Baseline D shows output market value, rather than a procurement alternative."
+                )
+                years = projection.timeline.single_stream_break_even_years
+                if years:
+                    st.caption(
+                        f"Single-stream market-value break-even: {years.value:,.1f} years. "
+                        "Assumption: 8,760 operating hours/year at 100% single-stream load."
+                    )
+        with accounting:
+            st.subheader("Cost breakdown")
+            st.table(
+                tco_cost_rows(projection),
+                border="horizontal",
+                hide_index=True,
+                alt=f"Cost components, Utilization and Baselines A to C for {candidate.label}",
+            )
         if tco is not None and tco.warnings:
             st.markdown("\n".join(f"- {warning}" for warning in tco.warnings))

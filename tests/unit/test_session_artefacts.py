@@ -28,7 +28,9 @@ PROGRESS_SECTIONS = [
     "Next Session Prompt",
 ]
 STATUSES = {"not-started", "in-progress", "done", "blocked"}
-PROMPT_FILE_ORDER = ["CLAUDE.md", "progress.md", "requirements.md", "design.md", "tasks.md"]
+# Current user instruction and Project Rule 1 take precedence over the original
+# prompt template's CLAUDE-first order.
+PROMPT_FILE_ORDER = ["progress.md", "CLAUDE.md", "requirements.md", "design.md", "tasks.md"]
 TASK_FIELDS = ["Load", "Modify", "Covers", "Verify", "Demo"]
 LEDGER_SECTIONS = [
     "Entries",

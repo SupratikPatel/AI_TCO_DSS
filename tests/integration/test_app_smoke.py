@@ -39,3 +39,15 @@ def test_req_6_1_start_page_shows_catalog_counts_from_the_service() -> None:
     assert expected in texts, texts
     fx = overview.fx
     assert any(f"{fx.rate:.4f} USD/EUR" in t and fx.source_id in t for t in texts), texts
+
+
+def test_req_25_26_view_2_controls_and_chart() -> None:
+    """Timeline remains available after changing resale and the hybrid boundary ratio."""
+    at, _ = _run_app()
+    assert not at.toggle(key="timeline_resale").value
+    at.toggle(key="timeline_resale").set_value(True)
+    at.slider(key="timeline_ratio").set_value(1.0)
+    at.run()
+    assert not at.exception and not at.error
+    assert any(s.value == "Cumulative cost trajectory" for s in at.subheader)
+    assert any("Rental: hetzner-gex63" in c.value for c in at.caption)

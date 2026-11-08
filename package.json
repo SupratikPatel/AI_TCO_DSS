@@ -1,0 +1,17 @@
+{
+  "name": "ai-tco-dss-workspace",
+  "private": true,
+  "workspaces": ["frontend"],
+  "engines": { "node": ">=22.12" },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "typecheck": "npm run typecheck -w frontend",
+    "lint": "npm run lint -w frontend",
+    "build": "npm run build -w frontend",
+    "test": "npm run test -w frontend",
+    "test:browser": "playwright test --config frontend/playwright.config.ts",
+    "test:launcher": "node --test scripts/dev.test.mjs",
+    "types:generate": "node scripts/api-types.mjs",
+    "types:check": "node scripts/api-types.mjs --check"
+  }
+}

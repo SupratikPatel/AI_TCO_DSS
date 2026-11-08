@@ -23,8 +23,14 @@ def _default_workload() -> WorkloadProfile:
     return load_workload()
 
 
+st.set_page_config(
+    page_title="AI TCO DSS · Sovereign AI cost advisor",
+    page_icon=":material/memory:",
+    layout="wide",
+)
 init_state(st.session_state)
 st.title("AI TCO DSS")
+st.caption("Sovereign AI cost advisor · compare physical capacity and five-year deployment costs")
 
 try:
     overview = _overview()

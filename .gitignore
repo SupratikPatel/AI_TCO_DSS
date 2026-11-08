@@ -7,3 +7,7 @@ __pycache__/
 .hypothesis/
 reports/*
 !reports/.gitkeep
+node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/

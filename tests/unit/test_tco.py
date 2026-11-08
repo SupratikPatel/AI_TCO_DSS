@@ -526,7 +526,7 @@ def _request(hub: EuEngineeringHub = EuEngineeringHub.RO_CLUJ_BUCHAREST, **ids: 
     return TcoRequest(scenario=scenario, candidate_id=ids.get("candidate_id", CANDIDATE_ID))
 
 
-def test_project_tco_returns_the_candidate_cost_and_baselines_without_timeline() -> None:
+def test_project_tco_returns_the_candidate_cost_baselines_and_timeline() -> None:
     projection = project_tco(_request())
     candidate = projection.candidate
     assert candidate.candidate_id == CANDIDATE_ID
@@ -536,7 +536,11 @@ def test_project_tco_returns_the_candidate_cost_and_baselines_without_timeline()
     assert candidate.capex == candidate.tco.capex.value
     assert candidate.cost_60m == candidate.tco.cost_60m
     assert candidate.utilization == candidate.tco.utilization
-    assert projection.timeline is None
+    assert projection.timeline is not None
+    assert len(projection.timeline.points) == 60
+    assert projection.timeline.points[-1].on_prem_cumulative == pytest.approx(
+        projection.candidate.cost_60m
+    )
     assert projection.baselines.reference_model_id == "claude-sonnet-5-5"
 
 

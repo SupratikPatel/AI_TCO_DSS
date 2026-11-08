@@ -7,6 +7,7 @@ are drawn as non-negative USD amounts. Oracles restate Requirement 24 independen
 """
 
 import math
+from itertools import pairwise
 from typing import Any
 
 from hypothesis import given
@@ -43,6 +44,88 @@ ABS = 0.01  # Req 24.1, 24.4: within 0.01 USD
 
 def _price(money: Any, value: float) -> Any:
     return money.model_copy(update={"value": value})
+
+
+@given(
+    ratio=st.floats(min_value=0, max_value=1),
+    monthly=st.floats(min_value=0, max_value=100000),
+    resale=st.booleans(),
+)
+def test_req_25_26_properties_32_to_36(ratio, monthly, resale):
+    """Properties 32-36: Req 25.1-5, 26.1-7, including the first crossing oracle."""
+    from ai_tco_dss.domain import (
+        BaselineD,
+        DecisionOptions,
+        HybridCostInput,
+        RentalCostInput,
+        Scenario,
+        SizingOptions,
+        TcoRequest,
+        TimelineInput,
+    )
+    from ai_tco_dss.engines.baselines import (
+        compute_hybrid_cost,
+        compute_rental_cost,
+        compute_timeline,
+    )
+    from ai_tco_dss.services import project_tco
+
+    scenario = Scenario(
+        workload=WorkloadProfile(),
+        financials=EnterpriseFinancials(),
+        sizing=SizingOptions(),
+        decision=DecisionOptions(),
+    )
+    projection = project_tco(
+        TcoRequest(scenario=scenario, candidate_id="onprem:rtx-pro-6000-96gb:4x:gpt-oss-120b:INT4")
+    )
+    local = projection.candidate.tco
+    hybrid = compute_hybrid_cost(
+        HybridCostInput(local=local, api_c_monthly_usd=monthly, local_offload_ratio=ratio), PARAMS
+    )
+    rental = compute_rental_cost(
+        RentalCostInput(rental=CATALOG.rentals[0], personnel_monthly_usd=monthly), PARAMS
+    )
+    inp = TimelineInput(
+        anchor_candidate_id=projection.candidate.candidate_id,
+        onprem=local,
+        include_resale=resale,
+        baselines=projection.baselines,
+        baseline_d=BaselineD(monthly=None, unavailable_reason="not measured"),
+        rental=rental,
+        hybrid=hybrid,
+        hybrid_api_model_id="claude-sonnet-5-5",
+        decode_tps=None,
+        open_output_price=None,
+    )
+    timeline = compute_timeline(inp, PARAMS)
+    assert timeline.single_stream_break_even_years is None  # 26.9
+    assert len(timeline.points) == 60
+    for m, p in enumerate(timeline.points, 1):
+        assert p.month == m
+        assert math.isclose(
+            p.eu_dedicated_rental_cumulative,
+            rental.setup_fee_usd + m * (rental.monthly_usd + monthly),
+            abs_tol=0.01,
+        )
+        assert math.isclose(
+            p.hybrid_split_cumulative - p.on_prem_cumulative,
+            m * (1 - ratio) * monthly,
+            abs_tol=0.01,
+        )
+    for field, crossing in timeline.break_even_months:
+        oracle = next(
+            (
+                p.month
+                for p in timeline.points
+                if getattr(p, field) is not None and p.on_prem_cumulative <= getattr(p, field)
+            ),
+            None,
+        )
+        assert crossing == oracle
+        if not resale:
+            values = [getattr(p, field) for p in timeline.points]
+            assert all(a <= b for a, b in pairwise(values) if a is not None and b is not None)
 
 
 @st.composite

@@ -1,8 +1,10 @@
+> **Active architecture decision - 2026-11-07:** The MVP frontend is a dedicated React/TypeScript web application with Vite, Tailwind and shadcn/ui, backed by FastAPI and the existing Python services. Streamlit is the legacy prototype. Read [the web migration contract](../../../specs/09_WEB_FRONTEND_MIGRATION.md) and [the Stitch design reference](../../../specs/08_MVP_DESIGN_REFERENCE.md) before implementation. Where historical UI instructions below conflict, Requirement 43 and the migration contract take precedence.
+
 # Design Document: AI TCO DSS MVP
 
 ## Overview
 
-The DSS is a Python 3.12 package (`ai_tco_dss`) that turns a scenario (workload, enterprise financials, sizing options, decision options) into three answers: physical fit and speed of a model on hardware, a 60-month TCO against cloud baselines, and a ranked, explained recommendation. The MVP delivery mechanism is a Streamlit + Plotly dashboard. All computation lives in pure, stateless engines behind one service layer, so post-MVP adapters (FastAPI, MCP, scraper, importer) can reuse it unchanged.
+The DSS is a Python 3.12 package (`ai_tco_dss`) that turns a scenario (workload, enterprise financials, sizing options, decision options) into three answers: physical fit and speed of a model on hardware, a 60-month TCO against cloud baselines, and a ranked, explained recommendation. The target MVP delivery mechanism is a React/TypeScript web frontend backed by a FastAPI adapter; the existing Streamlit dashboard is a legacy prototype. All computation lives in pure, stateless engines behind one service layer, so the FastAPI adapter and post-MVP adapters (MCP, scraper, importer) can reuse it unchanged.
 
 Design goals, in priority order:
 
@@ -13,7 +15,7 @@ Design goals, in priority order:
 
 ### Scope
 
-In scope: everything in `requirements.md` (Requirements 1–42). Out of scope (seams only, see [Extension Seams](#extension-seams-post-mvp)): FastAPI, MCP server, multi-user website, benchmark scraper, LiteLLM/PowerBI import, agentic chatbot, database repository, catalog entry form, Views 3–5.
+In scope: everything in `requirements.md` (Requirements 1–42). Out of scope (seams only, see [Extension Seams](#extension-seams-post-mvp)): MCP server, multi-user website, benchmark scraper, LiteLLM/PowerBI import, agentic chatbot, database repository, catalog entry form, Views 3–5.
 
 ### Research Findings That Shape the Design
 
@@ -44,6 +46,12 @@ Content was rephrased for compliance with licensing restrictions.
 | D-10 | Romania employer social tax = **2.25 %** (statutory CAM). The ~4 % figure includes private clinic and meal benefits, which are not a social tax. | The field is "employer social tax rate"; the statutory value is sourced to an official authority, benefits would be an assumption. | 13.6 |
 | D-11 | The CSV export button downloads one ZIP archive containing exactly the two CSV files of Req 36.5. | Streamlit's `st.download_button` delivers one file per click. Recorded as a known deviation in the ledger (entry C-012). | 36.5 |
 | D-12 | One verification helper `scripts/verify.py` runs focus tests, then `ruff check`, `ruff format --check`, `mypy`, the Validate_CLI (once it exists) and the full `pytest` suite. | Req 4.3 requires one command line per task that works in both PowerShell 5.1 (no `&&`) and bash. | 4.3, 41.2 |
+
+## Web delivery architecture (active)
+
+React/TypeScript in frontend/ renders the Stitch design. FastAPI in src/ai_tco_dss/api/ validates requests and invokes services/. Engines, catalog, Pydantic contracts and MCDA remain Python. OpenAPI is the shared transport contract. Charts are rendered by Plotly.js from service results, not from serialized Python figures. See specs/09_WEB_FRONTEND_MIGRATION.md for endpoint design, state/error handling, reuse, cutover and acceptance.
+
+Development target: root npm run dev starts Vite and the Python API together. A root package.json orchestration command and child-process cleanup are to be implemented in Task 8. No Node server-side computation or Python-to-TypeScript rewrite is planned. The existing diagrams, fragment/session-state details and Streamlit file layout below are historical design context where superseded by Requirement 43.
 
 ## Architecture
 

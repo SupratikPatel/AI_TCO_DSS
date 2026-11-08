@@ -1,3 +1,5 @@
+> **Active architecture decision - 2026-11-07:** The MVP frontend is a dedicated React/TypeScript web application with Vite, Tailwind and shadcn/ui, backed by FastAPI and the existing Python services. Streamlit is the legacy prototype. Read [the web migration contract](09_WEB_FRONTEND_MIGRATION.md) and [the Stitch design reference](08_MVP_DESIGN_REFERENCE.md) before implementation. Where historical UI instructions below conflict, Requirement 43 and the migration contract take precedence.
+
 <!-- ===================================================================== -->
 <!-- SPLIT FILE: specs/00_INDEX_AND_AGENT_ROUTER.md                        -->
 <!-- PURPOSE: Master Executive Summary & Context Router for AI Agents      -->
@@ -6,7 +8,7 @@
 # Project Specification: Enterprise AI Infrastructure Decision Support System (TCO for Sovereign AI)
 
 ## 1. Executive Summary & Core Objective
-Build a modular, production-grade **Enterprise AI Infrastructure Decision Support System (DSS)** in Python (`Python 3.12+`, `Pydantic v2`, `FastAPI`, `Pandas/NumPy`, `Plotly`, `Streamlit`, `Pytest`). The system translates corporate financial health, real LiteLLM/Bifrost proxy traffic logs, and European regulatory data sovereignty mandates into deterministic physical inference metrics, hardware procurement architectures, and 60-month Total Cost of Ownership (TCO) projections.
+Build a modular, production-grade **Enterprise AI Infrastructure Decision Support System (DSS)** in Python (Python 3.12/Pydantic/FastAPI backend; React/TypeScript/Vite/Tailwind/shadcn/ui frontend; Plotly.js charts). The system translates corporate financial health, real LiteLLM/Bifrost proxy traffic logs, and European regulatory data sovereignty mandates into deterministic physical inference metrics, hardware procurement architectures, and 60-month Total Cost of Ownership (TCO) projections.
 
 ### The Eight Evaluated Deployment Archetypes
 1. **Sovereign On-Premise Per-Seat Workstations:** Dedicated local hardware per developer (Apple Mac Mini M6/M5 Pro, Mac Studio M5 Max/Ultra, secondary-market M3 Ultra, NVIDIA DGX Spark GB10, RTX 5060 Ti / RTX 5090 desktop towers, AMD Strix/Gorgon Halo).
@@ -19,6 +21,14 @@ Build a modular, production-grade **Enterprise AI Infrastructure Decision Suppor
 8. **Global Cloud APIs & Subsidized Prosumer Subscriptions:** Unpinned global PAYG endpoints (OpenRouter, DeepSeek/Moonshot APIs, neoclouds) and flat-rate prosumer tiers ($100–$200/mo Claude Max, ChatGPT Pro), modeling compliance boundaries, rate caps, and third-party harness bans.
 
 ---
+
+## Active document authority
+
+Read progress.md first, then CLAUDE.md, Requirement 43, specs/09_WEB_FRONTEND_MIGRATION.md,
+specs/08_MVP_DESIGN_REFERENCE.md and the revised Tasks 8-13 under .kiro/specs/ai-tco-dss-mvp/.
+The numbered domain documents retain the mathematical background; historical
+Streamlit paths and framework recommendations do not define the target frontend.
+Tasks 1-7 remain completed history; the previous Task 8 backend work is reusable.
 
 ## 2. AI Coding Agent Context Router (Read Only What You Need)
 

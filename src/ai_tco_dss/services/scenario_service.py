@@ -6,6 +6,7 @@ from pathlib import Path
 
 from ai_tco_dss.catalog import CatalogRepository, get_default_repository
 from ai_tco_dss.domain import (
+    BaselineDInput,
     BaselineInput,
     BaselineResult,
     BenchmarkMetric,
@@ -20,12 +21,14 @@ from ai_tco_dss.domain import (
     EngineParameters,
     FxInfo,
     HardwareSpec,
+    HybridCostInput,
     LicenseType,
     ModelSpec,
     PerformanceInput,
     PerformanceResult,
     PrecisionFormat,
     QualityScore,
+    RentalCostInput,
     Scenario,
     SizeRequest,
     SizeResult,
@@ -34,6 +37,7 @@ from ai_tco_dss.domain import (
     TcoInput,
     TcoProjection,
     TcoRequest,
+    TimelineInput,
     ValueOrigin,
     WorkloadInput,
     WorkloadProfile,
@@ -47,6 +51,12 @@ from ai_tco_dss.engines import (
     compute_workload,
     select_benchmark,
     size_deployment,
+)
+from ai_tco_dss.engines.baselines import (
+    compute_baseline_d,
+    compute_hybrid_cost,
+    compute_rental_cost,
+    compute_timeline,
 )
 from ai_tco_dss.settings import load_engine_parameters
 
@@ -278,7 +288,7 @@ def _archetype(hardware: HardwareSpec) -> str:
 
 def project_tco(request: TcoRequest, *, repo: CatalogRepository | None = None) -> TcoProjection:
     """TCO of one on-premise candidate plus Baselines A to C for View 2 and the audit drawer
-    (Req 13.7, 22, 23, 24, 38.7, 38.8). The 60-month timeline follows in Task 8."""
+    (Req 13.7, 22-26, 38.7, 38.8), anchored on the explicitly selected deployment."""
     request = TcoRequest.model_validate(request)
     scenario = request.scenario
     catalog = _repository(repo).catalog(scenario.fx_override)
@@ -334,4 +344,46 @@ def project_tco(request: TcoRequest, *, repo: CatalogRepository | None = None) -
         failures=(),
         notes=("quality, risk and popularity are set by the Decision_Engine (Task 9)",),
     )
-    return TcoProjection(candidate=candidate, timeline=None, baselines=baselines)
+    rental = next((r for r in catalog.rentals if r.id == "hetzner-gex63"), None)
+    if rental is None:
+        rental = next(iter(catalog.rentals), None)
+    if rental is None:
+        raise EngineInputError("rentals", "at least one EU rental for the comparison")
+    rental_cost = compute_rental_cost(
+        RentalCostInput(rental=rental, personnel_monthly_usd=dict(tco.monthly_opex)["personnel"]),
+        params,
+    )
+    hybrid = compute_hybrid_cost(
+        HybridCostInput(
+            local=tco,
+            api_c_monthly_usd=baselines.c_monthly.value,
+            local_offload_ratio=scenario.financials.local_offload_ratio,
+        ),
+        params,
+    )
+    baseline_d = compute_baseline_d(
+        BaselineDInput(
+            performance=performance,
+            utilization=tco.utilization,
+            profile=scenario.workload,
+            model=model,
+            infeasible_reason=sizing.oom_reason if not sizing.is_feasible else None,
+        ),
+        params,
+    )
+    timeline = compute_timeline(
+        TimelineInput(
+            anchor_candidate_id=candidate.candidate_id,
+            onprem=tco,
+            include_resale=scenario.financials.include_resale_value,
+            baselines=baselines,
+            baseline_d=baseline_d,
+            rental=rental_cost,
+            hybrid=hybrid,
+            hybrid_api_model_id=ref_model.id,
+            decode_tps=performance.decode_tps if performance else None,
+            open_output_price=model.open_weights_output_price_per_1m,
+        ),
+        params,
+    )
+    return TcoProjection(candidate=candidate, timeline=timeline, baselines=baselines)

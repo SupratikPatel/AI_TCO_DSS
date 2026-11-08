@@ -12,3 +12,7 @@ inclusion: always
 6. Modify only files listed in the current Task_Scope.
 7. Record every detected data contradiction in `specs/07_DATA_CORRECTIONS.md` with old value, new value, sources and decision date.
 8. Before finishing a task, make sure the task's new tests pass and the full `pytest` suite reports zero failures and zero errors, then update `progress.md` and the Next Session Prompt; only then mark the task `done`.
+
+Active web migration: read `specs/09_WEB_FRONTEND_MIGRATION.md` and Requirement 43.
+React/TypeScript handles presentation; Python services handle calculations through
+FastAPI. Follow the revised Tasks 8-13 and require browser visual verification.

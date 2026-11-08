@@ -25,6 +25,65 @@ from ai_tco_dss.services import size
 from ai_tco_dss.ui import theme
 from ai_tco_dss.ui.charts import memory_fit_figure
 
+
+def test_req_35_timeline_chart_states():
+    """35.4-35.8, 35.10, 35.11, 37.1/3: series, markers, shading, empty input."""
+    from ai_tco_dss.domain import TcoRequest
+    from ai_tco_dss.services import project_tco
+    from ai_tco_dss.ui.charts import tco_timeline_figure
+
+    scenario = Scenario(
+        workload=WorkloadProfile(),
+        financials=EnterpriseFinancials(),
+        sizing=SizingOptions(),
+        decision=DecisionOptions(),
+    )
+    projection = project_tco(
+        TcoRequest(scenario=scenario, candidate_id="onprem:rtx-pro-6000-96gb:4x:gpt-oss-120b:INT4")
+    )
+    fig = tco_timeline_figure(projection, DISPLAY)
+    lines = [t for t in fig.data if len(t.x) == 60]
+    assert len(lines) == 7
+    assert any("BLOCKED" in t.name and t.line.dash == "dash" for t in lines)
+    assert any("Danger Zone" in a.text for a in fig.layout.annotations)
+    assert all(t.line.color in theme.OKABE_ITO for t in lines)
+    assert len({(t.line.color, t.line.dash, t.marker.symbol) for t in lines}) == 7
+    assert fig.to_json() == tco_timeline_figure(projection, DISPLAY).to_json()
+    assert any(
+        "No data" in a.text
+        for a in tco_timeline_figure(
+            projection.model_copy(update={"timeline": None}), DISPLAY
+        ).layout.annotations
+    )
+    candidate = projection.candidate.model_copy(update={"utilization": 0.70})
+    clean = tco_timeline_figure(projection.model_copy(update={"candidate": candidate}), DISPLAY)
+    assert not any("Danger Zone" in a.text for a in clean.layout.annotations)
+    timeline = projection.timeline
+    assert timeline is not None
+    missing_d = timeline.model_copy(
+        update={
+            "points": tuple(
+                p.model_copy(update={"baseline_d_openrouter_value_cumulative": None})
+                for p in timeline.points
+            )
+        }
+    )
+    fig_without_d = tco_timeline_figure(
+        projection.model_copy(update={"timeline": missing_d}), DISPLAY
+    )
+    assert not any("Baseline D" in trace.name for trace in fig_without_d.data)
+    eligible = projection.baselines.model_copy(update={"baseline_a_eligible": True})
+    fig_eligible = tco_timeline_figure(
+        projection.model_copy(update={"baselines": eligible}), DISPLAY
+    )
+    a = next(t for t in fig_eligible.data if t.name.startswith("Baseline A"))
+    assert a.line.dash == "solid" and "BLOCKED" not in a.name
+    for field, month in timeline.break_even_months:
+        if field == "baseline_a_subscription_cumulative" or month is None:
+            continue
+        assert any(t.name.startswith(f"t* = {month}") for t in fig.data)
+
+
 CHARTS = Path(__file__).resolve().parents[2] / "src" / "ai_tco_dss" / "ui" / "charts.py"
 SEGMENTS = ("weights", "kv_cache_active", "agent_state_parked", "os_reserved", "runtime_overhead")
 DISPLAY = DisplaySettings(currency="USD", fx_rate=1.1165)

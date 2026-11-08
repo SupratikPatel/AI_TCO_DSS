@@ -1,7 +1,15 @@
 # Progress — AI TCO DSS MVP
 
 ## Current Status
-Tasks 1 to 7 done (2026-11-07). Task 7 added the TCO_Engine (`engines/tco.py`: `compute_tco`, `resale_value`, `classify_utilization`), the Baseline_Engine for Baselines A–D (`engines/baselines.py`: `api_monthly_cost`, `compute_baselines`, `compute_baseline_d`), the Service_Layer function `project_tco` (on-premise candidate ids `onprem:{hw}:{n}x:{model}:{precision}`, `timeline=None`), `ui/formatting.py` (`viability_badge`, `tco_cost_rows`) and the View 2 tab with the `timeline_card` Simulator_Card (`@st.fragment`, `render_counts["timeline"]`). Demo checked with a headless app through the agent API: RTX Pro 6000 96GB × 4 + gpt-oss-120b INT4 shows CapEx 71,456.00 USD, the six OpEx components (energy 112.66, personnel 3,567.57, NIM 0, capital opportunity 267.96, wait penalty 0, eviction loss 0 USD/month), Utilization 4.7 % with badge `idle capacity warning` (aggregate 2,779 tok/s `formula`), Baselines A 5,000.00 (non-compliant: both reasons), B 4,479.84 and C 5,427.83 USD/month and a compliance tax delta of 427.83 USD; switching the staffing hub to `de-munich-hq` raises personnel OpEx to 6,771.57 USD/month (60-month TCO 308,347 → 500,588 USD). Baselines A/B/C and the delta equal the design.md reference values (the catalog still has the spec 03 Sonnet prices $2 / $0.10 / $10). The full suite has 615 passing tests and 3 xfailed; `ai-tco-validate` reports 0 errors. Files are staged with `git add`, not committed. Task 8 (EU rental, hybrid split, 60-month timeline and View 2 chart) is next.
+Windows shortcut: double-click `run.bat` to sync Python dependencies, install web dependencies on first use, start the React UI/API and open the browser. Keep its console open; Ctrl+C stops both services. Updated at the author's request on 2026-11-08; launcher startup/proxy/cleanup verification passes.
+
+Tasks 1–7 remain complete. **Task 8's React/TypeScript + Vite/Tailwind/shadcn foundation and FastAPI size/TCO vertical slice are implemented and visually verified.** Root `npm run dev` starts Vite at 127.0.0.1:5173 and Python at 127.0.0.1:8000, proxies API calls and terminates both children. Python remains the numerical authority; the existing rental/hybrid/timeline implementation is reused unchanged.
+
+All twelve canonical Stitch screens have local HTML and screenshot exports, design-system JSON, a resource/dimension manifest and implementation tokens under `design/stitch/`. Real Chromium screenshots cover memory/TCO in both themes at 1280/1440/768/390 CSS px, plus loading/catalog-error/OOM states. See `design/stitch/REVIEW.md` and `comparison.html`. The UI includes separate memory/TCO controls, real charts/tables, display-only EUR, validated scenario edits, stale-request protection, retained last-valid results and explicit loading/error/infeasible states. Rankings, full Expert weights/TOPSIS, final chart/KPI polish and audit/downloads remain Tasks 9–12; production serving/CI and Streamlit retirement remain Task 13.
+
+Verification: API/service parity and errors pass; frontend type/lint/build, generated-type drift, five component/state tests, browser flows/screenshots and launcher startup/proxy/cleanup pass. Python ruff/format, strict mypy and catalog validation pass. The required verification helper reaches the full suite: **652 passed, 3 calibration xfailed, 3 failed solely because thesis/thesis_notes.md and thesis/literature.bib are missing**. The three historical relocation failures caused by the already-approved web notices were resolved with an exact amendment whitelist that still compares the remaining original content. Unrelated thesis files/tests are preserved and not newly staged.
+
+**Administrative completion gate:** Task 8 and subtask 8.6 remain `in-progress` solely under CLAUDE.md Project Rule 8 (full pytest must have zero failures). No functional or browser acceptance work remains for the Task 8 slice. Do not invent thesis documents or weaken their tests to satisfy the gate. Once the author restores those documents or explicitly changes that gate, rerun verification and close Task 8; the next implementation task is Task 9. Numerical-calibration issues and .kiro relocation remain deferred.
 
 Open points for the author from Task 7: Req 22.3 limits H_active to 730 h while the Workload_Profile allows 744 h, so profiles above 730 h get no on-premise TCO (C-038, requirement change proposal). `TcoInput` lacks `SizingOptions`, so the target context is derived from the sizing result and the eviction wait time ignores β_backend (C-039); Baseline C does not list the gateway-fee source id because the baseline inputs carry the fee as a float (C-040); both have contract change proposals. No hardware item has a cabling kit, so multi-node CapEx has no switch cost. `project_tco` fills `quality=None`, `risk=0.0` and `popularity=0.0` with a note until the Decision_Engine of Task 9 computes them. During the demo one cold server start logged a plotly/pandas "partially initialized module" error in the unchanged View 1 chart; it did not reproduce on a second cold start or in three fresh sessions.
 
@@ -118,86 +126,44 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 7.13 | Implement Baselines A–D | done | 2026-11-07 |
 | 7.14 | Implement `project_tco` and the View 2 cost table | done | 2026-11-07 |
 | 7.15 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | done | 2026-11-07 |
-| 8 | EU rental, hybrid split, 60-month timeline and View 2 chart | not-started | |
-| 8.1 | Write failing timeline tests | not-started | |
-| 8.2 | Write failing View 2 chart tests | not-started | |
-| 8.3 | Write property test for rental and hybrid cumulative formulas | not-started | |
-| 8.4 | Write property test for hybrid boundary ratios | not-started | |
-| 8.5 | Write property test for timeline structure | not-started | |
-| 8.6 | Write property test for the break-even oracle | not-started | |
-| 8.7 | Write property test for non-decreasing cumulative series | not-started | |
-| 8.8 | Write property test for View 2 chart structure | not-started | |
-| 8.9 | Implement rental, hybrid, timeline and break-even | not-started | |
-| 8.10 | Extend `project_tco` with the timeline | not-started | |
-| 8.11 | Implement the View 2 chart | not-started | |
-| 8.12 | Checkpoint and progress update: Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | not-started | |
-| 9 | Decision engine (SAW), use cases, presets, `recommend`/`evaluate_scenario` and Normal mode | not-started | |
-| 9.1 | Write failing decision unit tests | not-started | |
-| 9.2 | Write failing service integration tests | not-started | |
-| 9.3 | Write failing Normal-mode UI tests | not-started | |
-| 9.4 | Write property test for candidate enumeration | not-started | |
-| 9.5 | Write property test for hybrid local selection | not-started | |
-| 9.6 | Write property test for deterministic candidate generation | not-started | |
-| 9.7 | Write property test for the hard-filter oracle | not-started | |
-| 9.8 | Write property test for rejected list ordering | not-started | |
-| 9.9 | Write property test for quality resolution order | not-started | |
-| 9.10 | Write property test for risk bounds and monotonicity | not-started | |
-| 9.11 | Write property test for normalisation | not-started | |
-| 9.12 | Write property test for SAW score composition and order | not-started | |
-| 9.13 | Write property test for explanation content | not-started | |
-| 9.14 | Write property test for SAW dominance | not-started | |
-| 9.15 | Write property test for invalid weights | not-started | |
-| 9.16 | Write property test for deterministic ranking | not-started | |
-| 9.17 | Write property test for Dashboard input validators | not-started | |
-| 9.18 | Write property test for Normal mode ignoring Expert values | not-started | |
-| 9.19 | Implement quality resolution | not-started | |
-| 9.20 | Implement candidate generation and evaluation | not-started | |
-| 9.21 | Implement the hard filters | not-started | |
-| 9.22 | Implement criteria, normalisation, SAW and explanation | not-started | |
-| 9.23 | Implement `recommend` and `evaluate_scenario` | not-started | |
-| 9.24 | Implement Normal mode, sidebar and ranking tab | not-started | |
-| 9.25 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | not-started | |
-| 10 | TOPSIS, Expert mode and FX override | not-started | |
-| 10.1 | Write failing TOPSIS unit tests | not-started | |
-| 10.2 | Write failing Expert-mode smoke tests | not-started | |
-| 10.3 | Write property test for TOPSIS against a reference computation | not-started | |
-| 10.4 | Write property test for TOPSIS dominance | not-started | |
-| 10.5 | Implement TOPSIS | not-started | |
-| 10.6 | Implement Expert mode and the FX override pass-through | not-started | |
-| 10.7 | Show the SAW/TOPSIS comparison in the ranking tab | not-started | |
-| 10.8 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | not-started | |
-| 11 | KPI ribbon, display currency, theme and accessibility, fragments | not-started | |
-| 11.1 | Write failing KPI tests | not-started | |
-| 11.2 | Write failing theme and accessibility tests | not-started | |
-| 11.3 | Write failing fragment and layout smoke tests | not-started | |
-| 11.4 | Write property test for display currency | not-started | |
-| 11.5 | Implement display currency formatting | not-started | |
-| 11.6 | Implement the KPI ribbon | not-started | |
-| 11.7 | Apply theme, badges and fragments in charts and cards | not-started | |
-| 11.8 | Wire the three-tier layout and display currency in the app | not-started | |
-| 11.9 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | not-started | |
-| 12 | Audit drawer and export | not-started | |
-| 12.1 | Write failing audit and export tests | not-started | |
-| 12.2 | Write failing audit smoke tests | not-started | |
-| 12.3 | Write property test for the audit source list | not-started | |
-| 12.4 | Write property test for the export round trip | not-started | |
-| 12.5 | Implement the audit drawer content | not-started | |
-| 12.6 | Implement JSON and CSV export | not-started | |
-| 12.7 | Wire the audit drawer into the app | not-started | |
-| 12.8 | Checkpoint and progress update: Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | not-started | |
-| 13 | Concurrency, performance budget, CI, README and extension seams | not-started | |
-| 13.1 | Write failing concurrency tests | not-started | |
-| 13.2 | Write the performance budget test | not-started | |
-| 13.3 | Write contract signature and schema coverage tests | not-started | |
-| 13.4 | Write the Assumptions table consistency test | not-started | |
-| 13.5 | Write CI, README and extension seam tests | not-started | |
-| 13.6 | Write property test for service determinism | not-started | |
-| 13.7 | Write the property coverage meta-test | not-started | |
-| 13.8 | Create the GitHub Actions workflow | not-started | |
-| 13.9 | Complete the README commands | not-started | |
-| 13.10 | Append the extension seam table to `specs/00_INDEX_AND_AGENT_ROUTER.md` | not-started | |
-| 13.11 | Fix concurrency and assumption findings | not-started | |
-| 13.12 | Final checkpoint and progress update: Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | not-started | |
+| 8 | Stitch web foundation, FastAPI boundary and size/TCO vertical slice | in-progress | |
+| 8.1 | Export canonical Stitch assets and record a screen manifest and design tokens | done | 2026-11-08 |
+| 8.2 | Write failing API parity, error and web interaction tests | done | 2026-11-08 |
+| 8.3 | Implement FastAPI catalog, default-workload, size and TCO endpoints with OpenAPI types | done | 2026-11-08 |
+| 8.4 | Implement React shell, scenario controls and real memory/TCO panels matching Stitch | done | 2026-11-08 |
+| 8.5 | Implement root npm run dev orchestration and frontend type/build/component/browser checks | done | 2026-11-08 |
+| 8.6 | Run browser reference comparisons, verify Python and web checks, update progress and next prompt | in-progress | |
+| 9 | Decision engine (SAW), use cases, presets and Normal-mode web recommendations | not-started | |
+| 9.1 | Write failing candidate, filter, quality, SAW and service tests | not-started | |
+| 9.2 | Implement quality resolution, candidate enumeration and all hard filters | not-started | |
+| 9.3 | Implement criterion normalization, ranking and explanations | not-started | |
+| 9.4 | Expose recommend/evaluate through FastAPI and generate client types | not-started | |
+| 9.5 | Build the Stitch ranking tab and Normal-mode flow with real result states | not-started | |
+| 9.6 | Verify Python/API/frontend/browser checks and update progress | not-started | |
+| 10 | TOPSIS, Expert web controls and FX override | not-started | |
+| 10.1 | Write failing TOPSIS and Expert interaction tests | not-started | |
+| 10.2 | Implement TOPSIS and service/API pass-through | not-started | |
+| 10.3 | Implement Expert panels, weights and validated FX inputs | not-started | |
+| 10.4 | Verify mode transitions, stale-response handling and currency invariants | not-started | |
+| 10.5 | Run all applicable checks and update progress | not-started | |
+| 11 | Web KPI ribbon, chart semantics, responsive themes and accessibility | not-started | |
+| 11.1 | Write interaction tests for KPI, theme, missing-data and currency states | not-started | |
+| 11.2 | Complete shared KPI and display formatting components | not-started | |
+| 11.3 | Complete chart styles and independent simulator state | not-started | |
+| 11.4 | Verify responsive layout, keyboard access, contrast and loading/empty/error states against Stitch | not-started | |
+| 11.5 | Record browser evidence and update progress | not-started | |
+| 12 | Web audit drawer and JSON/CSV export | not-started | |
+| 12.1 | Write failing audit-selection, source and export round-trip tests | not-started | |
+| 12.2 | Implement audit result transport and drawer contents | not-started | |
+| 12.3 | Implement JSON and display-currency CSV ZIP exports | not-started | |
+| 12.4 | Verify browser downloads, empty states and selected-candidate behavior | not-started | |
+| 12.5 | Run checks and update progress | not-started | |
+| 13 | Web cutover, concurrency, performance, CI and documentation | not-started | |
+| 13.1 | Write concurrency, performance, launcher and build/serving tests | not-started | |
+| 13.2 | Add combined Python/API/frontend/browser verification and CI | not-started | |
+| 13.3 | Separate numeric tests from legacy UI tests and retire Streamlit adapter/config/dependency | not-started | |
+| 13.4 | Finalize same-origin production serving, launchers, README and extension seams | not-started | |
+| 13.5 | Run clean-checkout and visual acceptance checks; update progress with the remaining numerical-validation backlog | not-started | |
 
 ## Decisions Log
 | Date | Decision | Rationale | Affects |
@@ -287,6 +253,13 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 2026-11-07 | The AppTest check of the View 2 card (render count, cost table, hub change) lives in `tests/unit/test_tco.py` | `tests/integration/test_app_smoke.py` is outside the Task 7 scope | 37.6 |
 | 2026-11-07 | The optional property tests 7.4, 7.5, 7.7, 7.8 and 7.9 (Properties 24, 25, 27, 28, 29) were written | Same reason as for Tasks 3 to 6 | 7.4 to 7.9 |
 
+| 2026-11-07 | User prioritizes functional MVP before numerical refinement; Task 8 includes the Stitch-inspired wide chart/cost layout and light/dark theme, with scope extended to config, app, design reference and smoke tests | Stitch project 12247395809959632226 is a visual reference; existing contracts and ledger styles define behavior. See specs/08_MVP_DESIGN_REFERENCE.md for the agreed sequence | Task 8, Tasks 9-13 |
+
+| 2026-11-07 | Replace Streamlit with React/TypeScript, Vite, Tailwind and shadcn/ui; use FastAPI over existing Python services. Promote Stitch fidelity to browser-verified acceptance; root npm run dev will start both processes | Author rejected the Streamlit approximation and accepted extra implementation work. Requirement 43 and specs/09_WEB_FRONTEND_MIGRATION.md supersede delivery-specific legacy instructions. Prior backend implementation remains reusable | Revised Tasks 8-13, Req 43 |
+
+| 2026-11-08 | Task 8 adds Python scenario-default/validation and options metadata endpoints, editable shadcn primitives and a direct .venv process launcher | Defaults/valid node counts stay in Python; Vite proxies a stateless API; launcher cleanup is tested without depending on shell activation | 43.1, 43.2, 43.5, 43.7, 43.9 |
+| 2026-11-08 | Historical relocation checks allow only the exact approved migration amendments; full Task 8 status stays in progress for missing thesis documents | Preserve original domain text and existing unrelated tests; prompt-order test follows the user/Project Rule 1 progress-first instruction; Project Rule 8 still requires a zero-failure full suite | 1.10, 41.2, Task 8.6 |
+
 ## Changelog
 | Date | Task | Files created or modified |
 |---|---|---|
@@ -297,6 +270,14 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 2026-11-07 | 5 | created: `src/ai_tco_dss/engines/workload.py`, `src/ai_tco_dss/engines/sizing.py`, `src/ai_tco_dss/ui/cards.py`, `src/ai_tco_dss/ui/charts.py`, `src/ai_tco_dss/ui/theme.py`, `tests/unit/test_workload.py`, `tests/unit/test_sizing.py`, `tests/unit/test_engine_purity.py`, `tests/unit/test_charts.py`, `tests/property/test_workload_props.py`, `tests/property/test_sizing_props.py`, `tests/property/test_ui_props.py`; modified: `src/ai_tco_dss/engines/__init__.py`, `src/ai_tco_dss/catalog/json_repository.py`, `src/ai_tco_dss/catalog/memory_repository.py`, `src/ai_tco_dss/services/__init__.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/ui/app.py`, `specs/07_DATA_CORRECTIONS.md` (C-034), `progress.md` |
 | 2026-11-07 | 6 | created: `src/ai_tco_dss/engines/resolver.py`, `src/ai_tco_dss/engines/performance.py`, `src/ai_tco_dss/services/calibration_report.py`, `data/benchmarks/decode.json`, `data/benchmarks/prefill.json`, `reports/.gitkeep`, `tests/unit/test_performance.py`, `tests/unit/test_settings.py`, `tests/unit/test_calibration_report.py`, `tests/calibration/test_calibration.py`, `tests/property/test_performance_props.py`, `tests/property/test_calibration_props.py`; modified: `src/ai_tco_dss/engines/__init__.py`, `src/ai_tco_dss/settings.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/ui/cards.py`, `pyproject.toml` (console script `ai-tco-calibrate`), `README.md` (calibration command), `specs/07_DATA_CORRECTIONS.md` (C-035 to C-037, Calibration Known Deviations, Assumptions rows), `progress.md` |
 | 2026-11-07 | 7 | created: `src/ai_tco_dss/engines/tco.py`, `src/ai_tco_dss/engines/baselines.py`, `src/ai_tco_dss/ui/formatting.py`, `tests/unit/test_tco.py`, `tests/unit/test_baselines.py`, `tests/property/test_tco_props.py`, `tests/property/test_baseline_props.py`, `tests/integration/test_service_validation.py`; modified: `src/ai_tco_dss/engines/__init__.py`, `src/ai_tco_dss/services/__init__.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/ui/cards.py`, `src/ai_tco_dss/ui/app.py`, `specs/07_DATA_CORRECTIONS.md` (C-038 to C-040, Assumptions rows), `progress.md` |
+
+| 2026-11-07 | 8 | Added rental/hybrid/timeline engines, service orchestration, View 2 chart and controls, `.streamlit/config.toml`, design reference, timeline tests and chart/property/UI regressions; updated the Task 8 scope and Task 7 timeline expectation. Verification pending the unrelated missing thesis documents. |
+
+| 2026-11-07 | 8 | Documentation-only migration planning: updated progress, README, agent/steering rules, MVP requirements/design/tasks, spec router/schema/UX authority notices and Stitch reference; added web migration contract and archived the previous task plan. No application code, dependencies or launch scripts changed. |
+
+| 2026-11-08 | 8 | Implemented frontend/, root npm workspace/lock, scripts/dev.mjs + launcher test, OpenAPI export/type-drift scripts, src/ai_tco_dss/api/, Python dependencies/lock and API/foundation tests; exported all Stitch assets and visual review/comparison under design/stitch/; adapted exact approved-amendment handling in repository-layout tests; updated README, migration/reference docs, tasks and progress. Size/TCO browser slice verified; completion gate remains in progress only for three unrelated missing-thesis test failures. |
+
+| 2026-11-08 | 8 | Author-requested Windows launcher update: run.bat now starts the React UI/API and opens the browser via scripts/dev.mjs --open; README updated. Startup/proxy/cleanup test passes. This explicitly requested launcher change extends the earlier Task 8 file scope to run.bat. |
 
 ## Known Deviations
 | Deviation | Ledger entries |
@@ -318,26 +299,39 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | The TCO_Engine derives the target context from the sizing result; the eviction wait time ignores β_backend | C-039 |
 | Baseline C does not list the gateway-fee source id | C-040 |
 
+| Hybrid and on-premise timelines share the resale adjustment to preserve the 100% local boundary | C-041 |
+
 ## Next Step
-Task 8 — EU rental, hybrid split, 60-month timeline and View 2 chart
+Task 8 - Stitch web foundation, FastAPI boundary and size/TCO vertical slice (completion gate only; next implementation is Task 9)
 
 ## Next Session Prompt
 ```text
-You are continuing the AI TCO DSS MVP (TUM thesis, Python 3.12, uv). Read these files first, in order:
+Read progress.md first. Then review the session contracts in this order:
 1. CLAUDE.md
 2. progress.md
-3. .kiro/specs/ai-tco-dss-mvp/requirements.md
-4. .kiro/specs/ai-tco-dss-mvp/design.md
+3. .kiro/specs/ai-tco-dss-mvp/requirements.md (especially Requirement 43)
+4. .kiro/specs/ai-tco-dss-mvp/design.md (active web delivery architecture)
 5. .kiro/specs/ai-tco-dss-mvp/tasks.md
-Then execute task 8 "EU rental, hybrid split, 60-month timeline and View 2 chart" from tasks.md, and only that task.
+6. specs/08_MVP_DESIGN_REFERENCE.md and specs/09_WEB_FRONTEND_MIGRATION.md
+
+Resume Task 8 "Stitch web foundation, FastAPI boundary and size/TCO vertical slice" completion gate only.
+The web/API implementation and browser reference review are already done; do not rebuild them.
 Task_Scope (identical to tasks.md):
-  Load: `CLAUDE.md` § "Project Rules"; `progress.md` (whole file); `requirements.md` § "Requirement 25: EU Dedicated Rental and Hybrid Split", § "Requirement 26: 60-Month Timeline and Break-Even", § "Requirement 35: Views 1 and 2", § "Requirement 37: Visual Accessibility and UI Architecture"; `design.md` § "Key Design Decisions", § "Baseline_Engine (`engines/baselines.py`)", § "Service Layer (`services/`)", § "Dashboard (`ui/`)", § "Okabe-Ito archetype mapping (`ui/theme.py`, ledger entry C-004)", § "Correctness Properties" › "Baselines, rental, hybrid and timeline" and "Dashboard and export"; `specs/02_TCO_FINOPS_AND_EU_COMPLIANCE.md` § "Baseline C: EU-Sovereign Metered Enterprise API & Dedicated EU Cloud Rental", § "2.7 Sovereign On-Premise 60-Month TCO Integration Formula"; `specs/05_VISUALIZATION_UX_AND_SYSTEM_DESIGN.md` § "2.2 Semantic, Colorblind-Safe Financial Palette (Okabe-Ito / IBCS Aligned)", § "3. The Six Interactive Plotly Views (`src/ui/charts.py`)"; `src/ai_tco_dss/engines/`; `src/ai_tco_dss/services/`; `src/ai_tco_dss/ui/`
-  Modify: `src/ai_tco_dss/engines/baselines.py`, `src/ai_tco_dss/services/__init__.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/ui/charts.py`, `src/ai_tco_dss/ui/theme.py`, `src/ai_tco_dss/ui/cards.py`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`, `tests/unit/test_timeline.py`, `tests/unit/test_charts.py`, `tests/property/test_baseline_props.py`, `tests/property/test_ui_props.py`
-  Verify: uv run python scripts/verify.py tests/unit/test_timeline.py tests/unit/test_charts.py tests/property/test_baseline_props.py tests/property/test_ui_props.py
-Work test-first, change only Task_Scope files, run the task's verification command (it must exit 0),
-then update progress.md (Task Status, Current Status, Changelog, Next Step) and rewrite
-this prompt for the next not-started task before reporting completion.
-Stage changed files with git add; do not commit or push.
-Before creating or changing any Streamlit code (src/ai_tco_dss/ui/ or AppTest tests),
-activate the developing-with-streamlit skill (see .kiro/steering/streamlit-ui.md).
+  Load: `CLAUDE.md` section "Project Rules"; `progress.md` (whole file); `requirements.md` section "Requirement 43: Dedicated Web Frontend and Stitch Fidelity"; `design.md` section "Web delivery architecture (active)"; `specs/05_VISUALIZATION_UX_AND_SYSTEM_DESIGN.md`
+  Modify: `frontend/`, `package.json`, `package-lock.json`, `design/stitch/`, `src/ai_tco_dss/api/`, `pyproject.toml`, `uv.lock`, `scripts/`, `tests/unit/`, `tests/integration/`, `.gitignore`, `README.md`, `specs/08_MVP_DESIGN_REFERENCE.md`, `specs/09_WEB_FRONTEND_MIGRATION.md`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`, `.kiro/specs/ai-tco-dss-mvp/tasks.md`
+  Verify: uv run python scripts/verify.py tests/unit/test_api.py tests/integration/test_web_api.py
+
+Last full suite: 652 passed, 3 known calibration xfailed, 3 failures from missing
+thesis/thesis_notes.md and thesis/literature.bib in pre-existing unrelated tests.
+Do not invent these documents, change their tests, or mark the zero-failure gate passed.
+If restored by the author (or if the author explicitly changes the gate), rerun verification,
+mark Task 8/8.6 done and set the next step to Task 9:
+"Decision engine (SAW), use cases, presets and Normal-mode web recommendations".
+If still missing, report the unrelated gate and retain current status; no implementation is blocked.
+Read design/stitch/REVIEW.md before changing screenshots. Root npm run dev is working.
+Web checks: npm run typecheck, npm run lint, npm run build, npm test,
+npm run types:check, npm run test:browser (Chromium), npm run test:launcher.
+The browser baselines are Windows Chromium DPR 1. Preserve all pre-existing staged changes.
+No numerical calibration, .kiro relocation or Streamlit styling. Stage only relevant changes.
+Do not commit or push.
 ```

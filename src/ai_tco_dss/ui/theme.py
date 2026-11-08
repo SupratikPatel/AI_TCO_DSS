@@ -27,3 +27,14 @@ MEMORY_SEGMENT_COLORS = (
     ("runtime_overhead", REDDISH_PURPLE),
 )
 THRESHOLD_COLOR = BLACK
+
+ARCHETYPE_STYLE = {
+    "Sovereign Per-Seat Workstation": (SKY_BLUE, "solid", 3),
+    "Sovereign Centralized Server / PD-Disagg": (BLUE, "solid", 4),
+    "Heterogeneous Modality / Scavenged Rig": (YELLOW, "solid", 3),
+    "Dedicated EU Cloud GPU": (BLUISH_GREEN, "dashdot", 2.5),
+    "Baseline C (EU-pinned API)": (ORANGE, "solid", 3),
+    "Baseline B / D (global API / OpenRouter value)": (BLACK, "dot", 2),
+    "Baseline A (consumer subscription)": (REDDISH_PURPLE, "dash", 2),
+    "Hybrid Split": (ORANGE, "dash", 2.5),
+}

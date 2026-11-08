@@ -1,4 +1,20 @@
+> **Active architecture decision - 2026-11-07:** The MVP frontend is a dedicated React/TypeScript web application with Vite, Tailwind and shadcn/ui, backed by FastAPI and the existing Python services. Streamlit is the legacy prototype. Read [the web migration contract](09_WEB_FRONTEND_MIGRATION.md) and [the Stitch design reference](08_MVP_DESIGN_REFERENCE.md) before implementation. Where historical UI instructions below conflict, Requirement 43 and the migration contract take precedence.
+
 # Module 5: Visualization Software Design, Frontend UX Standards & Phased Execution Plan
+
+## 0. Active web implementation target
+
+The React/TypeScript frontend implements the actual Stitch design with Vite,
+Tailwind CSS, editable shadcn/ui components and Plotly.js. FastAPI is now an MVP
+adapter to the existing Python service layer. See specs/08_MVP_DESIGN_REFERENCE.md
+and specs/09_WEB_FRONTEND_MIGRATION.md. The framework evaluation and Streamlit
+execution plan below describe the earlier prototype decision, now superseded.
+
+The domain concepts, progressive disclosure, chart semantics and auditability
+remain relevant. Browser layout, styling, state, component and screenshot tests
+replace Streamlit widget, CSS workaround and fragment requirements. API inputs and
+outputs use Pydantic/OpenAPI contracts; all numerical computation stays in Python.
+The root npm run dev launcher will start both frontend and API after implementation.
 
 ## 1. Python Visualization Framework Evaluation & Decoupled Architecture
 

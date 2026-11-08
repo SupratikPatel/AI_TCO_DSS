@@ -29,6 +29,42 @@ SUBPACKAGES = ("domain", "catalog", "engines", "decision", "services", "ui")
 TEST_DIRS = ("unit", "calibration", "property", "integration")
 SEAMS_HEADING = "## Extension Seams (post-MVP)"
 
+# Exact, author-approved 2026-11-07 delivery amendments. Everything else in the
+# relocated domain documents must still compare byte-for-byte after normalization.
+WEB_NOTICE = (
+    "> **Active architecture decision - 2026-11-07:** The MVP frontend is a dedicated "
+    "React/TypeScript web application with Vite, Tailwind and shadcn/ui, backed by FastAPI "
+    "and the existing Python services. Streamlit is the legacy prototype. Read "
+    "[the web migration contract](09_WEB_FRONTEND_MIGRATION.md) and "
+    "[the Stitch design reference](08_MVP_DESIGN_REFERENCE.md) before implementation. "
+    "Where historical UI instructions below conflict, Requirement 43 and the migration "
+    "contract take precedence.\n\n"
+)
+WEB_AUTHORITY = """## Active document authority
+
+Read progress.md first, then CLAUDE.md, Requirement 43, specs/09_WEB_FRONTEND_MIGRATION.md,
+specs/08_MVP_DESIGN_REFERENCE.md and the revised Tasks 8-13 under .kiro/specs/ai-tco-dss-mvp/.
+The numbered domain documents retain the mathematical background; historical
+Streamlit paths and framework recommendations do not define the target frontend.
+Tasks 1-7 remain completed history; the previous Task 8 backend work is reusable.
+
+"""
+WEB_TARGET = """## 0. Active web implementation target
+
+The React/TypeScript frontend implements the actual Stitch design with Vite,
+Tailwind CSS, editable shadcn/ui components and Plotly.js. FastAPI is now an MVP
+adapter to the existing Python service layer. See specs/08_MVP_DESIGN_REFERENCE.md
+and specs/09_WEB_FRONTEND_MIGRATION.md. The framework evaluation and Streamlit
+execution plan below describe the earlier prototype decision, now superseded.
+
+The domain concepts, progressive disclosure, chart semantics and auditability
+remain relevant. Browser layout, styling, state, component and screenshot tests
+replace Streamlit widget, CSS workaround and fragment requirements. API inputs and
+outputs use Pydantic/OpenAPI contracts; all numerical computation stays in Python.
+The root npm run dev launcher will start both frontend and API after implementation.
+
+"""
+
 
 def _old_name_variants(old: str) -> tuple[str, str]:
     """Return the old name with and without the ' (1)' suffix."""
@@ -51,6 +87,16 @@ def _git(*args: str) -> subprocess.CompletedProcess[str]:
 
 def _normalise(text: str) -> str:
     text = text.replace("\r\n", "\n")
+    if text.startswith("> **Active architecture decision"):
+        assert text.startswith(WEB_NOTICE), "Unapproved change to the migration notice"
+        text = text.removeprefix(WEB_NOTICE)
+    text = text.replace(WEB_AUTHORITY, "").replace(WEB_TARGET, "")
+    text = text.replace(
+        "(Python 3.12/Pydantic/FastAPI backend; React/TypeScript/Vite/Tailwind/shadcn/ui "
+        "frontend; Plotly.js charts)",
+        "(`Python 3.12+`, `Pydantic v2`, `FastAPI`, `Pandas/NumPy`, `Plotly`, "
+        "`Streamlit`, `Pytest`)",
+    )
     if SEAMS_HEADING in text:
         text = text[: text.index(SEAMS_HEADING)]
     return text.rstrip("\n")

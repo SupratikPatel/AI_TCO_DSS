@@ -1,3 +1,5 @@
+> **Active architecture decision - 2026-11-07:** The MVP frontend is a dedicated React/TypeScript web application with Vite, Tailwind and shadcn/ui, backed by FastAPI and the existing Python services. Streamlit is the legacy prototype. Read [the web migration contract](09_WEB_FRONTEND_MIGRATION.md) and [the Stitch design reference](08_MVP_DESIGN_REFERENCE.md) before implementation. Where historical UI instructions below conflict, Requirement 43 and the migration contract take precedence.
+
 <!-- ===================================================================== -->
 <!-- SPLIT FILE: specs/04_PYDANTIC_SCHEMAS_AND_CONTRACTS.md               -->
 <!-- PURPOSE: Strict Type-Safe Data Contracts (src/core/schemas.py)        -->
