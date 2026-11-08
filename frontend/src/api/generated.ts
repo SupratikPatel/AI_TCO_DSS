@@ -658,6 +658,11 @@ export interface components {
             ][];
             /** Open Model Ids */
             open_model_ids: string[];
+            /** Preset Weights */
+            preset_weights: [
+                string,
+                components["schemas"]["CriterionWeights"]
+            ][];
         };
         /** SizeRequest */
         SizeRequest: {

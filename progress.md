@@ -1,7 +1,16 @@
 # Progress — AI TCO DSS MVP
 
 ## Current Status
-Task 9 implementation is complete: deterministic candidates, all nine hard filters with complete rejection reasons, measured-first quality/fallback ratios, six-criterion SAW, explanations, recommend/evaluate services and FastAPI routes, and the actual Stitch Ranking screen with working Normal-mode controls. Python remains the numerical authority. Default inputs yield 36 admissible / 637 rejected candidates; the leading option is RTX Pro 6000 Blackwell 96 GB x4 + DeepSeek V4.1 Flash INT4 (SAW 0.817 rounded). TOPSIS remains Task 10.
+
+**Task 10 is functionally implemented and verified:** Python TOPSIS vector normalization, worst-observed missing-value imputation, distances/closeness, deterministic ties and paired SAW/TOPSIS ranks; complete Expert controls with catalog preset initialization, validated raw weights, method selection and FX overrides. Normal mode preserves use case/users/preset and ignores all Expert inputs. Validation and calculation responses cannot overwrite newer edits or mode transitions. No Streamlit code, catalog data or domain contracts changed.
+
+Default TOPSIS uses the same **36 admissible / 637 rejected** candidates as SAW. RTX Pro 6000 Blackwell 96 GB x1 + Qwen 3.8 Flash Next INT2 leads with closeness **0.758** (SAW rank 9); the existing SAW leader remains unchanged. The API exposes preset weights through `/options`; TypeScript types are regenerated. Display currency never submits calculations or changes USD ranking/break-even. A valid FX override legitimately recalculates EUR-derived USD costs; retained TCO projections keep the rate associated with their successful request.
+
+Task 10 validation: **38 Chromium checks**, including both themes at 1280/1440/768/390 CSS px and inline validation, plus nine frontend component/helper checks, typecheck/lint/build/types:check and separate launcher startup/proxy/cleanup pass. Independent NumPy reference and dominance properties pass. Focused TOPSIS/property/service/API checks: **34 passed**. `uv run python scripts/verify.py tests/unit/test_topsis.py` passes its focus, ruff/format, strict mypy and catalog validation; full suite: **713 passed, 3 calibration xfailed, 3 failures solely from the same missing thesis/thesis_notes.md and thesis/literature.bib**. See `frontend/TASK10_REVIEW.md`, `frontend/expert-comparison.html` and ten new browser screenshots. The existing Normal/memory/TCO screenshot baselines are unchanged.
+
+The user explicitly authorized Task 10 implementation despite the unrelated completion gate, superseding the old Task 9 stopping point. Tasks 8-10 stay administratively in progress under Project Rule 8; Task 10.1-10.4 are done and 10.5 retains only that gate. **Next implementation: Task 11, web KPI/chart/theme/accessibility polish.** Audit/export remains Task 12. No commit or push was made; relevant changes are staged and unrelated untracked files are preserved.
+
+Task 9 implementation is complete: deterministic candidates, all nine hard filters with complete rejection reasons, measured-first quality/fallback ratios, six-criterion SAW, explanations, recommend/evaluate services and FastAPI routes, and the actual Stitch Ranking screen with working Normal-mode controls. Python remains the numerical authority. Default inputs yield 36 admissible / 637 rejected candidates; the leading option is RTX Pro 6000 Blackwell 96 GB x4 + DeepSeek V4.1 Flash INT4 (SAW 0.817 rounded). TOPSIS is now implemented by Task 10 above.
 
 The hybrid contract gap is resolved with explicit context/endpoint facts and component evaluations, with local utilization recomputed at the local demand share (C-042). Rental host RAM is divided per node only when constructing the sizing input, preserving the server total and keeping hardware configurations distinct in the local cache (C-043). The request explicitly authorizes the necessary extension to `domain/results.py` and three generated result schemas.
 
@@ -11,11 +20,11 @@ Windows shortcut: double-click `run.bat` to sync Python dependencies, install we
 
 Tasks 1–7 remain complete. **Task 8's React/TypeScript + Vite/Tailwind/shadcn foundation and FastAPI size/TCO vertical slice are implemented and visually verified.** Root `npm run dev` starts Vite at 127.0.0.1:5173 and Python at 127.0.0.1:8000, proxies API calls and terminates both children. Python remains the numerical authority; the existing rental/hybrid/timeline implementation is reused unchanged.
 
-All twelve canonical Stitch screens have local HTML and screenshot exports, design-system JSON, a resource/dimension manifest and implementation tokens under `design/stitch/`. Real Chromium screenshots cover ranking/memory/TCO in both themes at 1280/1440/768/390 CSS px, plus loading/catalog-error/OOM states. See `design/stitch/REVIEW.md`, `comparison.html` and the Task 9 frontend review. The UI includes separate memory/TCO controls, real charts/tables, display-only EUR, validated scenario edits, stale-request protection, retained last-valid simulator results and explicit loading/error/infeasible states. Full Expert weights/TOPSIS, final chart/KPI polish and audit/downloads remain Tasks 10–12; production serving/CI and Streamlit retirement remain Task 13.
+All twelve canonical Stitch screens have local HTML and screenshot exports, design-system JSON, a resource/dimension manifest and implementation tokens under `design/stitch/`. Real Chromium screenshots cover ranking/memory/TCO in both themes at 1280/1440/768/390 CSS px, plus loading/catalog-error/OOM states. See `design/stitch/REVIEW.md`, `comparison.html` and the Task 9 frontend review. The UI includes separate memory/TCO controls, real charts/tables, display-only EUR, validated scenario edits, stale-request protection, retained last-valid simulator results and explicit loading/error/infeasible states. Final chart/KPI polish and audit/downloads remain Tasks 11–12; production serving/CI and Streamlit retirement remain Task 13.
 
 Task 8 verification: API/service parity and errors pass; frontend type/lint/build, generated-type drift, five component/state tests, browser flows/screenshots and launcher startup/proxy/cleanup pass. Python ruff/format, strict mypy and catalog validation pass. The required verification helper reaches the full suite: **652 passed, 3 calibration xfailed, 3 failed solely because thesis/thesis_notes.md and thesis/literature.bib are missing**. The three historical relocation failures caused by the already-approved web notices were resolved with an exact amendment whitelist that still compares the remaining original content. Unrelated thesis files/tests are preserved and not newly staged.
 
-**Administrative completion gate:** Tasks 8/9 and subtasks 8.6/9.6 remain `in-progress` under CLAUDE.md Project Rule 8 (full pytest must have zero failures). No functional acceptance work remains for these implemented slices. Do not invent thesis documents or weaken their tests to satisfy the gate. Once the author restores those documents or explicitly changes that gate, rerun verification and close both tasks; the next implementation task is Task 10. Numerical-calibration issues and .kiro relocation remain deferred.
+**Administrative completion gate:** Tasks 8/9/10 and subtasks 8.6/9.6/10.5 remain `in-progress` under CLAUDE.md Project Rule 8 (full pytest must have zero failures). No functional acceptance work remains for these implemented slices. Do not invent thesis documents or weaken their tests to satisfy the gate. Once the author restores those documents or explicitly changes that gate, rerun verification and close their administrative gates; the next implementation task is Task 11. Numerical-calibration issues and .kiro relocation remain deferred.
 
 Open points for the author from Task 7: Req 22.3 limits H_active to 730 h while the Workload_Profile allows 744 h, so profiles above 730 h get no on-premise TCO (C-038, requirement change proposal). `TcoInput` lacks `SizingOptions`, so the target context is derived from the sizing result and the eviction wait time ignores β_backend (C-039); Baseline C does not list the gateway-fee source id because the baseline inputs carry the fee as a float (C-040); both have contract change proposals. No hardware item has a cabling kit, so multi-node CapEx has no switch cost. Task 9 now resolves quality, risk and popularity for generated `project_tco` candidates. During the demo one cold server start logged a plotly/pandas "partially initialized module" error in the unchanged View 1 chart; it did not reproduce on a second cold start or in three fresh sessions.
 
@@ -146,12 +155,12 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 9.4 | Expose recommend/evaluate through FastAPI and generate client types | done | 2026-11-08 |
 | 9.5 | Build the Stitch ranking tab and Normal-mode flow with real result states | done | 2026-11-08 |
 | 9.6 | Verify Python/API/frontend/browser checks and update progress | in-progress | |
-| 10 | TOPSIS, Expert web controls and FX override | not-started | |
-| 10.1 | Write failing TOPSIS and Expert interaction tests | not-started | |
-| 10.2 | Implement TOPSIS and service/API pass-through | not-started | |
-| 10.3 | Implement Expert panels, weights and validated FX inputs | not-started | |
-| 10.4 | Verify mode transitions, stale-response handling and currency invariants | not-started | |
-| 10.5 | Run all applicable checks and update progress | not-started | |
+| 10 | TOPSIS, Expert web controls and FX override | in-progress | |
+| 10.1 | Write failing TOPSIS and Expert interaction tests | done | 2026-11-08 |
+| 10.2 | Implement TOPSIS and service/API pass-through | done | 2026-11-08 |
+| 10.3 | Implement Expert panels, weights and validated FX inputs | done | 2026-11-08 |
+| 10.4 | Verify mode transitions, stale-response handling and currency invariants | done | 2026-11-08 |
+| 10.5 | Run all applicable checks and update progress | in-progress | |
 | 11 | Web KPI ribbon, chart semantics, responsive themes and accessibility | not-started | |
 | 11.1 | Write interaction tests for KPI, theme, missing-data and currency states | not-started | |
 | 11.2 | Complete shared KPI and display formatting components | not-started | |
@@ -269,6 +278,11 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 2026-11-08 | Task 9 resolves hybrid filtering using explicit component results/context/endpoint facts; rental server RAM is converted to a per-node sizing input. Scope extends to domain/results.py and generated result schemas, as required by the user's contract-gap instruction | Weighted averages cannot prove component feasibility; sizing multiplies host RAM by nodes. Recursive property generation now exercises nested component round trips without reducing assertions | C-042, C-043; Req 27-29, 38, 43 |
 | 2026-11-08 | Ranking is the initial tab; Normal changes use Python defaults plus only use case/users/preset, with SAW preset weights. Shared KPIs now reference rank 1 rather than the independent TCO simulator | Real recommendation workflow; preserve simulator independence. Full Expert controls, TOPSIS and final KPI polish remain later tasks | Req 33, 34; Tasks 9-11 |
 
+| 2026-11-08 | Task 10 proceeds despite the unrelated completion gate under explicit user authorization; Tasks 8-10 retain administrative in-progress status until the full suite has zero failures | The user supersedes the old Task 9 stopping point without weakening thesis tests or changing Project Rule 8 | Task 10, 41.2 |
+| 2026-11-08 | Expert preset weights come from Python `/options`; drafts require Apply, validation requests cancel on edits/mode switches, and entry initializes preset weights plus SAW | No duplicated weight constants or stale validation commits; Normal always restores Python defaults except use case/users/preset | 30.1, 33.2-5, 43.5-7 |
+| 2026-11-08 | Expert quantization selects KV precision for candidate sizing; ranking still enumerates all supported weight precisions, and independent simulator panels retain their weight selectors | Preserve Req 27's candidate set rather than introducing an unspecified precision filter | 27.2, 33.3 |
+| 2026-11-08 | TOPSIS retains SAW criterion contributions with explicit comparison labels; each retained TCO projection uses the FX rate from its successful request | Avoid presenting SAW contributions as TOPSIS distances or revaluing stale USD costs at a newer FX rate | 12.4, 30.2-4, 43.7 |
+
 ## Changelog
 | Date | Task | Files created or modified |
 |---|---|---|
@@ -289,6 +303,7 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 2026-11-08 | 8 | Author-requested Windows launcher update: run.bat now starts the React UI/API and opens the browser via scripts/dev.mjs --open; README updated. Startup/proxy/cleanup test passes. This explicitly requested launcher change extends the earlier Task 8 file scope to run.bat. |
 
 | 2026-11-08 | 9 | Created decision/{candidates,filters,quality,ranking}.py; added recommend/evaluate orchestration and routes, result filter facts/components, regenerated three JSON schemas and frontend types; created Ranking.tsx, Normal scenario helper, decision/property/API/component/browser tests, recursive strategy support, reviewed screenshots/comparison and frontend/TASK9_REVIEW.md; updated services/API exports, shared app/KPIs/styles, legacy web expectations, ledger and progress. No commit or push. |
+| 2026-11-08 | 10 | created: `tests/unit/test_topsis.py`, `frontend/src/components/ExpertControls.tsx`, `frontend/tests/expert.test.tsx`, `frontend/tests/expert.spec.ts`, ten `frontend/tests/expert.spec.ts-snapshots/*.png`, `frontend/TASK10_REVIEW.md`, `frontend/expert-comparison.html`; modified: `src/ai_tco_dss/decision/ranking.py`, `src/ai_tco_dss/api/app.py`, `tests/property/test_decision_props.py`, `frontend/src/{App.tsx,styles.css,lib/scenario.ts,components/Ranking.tsx,api/generated.ts}`, `progress.md`. Existing FX repository/service pass-through is reused and verified; no catalog/schema change or new data contradiction |
 
 ## Known Deviations
 | Deviation | Ledger entries |
@@ -314,7 +329,7 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | Hybrid filtering requires explicit component facts and reduced local demand; rental host RAM is a server total | C-042, C-043 |
 
 ## Next Step
-Task 9 - Decision engine (SAW), use cases, presets and Normal-mode web recommendations: final verification/completion gate. Implementation is complete; next implementation is Task 10 (TOPSIS, Expert web controls and FX override).
+Task 11 - Web KPI ribbon, chart semantics, responsive themes and accessibility. Task 10 functionality and visual acceptance are complete; Tasks 8-10 retain only the unrelated administrative completion gate. Do not redo their implementation.
 
 ## Next Session Prompt
 ```text
@@ -324,37 +339,42 @@ Read progress.md first, then:
 1. CLAUDE.md
 2. specs/09_WEB_FRONTEND_MIGRATION.md
 3. specs/08_MVP_DESIGN_REFERENCE.md
-4. .kiro/specs/ai-tco-dss-mvp/requirements.md (27-33, 38, 43)
-5. .kiro/specs/ai-tco-dss-mvp/design.md (Decision pipeline, Service Layer)
+4. .kiro/specs/ai-tco-dss-mvp/requirements.md (12, 34, 35, 37, 43)
+5. .kiro/specs/ai-tco-dss-mvp/design.md (Web delivery, Dashboard, chart semantics)
 6. .kiro/specs/ai-tco-dss-mvp/tasks.md
 
-Resume Task 9 verification/completion gate. Its implementation is complete.
+Implement Task 11: Web KPI ribbon, chart semantics, responsive themes and accessibility.
 Task_Scope:
   Load: `CLAUDE.md` section "Project Rules"; `progress.md` (whole file); `requirements.md` section "Requirement 43: Dedicated Web Frontend and Stitch Fidelity"; `design.md` section "Web delivery architecture (active)"; `specs/05_VISUALIZATION_UX_AND_SYSTEM_DESIGN.md`
-  Modify: `src/ai_tco_dss/decision/`, `src/ai_tco_dss/services/`, `src/ai_tco_dss/api/`, `frontend/`, `tests/`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`
-  Verify: uv run python scripts/verify.py tests/unit/test_decision.py tests/integration/test_service_end_to_end.py
+  Modify: `frontend/`, `src/ai_tco_dss/api/`, `tests/`, `specs/08_MVP_DESIGN_REFERENCE.md`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`
+  Verify: uv run python scripts/verify.py
 
-Task 9 includes candidates, all nine filters, quality/fallbacks, SAW/explanations,
-recommend/evaluate services and API routes, and the real Normal-mode Ranking screen.
-Default: 36 ranked / 637 rejected; RTX Pro 6000 x4 + DeepSeek V4.1 Flash INT4 leads.
-C-042 extends domain/results.py plus three generated schemas with filter facts/components.
-Hybrids inspect both components; local utilization uses the reduced token demand.
-C-043 preserves total rental RAM using a per-node sizing input and distinct cache keys.
-The recursive contract generator tests nested component JSON round trips.
+Tasks 1-7 are done. Tasks 8-10 are implemented and browser-verified; do not redo them.
+Tasks 8-10 stay administratively in progress under CLAUDE.md's zero-failure gate.
+Task 10 was explicitly authorized despite that unrelated gate; its functionality is complete.
+Full suite: 713 passed, 3 calibration xfailed, 3 failures solely from missing
+thesis/thesis_notes.md and thesis/literature.bib. Do not invent files or weaken tests.
+Task 10 focused TOPSIS/property/API/service checks: 34 passed. Frontend checks and
+all 38 Chromium checks plus separate launcher checks pass. Review TASK10_REVIEW.md,
+frontend/expert-comparison.html, frontend/TASK9_REVIEW.md and design/stitch/TOKENS.md.
 
-Review frontend/TASK9_REVIEW.md and frontend/ranking-comparison.html.
-Run npm typecheck, lint, build, test, types:check and test:browser.
-Run test:launcher separately from browser tests (shared ports 5173/8000).
-run.bat starts the UI/API and opens the browser.
+Normal uses real Python SAW rankings (36 ranked / 637 rejected by default).
+Expert initializes catalog preset weights and SAW; TOPSIS exposes paired ranks,
+closeness and distances. Default TOPSIS leader is RTX Pro 6000 x1 + Qwen 3.8 Flash
+Next INT2, C=0.758, SAW rank 9. Preserve the shared hard-filtered candidate set.
+Expert KV precision applies to sizing; ranking compares all weight precisions.
+FX accepts 0.50-2.00 with <=6 decimals; display currency never recomputes results.
+Overrides can change USD costs of EUR inputs. Retained TCO keeps its own FX rate.
+Preserve C-042 hybrid component/context/endpoint facts and reduced local demand,
+and C-043 rental server-total RAM/per-node sizing. Keep calculations in Python.
 
-Task 8 and Task 9 stay in progress only while the unrelated full-suite gate applies.
-Full suite: 703 passed, 3 calibration xfailed, 3 failures solely from missing
-thesis/thesis_notes.md and thesis/literature.bib. All 49 focused and 23 browser checks pass.
-Do not invent these documents, weaken tests or revisit calibration xfails.
-Once the author restores them or changes the gate, rerun verification and close both tasks.
-Next implementation: Task 10 TOPSIS, Expert controls and FX override; obtain authorization
-if continuing implementation while the completion gate remains unresolved.
-Keep calculations in Python; audit/export is Task 12 and web cutover is Task 13.
-Preserve all pre-existing staged/untracked changes. Stage relevant changes only.
-Do not commit or push. Update this file and its next-session prompt after work.
+Task 11 includes five consistent KPIs, monetary rounding/display/chart semantics,
+themes, keyboard/contrast/loading/empty/error states and independent simulators.
+Run npm typecheck/lint/build/test/types:check and test:browser in both themes at
+1280/1440/768/390 CSS px; run test:launcher separately (shared ports 5173/8000).
+run.bat and root npm run dev start the web UI/API. Freeze Streamlit work.
+Audit/export remains Task 12; production/CI/Streamlit retirement remains Task 13.
+Preserve staged and unrelated untracked work, including thesis files, export_bib.py,
+.config.kiro and .gitkeep files. Stage only relevant changes. Do not commit or push.
+Update progress.md and its next-session prompt after the work.
 ```

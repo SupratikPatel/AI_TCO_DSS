@@ -1,7 +1,7 @@
-"""Six-criterion SAW, missing data and deterministic explanations (Req 29)."""
+"""Six-criterion SAW/TOPSIS, missing data and deterministic explanations (Req 29-30)."""
 
 from functools import cmp_to_key
-from math import isfinite
+from math import hypot, isfinite
 
 from ai_tco_dss.domain import (
     CandidateEvaluation,
@@ -36,8 +36,6 @@ def rank_candidates(inp: RankingInput, params: EngineParameters) -> RankingResul
         error = "Invalid weights: " + (
             ", ".join(invalid) if invalid else "weight sum must be finite and > 0"
         )
-    elif inp.method != RankingMethod.SAW:
-        error = "TOPSIS is deferred to Task 10; select SAW."
     if error:
         return RankingResult(
             method=inp.method,
@@ -99,6 +97,47 @@ def rank_candidates(inp: RankingInput, params: EngineParameters) -> RankingResul
         row.model_copy(update={"rank": i, "saw_rank": i})
         for i, row in enumerate(sorted(rows, key=cmp_to_key(compare)), 1)
     )
+    if inp.method == RankingMethod.TOPSIS and ranked:
+        # Missing values use the worst observed raw value (design § Decision pipeline).
+        columns = []
+        for j, values in enumerate(ranges):
+            worst = (max(values) if j in (0, 3, 4) else min(values)) if values else 0.0
+            column = tuple(x if (x := row[j]) is not None else worst for row in raws)
+            norm = hypot(*column)
+            columns.append(tuple(norm_weights[j] * x / norm if norm else 0.0 for x in column))
+        ideal = tuple(min(col) if j in (0, 3, 4) else max(col) for j, col in enumerate(columns))
+        anti = tuple(max(col) if j in (0, 3, 4) else min(col) for j, col in enumerate(columns))
+        distances = {}
+        for i, candidate in enumerate(inp.feasible):
+            plus = hypot(*(columns[j][i] - ideal[j] for j in range(6)))
+            minus = hypot(*(columns[j][i] - anti[j] for j in range(6)))
+            distances[candidate.candidate_id] = (
+                plus,
+                minus,
+                minus / (plus + minus) if plus + minus else 1.0,
+            )
+        rows = []
+        for row in ranked:
+            plus, minus, closeness = distances[row.evaluation.candidate_id]
+            rows.append(
+                row.model_copy(
+                    update={"d_plus": plus, "d_minus": minus, "topsis_closeness": closeness}
+                )
+            )
+        ranked = tuple(
+            row.model_copy(update={"rank": i, "topsis_rank": i})
+            for i, row in enumerate(
+                sorted(
+                    rows,
+                    key=lambda row: (
+                        -float(row.topsis_closeness or 0),
+                        row.evaluation.cost_60m,
+                        row.evaluation.candidate_id,
+                    ),
+                ),
+                1,
+            )
+        )
     explanation = None
     if ranked:
         top = ranked[0]
@@ -109,6 +148,13 @@ def rank_candidates(inp: RankingInput, params: EngineParameters) -> RankingResul
             + "."
         )
         explanation += " " + " ".join(top.evaluation.notes)
+        if inp.method == RankingMethod.TOPSIS:
+            explanation = (
+                f"{top.evaluation.label} ranks first by TOPSIS "
+                f"closeness {top.topsis_closeness:.3f} "
+                f"(D+ {top.d_plus:.3f}, D- {top.d_minus:.3f}; SAW rank {top.saw_rank}). "
+                "SAW contributions are shown for comparison. " + " ".join(top.evaluation.notes)
+            )
     return RankingResult(
         method=inp.method,
         weights_normalised=weight_contract,

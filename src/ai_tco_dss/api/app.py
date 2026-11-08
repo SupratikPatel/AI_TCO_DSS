@@ -11,6 +11,7 @@ from ai_tco_dss import services
 from ai_tco_dss.catalog import get_default_repository
 from ai_tco_dss.domain import (
     CatalogOverview,
+    CriterionWeights,
     DecisionOptions,
     EnterpriseFinancials,
     Recommendation,
@@ -50,6 +51,7 @@ class Health(Contract):
 class SimulationOptions(Contract):
     open_model_ids: tuple[str, ...]
     node_counts: tuple[tuple[str, tuple[int, ...]], ...]
+    preset_weights: tuple[tuple[str, CriterionWeights], ...]
 
 
 app = FastAPI(
@@ -128,6 +130,7 @@ def options() -> SimulationOptions:
     return SimulationOptions(
         open_model_ids=tuple(m.id for m in catalog.models if m.type == "open-weights"),
         node_counts=tuple((h.id, h.valid_node_counts.value) for h in catalog.hardware),
+        preset_weights=tuple((p.id, p.weights) for p in catalog.presets),
     )
 
 
