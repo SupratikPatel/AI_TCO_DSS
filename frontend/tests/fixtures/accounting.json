@@ -1,0 +1,413 @@
+{
+  "candidate_id": "onprem:rtx-pro-6000-96gb:4x:gpt-oss-120b:INT4",
+  "rows": [
+    {
+      "key": "capex",
+      "label": "Hardware CapEx",
+      "value": 71456.0,
+      "note": "Street price is a catalog assumption, not a verified vendor quotation.",
+      "trace": {
+        "name": "capex",
+        "symbolic": "CapEx = (units * street_price) * μ_datacenter + cabling_and_switch_kit",
+        "substituted": "(4 * 17864.00) * 1.0 + 0.00",
+        "result": 71456.0,
+        "unit": "USD"
+      },
+      "sources": [
+        {
+          "source_id": "SPEC-02",
+          "title": "TCO, FinOps and EU compliance specification",
+          "url": null,
+          "reference": "specs/02_TCO_FINOPS_AND_EU_COMPLIANCE.md",
+          "publisher": "Thesis author",
+          "tier": "assumption",
+          "provenance": [
+            {
+              "path": "input.datacenter_multiplier",
+              "tier": "assumption",
+              "accessed": "2026-11-07",
+              "value": "1.0",
+              "unit": null
+            }
+          ]
+        },
+        {
+          "source_id": "SPEC-03",
+          "title": "Calibrated 2026 seed data (values pending web verification in Task 4)",
+          "url": null,
+          "reference": "specs/03_CALIBRATED_2026_SEED_DATA.md",
+          "publisher": "Thesis author",
+          "tier": "assumption",
+          "provenance": [
+            {
+              "path": "input.street_price",
+              "tier": "assumption",
+              "accessed": "2026-11-07",
+              "value": "17864.0",
+              "unit": "USD"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "energy",
+      "label": "Energy",
+      "value": 112.66024492799998,
+      "note": "Monthly cash expense; active/idle power, PUE and tariff assumptions.",
+      "trace": {
+        "name": "energy",
+        "symbolic": "Energy = units * (H_active * W_load + H_idle * W_idle) / 1000 * PUE * rate",
+        "substituted": "4 * (176 * 600.0 + 554 * 30.0) / 1000 * 1.2 * 0.1920",
+        "result": 112.66024492799998,
+        "unit": "USD"
+      },
+      "sources": [
+        {
+          "source_id": "IND-05",
+          "title": "German Electricity Price Analysis (2026)",
+          "url": "https://www.bdew.de/service/daten-und-grafiken/bdew-strompreisanalyse/",
+          "reference": "BDEW-Strompreisanalyse 2026 (SME industry 17.2 ct/kWh excl. VAT, August 2026 edition); see specs/06_RESEARCH_SOURCES.md section 2",
+          "publisher": "BDEW (Bundesverband der Energie- und Wasserwirtschaft)",
+          "tier": "third_party",
+          "provenance": [
+            {
+              "path": "input.tariff",
+              "tier": "third_party",
+              "accessed": "2026-11-07",
+              "value": "0.192038",
+              "unit": "USD"
+            }
+          ]
+        },
+        {
+          "source_id": "NVIDIA-RTX-PRO-6000",
+          "title": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition",
+          "url": "https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/",
+          "reference": null,
+          "publisher": "NVIDIA",
+          "tier": "official",
+          "provenance": [
+            {
+              "path": "input.load_watts",
+              "tier": "official",
+              "accessed": "2026-11-07",
+              "value": "600.0",
+              "unit": null
+            }
+          ]
+        },
+        {
+          "source_id": "SPEC-03",
+          "title": "Calibrated 2026 seed data (values pending web verification in Task 4)",
+          "url": null,
+          "reference": "specs/03_CALIBRATED_2026_SEED_DATA.md",
+          "publisher": "Thesis author",
+          "tier": "assumption",
+          "provenance": [
+            {
+              "path": "input.idle_watts",
+              "tier": "assumption",
+              "accessed": "2026-11-07",
+              "value": "30.0",
+              "unit": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "personnel",
+      "label": "Personnel",
+      "value": 3567.56640625,
+      "note": "Monthly cash expense; allocated FTE, salary and employer costs.",
+      "trace": {
+        "name": "personnel",
+        "symbolic": "Personnel = FTE * annual_base_salary * (1 + τ_employer) / 12",
+        "substituted": "0.5 * 83737.50 * (1 + 2.25%) / 12",
+        "result": 3567.56640625,
+        "unit": "USD"
+      },
+      "sources": [
+        {
+          "source_id": "IND-06",
+          "title": "Cross-Border Intra-EU IT Compensation & Social Taxes (2026)",
+          "url": null,
+          "reference": "Eurostat and national labour codes; see specs/06_RESEARCH_SOURCES.md section 2",
+          "publisher": "Eurostat & National Labor Codes",
+          "tier": "official",
+          "provenance": [
+            {
+              "path": "input.annual_salary",
+              "tier": "official",
+              "accessed": "2026-11-07",
+              "value": "83737.5",
+              "unit": "USD"
+            }
+          ]
+        },
+        {
+          "source_id": "PWC-TAX-RO",
+          "title": "Worldwide Tax Summaries: Romania, individual, other taxes",
+          "url": "https://taxsummaries.pwc.com/romania/individual/other-taxes",
+          "reference": null,
+          "publisher": "PwC",
+          "tier": "third_party",
+          "provenance": [
+            {
+              "path": "input.employer_tax",
+              "tier": "third_party",
+              "accessed": "2026-11-07",
+              "value": "2.25",
+              "unit": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "nim_licensing",
+      "label": "NIM licensing",
+      "value": 0.0,
+      "note": "Disabled in this projection.",
+      "trace": {
+        "name": "nim_licensing",
+        "symbolic": "NIM = license_per_gpu_yr / 12 * GPU count (0 if disabled)",
+        "substituted": "disabled",
+        "result": 0.0,
+        "unit": "USD"
+      },
+      "sources": []
+    },
+    {
+      "key": "capital_opportunity",
+      "label": "Capital opportunity cost",
+      "value": 267.96,
+      "note": "Monthly economic cost, not an invoice; capital rate is a scenario assumption.",
+      "trace": {
+        "name": "capital_opportunity",
+        "symbolic": "Opportunity = CapEx * capital_opportunity_rate / 12 (rate: assumption)",
+        "substituted": "71456.00 * 0.045 / 12",
+        "result": 267.96,
+        "unit": "USD"
+      },
+      "sources": []
+    },
+    {
+      "key": "wait_penalty",
+      "label": "Wait-time penalty",
+      "value": 0.0,
+      "note": "Disabled in this projection.",
+      "trace": {
+        "name": "wait_penalty",
+        "symbolic": "Wait = max(0, H_local_wait - H_cloud_wait) * dev_rate, H = requests * TTFT / 3600",
+        "substituted": "disabled",
+        "result": 0.0,
+        "unit": "USD"
+      },
+      "sources": []
+    },
+    {
+      "key": "eviction_loss",
+      "label": "Context eviction loss",
+      "value": 0.0,
+      "note": "No context eviction risk detected.",
+      "trace": {
+        "name": "eviction_loss",
+        "symbolic": "Eviction = N_ev * (rebuild_tokens / 1e6 * P_compute + wait_h * dev_rate / N_agents); N_ev and P_compute: assumption",
+        "substituted": "no context eviction risk",
+        "result": 0.0,
+        "unit": "USD"
+      },
+      "sources": []
+    },
+    {
+      "key": "cash_monthly",
+      "label": "Monthly cash operating costs",
+      "value": 3680.226651178,
+      "note": "Subtotal; components above are counted once.",
+      "trace": {
+        "name": "cash_monthly",
+        "symbolic": "energy + personnel + NIM licensing",
+        "substituted": "112.66024492799998 + 3567.56640625 + 0.0",
+        "result": 3680.226651178,
+        "unit": "USD/month"
+      },
+      "sources": []
+    },
+    {
+      "key": "economic_monthly",
+      "label": "Monthly modeled economic costs",
+      "value": 267.96,
+      "note": "Subtotal; components above are counted once.",
+      "trace": {
+        "name": "economic_monthly",
+        "symbolic": "capital opportunity + wait penalty + eviction loss",
+        "substituted": "267.96 + 0.0 + 0.0",
+        "result": 267.96,
+        "unit": "USD/month"
+      },
+      "sources": []
+    },
+    {
+      "key": "monthly_total",
+      "label": "Monthly modeled cost",
+      "value": 3948.186651178,
+      "note": "Subtotal; components above are counted once.",
+      "trace": {
+        "name": "monthly_total",
+        "symbolic": "cash operating costs + modeled economic costs",
+        "substituted": "112.66024492799998 + 3567.56640625 + 0.0 + 267.96 + 0.0 + 0.0",
+        "result": 3948.186651178,
+        "unit": "USD/month"
+      },
+      "sources": []
+    },
+    {
+      "key": "resale",
+      "label": "Resale deduction at month 60",
+      "value": 0.0,
+      "note": "Disabled in this projection.",
+      "trace": {
+        "name": "resale",
+        "symbolic": "resale = CapEx * max(0, 1 - (1-retention_3yr)*60/36) if enabled; otherwise 0",
+        "substituted": "CapEx 71456.0; retention at 36 months 0.5; enabled False",
+        "result": 0.0,
+        "unit": "USD"
+      },
+      "sources": [
+        {
+          "source_id": "ASSUMPTION-MVP",
+          "title": "Author assumption pending real data",
+          "url": null,
+          "reference": "specs/07_DATA_CORRECTIONS.md#assumptions",
+          "publisher": "Thesis author",
+          "tier": "assumption",
+          "provenance": [
+            {
+              "path": "input.retention_3yr",
+              "tier": "assumption",
+              "accessed": "2026-11-07",
+              "value": "0.5",
+              "unit": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "cost_60m",
+      "label": "60-month modeled TCO",
+      "value": 308347.19907067996,
+      "note": "before resale; resale disabled",
+      "trace": {
+        "name": "cost_60m",
+        "symbolic": "TCO(60) = CapEx + 60 * monthly OpEx - resale(60) (resale only if included)",
+        "substituted": "71456.0 + 60 * 3948.186651178 - 0.0",
+        "result": 308347.19907067996,
+        "unit": "USD"
+      },
+      "sources": []
+    },
+    {
+      "key": "baseline_c",
+      "label": "Baseline C monthly",
+      "value": 5427.825188000001,
+      "note": "EU-pinned API: Claude Sonnet 5.5; 10% residency surcharge plus gateway fee. Baseline B is the token-usage cost with cache/batch and workload adjustments.",
+      "trace": {
+        "name": "baseline_c",
+        "symbolic": "Baseline C = Baseline B * 1.10 + gateway fee",
+        "substituted": "4479.84108 * 1.10 + 500.0",
+        "result": 5427.825188000001,
+        "unit": "USD/month"
+      },
+      "sources": [
+        {
+          "source_id": "ANTHROPIC-PRICING",
+          "title": "Claude API pricing",
+          "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+          "reference": null,
+          "publisher": "Anthropic",
+          "tier": "official",
+          "provenance": [
+            {
+              "path": "input.api_prices.input_per_1m",
+              "tier": "official",
+              "accessed": "2026-11-07",
+              "value": "2.0",
+              "unit": "USD"
+            },
+            {
+              "path": "input.api_prices.output_per_1m",
+              "tier": "official",
+              "accessed": "2026-11-07",
+              "value": "10.0",
+              "unit": "USD"
+            },
+            {
+              "path": "input.api_prices.cache_read_per_1m",
+              "tier": "official",
+              "accessed": "2026-11-07",
+              "value": "0.1",
+              "unit": "USD"
+            }
+          ]
+        },
+        {
+          "source_id": "ASSUMPTION-MVP",
+          "title": "Author assumption pending real data",
+          "url": null,
+          "reference": "specs/07_DATA_CORRECTIONS.md#assumptions",
+          "publisher": "Thesis author",
+          "tier": "assumption",
+          "provenance": [
+            {
+              "path": "input.gateway_fee",
+              "tier": "assumption",
+              "accessed": "2026-11-07",
+              "value": "500.0",
+              "unit": "USD"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "baseline_c_60m",
+      "label": "Baseline C over 60 months",
+      "value": 325669.51128000004,
+      "note": "Same workload and horizon as the local comparison.",
+      "trace": {
+        "name": "baseline_c_60m",
+        "symbolic": "60 * Baseline C monthly",
+        "substituted": "60 * 5427.825188000001",
+        "result": 325669.51128000004,
+        "unit": "USD"
+      },
+      "sources": []
+    },
+    {
+      "key": "savings_60m",
+      "label": "60-month savings vs Baseline C",
+      "value": 17322.31220932008,
+      "note": "Positive favors local; negative favors the API. Modeled economic costs included.",
+      "trace": {
+        "name": "savings_60m",
+        "symbolic": "Baseline C 60-month cost - local 60-month TCO",
+        "substituted": "325669.51128000004 - 308347.19907067996",
+        "result": 17322.31220932008,
+        "unit": "USD"
+      },
+      "sources": []
+    }
+  ],
+  "fx": {
+    "rate": 1.1165,
+    "source_id": "ECB-FX",
+    "rate_date": "2026-11-06",
+    "is_override": false
+  },
+  "includes_resale": false,
+  "break_even_month": 49,
+  "utilization_text": "4.7%"
+}

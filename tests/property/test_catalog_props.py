@@ -95,11 +95,12 @@ def _filename_mismatch(root: Path) -> str:
     return rel
 
 
-def _missing_context(root: Path) -> str:
+def _invalid_prompt(root: Path) -> str:
     rel = "benchmarks/decode.json"
     record = {
         "metric": "decode_tps",
         "value": 10.0,
+        "prompt_tokens": 0,
         "model_id": "qwen-3-8-27b",
         "source_id": "ASSUMPTION-MVP",
         "tier": "assumption",
@@ -131,7 +132,7 @@ INJECTORS: dict[str, Callable[[Path], str]] = {
         "reference/staffing_hubs.json",
         lambda d: d["hubs"][0]["base_salary"].update(accessed="2999-01-01"),
     ),
-    "missing_context_tokens": _missing_context,
+    "invalid_prompt_tokens": _invalid_prompt,
 }
 
 

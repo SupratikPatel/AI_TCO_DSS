@@ -1,0 +1,285 @@
+{
+  "integrity": {
+    "new_files_verified": [
+      "evidence_report.md",
+      "backboard-glm.html",
+      "backboard-h100.html",
+      "backboard-27b.html",
+      "backboard-35b.html",
+      "petronella-deepseek.html",
+      "petronella-qwen.html",
+      "jev-package.html",
+      "jev-npm.json",
+      "synthtraces-head.json",
+      "omlx-releases.json",
+      "openai-sol.html",
+      "openai-data.html",
+      "anthropic-models.html",
+      "anthropic-pricing.html",
+      "google-locations.html",
+      "google-gemini31.html",
+      "jev-2.0.0.tgz",
+      "synthtraces-README.md",
+      "revolut-tuning-slide.webp",
+      "petronella-web-excerpts.json",
+      "jev-README.md",
+      "jev-jev-router.ts.txt",
+      "jev-package.json"
+    ],
+    "reused_files_verified": [
+      "docs/evidence/enterprise_routing_analysis_2026-11-12/pi-linkedin.html",
+      "docs/evidence/enterprise_routing_analysis_2026-11-12/revolut-talk.html",
+      "docs/evidence/enterprise_routing_analysis_2026-11-12/pi-virtual-models.md",
+      "docs/evidence/m5_512gb_report_review_2026-11-12/quality/unsloth-next.html",
+      "docs/evidence/m5_512gb_report_review_2026-11-12/quality/unsloth-dynamic31.html",
+      "docs/evidence/m5_512gb_report_review_2026-11-12/quality/unsloth-dynamic30.html",
+      "docs/evidence/m5_512gb_report_review_2026-11-12/omlx/2zvzoy8b.html",
+      "docs/evidence/m5_512gb_report_review_2026-11-12/quality/ista-README.md",
+      "docs/evidence/user_report_v11_review_2026-11-12/sushi/README.md",
+      "docs/evidence/user_report_v11_review_2026-11-12/sushi/docs/perf-baselines.md"
+    ],
+    "npm_sha512_verified": true
+  },
+  "companion_probes": [
+    {
+      "path": "C:\\Users\\supra\\Downloads\\evidence_records.json",
+      "exists": false
+    },
+    {
+      "path": "C:\\Users\\supra\\Downloads\\ai_deployment_benchmark_evidence.json",
+      "exists": false
+    },
+    {
+      "path": "C:\\Users\\supra\\Downloads\\m5_ultra_512gb_benchmark_evidence.json",
+      "exists": false
+    }
+  ],
+  "shared_serving": {
+    "glm": {
+      "source": "backboard-glm.html",
+      "gpus": 8,
+      "precision": "BF16",
+      "sustained": {
+        "workflows": 32,
+        "admission_window_s": 1800,
+        "aggregate_output_tps": [
+          370.0,
+          74.9
+        ],
+        "ttft_p50_s": [
+          3.24,
+          357.5
+        ],
+        "ttft_p90_s": [
+          61.2,
+          504.9
+        ],
+        "median_generation_tps": [
+          15.8,
+          7.7
+        ],
+        "admitted": [
+          462,
+          116
+        ],
+        "completed": [
+          461,
+          96
+        ]
+      },
+      "burst": {
+        "offered_workflows": 96,
+        "concurrency_workflows": 32,
+        "aggregate_output_tps": [
+          165.5,
+          63.5
+        ],
+        "ttft_p50_s": [
+          1.63,
+          16.4
+        ],
+        "ttft_p90_s": [
+          58.3,
+          481.0
+        ]
+      },
+      "strict_admission": false,
+      "reason": "Missing exact run-linked manifests; concurrent/queueing workload not represented by resident formula"
+    },
+    "h100": {
+      "source": "backboard-h100.html",
+      "publication": "2026-11-06",
+      "concurrency_kind": "live session trees, not simultaneous HTTP requests",
+      "gpus": 8,
+      "precisions": [
+        "BF16",
+        "FP8"
+      ],
+      "backboard_p90_ttft_s": [
+        0.78,
+        0.74,
+        0.86,
+        1.01,
+        1.41
+      ],
+      "backboard_p90_interactivity_tps": [
+        209,
+        156.3,
+        147,
+        100.4,
+        71.6
+      ],
+      "backboard_output_tps_per_gpu": [
+        21.0,
+        32.8,
+        49.5,
+        69.3,
+        90.7
+      ],
+      "backboard_8gpu_output_tps_derived": [
+        168.0,
+        262.4,
+        396.0,
+        554.4,
+        725.6
+      ],
+      "backboard_8gpu_output_tps_reported": [
+        168.0,
+        262.0,
+        396.0,
+        554.0,
+        726.0
+      ],
+      "strict_admission": false
+    },
+    "petronella": {
+      "primary_web_excerpts": "petronella-web-excerpts.json",
+      "direct_download_status": 403,
+      "deepseek_61_349_583_hardware": "4 RTX PRO 6000 Blackwell Max-Q, not H200",
+      "gb300_fast_path_precision": "MXFP4 experts (official checkpoint), Al-ENGR v20 pin-hot-experts plus RTX PRO 6000 peer; not uniform NVFP4",
+      "ttft_from_prefill_not_admitted": true,
+      "qwen_gb10_values": "Confirmed published 2/4/8-unit throughput; model-parallel pools, not independent replica counts"
+    }
+  },
+  "router": {
+    "package": "@caph42/pi-jev-router@2.0.0",
+    "git_head": "75ad5b71940624ba29baf39ad0e7c51319db598e",
+    "api": "route(request, ctx), not resolve(context)",
+    "classifier_provider_vs_adapter_api": "typesafe vs typesafe-system-one",
+    "julien_personal_extension_identity": null,
+    "load_aware_bypass_validated": false,
+    "live_accuracy_latency_quality_cost_validated": false,
+    "synthtraces_head": "e5f8ec99d8140bcf650b61d9401af996c0c70789",
+    "synthtraces_role": "local simulated user and remote coding agent; not router eval"
+  },
+  "m5": {
+    "reused_512gb_record": "2zvzoy8b",
+    "ttft_s": 28.25,
+    "decode_tps": 102.3,
+    "five_128k_requests": null,
+    "eight_retained_sessions": null,
+    "new_release_m5_deepseek_12_request_aggregate_tps": [
+      56.3,
+      125.7
+    ],
+    "new_release_memory_and_context_for_12_request_test": null,
+    "exact_uniform_int2_int3_tool_quality": null,
+    "sushi_94_denominator": "182/194 points, not 94/100 scenarios"
+  },
+  "api": {
+    "matched_eu_32k_128k_request_logs": null,
+    "openai_sol_standard_input_output_cache": [
+      2,
+      10,
+      0.1
+    ],
+    "openai_sol_long_input_output_cache_derived": [
+      4,
+      15,
+      0.2
+    ],
+    "openai_sol_regional_uplift": 0.1,
+    "gemini31_vertex_regions": [
+      "global"
+    ],
+    "gemini31_report_2m_context_not_accepted": true,
+    "etuki_4k_us_batch_edge_not_matched_eu_streaming": true
+  },
+  "fleet_examples": [
+    {
+      "input": {
+        "capacity": {
+          "gpus_per_replica": 8,
+          "request_slots": 16,
+          "retained_session_slots": 40,
+          "aggregate_output_tps": 400.0,
+          "capacity_basis": "Synthetic example; all capacities assumed",
+          "source_ids": [
+            "synthetic-example"
+          ]
+        },
+        "peak_concurrent_requests": 33,
+        "retained_sessions": 80,
+        "required_output_tps": 800.0,
+        "spare_replicas": 1
+      },
+      "result": {
+        "replicas_for_peak": 3,
+        "replicas_for_retention": 2,
+        "replicas_for_output": 2,
+        "minimum_active_replicas_lower_bound": 3,
+        "total_replicas_lower_bound": 4,
+        "total_gpus_lower_bound": 32,
+        "unresolved": [],
+        "impossible": [],
+        "capacity_basis": "Synthetic example; all capacities assumed",
+        "source_ids": [
+          "synthetic-example"
+        ],
+        "limitation": "Independent resource bounds are necessary, not sufficient: ideal balance and additive output capacity do not validate joint memory placement, session affinity, arrival bursts, queueing, task quality or loaded latency."
+      }
+    },
+    {
+      "input": {
+        "capacity": {
+          "gpus_per_replica": 8,
+          "request_slots": null,
+          "retained_session_slots": null,
+          "aggregate_output_tps": 370.0,
+          "capacity_basis": "Observed 370 TPS treated as a hypothetical planning ceiling, not a proven maximum. Backboard GLM-5.3 sustained-admission summary; 30-minute window plus drain, BF16, 8 B200, 32 workflows; incomplete workload manifest",
+          "source_ids": [
+            "backboard-glm.html"
+          ]
+        },
+        "peak_concurrent_requests": 33,
+        "retained_sessions": 80,
+        "required_output_tps": 1000.0,
+        "spare_replicas": 0
+      },
+      "result": {
+        "replicas_for_peak": null,
+        "replicas_for_retention": null,
+        "replicas_for_output": 3,
+        "minimum_active_replicas_lower_bound": 3,
+        "total_replicas_lower_bound": 3,
+        "total_gpus_lower_bound": 24,
+        "unresolved": [
+          "request_slots",
+          "retained_session_slots"
+        ],
+        "impossible": [],
+        "capacity_basis": "Observed 370 TPS treated as a hypothetical planning ceiling, not a proven maximum. Backboard GLM-5.3 sustained-admission summary; 30-minute window plus drain, BF16, 8 B200, 32 workflows; incomplete workload manifest",
+        "source_ids": [
+          "backboard-glm.html"
+        ],
+        "limitation": "Independent resource bounds are necessary, not sufficient: ideal balance and additive output capacity do not validate joint memory placement, session affinity, arrival bursts, queueing, task quality or loaded latency."
+      }
+    }
+  ],
+  "calibration": {
+    "new_production_imports": 0,
+    "strict_coverage": 0,
+    "existing_exclusions": 13,
+    "mape": null
+  }
+}

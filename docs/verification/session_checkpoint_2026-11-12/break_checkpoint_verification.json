@@ -1,0 +1,21 @@
+{
+  "saved_date": "2026-11-12",
+  "previous_index_entries": 641,
+  "unchanged_previous_index_entries_verified": 638,
+  "authorized_updated_previous_paths": [
+    "docs/SESSION_HANDOFF_2026-11-11.md",
+    "docs/UNFINISHED_TASKS.md",
+    "progress.md"
+  ],
+  "proof_copies_match_original_and_staged_bytes": 7,
+  "local_handoff_backlog_links_verified": 26,
+  "restart_prompt_lines": 42,
+  "restart_prompt_matches_progress": true,
+  "continuity_tests": {
+    "passed": 33,
+    "command": ".venv/Scripts/python.exe -m pytest tests/unit/test_session_artefacts.py -q"
+  },
+  "new_full_application_tests_run_for_documentation_only_break_checkpoint": false,
+  "committed": false,
+  "pushed": false
+}

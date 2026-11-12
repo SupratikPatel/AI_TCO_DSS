@@ -48,3 +48,12 @@ describe('calculation lifecycle', () => {
     expect(signal?.aborted).toBe(true);
   });
 });
+
+ it('waits for explicit submission before requesting a recommendation', async () => {
+   mockedRequest.mockResolvedValue('result');
+   const hook = renderHook(({enabled}) => useCalculation('/evaluate', {}, enabled), {initialProps:{enabled:false}});
+   expect(mockedRequest).not.toHaveBeenCalled();
+   expect(hook.result.current.loading).toBe(false);
+   hook.rerender({enabled:true});
+   await waitFor(() => expect(hook.result.current.data).toBe('result'));
+ });

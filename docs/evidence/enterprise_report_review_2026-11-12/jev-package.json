@@ -1,0 +1,49 @@
+{
+  "name": "@caph42/pi-jev-router",
+  "version": "2.0.0",
+  "description": "Jev virtual model routing for pi with fixed, guarded adaptive and record strategies.",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-coding-agent",
+    "extension",
+    "virtual-model",
+    "model-router",
+    "jev",
+    "classifier"
+  ],
+  "license": "MIT",
+  "author": "Caph-dev",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Caph-dev/pi-jev-router.git"
+  },
+  "homepage": "https://github.com/Caph-dev/pi-jev-router#readme",
+  "bugs": "https://github.com/Caph-dev/pi-jev-router/issues",
+  "files": [
+    "extensions",
+    "jev-router.example.json",
+    "README.md",
+    "README_zh.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions/jev-router.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

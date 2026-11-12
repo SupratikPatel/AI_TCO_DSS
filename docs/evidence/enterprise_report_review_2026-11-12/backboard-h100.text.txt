@@ -1,0 +1,262 @@
+Qwen3.8-Flash-Next: 12.8× Interactivity vs SGLang | Backboard
+BlogMenuInferenceQuantizationCoding AgentsMemoryInference EngineStateful APIStudio
+←Home
+Rob Imbeault
+·
+Nov 6, 2026
+Full speed, full precision: Up to 12.8× higher agent interactivity than SGLang on Qwen3.8-Flash-Next
+Paired performance results
+Metric
+Concurrency 1
+Concurrency 4
+Concurrency 8
+Concurrency 12
+Concurrency 16
+P90 interactivity (tokens/s/user)
+209.0 / 16.3
+156.3 / 140.0
+147.0 / 138.0
+100.4 / 14.4
+71.6 / 14.4
+P90 TTFT (seconds)
+0.78 / 10.6
+0.74 / 1.6
+0.86 / 1.4
+1.01 / 3.1
+1.41 / 3.5
+Total throughput (tokens/s/GPU)
+1,858 / 870
+3,010 / 2,146
+5,064 / 4,830
+7,640 / 5,060
+10,525 / 8,013
+Output throughput (tokens/s/GPU)
+21.0 / 9.7
+32.8 / 23.9
+49.5 / 46.0
+69.3 / 48.4
+90.7 / 72.2
+On Qwen3.8-Flash-Next across eight NVIDIA H100 GPUs, Backboard's BF16 inference produced up to 12.8× higher p90 interactivity, up to 13.6× faster time to first token, and up to 2.2× higher output throughput than SGLang at FP8.
+For agentic AI, inference performance is about more than how many tokens a GPU can process. It is about how quickly an agent can get started, how smoothly it can generate an answer, and how well the serving engine maintains that experience as more sessions fight for compute.
+That is what makes the SemiAnalysis AgentX benchmark an important test. Rather than relying on isolated, single-turn prompts, AgentX models the behavior of real coding agents: long, multi-turn conversations, shared context, pauses between turns, parallel subagents, and repeated KV-cache reuse.
+In our comparison using Qwen3.8-Flash-Next on eight NVIDIA H100 GPUs, Backboard running at BF16 precision delivered much better 90th percentile (p90) interactivity than the published SGLang FP8 results at every concurrency level tested. The largest advantages appeared at the low- and high-concurrency ends of the test, where Backboard reached up to 12.8× the interactivity of SGLang.
+Importantly, we achieved these results without compromising precision. Backboard's inference engine retains BF16 precision, where the SGLang reference uses FP8.
+Better interactivity at all levels
+Interactivity measures how quickly tokens arrive once generation has begun. It’s a vital metric for agentic workloads, where users and other agents need to consume intermediate output and continue working with as few delays as possible.
+At one concurrent session, Backboard delivered 12.8× higher p90 interactivity than SGLang. The advantage held even as concurrency increased: 7.0× at 12 sessions, and 5.0× at 16.
+12.8× higher p90 interactivity than SGLang.
+The results were more closely matched at mid-tier concurrency levels. Backboard was 1.1× ahead at both four and eight sessions. Still, that makes clear that gains apply across workloads, not just in narrow conditions.
+The difference is more relevant at higher concurrency levels. Even with 16 active sessions, Backboard maintained 5.0× the p90 interactivity of the SGLang reference. That translates into a far more responsive token stream.
+P90 interactivity, tokens/s per user (higher is better)
+Concurrent sessions
+Backboard BF16 (tokens/s)
+SGLang FP8 (tokens/s)
+Backboard gain
+1
+209.0
+16.3
+12.8×
+4
+156.3
+140.0
+1.1×
+8
+147.0
+138.0
+1.1×
+12
+100.4
+14.4
+7.0×
+16
+71.6
+14.4
+5.0×
+Faster first tokens at every concurrency level
+Interactivity describes what happens after generation begins. Time to first token (TTFT) is still important, as it measures the wait before that work takes place.
+Here, Backboard also led at every tested concurrency level, delivering between 1.6× and 13.6× faster p90 TTFT than SGLang.
+The largest improvement came at one concurrent session, where Backboard reduced the p90 wait by 13.6× — more than an order of magnitude. At 12 sessions, the first token arrived 3.1× sooner; at 16 sessions, it arrived 2.5× sooner.
+P90 time to first token, seconds (lower is better)
+Concurrent sessions
+Backboard BF16 (s)
+SGLang FP8 (s)
+Backboard faster by
+1
+0.78
+10.6
+13.6×
+4
+0.74
+1.6
+2.2×
+8
+0.86
+1.4
+1.6×
+12
+1.01
+3.1
+3.1×
+16
+1.41
+3.5
+2.5×
+These improvements are essential for agentic systems. A coding agent may need to issue several requests, inspect intermediate results, delegate tasks, and resume earlier conversations. Reducing the time spent waiting for each response to begin can improve the responsiveness of an entire workflow, not just an individual model call.
+The combination of faster TTFT and higher interactivity is powerful: Backboard improved generation speed across the pipeline, all the while operating at high precision.
+Higher output throughput across the entire test
+The user experience is most important, but that doesn’t have to come at the expense of behind-the-scenes performance. As an infrastructure operator, you also need to maximize the amount of useful work you can get from available GPUs.
+Backboard mustered between 1.1× and 2.2× the output token throughput per GPU across all five concurrency levels. The strongest result came with one session, while the advantage held at 1.3× with 16 sessions.
+Output throughput, tokens/s per GPU (higher is better)
+Concurrent sessions
+Backboard BF16 (tokens/s)
+SGLang FP8 (tokens/s)
+Backboard gain
+1
+21.0
+9.7
+2.16×
+4
+32.8
+23.9
+1.37×
+8
+49.5
+46.0
+1.08×
+12
+69.3
+48.4
+1.43×
+16
+90.7
+72.2
+1.26×
+Total token throughput showed a similar pattern. Backboard achieved up to 2.1× the total throughput of SGLang at one session and 1.5× at 12 sessions. At 16 sessions, it supplied a 1.3× advantage.
+Total throughput, tokens/s per GPU (higher is better)
+Concurrent sessions
+Backboard BF16 (tokens/s)
+SGLang FP8 (tokens/s)
+Backboard gain
+1
+1,858
+870
+2.14×
+4
+3,010
+2,146
+1.40×
+8
+5,064
+4,830
+1.05×
+12
+7,640
+5,060
+1.51×
+16
+10,525
+8,013
+1.31×
+At eight sessions, the throughput results were much closer: total throughput was approximately 1.05× higher and output throughput approximately 1.1× higher. That’s still better, but a useful reminder that there’s room for improvement.
+Taken together, the results demonstrate that Backboard can improve both the amount of work processed and individual responsiveness. These are complementary advantages: increasing aggregate capacity is valuable, but only if you can preserve the speed of individual sessions at the same time.
+Benchmark comparison
+The following tables preserve the measured values. Paired figures are shown as Backboard BF16 / SGLang FP8. Multipliers in the discussion above are calculated from these measurements.
+Additional Backboard measurements
+Metric
+Concurrency 1
+Concurrency 4
+Concurrency 8
+Concurrency 12
+Concurrency 16
+Requests
+588
+991
+1,483
+2,144
+2,839
+Aggregate output throughput (tokens/s, all 8 GPUs)
+168
+262
+396
+554
+726
+TTFT p50 (seconds)
+0.28
+0.29
+0.31
+0.34
+0.39
+TTFT p99 (seconds)
+4.65
+3.53
+3.57
+9.07
+11.98
+Interactivity p50 (tokens/s/user)
+248.6
+231.9
+213.5
+190.6
+153.3
+Interactivity p99 (tokens/s/user)
+101.6
+93.6
+87.7
+41.6
+37.7
+ITL p50 / p90 / p99 (ms)
+4.02 / 4.79 / 9.84
+4.31 / 6.40 / 10.68
+4.68 / 6.80 / 11.41
+5.25 / 9.96 / 24.05
+6.52 / 13.97 / 26.56
+E2E-normalized interactivity p50 / p90
+185.3 / 121.0
+184.0 / 109.8
+173.3 / 101.3
+150.4 / 70.3
+118.8 / 50.5
+E2E latency p50 / p90 (seconds)
+1.2 / 11.8
+2.1 / 10.4
+2.2 / 9.8
+2.4 / 12.4
+3.2 / 16.7
+Mean input / output tokens
+90K / 1,032
+87K / 956
+97K / 961
+102K / 933
+106K / 920
+The additional measurements are Backboard-side values; corresponding SGLang measurements were not included in this comparison dataset.
+Measuring performance under realistic agent workloads
+AgentX exposes the trade-offs that simpler inference benchmarks can miss. Its workload represents long-running, multi-turn coding sessions, including shared context, subagent activity, and pauses between turns. Its concurrency setting represents live session trees rather than simply the number of simultaneous HTTP requests.
+This is important because serving an agentic workload requires more than maximizing tokens per second in an isolated generation request. The inference engine has to manage prefill and generation, share GPU resources across sessions, and maintain responsive token delivery as workloads become more complex.
+Our objective with Backboard is to improve those underlying execution and scheduling decisions through software, making existing GPU infrastructure more productive without requiring you to change the underlying model or reduce its precision.
+Backboard's measurements use BF16, while the published SGLang reference uses FP8. This isn’t a matched-precision comparison, so the results shouldn’t be interpreted as isolating the inference engine's advantage from every possible configuration difference.
+More responsive inference, more useful GPU capacity
+The AgentX results show two important dimensions of Backboard's performance lead. First, users can receive their first tokens sooner and see faster streaming once generation starts. You, in turn, can process more output tokens with the same GPU resources.
+The gains are not identical at every concurrency level, and we think that’s worth showing rather than hiding. At four and eight sessions, the interactivity gap is modest. At 12 and 16, it becomes much larger. Backboard also maintains higher output throughput across the tested range.
+For teams building agentic applications, that combination matters. Faster token generation can make individual interactions feel more responsive, while higher throughput creates room to serve more work on existing infrastructure.
+We’ll continue testing across models, hardware generations, precisions, and workload patterns, with an emphasis on showing not only where Backboard leads, but also where the performance differences narrow and where we can make further improvements.
+← Back to home
+‹ Gemma 4: Up to 2.2× faster throughput than vLLM and SGLang
+Qwen3.8-27B: Outperforming SGLang and vLLM Across the Board ›
+Ottawa, Canada
+Burlingame, California
+Trust
+Trust Center
+Security
+Privacy
+Terms
+Status
+Company
+Careers
+Contact
+News
+Blog
+Connect
+GitHub
+X
+LinkedIn
+Backboard © 2026

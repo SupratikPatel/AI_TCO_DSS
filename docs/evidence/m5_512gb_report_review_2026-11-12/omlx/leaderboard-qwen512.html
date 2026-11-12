@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Benchmarks — oMLX</title>
+  <meta name="description" content="Real benchmark results from oMLX users. Compare performance across Apple Silicon chips and models." />
+  <meta property="og:title" content="Community Benchmarks — oMLX" />
+  <meta property="og:description" content="Real benchmark results from oMLX users. Compare performance across Apple Silicon chips and models." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://omlx.ai/images/omlx_dashboard_light.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D67LN9CZ28"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D67LN9CZ28');
+  </script>
+  <link rel="icon" href="/images/icon-rounded-dark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f7f6f3;
+      --gray-100: #f0eeea;
+      --gray-200: #e2dfd8;
+      --gray-400: #9e9b94;
+      --gray-600: #5a5750;
+      --gray-800: #2a2825;
+      --black: #141312;
+      --accent: #1a1a1a;
+      --green: #1d7a4a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--gray-600);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--black); font-weight: 500; }
+
+    /* Desktop-only hover submenu under Community Benchmarks. The hover-only
+       ::after strip bridges the gap between the trigger and the panel so the
+       menu survives the pointer travelling down; it stays display:none when
+       closed so it never intercepts clicks on page content. */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after {
+      content: ' \25BE';
+      font-size: 9px;
+      color: var(--gray-400);
+    }
+    .nav-dropdown::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      height: 14px;
+      display: none;
+    }
+    .nav-submenu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 150px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 6px;
+      list-style: none;
+      box-shadow: 0 8px 24px rgba(20, 19, 18, 0.1);
+      z-index: 200;
+    }
+    .nav-links .nav-submenu a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .nav-submenu a:hover { background: #f7f6f3; }
+    .nav-dropdown:hover .nav-submenu,
+    .nav-dropdown:focus-within .nav-submenu,
+    .nav-dropdown:hover::before,
+    .nav-dropdown:focus-within::before { display: block; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: var(--black);
+    }
+
+    .nav-star {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600) !important;
+      transition: all 0.15s;
+    }
+    .nav-star:hover { border-color: var(--black); color: var(--black) !important; }
+    .nav-star svg { flex-shrink: 0; }
+
+    .nav-links a.nav-cta {
+      background: var(--black);
+      color: var(--white);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.8; }
+
+    .page-content {
+      padding-top: 60px;
+    }
+
+    footer {
+      border-top: 1px solid var(--gray-200);
+      /* Pages whose content is wider than the default set --page-width so the
+         footer rule lines up with their content edge instead of stopping short.
+         Horizontal padding matches the page containers, so equal max-widths
+         put the edges in the same place. */
+      max-width: var(--page-width, 900px);
+      margin: 0 auto;
+      padding: 40px 40px 32px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--gray-400);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--gray-400);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--black); }
+
+    /* Shared hover tooltip. Host element must not clip its own overflow —
+       put .tip on the wrapper and any overflow:hidden on an inner child. */
+    .tip {
+      position: relative;
+      cursor: default;
+    }
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 4px;
+      padding: 4px 8px;
+      background: var(--gray-800);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      line-height: 1.4;
+      white-space: nowrap;
+      border-radius: 4px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.1s;
+      z-index: 10;
+    }
+    .tip:hover::after { opacity: 1; }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0; right: 0;
+        flex-direction: column;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--gray-200);
+        padding: 16px 20px;
+        gap: 16px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li[style*="margin-right"] { margin-right: 0 !important; }
+      /* No hover on touch: inside the hamburger menu the submenu is simply
+         laid out inline, indented under Community Benchmarks. */
+      .nav-dropdown::before { display: none !important; }
+      .nav-dropdown > a::after { content: none; }
+      .nav-submenu {
+        display: block;
+        position: static;
+        transform: none;
+        min-width: 0;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 14px 0 0;
+        text-align: center;
+      }
+      .nav-links .nav-submenu a { padding: 0; border-radius: 0; }
+      .nav-submenu a:hover { background: none; }
+      .nav-submenu li + li { margin-top: 14px; }
+      footer { padding: 32px 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="/images/icon-rounded-dark.svg" alt="oMLX" width="34" height="34" style="vertical-align:middle; margin-right:8px; display:inline-block;" />oMLX
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/#get-started">Get Started</a></li>
+      <li class="nav-dropdown">
+        <a href="/benchmarks/performance" class="active">Community Benchmarks</a>
+        <ul class="nav-submenu">
+          <li><a href="/benchmarks/performance">Performance</a></li>
+          <li><a href="/benchmarks/intelligence">Intelligence</a></li>
+        </ul>
+      </li>
+      <li style="margin-right:-16px"><a href="https://github.com/jundot/omlx" target="_blank" rel="noopener" class="nav-star" id="star-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 1.5l1.85 3.75 4.15.6-3 2.93.71 4.12L8 10.87l-3.71 1.95.71-4.12-3-2.93 4.15-.6L8 1.5z"/></svg>Star</a></li>
+      <li><a href="https://github.com/jundot/omlx/releases" target="_blank" rel="noopener" class="nav-cta">Download</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-content">
+    
+  <style>
+    :root { --page-width: 1080px; }
+    .lb-header {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 48px 40px 0;
+    }
+    .lb-header-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .lb-header h1 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -0.03em;
+      color: #141312;
+      margin: 0;
+    }
+    .lb-title-section {
+      display: inline-block;
+      font-size: 0.6em;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #5a5750;
+      white-space: nowrap;
+    }
+    .lb-header p {
+      font-size: 15px;
+      font-weight: 300;
+      color: #9e9b94;
+      margin-bottom: 16px;
+    }
+    .lb-desc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .lb-header .bench-tabs { margin: 0 0 0 auto; flex-shrink: 0; }
+    .lb-desc-row p { margin-bottom: 0; }
+    .lb-filters {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px 24px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .lb-input-filters {
+      flex: 0 0 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .lb-filters select, .lb-filters input {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 8px 12px;
+      border: 1px solid #e2dfd8;
+      border-radius: 6px;
+      background: #fff;
+      color: #2a2825;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .lb-filters select:focus, .lb-filters input:focus {
+      border-color: #9e9b94;
+    }
+    /* Own row above the other filters. flex-basis 100% is what forces the
+       wrap; the input's 420px basis keeps it from spanning the full row. */
+    .lb-search {
+      flex: 0 0 100%;
+      display: flex;
+      gap: 8px;
+    }
+    .lb-search input {
+      flex: 0 1 420px;
+      width: 100%;
+      min-width: 0;
+    }
+    .lb-search-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border: 1px solid #141312;
+      border-radius: 6px;
+      background: #141312;
+      color: #fff;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .lb-search-btn:hover { opacity: 0.8; }
+    .lb-search-btn:focus-visible {
+      outline: 2px solid #9e9b94;
+      outline-offset: 2px;
+    }
+    .lb-filters input[type="number"] { width: 110px; }
+    .lb-check {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #5a5750;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .lb-check input { accent-color: #141312; margin: 0; }
+    .lb-filters .filter-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 8px 16px;
+      border: 1px solid #141312;
+      border-radius: 6px;
+      background: #141312;
+      color: #fff;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .lb-filters .filter-btn:hover { opacity: 0.8; }
+    .filter-reset {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #9e9b94;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .filter-reset:hover { color: #141312; }
+    .lb-table-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 40px;
+      overflow-x: auto;
+    }
+    /* Not dead code: when one overflow axis is auto, CSS computes the other to
+       auto as well, so the wrapper clips the upward tooltips on the Model and
+       Note columns. Above the width where the table no longer needs horizontal
+       scroll we drop the clipping entirely; narrower viewports are touch-first
+       and have no hover to begin with. */
+    @media (min-width: 1120px) {
+      .lb-table-wrap { overflow: visible; }
+    }
+    .lb-model {
+      display: inline-block;
+      /* Keep in sync with the MODEL_TIP_CHARS threshold below: at DM Mono 13px
+         roughly 7.8px per character, 240px lands just past 30 characters. */
+      max-width: 240px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: bottom;
+    }
+    .accel-mark {
+      color: var(--green);
+      font-weight: 500;
+    }
+    .lb-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .lb-table thead th {
+      text-align: left;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9e9b94;
+      padding: 0 12px 12px;
+      border-bottom: 1px solid #e2dfd8;
+      white-space: nowrap;
+    }
+    .lb-table thead th a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .lb-table thead th a:hover { color: #141312; }
+    .lb-table thead th a.sort-active { color: #141312; font-weight: 600; }
+    .lb-table tbody tr {
+      border-bottom: 1px solid #f0eeea;
+      transition: background 0.1s;
+    }
+    .lb-table tbody tr:hover { background: #f7f6f3; }
+    .lb-table tbody td {
+      padding: 14px 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: #2a2825;
+      white-space: nowrap;
+    }
+    .lb-table tbody td:first-child { color: #9e9b94; font-size: 12px; }
+    .lb-table tbody td a {
+      color: #141312;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .lb-table tbody td a:hover { text-decoration: underline; }
+    .chip-badge {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #f0eeea;
+      color: #5a5750;
+    }
+    .tps-value {
+      font-weight: 500;
+      color: #141312;
+    }
+    .lb-pagination {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-hint {
+      color: #9e9b94;
+    }
+    .lb-pagination .page-info {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #9e9b94;
+    }
+    .lb-pagination .page-links {
+      display: flex;
+      gap: 8px;
+    }
+    .lb-pagination .page-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 6px 14px;
+      border: 1px solid #e2dfd8;
+      border-radius: 6px;
+      color: #5a5750;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .lb-pagination .page-links a:hover { border-color: #9e9b94; color: #141312; }
+    .lb-pagination .page-links a.page-first {
+      align-self: center;
+      font-size: 11px;
+      padding: 4px;
+      border: none;
+      border-radius: 0;
+      background: none;
+    }
+    .lb-pagination .page-links a.page-first:hover { text-decoration: underline; }
+    .lb-pagination .page-links a.active {
+      background: #141312;
+      color: #fff;
+      border-color: #141312;
+    }
+    .lb-pagination .page-links a.disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .lb-pagination .page-links .ellipsis {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 6px 4px;
+      color: #9e9b94;
+    }
+    .lb-empty {
+      text-align: center;
+      padding: 80px 40px;
+      color: #9e9b94;
+      font-size: 15px;
+    }
+    .lb-empty p { margin-bottom: 16px; }
+    @media (max-width: 640px) {
+      .lb-header { padding: 32px 20px 0; }
+      .lb-filters { padding: 0 20px 20px; }
+      .lb-table-wrap { padding: 0 20px; }
+      .lb-pagination { padding: 20px 20px; }
+      .lb-filters input[type="number"] { width: 140px; }
+      .lb-search input { max-width: none; }
+    }
+  </style>
+
+  <div class="lb-header">
+    <div class="lb-header-row">
+      <h1>Community Benchmarks <span class="lb-title-section">- Performance</span></h1>
+      
+  <style>
+    .bench-tabs {
+      display: inline-flex;
+      gap: 4px;
+      background: #f0eeea;
+      border-radius: 8px;
+      padding: 4px;
+      margin-bottom: 20px;
+    }
+    .bench-tabs a {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 7px 18px;
+      border-radius: 6px;
+      color: #5a5750;
+      text-decoration: none;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .bench-tabs a:hover { color: #141312; }
+    .bench-tabs a.tab-active {
+      background: #fff;
+      color: #141312;
+      font-weight: 500;
+      box-shadow: 0 1px 2px rgba(20, 19, 18, 0.08);
+    }
+  </style>
+  <div class="bench-tabs">
+    <a href="/benchmarks/performance" class="tab-active">Performance</a>
+    <a href="/benchmarks/intelligence">Intelligence</a>
+  </div>
+    </div>
+    
+  </div>
+
+  
+
+  <form class="lb-filters" id="lb-form" method="GET" action="/benchmarks/performance">
+    
+    <div class="lb-search">
+      <input type="text" name="model" placeholder="Search all models..." minlength="2" maxlength="100" value="" id="model-input" />
+      <button type="submit" class="lb-search-btn" aria-label="Search" title="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <select name="chip" onchange="this.form.elements.device.value='';this.form.submit()">
+      <option value="">All chips</option>
+      <option value="M1">M1</option><option value="M2">M2</option><option value="M3">M3</option><option value="M4">M4</option><option value="M5">M5</option><option value="M6">M6</option>
+    </select>
+    <select name="device" aria-label="Device" onchange="this.form.elements.chip.value='';this.form.submit()">
+      <option value="">All variants</option>
+      <option value="[&quot;M1&quot;,&quot;&quot;]">M1</option><option value="[&quot;M1&quot;,&quot;Max&quot;]">M1 Max</option><option value="[&quot;M1&quot;,&quot;Pro&quot;]">M1 Pro</option><option value="[&quot;M1&quot;,&quot;Ultra&quot;]">M1 Ultra</option><option value="[&quot;M2&quot;,&quot;&quot;]">M2</option><option value="[&quot;M2&quot;,&quot;Max&quot;]">M2 Max</option><option value="[&quot;M2&quot;,&quot;Pro&quot;]">M2 Pro</option><option value="[&quot;M2&quot;,&quot;Ultra&quot;]">M2 Ultra</option><option value="[&quot;M3&quot;,&quot;&quot;]">M3</option><option value="[&quot;M3&quot;,&quot;Max&quot;]">M3 Max</option><option value="[&quot;M3&quot;,&quot;Pro&quot;]">M3 Pro</option><option value="[&quot;M3&quot;,&quot;Ultra&quot;]">M3 Ultra</option><option value="[&quot;M4&quot;,&quot;&quot;]">M4</option><option value="[&quot;M4&quot;,&quot;Max&quot;]">M4 Max</option><option value="[&quot;M4&quot;,&quot;Pro&quot;]">M4 Pro</option><option value="[&quot;M5&quot;,&quot;&quot;]">M5</option><option value="[&quot;M5&quot;,&quot;Max&quot;]">M5 Max</option><option value="[&quot;M5&quot;,&quot;Pro&quot;]">M5 Pro</option><option value="[&quot;M5&quot;,&quot;Ultra&quot;]">M5 Ultra</option><option value="[&quot;M6&quot;,&quot;&quot;]">M6</option>
+    </select>
+    <select name="quantization" onchange="this.form.submit()">
+      <option value="">All quants</option>
+      <option value="2bit">2bit</option><option value="3bit">3bit</option><option value="4bit">4bit</option><option value="6bit">6bit</option><option value="8bit">8bit</option><option value="others">others</option>
+    </select>
+    <select name="context" onchange="this.form.submit()">
+      <option value="">All contexts</option>
+      <option value="1024">1k</option><option value="4096">4k</option><option value="8192">8k</option><option value="16384">16k</option><option value="32768">32k</option><option value="65536">64k</option><option value="131072">128k</option>
+    </select>
+    <input type="hidden" name="sort" value="created_at" />
+    <input type="hidden" name="order" value="desc" />
+    <div class="lb-input-filters">
+    <input type="number" name="pp_min" placeholder="Min PP" value="" min="0" step="any" id="pp-min-input" />
+    <input type="number" name="tg_min" placeholder="Min TG" value="" min="0" step="any" id="tg-min-input" />
+    <input type="number" name="memory_min" placeholder="Min RAM (GB)" value="" min="0" step="1" />
+    <input type="number" name="memory_max" placeholder="Max RAM (GB)" value="" min="0" step="1" />
+    <button type="submit" class="lb-search-btn" style="width:auto;flex-basis:auto;padding:0 12px">Apply</button>
+    <input type="hidden" name="hide_specprefill" value="1" />
+    <label class="lb-check tip" data-tip="Hides only runs using SpecPrefill. MTP, TurboQuant and DFlash remain visible unless SpecPrefill is also enabled.">
+      <input type="checkbox" id="hide-specprefill" onchange="this.form.elements.hide_specprefill.value=this.checked?'1':'0';this.form.submit()" checked />
+      Hide SpecPrefill results
+    </label>
+
+    </div>
+  </form>
+  <div class="lb-table-wrap">
+    
+    <table class="lb-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Chip</th>
+          <th>RAM</th>
+          <th>Model</th>
+          <th>Quant</th>
+          <th>Ctx</th>
+          <th scope="col"><a href="?hide_specprefill=1&amp;order=desc&amp;sort=pp_tps" title="Sort by PP tok/s: descending">PP tok/s<svg class="sort-icon" width="8" height="12" viewBox="0 0 8 12" fill="currentColor" aria-hidden="true" focusable="false" style="margin-left:4px;vertical-align:middle"><path d="M4 0 8 5H0Z" /><path d="M0 7H8L4 12Z" /></svg></a></th>
+          <th scope="col"><a href="?hide_specprefill=1&amp;order=desc&amp;sort=tg_tps" title="Sort by TG tok/s: descending">TG tok/s<svg class="sort-icon" width="8" height="12" viewBox="0 0 8 12" fill="currentColor" aria-hidden="true" focusable="false" style="margin-left:4px;vertical-align:middle"><path d="M4 0 8 5H0Z" /><path d="M0 7H8L4 12Z" /></svg></a></th>
+          <th>Note</th>
+          <th scope="col" aria-sort="descending"><a href="?hide_specprefill=1&amp;order=asc&amp;sort=created_at" class="sort-active" title="Sort by upload date: ascending">Date<svg class="sort-icon" width="8" height="12" viewBox="0 0 8 12" fill="currentColor" aria-hidden="true" focusable="false" style="margin-left:4px;vertical-align:middle"><path d="M0 7H8L4 12Z" /></svg></a></th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>11</td>
+          <td><span class="chip-badge">M2 Pro (19c)</span></td>
+          <td>32 GB</td>
+          <td><a class="lb-model" href="/benchmarks/performance/00hlgfq3">Qwen3.5-9B-Uncensored-MLX</a></td>
+          <td>4bit</td>
+          <td>4k</td>
+          <td class="tps-value">214.2</td>
+          <td class="tps-value">31.4</td>
+          <td></td>
+          <td><span class="tip" data-tip="2026-11-12 08:27:31 (GMT)">11-12</span></td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td><span class="chip-badge">M2 Pro (19c)</span></td>
+          <td>32 GB</td>
+          <td><a class="lb-model" href="/benchmarks/performance/93r46vd4">Qwen3.5-9B-Uncensored-MLX</a></td>
+          <td>4bit</td>
+          <td>16k</td>
+          <td class="tps-value">195.8</td>
+          <td class="tps-value">28.9</td>
+          <td></td>
+          <td><span class="tip" data-tip="2026-11-12 08:27:31 (GMT)">11-12</span></td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td><span class="chip-badge">M5 Ultra (80c)</span></td>
+          <td>512 GB</td>
+          <td><a class="lb-model" href="/benchmarks/performance/ktcmbmrj">Qwen3.8-Flash-Next-oQ6e-mtp</a></td>
+          <td>6bit</td>
+          <td>32k</td>
+          <td class="tps-value">4,847</td>
+          <td class="tps-value">144.9</td>
+          <td><span class="tip accel-mark" data-tip="Context: Code (Python), Lightning MTP">&#10003;</span></td>
+          <td><span class="tip" data-tip="2026-11-12 08:25:47 (GMT)">11-12</span></td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td><span class="chip-badge">M5 Ultra (80c)</span></td>
+          <td>512 GB</td>
+          <td><a class="lb-model" href="/benchmarks/performance/2zvzoy8b">Qwen3.8-Flash-Next-oQ6e-mtp</a></td>
+          <td>6bit</td>
+          <td>128k</td>
+          <td class="tps-value">4,640</td>
+          <td class="tps-value">102.3</td>
+          <td><span class="tip accel-mark" data-tip="Context: Code (Python), Lightning MTP">&#10003;</span></td>
+          <td><span class="tip" data-tip="2026-11-12 08:25:47 (GMT)">11-12</span></td>
+        </tr>
+        <tr>
+          <td>15</td>
+          <td><span class="chip-badge">M5 Ultra (80c)</span></td>
+          <td>512 GB</td>
+          <td><a class="lb-model" href="/benchmarks/performance/nb6qd3m4">Qwen3.8-Flash-Next-oQ6e-mtp</a></td>
+          <td>6bit</td>
+          <td>1k</td>
+          <td class="tps-value">2,521</td>
+          <td class="tps-value">128.7</td>
+          <td><span class="tip accel-mark" data-tip="Context: Code (Python), Lightning MTP">&#10003;</span></td>
+          <td><span class="tip" data-tip="2026-11-12 08:25:46 (GMT)">11-12</span></td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td><span class="chip-badge">M5 Ultra (80c)</span></td>
+          <td>512 GB</td>
+          <td><a class="lb-model" href="/benchmarks/performance/nyzs4s47">Qwen3.8-Flash-Next-oQ6e-mtp</a></td>
+          <td>6bit</td>
+          <td>8k</td>
+          <td class="tps-value">4,903</td>
+          <td class="tps-value">113.2</td>
+          <td><span class="tip accel-mark" data-tip="Context: Code (Python), Lightning MTP">&#10003;</span></td>
+          <td><span class="tip" data-tip="2026-11-12 08:25:46 (GMT)">11-12</span></td>
+        </tr>
+        <tr>
+          <td>17</td>
+          <td><span class="chip-badge">M3 Pro (18c)</span></td>
+          <td>36 GB</td>
+          <td><a class="lb-model" href="/benchmarks/performance/y06lwhhu">Qwen3.5-9B-Uncensored-MLX</a></td>
+          <td>4bit</td>
+          <td>16k</td>
+          <td class="tps-value">345.2</td>
+          <td class="tps-value">26.2</td>
+          <td></td>
+          <td><span class="tip" data-tip="2026-11-12 08:25:41 (GMT)">11-12</span></td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td><span class="chip-badge">M3 Pro (18c)</span></td>
+          <td>36 GB</td>
+          <td><a class="lb-model" href="/benchmarks/performance/dhaeq4is">Qwen3.5-9B-Uncensored-MLX</a></td>
+          <td>4bit</td>
+          <td>4k</td>
+          <td class="tps-value">366.4</td>
+          <td class="tps-value">28.9</td>
+          <td></td>
+          <td><span class="tip" data-tip="2026-11-12 08:25:40 (GMT)">11-12</span></td>
+        </tr>
+        <tr>
+          <td>19</td>
+          <td><span class="chip-badge">M4 Pro (20c)</span></td>
+          <td>48 GB</td>
+          <td><a class="lb-model" href="/benchmarks/performance/y4li2qa2">Qwen3-8B-4bit</a></td>
+          <td>4bit</td>
+          <td>4k</td>
+          <td class="tps-value">443.8</td>
+          <td class="tps-value">37.2</td>
+          <td><span class="tip accel-mark" data-tip="Context: Code (Python), TurboQuant KV 3.5-bit">&#10003;</span></td>
+          <td><span class="tip" data-tip="2026-11-12 08:17:34 (GMT)">11-12</span></td>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td><span class="chip-badge">M4 Pro (20c)</span></td>
+          <td>48 GB</td>
+          <td><a class="lb-model" href="/benchmarks/performance/k7hy1xfz">Qwen3-8B-4bit</a></td>
+          <td>4bit</td>
+          <td>8k</td>
+          <td class="tps-value">416.4</td>
+          <td class="tps-value">29.8</td>
+          <td><span class="tip accel-mark" data-tip="Context: Code (Python), TurboQuant KV 3.5-bit">&#10003;</span></td>
+          <td><span class="tip" data-tip="2026-11-12 08:17:34 (GMT)">11-12</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="lb-pagination">
+    <span class="page-info" title="Total uploads across all filters, refreshed hourly. Total pages are approximate.">595,670 total results · Page 2 (filtered)</span>
+    <div class="page-links">
+      <a class="page-first" href="?hide_specprefill=1">First</a>
+      <a rel="prev" href="?cursor=WyJwZXJmb3JtYW5jZTpoaWRlX3NwZWNwcmVmaWxsPTEiLCIyMDI2LTExLTEyIDA4OjI3OjMxIiw2MTQ5NDcsMywxLDAsInByZXYiXQ%3D%3D&amp;hide_specprefill=1">&larr; Prev</a>
+      <a href="?cursor=WyJwZXJmb3JtYW5jZTpoaWRlX3NwZWNwcmVmaWxsPTEiLCIyMDI2LTExLTEyIDA4OjE3OjM0Iiw2MTQ5NDAsMiwzLDIwXQ%3D%3D&amp;hide_specprefill=1">Next &rarr;</a>
+    </div>
+  </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; oMLX &middot; Apache 2.0</span>
+      <ul class="footer-links">
+        <li><a href="https://github.com/jundot/omlx">GitHub</a></li>
+        <li><a href="https://github.com/jundot/omlx/releases">Releases</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+    });
+    (function(){
+      var CACHE_KEY = 'omlx_stars';
+      var CACHE_TTL = 30 * 60 * 1000;
+      function updateBtn(count) {
+        var btn = document.getElementById('star-btn');
+        if (btn && count != null) btn.innerHTML = btn.querySelector('svg').outerHTML + 'Star <span style="margin-left:4px;padding:1px 6px;background:var(--gray-100);border-radius:4px;font-size:11px;">' + Number(count).toLocaleString() + '</span>';
+      }
+      try {
+        var cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+        if (cached && Date.now() - cached.ts < CACHE_TTL) { updateBtn(cached.count); return; }
+      } catch(e) {}
+      fetch('https://api.github.com/repos/jundot/omlx')
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if (d.stargazers_count != null) {
+            try { localStorage.setItem(CACHE_KEY, JSON.stringify({ count: d.stargazers_count, ts: Date.now() })); } catch(e) {}
+            updateBtn(d.stargazers_count);
+          }
+        }).catch(function(){});
+    })();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a59722b98a6c1221',t:'MTc5NDUwMzI3NA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a59722b98a6c1221',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

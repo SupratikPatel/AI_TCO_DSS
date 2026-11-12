@@ -3,7 +3,7 @@
 Monetary values are shown in USD; display-currency conversion follows in Task 11.
 """
 
-from ai_tco_dss.domain import Metric, TcoProjection, ValueOrigin
+from ai_tco_dss.domain import Metric, PerformanceResult, TcoProjection, ValueOrigin
 
 UTILIZATION_THRESHOLD = 0.70  # spec 02 §2.3, Req 23.5
 IDLE_WARNING_THRESHOLD = 0.55  # spec 02 §2.3, Req 23.6
@@ -99,4 +99,26 @@ def tco_cost_rows(projection: TcoProjection) -> dict[str, list[str]]:
         "Item": [item for item, _, _ in rows],
         "Value": [value for _, value, _ in rows],
         "Origin": [origin for _, _, origin in rows],
+    }
+
+
+def _origin_label(metric: Metric | None) -> str:
+    if metric is None:
+        return "n/a"
+    return f"{metric.origin.origin} ({', '.join(metric.origin.source_ids)})"
+
+
+def performance_rows(performance: PerformanceResult) -> dict[str, list[str]]:
+    """Columns of the performance table: value with unit and Value_Origin with sources."""
+    metrics = (
+        ("Decode TPS", performance.decode_tps),
+        ("Prefill TPS", performance.prefill_tps),
+        ("TTFT", performance.ttft_s),
+        ("Effective TPS", performance.effective_tps),
+        ("1M-token prefill", performance.prefill_1m_minutes),
+    )
+    return {
+        "Metric": [name for name, _ in metrics],
+        "Value": ["n/a" if m is None else f"{m.value:,.1f} {m.unit}" for _, m in metrics],
+        "Origin": [_origin_label(m) for _, m in metrics],
     }

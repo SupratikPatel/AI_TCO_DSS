@@ -1,0 +1,48 @@
+feat: harden deployment decisions and add bounded fleet planning
+
+Correct decision filtering, performance matching and cost explanations while
+preserving the distinction between software verification and empirical validity.
+
+Decision correctness and accounting
+- Add self-managed purchase-plus-power accounting and literal cost-only Cheapest
+  ranking after hard filters; preserve enterprise staffing/cost assumptions.
+- Correct workload/prompt/output matching, reference-latency handling, component
+  facts, context-limit checks and duplicate measured-prefill backend penalties.
+- Require simultaneous resident peak capacity for local and hybrid components;
+  retain peak-fitting rental precision without changing monthly utilization.
+- Preserve missing API/offload performance as unavailable and retain historical
+  observations with explicit metric-specific evidence exclusions.
+- Improve calculation provenance, TCO explanations, audit/export, frontend
+  presentation and production/launcher coverage in the accumulated staged work.
+
+Bounded enterprise fleet planning
+- Add immutable ReplicaCapacity, FleetSizingInput and FleetSizingResult contracts
+  and a pure opt-in plan_fleet function outside recommendation/API/UI integration.
+- Separate simultaneous requests, retained sessions, aggregate output demand,
+  complete serving replicas and GPUs per replica; require explicit spare counts.
+- Preserve unknown and zero-capacity constraints and label results as conditional
+  necessary resource bounds rather than sufficient placement or SLA verdicts.
+- Fix decimal ceiling inflation and finite-ratio overflow with exact arithmetic;
+  add boundary, immutability, invalid-input and unknown-capacity regressions.
+
+Evidence, corrections and continuity
+- Preserve supplied reports and primary archives with retrieval metadata/hashes;
+  reuse prior material and retain blocked responses separately from web excerpts.
+- Reconcile resident/offload, M5 512 GB, quality, enterprise serving and router leads
+  without importing unsupported observations or tuning coefficients.
+- Record report corrections through C-083, inspect the Revolut slide and verify
+  the pinned Jev npm package without executing downloaded source.
+- Save explicit fleet/router scope, actionable U-task backlog, week-break handoff,
+  restart prompt and versioned copies of verification proof.
+
+Validation and limits
+- Current full Python: 858 passed, 13 skipped, 3 historical xfails; native exit 0.
+- Fleet/purity focus: 30 passed; continuity: 33 passed; scoped Ruff/format and
+  strict mypy for all 47 source files pass; evidence integrity verifies.
+- Reuse unchanged engine 0.1.4 frontend/browser/launcher proof: 31 / 72 / 3 passes.
+- Root-wide Ruff retains 41 pre-existing findings in preserved evidence scripts;
+  there is no new all-green combined-verifier claim.
+- Strict calibration remains zero comparable observations, 13 exclusions, MAPE n/a.
+  Fleet recommendation integration, adaptive routing, M5 loaded serving, exact
+  low-bit tool validity and matched EU API measurements remain unfinished.
+- No paid inference, hardware rental, model-weight download or coefficient tuning.

@@ -1,0 +1,334 @@
+{
+  "purpose": "Primary-source acquisition; archived code was not executed; no observations admitted to the product catalog.",
+  "files": [
+    {
+      "path": "tristanbes-api.json",
+      "url": "https://huggingface.co/api/datasets/tristanbes/m5-ultra-llm-bench",
+      "final_url": "https://huggingface.co/api/datasets/tristanbes/m5-ultra-llm-bench",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:35.215474+00:00",
+      "sha256": "ddbce7d65166f7a777635a24b2dabb2a7e5c3519826cd5ecc296726f6507131f",
+      "bytes": 18463
+    },
+    {
+      "path": "strata-api.json",
+      "url": "https://api.github.com/repos/Niko1221/Strata",
+      "final_url": "https://api.github.com/repos/Niko1221/Strata",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:35.776988+00:00",
+      "sha256": "19693cd56a956ab56266fced5dcdbcd06a6f5c32f564457ef26cc5db5b0de079",
+      "bytes": 5193
+    },
+    {
+      "path": "strata-fork-api.json",
+      "url": "https://api.github.com/repos/kossum/strata",
+      "final_url": "https://api.github.com/repos/kossum/strata",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:36.396194+00:00",
+      "sha256": "62b68146bf1e5688d7c65c61b15932ff952b1c3ecd3300f5014a5bf922e6a02b",
+      "bytes": 15319
+    },
+    {
+      "path": "mac-omlx-api.json",
+      "url": "https://api.github.com/repos/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX",
+      "final_url": "https://api.github.com/repos/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:36.920098+00:00",
+      "sha256": "3ec258361107e42309579f847885b49ca25b77fbb9aa414be0bd49bc73de0679",
+      "bytes": 6650
+    },
+    {
+      "path": "tristanbes/README.md",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/README.md",
+      "final_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/README.md?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2FREADME.md=&etag=%22bedcd8eee5dccda54d7348a0084283fed9d389d6%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:37.548250+00:00",
+      "sha256": "44423651afe0eba13b6556f724c247186d771d8cc0d16e5e6d3a1d6574601a5e",
+      "bytes": 26409,
+      "repository_revision": "cb78e33292442f8f6f430dd3a3b9acdef4fe9707"
+    },
+    {
+      "path": "tristanbes/models.json",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/models.json",
+      "final_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/models.json?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fmodels.json=&etag=%22e16eb1d25877cf86f876f625f6c02d87ba4fef2d%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:37.568002+00:00",
+      "sha256": "559087d2711ce9359ffcda73bbb48795afebf979a76f635f6825ecdeb1672902",
+      "bytes": 30471,
+      "repository_revision": "cb78e33292442f8f6f430dd3a3b9acdef4fe9707"
+    },
+    {
+      "path": "tristanbes/bench.py.txt",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/bench.py",
+      "final_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/bench.py?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fbench.py=&etag=%222f38c4b1907c58758e18d032663c0e6442d6e2d2%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:37.634371+00:00",
+      "sha256": "80005c0ec628a0c6907b54eb3e0fd89fe79941063c0d891976746a71accf924c",
+      "bytes": 40190,
+      "repository_revision": "cb78e33292442f8f6f430dd3a3b9acdef4fe9707"
+    },
+    {
+      "path": "tristanbes/results.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/results.jsonl",
+      "final_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/results.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fresults.jsonl=&etag=%224ec677be65800073e83b03c50dd505427d086e87%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:37.593401+00:00",
+      "sha256": "b49cf4f4bd24ab93176cd9d145cb14f5e9d6b3d0ba8ffb2a3125fde15730d4b3",
+      "bytes": 62246,
+      "repository_revision": "cb78e33292442f8f6f430dd3a3b9acdef4fe9707"
+    },
+    {
+      "path": "tristanbes/results_long.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/results_long.jsonl",
+      "final_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/results_long.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fresults_long.jsonl=&etag=%224b750373e3d0d87ed41db6103eddff803f2cae52%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:37.650150+00:00",
+      "sha256": "cb167782146c7c5a0060e811b0496e547f4a69ef6dd336fafc60f7f37dca037b",
+      "bytes": 297850,
+      "repository_revision": "cb78e33292442f8f6f430dd3a3b9acdef4fe9707"
+    },
+    {
+      "path": "tristanbes/results_spec.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/results_spec.jsonl",
+      "final_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/results_spec.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fresults_spec.jsonl=&etag=%22d426230e65c60d865a46dde90f2051ca6ebc6607%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:38.180914+00:00",
+      "sha256": "ea95b5fe1cf3afc8c775104c2997cf30821863214860e3383c576fb93a432653",
+      "bytes": 9858,
+      "repository_revision": "cb78e33292442f8f6f430dd3a3b9acdef4fe9707"
+    },
+    {
+      "path": "tristanbes/tools/mlx_depth.py.txt",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/tools/mlx_depth.py",
+      "final_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/tools%2Fmlx_depth.py?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Ftools%2Fmlx_depth.py=&etag=%22f6644e2ce4dc13fbbdf63df00e88d15f082a23bf%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:38.183873+00:00",
+      "sha256": "24d1c09c95e1a948f941033af72bda595873943244a9005781ee0560368693f3",
+      "bytes": 3247,
+      "repository_revision": "cb78e33292442f8f6f430dd3a3b9acdef4fe9707"
+    },
+    {
+      "path": "tristanbes/tools/spec_ab.py.txt",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/tools/spec_ab.py",
+      "final_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/tools%2Fspec_ab.py?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Ftools%2Fspec_ab.py=&etag=%228ee270ef2da4e9698622069505e4e378de5294d7%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:38.193131+00:00",
+      "sha256": "71638c3d62290e44ee827e440c18725165569b08301a948caae3cffecf0496e3",
+      "bytes": 4066,
+      "repository_revision": "cb78e33292442f8f6f430dd3a3b9acdef4fe9707"
+    },
+    {
+      "path": "tristanbes/tools/stream_bench.py.txt",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/tools/stream_bench.py",
+      "final_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/tools%2Fstream_bench.py?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Ftools%2Fstream_bench.py=&etag=%228097a5ad9ca282d76d1a801bbbe3ee6ee9a172dd%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:52:38.269270+00:00",
+      "sha256": "10d7215c96056ddeb98369536a88ca77ca8a064d8b86df956b2ddbceafb46b58",
+      "bytes": 49470,
+      "repository_revision": "cb78e33292442f8f6f430dd3a3b9acdef4fe9707"
+    },
+    {
+      "path": "strata-head.json",
+      "url": "https://api.github.com/repos/Niko1221/Strata/commits/main",
+      "final_url": "https://api.github.com/repos/Niko1221/Strata/commits/main",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:09.470590+00:00",
+      "sha256": "4b101ef499faa9bb3993371a41682ff831898eb408c61cc49cfeb738552d7e4c",
+      "bytes": 11297
+    },
+    {
+      "path": "mac-omlx-head.json",
+      "url": "https://api.github.com/repos/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/commits/main",
+      "final_url": "https://api.github.com/repos/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/commits/main",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:10.079001+00:00",
+      "sha256": "4edb50d97804a00e334d208253b40d941c3c7877e7b5500e89d1caca2feafed9",
+      "bytes": 7802
+    },
+    {
+      "path": "strata-tree.json",
+      "url": "https://api.github.com/repos/Niko1221/Strata/git/trees/c1ff07f1a1817594811c960039571c6e268fe89a?recursive=1",
+      "final_url": "https://api.github.com/repos/Niko1221/Strata/git/trees/c1ff07f1a1817594811c960039571c6e268fe89a?recursive=1",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:11.127507+00:00",
+      "sha256": "c1bb1217933c4843e957037f83497bde06dfb06f2b62663ee3541ed9e763b239",
+      "bytes": 1743373,
+      "repository_revision": "c1ff07f1a1817594811c960039571c6e268fe89a"
+    },
+    {
+      "path": "mac-omlx-tree.json",
+      "url": "https://api.github.com/repos/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/git/trees/050233efcd0a765de9963ab21a01df0723a50530?recursive=1",
+      "final_url": "https://api.github.com/repos/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/git/trees/050233efcd0a765de9963ab21a01df0723a50530?recursive=1",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:11.676471+00:00",
+      "sha256": "b7da95e5686db265768aa2db21e83fa650eff2031128fb39b30160ec054b0453",
+      "bytes": 6557,
+      "repository_revision": "050233efcd0a765de9963ab21a01df0723a50530"
+    },
+    {
+      "path": "strata/docs/DEEPSEEK41.md",
+      "url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/docs/DEEPSEEK41.md",
+      "final_url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/docs/DEEPSEEK41.md",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:41.004520+00:00",
+      "sha256": "6b50d4f8ba02a4e322d3c85f714ea2b29155b8a3957047f1e6a173aa7afa4bec",
+      "bytes": 25731
+    },
+    {
+      "path": "strata/docs/BENCHMARK_PROTOCOL.md",
+      "url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/docs/BENCHMARK_PROTOCOL.md",
+      "final_url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/docs/BENCHMARK_PROTOCOL.md",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:41.064619+00:00",
+      "sha256": "99f17a81417b9c29e0b48a27975c2e168adf66fbf1d135326b4e50e31d883073",
+      "bytes": 41329
+    },
+    {
+      "path": "strata/docs/DEEPSEEK41-original.md",
+      "url": "https://raw.githubusercontent.com/Niko1221/Strata/de9c0448b2290c6c681eda16ff39759a1dc63ea1/docs/DEEPSEEK41.md",
+      "final_url": "https://raw.githubusercontent.com/Niko1221/Strata/de9c0448b2290c6c681eda16ff39759a1dc63ea1/docs/DEEPSEEK41.md",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:41.040584+00:00",
+      "sha256": "6b50d4f8ba02a4e322d3c85f714ea2b29155b8a3957047f1e6a173aa7afa4bec",
+      "bytes": 25731
+    },
+    {
+      "path": "mac-omlx/README.md",
+      "url": "https://raw.githubusercontent.com/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/050233efcd0a765de9963ab21a01df0723a50530/README.md",
+      "final_url": "https://raw.githubusercontent.com/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/050233efcd0a765de9963ab21a01df0723a50530/README.md",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:41.003998+00:00",
+      "sha256": "6b336ba9ad29bc23e9c821016d423ca315e2e87781ee526edee17e2b7f7798ce",
+      "bytes": 7157
+    },
+    {
+      "path": "mac-omlx/docs/RESULTS.md",
+      "url": "https://raw.githubusercontent.com/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/050233efcd0a765de9963ab21a01df0723a50530/docs/RESULTS.md",
+      "final_url": "https://raw.githubusercontent.com/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/050233efcd0a765de9963ab21a01df0723a50530/docs/RESULTS.md",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:41.040584+00:00",
+      "sha256": "61369d499b265e91d8f1792ca7acc4ac28d67743abf80f58ebd26ddcab8eeed4",
+      "bytes": 2057
+    },
+    {
+      "path": "mac-omlx/docs/VALIDATION.md",
+      "url": "https://raw.githubusercontent.com/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/050233efcd0a765de9963ab21a01df0723a50530/docs/VALIDATION.md",
+      "final_url": "https://raw.githubusercontent.com/sethforprivacy/Qwen3.8-Flash-Next-M5-Ultra-oMLX/050233efcd0a765de9963ab21a01df0723a50530/docs/VALIDATION.md",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:41.022538+00:00",
+      "sha256": "39ae884de7411e865cc9665fda762540b2ef0400dbc67de3c784536c99206dee",
+      "bytes": 5478
+    },
+    {
+      "path": "qwen27-mlx-config.json",
+      "url": "https://huggingface.co/mlx-community/Qwen3.8-27B-4bit/resolve/10c35caafbb80f7dc6a7a432cdd11af10a6d4818/config.json",
+      "final_url": "https://huggingface.co/api/resolve-cache/models/mlx-community/Qwen3.8-27B-4bit/10c35caafbb80f7dc6a7a432cdd11af10a6d4818/config.json?%2Fmlx-community%2FQwen3.8-27B-4bit%2Fresolve%2F10c35caafbb80f7dc6a7a432cdd11af10a6d4818%2Fconfig.json=&etag=%223fb03e916f494e6745aa23df751da26f79e06470%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:41.563179+00:00",
+      "sha256": "14b65a0ee06517060a6bbd979bb1a8ff54e7b304b1a1f01d54344b88b8285e85",
+      "bytes": 4932
+    },
+    {
+      "path": "mlx-lm-0322-benchmark.py.txt",
+      "url": "https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.32.2/mlx_lm/benchmark.py",
+      "final_url": "https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.32.2/mlx_lm/benchmark.py",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:41.406294+00:00",
+      "sha256": "0ef83adbe09c75873fd69435cdeef559656a85f4dae5d607927931edba1d16b3",
+      "bytes": 4991
+    },
+    {
+      "path": "mlx-lm-0322-generate.py.txt",
+      "url": "https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.32.2/mlx_lm/generate.py",
+      "final_url": "https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.32.2/mlx_lm/generate.py",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:53:41.423564+00:00",
+      "sha256": "9d46803799f99d6fc7c35fff2d4357c79b1a25ae98cc63efeaaebeb50a7b5f33",
+      "bytes": 78615
+    },
+    {
+      "path": "flash-next-commit-history.json",
+      "url": "https://huggingface.co/api/models/Jundot/Qwen3.8-Flash-Next-oQ4e-mtp/commits/main",
+      "final_url": "https://huggingface.co/api/models/Jundot/Qwen3.8-Flash-Next-oQ4e-mtp/commits/main",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:54:35.456816+00:00",
+      "sha256": "6e4a4034dd803ac3b71f2ad45f4734944ef11e1a5aba26c04a0f32fa813a98c0",
+      "bytes": 303
+    },
+    {
+      "path": "mlx-lm-0322-qwen-model.py.txt",
+      "url": "https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.32.2/mlx_lm/models/qwen3_5.py",
+      "final_url": "https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.32.2/mlx_lm/models/qwen3_5.py",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:54:35.545093+00:00",
+      "sha256": "851449fd9989d6bf4b3c4fed92ddc3be5f1e781eb2246f89c54d7eff2518d9c6",
+      "bytes": 20559
+    },
+    {
+      "path": "mlx-lm-0322-cache.py.txt",
+      "url": "https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.32.2/mlx_lm/models/cache.py",
+      "final_url": "https://raw.githubusercontent.com/ml-explore/mlx-lm/v0.32.2/mlx_lm/models/cache.py",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:54:35.520347+00:00",
+      "sha256": "c96cb169fd5e0ec4584a162dd61dc62ab08ccdca03a9850f8a491ce6809145e6",
+      "bytes": 58349
+    },
+    {
+      "path": "qwen27-mlx-index.json",
+      "url": "https://huggingface.co/mlx-community/Qwen3.8-27B-4bit/resolve/10c35caafbb80f7dc6a7a432cdd11af10a6d4818/model.safetensors.index.json",
+      "final_url": "https://huggingface.co/api/resolve-cache/models/mlx-community/Qwen3.8-27B-4bit/10c35caafbb80f7dc6a7a432cdd11af10a6d4818/model.safetensors.index.json?%2Fmlx-community%2FQwen3.8-27B-4bit%2Fresolve%2F10c35caafbb80f7dc6a7a432cdd11af10a6d4818%2Fmodel.safetensors.index.json=&etag=%2205a3a3a17368d54d2887783e96b3a8191e9655f0%22",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:54:35.575905+00:00",
+      "sha256": "13b840162b4cb35c66fef7df072f7dbb4717908204364f5e5d9f9655a2758fa8",
+      "bytes": 218281
+    },
+    {
+      "path": "strata/bench/results/2026-10-06-llamacpp-0.6.0/README.md",
+      "url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/bench/results/2026-10-06-llamacpp-0.6.0/README.md",
+      "final_url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/bench/results/2026-10-06-llamacpp-0.6.0/README.md",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:54:35.498328+00:00",
+      "sha256": "1cc85ea472d4ceed1dd5433824f4d2fcf7bb77a44b3255a7b9ce3378f2af8071",
+      "bytes": 11772
+    },
+    {
+      "path": "strata/bench/results/2026-10-06-llamacpp-0.6.0/machine-5070.json",
+      "url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/bench/results/2026-10-06-llamacpp-0.6.0/machine-5070.json",
+      "final_url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/bench/results/2026-10-06-llamacpp-0.6.0/machine-5070.json",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:54:35.491423+00:00",
+      "sha256": "5e6908cba13679cb08f3d866c5a6cbb2744acdb9aebccf82f0b6488a8f42558f",
+      "bytes": 1409
+    },
+    {
+      "path": "strata/bench/results/2026-10-06-llamacpp-0.6.0/5070/raw/strata-setup.jsonl",
+      "url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/bench/results/2026-10-06-llamacpp-0.6.0/5070/raw/strata-setup.jsonl",
+      "final_url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/bench/results/2026-10-06-llamacpp-0.6.0/5070/raw/strata-setup.jsonl",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:54:35.857234+00:00",
+      "sha256": "5b546a4e4995297e4c40f7d2308dfc63a4c14f443a0d0c0dc67ec3b0c9ba10a5",
+      "bytes": 5084
+    },
+    {
+      "path": "strata/bench/results/2026-10-06-llamacpp-0.6.0/5070/strata-cfg-strata-setup.json",
+      "url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/bench/results/2026-10-06-llamacpp-0.6.0/5070/strata-cfg-strata-setup.json",
+      "final_url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/bench/results/2026-10-06-llamacpp-0.6.0/5070/strata-cfg-strata-setup.json",
+      "status": 200,
+      "accessed_utc": "2026-11-11T17:54:35.858520+00:00",
+      "sha256": "72287afe0b7243e28ae8855bca2a4377c45121af33915195ef8971c3da4c4472",
+      "bytes": 1279
+    },
+    {
+      "path": "qwen27-mlx-shard1-header.bin",
+      "url": "https://huggingface.co/mlx-community/Qwen3.8-27B-4bit/resolve/10c35caafbb80f7dc6a7a432cdd11af10a6d4818/model-00001-of-00003.safetensors?header=1",
+      "requested_range": "bytes=0-104661",
+      "content_range": "bytes 0-104661/5343268662",
+      "status": 206,
+      "accessed_utc": "2026-11-11T17:55:51.268984+00:00",
+      "sha256": "5455768325c60469d9132adda61063cb15aba6f59d1303228d43e3d26597f990",
+      "bytes": 104662,
+      "interpretation": "Only the safetensors length prefix and header; no tensor payload downloaded."
+    }
+  ],
+  "archive_note": "External Python source is stored as .py.txt for inspection only; it was not executed and is outside project code discovery."
+}

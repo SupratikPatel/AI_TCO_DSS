@@ -25,7 +25,7 @@ def _failures(c: CandidateEvaluation, inp: FilterInput) -> tuple[FilterFailure, 
         for part in c.components:
             for failure in _failures(part, inp):
                 failures.setdefault(failure.name, []).append((part.candidate_id, failure))
-        return tuple(
+        component_failures = tuple(
             FilterFailure(
                 name=name,
                 measured="; ".join(f"{cid}: {f.measured}" for cid, f in group),
@@ -33,6 +33,16 @@ def _failures(c: CandidateEvaluation, inp: FilterInput) -> tuple[FilterFailure, 
             )
             for name, group in failures.items()
         )
+        budget = inp.scenario.financials.max_tco_budget_usd
+        if budget is not None and c.cost_60m > budget:
+            component_failures += (
+                FilterFailure(
+                    name="tco_budget",
+                    measured=str(c.cost_60m),
+                    threshold=f"<= {budget:g} USD over 60 months",
+                ),
+            )
+        return component_failures
     profile, fin = inp.scenario.workload, inp.scenario.financials
     api = c.kind == CandidateKind.API
     sizing, perf = c.sizing, c.performance
@@ -85,6 +95,13 @@ def _failures(c: CandidateEvaluation, inp: FilterInput) -> tuple[FilterFailure, 
             f"<= {profile.max_acceptable_ttft_seconds:g} s",
         )
     if not api:
+        slots = sizing.max_concurrent_users if sizing else None
+        check(
+            "peak_capacity",
+            slots is not None and slots >= profile.peak_concurrent_requests,
+            f"{slots} resident request slots" if slots is not None else None,
+            f">= {profile.peak_concurrent_requests} simultaneous requests at target context",
+        )
         check(
             "users_served",
             c.utilization is not None and c.utilization <= 1.0,
@@ -110,6 +127,21 @@ def _failures(c: CandidateEvaluation, inp: FilterInput) -> tuple[FilterFailure, 
         c.quality.value if c.quality else "not available",
         f">= {inp.use_case.quality_floor.value:g}",
     )
+    target = inp.scenario.sizing.target_context_length
+    if target > 128000:
+        check(
+            "requested_context",
+            c.model_max_context_tokens is not None and c.model_max_context_tokens >= target,
+            c.model_max_context_tokens,
+            f">= {target} tokens",
+        )
+    if fin.max_tco_budget_usd is not None:
+        check(
+            "tco_budget",
+            c.cost_60m <= fin.max_tco_budget_usd,
+            c.cost_60m,
+            f"<= {fin.max_tco_budget_usd:g} USD over 60 months",
+        )
     if fin.max_capex_budget_usd is not None and c.kind == CandidateKind.ONPREM:
         check(
             "capex_budget",

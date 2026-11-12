@@ -9,7 +9,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[2]
 
-RUNTIME_DEPS = {"pydantic", "pydantic-settings", "streamlit", "plotly", "pandas", "numpy"}
+RUNTIME_DEPS = {"pydantic", "pydantic-settings", "fastapi", "uvicorn", "plotly", "pandas", "numpy"}
 DEV_DEPS = {"ruff", "mypy", "pytest", "hypothesis"}
 
 
@@ -62,9 +62,9 @@ def test_req_2_1_2_2_lock_file_matches_pyproject() -> None:
 
 def test_req_6_3_readme_has_exactly_one_dashboard_command() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    commands = [line for line in readme.splitlines() if "streamlit run" in line]
+    commands = [line for line in readme.splitlines() if "Start both services:" in line]
     assert len(commands) == 1
-    assert "uv run streamlit run src/ai_tco_dss/ui/app.py" in commands[0]
+    assert "npm run dev" in commands[0]
 
 
 def test_readme_has_test_and_verify_commands() -> None:

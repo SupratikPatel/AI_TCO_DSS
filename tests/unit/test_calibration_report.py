@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from tests.benchmark_fixtures import conditions
 
 from ai_tco_dss.catalog import JsonCatalogRepository, get_default_repository
 from ai_tco_dss.domain import BenchmarkMetric, BenchmarkRecord, PrecisionFormat, SizingOptions
@@ -40,6 +41,8 @@ def _rec(
             "hardware_id": hardware_id,
             "precision": precision,
             "context_tokens": context_tokens,
+            "prompt_tokens": context_tokens,
+            "conditions": conditions(prompt_cache_hit_rate=0, concurrency=1),
             "source_id": source_id,
             "tier": "community",
             "accessed": "2026-11-07",
@@ -114,6 +117,13 @@ def test_req_42_1_formula_value_ignores_measured_records() -> None:
         and r.hardware_id == "mac-mini-m5-pro-64gb"
         and r.model_id == "qwen-3-8-27b"
     )
+    record = record.model_copy(
+        update={
+            "prompt_tokens": 8192,
+            "conditions": conditions(prompt_cache_hit_rate=0, concurrency=1),
+            "uncertainty_reasons": (),
+        }
+    )
     hardware = next(h for h in catalog.hardware if h.id == record.hardware_id)
     model = next(m for m in catalog.models if m.id == record.model_id)
     assert model.active_parameters_billions is not None
@@ -127,7 +137,7 @@ def test_req_42_1_formula_value_ignores_measured_records() -> None:
     assert value != record.value
 
 
-def test_req_42_1_formula_value_uses_defaults_for_absent_precision_and_context() -> None:
+def test_req_42_1_formula_value_rejects_absent_precision_and_context() -> None:
     catalog = get_default_repository().catalog()
     base = dict(model_id="qwen-3-8-27b", hardware_id="mac-mini-m5-pro-64gb")
     defaults = SizingOptions()
@@ -145,7 +155,8 @@ def test_req_42_1_formula_value_uses_defaults_for_absent_precision_and_context()
         PARAMS,
     )
     assert defaults.weight_precision == PrecisionFormat.INT4
-    assert absent == pytest.approx(explicit)
+    assert absent is None
+    assert explicit is not None
 
 
 def test_req_42_1_prefill_formula_value_is_the_base_prefill() -> None:
@@ -218,10 +229,12 @@ def test_req_42_5_csv_holds_the_printed_values(tmp_path: Path) -> None:
     assert summaries["decode_tps"]["mape_pct"] == "27.5"
     assert summaries["prefill_tps"]["count"] == "0"
     assert summaries["prefill_tps"]["mape_pct"] == "n/a"
-    top = [r for r in rows if r["metric"] == "decode_tps" and r["row"] != "summary"]
-    assert [r["row"] for r in top] == ["1", "2", "3", "4", "5"]
-    assert [r["source_id"] for r in top] == ["S3", "S2", "S6", "S5", "S1"]
-    for row in top:
+    top = [
+        r for r in rows if r["metric"] == "decode_tps" and r["row"] not in ("summary", "excluded")
+    ]
+    assert [r["row"] for r in top] == ["1", "2", "3", "4", "5", "6"]
+    assert [r["source_id"] for r in top] == ["S3", "S2", "S6", "S5", "S1", "S4"]
+    for row in top[:5]:
         line = next(line for line in text.splitlines() if f"({row['source_id']})" in line)
         for key in ("model_id", "hardware_id", "measured", "formula", "ape_pct"):
             assert row[key] in line, (key, row, line)
@@ -281,6 +294,10 @@ def test_req_42_4_cli_prints_and_writes_the_report(
         "hardware_id": "rtx-pro-6000-96gb",
         "precision": "INT4",
         "context_tokens": 8192,
+        "prompt_tokens": 8192,
+        "conditions": conditions(
+            prompt_cache_hit_rate=0, concurrency=1, accelerator_memory_gb=96
+        ).model_dump(mode="json"),
         "tier": "community",
         "accessed": "2026-11-07",
         "note": "single-source",
@@ -304,7 +321,12 @@ def test_req_42_4_cli_prints_and_writes_the_report(
     assert len(repo.catalog().benchmarks) == 3 + 3
     with output.open(encoding="utf-8", newline="") as fh:
         rows = list(csv.DictReader(fh))
-    assert {r["row"] for r in rows if r["metric"] == "decode_tps"} == {"summary", "1", "2"}
+    assert {r["row"] for r in rows if r["metric"] == "decode_tps"} == {
+        "summary",
+        "1",
+        "2",
+        "excluded",
+    }
 
 
 # --------------------------------------------------------------------------- ledger table

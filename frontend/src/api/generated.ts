@@ -1,5 +1,22 @@
 // Generated from FastAPI OpenAPI. Run npm run types:generate.
 export interface paths {
+    "/api/v1/audit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Audit */
+        post: operations["audit_api_v1_audit_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/catalog": {
         parameters: {
             query?: never;
@@ -28,6 +45,40 @@ export interface paths {
         put?: never;
         /** Evaluate */
         post: operations["evaluate_api_v1_evaluate_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/export/csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Export Csv */
+        post: operations["export_csv_api_v1_export_csv_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/export/json": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Export Json */
+        post: operations["export_json_api_v1_export_json_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -177,6 +228,23 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AccountingRow */
+        AccountingRow: {
+            /** Key */
+            key: string;
+            /** Label */
+            label: string;
+            /** Note */
+            note: string;
+            /**
+             * Sources
+             * @default []
+             */
+            sources: components["schemas"]["AuditSource"][];
+            trace: components["schemas"]["FormulaTrace"];
+            /** Value */
+            value: number;
+        };
         /** ApiError */
         ApiError: {
             /** Code */
@@ -188,6 +256,68 @@ export interface components {
             fields: string[];
             /** Message */
             message: string;
+        };
+        /** AuditFormula */
+        AuditFormula: {
+            /**
+             * Input Units
+             * @default
+             */
+            input_units: string;
+            /** Section */
+            section: string;
+            trace: components["schemas"]["FormulaTrace"];
+        };
+        /** AuditProvenance */
+        AuditProvenance: {
+            /**
+             * Accessed
+             * Format: date
+             */
+            accessed: string;
+            /** Path */
+            path: string;
+            tier: components["schemas"]["SourceTier"];
+            /** Unit */
+            unit?: string | null;
+            /** Value */
+            value?: string | null;
+        };
+        /** AuditRequest */
+        AuditRequest: {
+            /** Candidate Id */
+            candidate_id: string;
+            result: components["schemas"]["ScenarioResult-Input"];
+        };
+        /** AuditResult */
+        AuditResult: {
+            /** Candidate Id */
+            candidate_id: string;
+            /** Formulas */
+            formulas: components["schemas"]["AuditFormula"][];
+            fx: components["schemas"]["FxInfo"];
+            /** Performance */
+            performance: {
+                [key: string]: components["schemas"]["Metric"] | null;
+            };
+            /** Sources */
+            sources: components["schemas"]["AuditSource"][];
+        };
+        /** AuditSource */
+        AuditSource: {
+            /** Provenance */
+            provenance: components["schemas"]["AuditProvenance"][];
+            /** Publisher */
+            publisher: string;
+            /** Reference */
+            reference?: string | null;
+            /** Source Id */
+            source_id: string;
+            tier: components["schemas"]["SourceTier"];
+            /** Title */
+            title: string;
+            /** Url */
+            url?: string | null;
         };
         /** BaselineResult */
         BaselineResult: {
@@ -209,13 +339,48 @@ export interface components {
             /** Reference Model Id */
             reference_model_id: string;
         };
+        /** BenchmarkConditions */
+        BenchmarkConditions: {
+            /** Accelerator Memory Gb */
+            accelerator_memory_gb?: number | null;
+            /** Cache State */
+            cache_state?: string | null;
+            /** Concurrency */
+            concurrency?: number | null;
+            kv_precision?: components["schemas"]["PrecisionFormat"] | null;
+            /** Model Revision */
+            model_revision?: string | null;
+            /** Nodes */
+            nodes?: number | null;
+            /** Optimized Backend */
+            optimized_backend?: boolean | null;
+            /** Output Tokens */
+            output_tokens?: number | null;
+            /** Prompt Cache Hit Rate */
+            prompt_cache_hit_rate?: number | null;
+            /** Protocol */
+            protocol?: string | null;
+            /** Quantization */
+            quantization?: string | null;
+            /** Residency */
+            residency?: ("resident" | "offload") | null;
+            /** Runtime */
+            runtime?: string | null;
+            /** Runtime Version */
+            runtime_version?: string | null;
+            /** Speculative Config */
+            speculative_config?: string | null;
+            speculative_mode?: components["schemas"]["SpeculativeMode"] | null;
+            /** System Ram Gb */
+            system_ram_gb?: number | null;
+        };
         /**
          * BenchmarkMetric
          * @enum {string}
          */
         BenchmarkMetric: "decode_tps" | "prefill_tps" | "aggregate_tps" | "ttft_s" | "aa_index_v5" | "terminal_bench" | "swe_bench";
         /** CandidateEvaluation */
-        CandidateEvaluation: {
+        "CandidateEvaluation-Input": {
             /**
              * Api Has Eu Endpoint
              * @default false
@@ -233,7 +398,65 @@ export interface components {
              * Components
              * @default []
              */
-            components: components["schemas"]["CandidateEvaluation"][];
+            components: components["schemas"]["CandidateEvaluation-Input"][];
+            /** Cost 60M */
+            cost_60m: number;
+            /** Eu Compliant */
+            eu_compliant: boolean;
+            /** Failures */
+            failures: components["schemas"]["FilterFailure"][];
+            /** Hardware Id */
+            hardware_id: string | null;
+            kind: components["schemas"]["CandidateKind"];
+            /** Label */
+            label: string;
+            /** Local Candidate Id */
+            local_candidate_id: string | null;
+            /** Model Id */
+            model_id: string;
+            /** Model Max Context Tokens */
+            model_max_context_tokens?: number | null;
+            /** Monthly Cost */
+            monthly_cost: number;
+            /** Nodes */
+            nodes: number | null;
+            /** Notes */
+            notes: string[];
+            performance: components["schemas"]["PerformanceResult"] | null;
+            /** Popularity */
+            popularity: number;
+            precision: components["schemas"]["PrecisionFormat"] | null;
+            price_origin: components["schemas"]["ValueOrigin"];
+            quality: components["schemas"]["QualityScore"] | null;
+            /** Rental Id */
+            rental_id: string | null;
+            /** Risk */
+            risk: number;
+            sizing: components["schemas"]["SizingResult"] | null;
+            tco: components["schemas"]["TcoResult"] | null;
+            /** Utilization */
+            utilization: number | null;
+        };
+        /** CandidateEvaluation */
+        "CandidateEvaluation-Output": {
+            /**
+             * Api Has Eu Endpoint
+             * @default false
+             */
+            api_has_eu_endpoint: boolean;
+            /** Api Model Id */
+            api_model_id: string | null;
+            /** Archetype */
+            archetype: string;
+            /** Candidate Id */
+            candidate_id: string;
+            /** Capex */
+            capex: number;
+            /**
+             * Components
+             * @default []
+             */
+            components: components["schemas"]["CandidateEvaluation-Output"][];
             /** Cost 60M */
             cost_60m: number;
             /** Eu Compliant */
@@ -352,6 +575,11 @@ export interface components {
             preset: components["schemas"]["PresetId"];
             /** Reference Api Model Id */
             reference_api_model_id?: string | null;
+            /**
+             * Reward Excess Performance
+             * @default false
+             */
+            reward_excess_performance: boolean;
             /** @default agentic-coding */
             use_case: components["schemas"]["UseCaseId"];
             weights?: components["schemas"]["CriterionWeights"] | null;
@@ -373,6 +601,12 @@ export interface components {
              * @default 1.2
              */
             cooling_pue: number;
+            /**
+             * Cost Model
+             * @default enterprise
+             * @enum {string}
+             */
+            cost_model: "enterprise" | "self-managed";
             /**
              * Currency
              * @default USD
@@ -423,6 +657,8 @@ export interface components {
              * @default 100000
              */
             max_capex_budget_usd: number | null;
+            /** Max Tco Budget Usd */
+            max_tco_budget_usd?: number | null;
             /**
              * Nvidia Nim License Per Gpu Yr Usd
              * @default 4500
@@ -446,6 +682,16 @@ export interface components {
          * @enum {string}
          */
         EuEngineeringHub: "de-munich-hq" | "de-berlin-hamburg" | "ro-cluj-bucharest" | "pl-warsaw-krakow";
+        /** ExportRequest */
+        ExportRequest: {
+            /**
+             * Currency
+             * @default USD
+             * @enum {string}
+             */
+            currency: "USD" | "EUR";
+            result: components["schemas"]["ScenarioResult-Input"];
+        };
         /** FilterFailure */
         FilterFailure: {
             /** Measured */
@@ -565,14 +811,34 @@ export interface components {
             value: number;
         };
         /** RankedCandidate */
-        RankedCandidate: {
+        "RankedCandidate-Input": {
             /** Criteria */
             criteria: components["schemas"]["CriterionScore"][];
             /** D Minus */
             d_minus: number | null;
             /** D Plus */
             d_plus: number | null;
-            evaluation: components["schemas"]["CandidateEvaluation"];
+            evaluation: components["schemas"]["CandidateEvaluation-Input"];
+            /** Rank */
+            rank: number;
+            /** Saw Rank */
+            saw_rank: number;
+            /** Saw Score */
+            saw_score: number;
+            /** Topsis Closeness */
+            topsis_closeness: number | null;
+            /** Topsis Rank */
+            topsis_rank: number | null;
+        };
+        /** RankedCandidate */
+        "RankedCandidate-Output": {
+            /** Criteria */
+            criteria: components["schemas"]["CriterionScore"][];
+            /** D Minus */
+            d_minus: number | null;
+            /** D Plus */
+            d_plus: number | null;
+            evaluation: components["schemas"]["CandidateEvaluation-Output"];
             /** Rank */
             rank: number;
             /** Saw Rank */
@@ -594,16 +860,32 @@ export interface components {
             scenario: components["schemas"]["Scenario"];
         };
         /** Recommendation */
-        Recommendation: {
+        "Recommendation-Input": {
             /** Explanation */
             explanation: string | null;
             method: components["schemas"]["RankingMethod"];
             /** Ranked */
-            ranked: components["schemas"]["RankedCandidate"][];
+            ranked: components["schemas"]["RankedCandidate-Input"][];
             /** Ranking Error */
             ranking_error: string | null;
             /** Rejected */
-            rejected: components["schemas"]["CandidateEvaluation"][];
+            rejected: components["schemas"]["CandidateEvaluation-Input"][];
+            use_case: components["schemas"]["UseCaseId"];
+            /** Warnings */
+            warnings: string[];
+            weights_normalised: components["schemas"]["CriterionWeights"] | null;
+        };
+        /** Recommendation */
+        "Recommendation-Output": {
+            /** Explanation */
+            explanation: string | null;
+            method: components["schemas"]["RankingMethod"];
+            /** Ranked */
+            ranked: components["schemas"]["RankedCandidate-Output"][];
+            /** Ranking Error */
+            ranking_error: string | null;
+            /** Rejected */
+            rejected: components["schemas"]["CandidateEvaluation-Output"][];
             use_case: components["schemas"]["UseCaseId"];
             /** Warnings */
             warnings: string[];
@@ -628,8 +910,15 @@ export interface components {
             scenario: components["schemas"]["Scenario"];
         };
         /** ScenarioResult */
-        ScenarioResult: {
+        "ScenarioResult-Input": {
             baselines: components["schemas"]["BaselineResult"];
+            /** Catalog Fingerprint */
+            catalog_fingerprint?: string | null;
+            /**
+             * Engine Version
+             * @default 0.1.4
+             */
+            engine_version: string;
             /** Fx Is Override */
             fx_is_override: boolean;
             /** Fx Rate */
@@ -641,7 +930,36 @@ export interface components {
             fx_rate_date: string;
             /** Fx Source Id */
             fx_source_id: string;
-            recommendation: components["schemas"]["Recommendation"];
+            recommendation: components["schemas"]["Recommendation-Input"];
+            scenario: components["schemas"]["Scenario"];
+            /** Sources */
+            sources: components["schemas"]["SourceEntry"][];
+            timeline: components["schemas"]["TimelineResult"] | null;
+            /** Warnings */
+            warnings: string[];
+        };
+        /** ScenarioResult */
+        "ScenarioResult-Output": {
+            baselines: components["schemas"]["BaselineResult"];
+            /** Catalog Fingerprint */
+            catalog_fingerprint?: string | null;
+            /**
+             * Engine Version
+             * @default 0.1.4
+             */
+            engine_version: string;
+            /** Fx Is Override */
+            fx_is_override: boolean;
+            /** Fx Rate */
+            fx_rate: number;
+            /**
+             * Fx Rate Date
+             * Format: date
+             */
+            fx_rate_date: string;
+            /** Fx Source Id */
+            fx_source_id: string;
+            recommendation: components["schemas"]["Recommendation-Output"];
             scenario: components["schemas"]["Scenario"];
             /** Sources */
             sources: components["schemas"]["SourceEntry"][];
@@ -692,6 +1010,7 @@ export interface components {
              * @default false
              */
             apply_mac_wired_memory_override: boolean;
+            benchmark_conditions?: components["schemas"]["BenchmarkConditions"] | null;
             /**
              * Enable Optimized Backend
              * @default true
@@ -709,6 +1028,8 @@ export interface components {
              * @default false
              */
             linux_amd_override: boolean;
+            /** Performance Prompt Tokens */
+            performance_prompt_tokens?: number | null;
             /**
              * Repo Workspace Gb
              * @default 4
@@ -830,17 +1151,32 @@ export interface components {
          * @enum {string}
          */
         SpeculativeMode: "none" | "apple-mtp-dflash" | "built-in-mtp" | "external-draft";
-        /** TcoProjection */
-        TcoProjection: {
-            baselines: components["schemas"]["BaselineResult"];
-            candidate: components["schemas"]["CandidateEvaluation"];
-            timeline: components["schemas"]["TimelineResult"] | null;
+        /** TcoAccounting */
+        TcoAccounting: {
+            /** Break Even Month */
+            break_even_month: number | null;
+            /** Candidate Id */
+            candidate_id: string;
+            fx: components["schemas"]["FxInfo"];
+            /** Includes Resale */
+            includes_resale: boolean;
+            /** Rows */
+            rows: components["schemas"]["AccountingRow"][];
+            /** Utilization Text */
+            utilization_text: string;
         };
         /** TcoRequest */
         TcoRequest: {
             /** Candidate Id */
             candidate_id: string;
             scenario: components["schemas"]["Scenario"];
+        };
+        /** TcoResponse */
+        TcoResponse: {
+            accounting: components["schemas"]["TcoAccounting"] | null;
+            baselines: components["schemas"]["BaselineResult"];
+            candidate: components["schemas"]["CandidateEvaluation-Output"];
+            timeline: components["schemas"]["TimelineResult"] | null;
         };
         /** TcoResult */
         TcoResult: {
@@ -1060,6 +1396,66 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    audit_api_v1_audit_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AuditRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuditResult"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Service Unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
     catalog_api_v1_catalog_get: {
         parameters: {
             query?: never;
@@ -1135,8 +1531,124 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ScenarioResult"];
+                    "application/json": components["schemas"]["ScenarioResult-Output"];
                 };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Service Unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    export_csv_api_v1_export_csv_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExportRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+            /** @description Service Unavailable */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ApiError"];
+                };
+            };
+        };
+    };
+    export_json_api_v1_export_json_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ExportRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Not Found */
             404: {
@@ -1307,7 +1819,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["Recommendation"];
+                    "application/json": components["schemas"]["Recommendation-Output"];
                 };
             };
             /** @description Not Found */
@@ -1543,7 +2055,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["TcoProjection"];
+                    "application/json": components["schemas"]["TcoResponse"];
                 };
             };
             /** @description Not Found */

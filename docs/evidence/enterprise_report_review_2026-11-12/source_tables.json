@@ -1,0 +1,7774 @@
+{
+  "anthropic-models.html": [
+    [
+      [
+        "Feature",
+        "Claude Fable 5.2For demanding reasoning and long-horizon agentic work",
+        "Claude Opus 5.5For long-running agentic coding and knowledge work",
+        "Claude Sonnet 5.5The best combination of speed and intelligence",
+        "Claude Haiku 5.5For high-volume, latency-sensitive tasks such as classification, extraction, and routing"
+      ],
+      [
+        "Comparative latency",
+        "Moderate",
+        "Moderate",
+        "Fast",
+        "Fastest"
+      ],
+      [
+        "Pricing",
+        "$8 / input MTok$40 / output MTok",
+        "$4 / input MTok$20 / output MTok",
+        "$2 / input MTok$10 / output MTok",
+        "From $0.10 / input MTokFrom $0.50 / output MTok"
+      ],
+      [
+        "Claude API ID",
+        "claude-fable-5-2",
+        "claude-opus-5-5",
+        "claude-sonnet-5-5",
+        "claude-haiku-5-5"
+      ],
+      [
+        "Capabilities",
+        ""
+      ],
+      [
+        "Thinking",
+        "Adaptive (always on)",
+        "Adaptive (always on)",
+        "Adaptive",
+        "Adaptive"
+      ],
+      [
+        "Default effort",
+        "high",
+        "medium",
+        "high",
+        "medium"
+      ],
+      [
+        "Context window",
+        "1M tokens",
+        "1M tokens",
+        "1M tokens",
+        "1M tokens"
+      ],
+      [
+        "Max output",
+        "128K tokens",
+        "128K tokens",
+        "128K tokens",
+        "128K tokens"
+      ],
+      [
+        "Reliable knowledge cutoff",
+        "Jun 2026",
+        "Jun 2026",
+        "Jun 2026",
+        "Jun 2026"
+      ],
+      [
+        "\uf003Additional details",
+        ""
+      ],
+      [
+        "Training data cutoff",
+        "Jun 2026",
+        "Jun 2026",
+        "Jun 2026",
+        "Jun 2026"
+      ],
+      [
+        "Retirement",
+        "Not sooner than November 9, 2027",
+        "Not sooner than September 22, 2027",
+        "Not sooner than September 28, 2027",
+        "Not sooner than October 7, 2027"
+      ],
+      [
+        "Model IDs",
+        ""
+      ],
+      [
+        "Claude API alias",
+        "claude-fable-5-2",
+        "claude-opus-5-5",
+        "claude-sonnet-5-5",
+        "claude-haiku-5-5"
+      ],
+      [
+        "Amazon Bedrock ID",
+        "global.anthropic.claude-fable-5-2",
+        "anthropic.claude-opus-5-5",
+        "anthropic.claude-sonnet-5-5",
+        "anthropic.claude-haiku-5-5"
+      ],
+      [
+        "Claude Models on Google Cloud (Google managed) ID",
+        "claude-fable-5-2",
+        "claude-opus-5-5",
+        "claude-sonnet-5-5",
+        "claude-haiku-5-5"
+      ],
+      [
+        "Microsoft Foundry ID",
+        "claude-fable-5-2",
+        "claude-opus-5-5",
+        "claude-sonnet-5-5",
+        "claude-haiku-5-5"
+      ],
+      [
+        "Claude Platform on AWS ID",
+        "claude-fable-5-2",
+        "claude-opus-5-5",
+        "claude-sonnet-5-5",
+        "claude-haiku-5-5"
+      ],
+      [
+        "Claude Models on Google Cloud (Anthropic managed) ID",
+        "claude-fable-5-2",
+        "claude-opus-5-5",
+        "claude-sonnet-5-5",
+        "claude-haiku-5-5"
+      ]
+    ],
+    [
+      [
+        "Model",
+        "Capabilities",
+        "Base tokens"
+      ],
+      [
+        "Name",
+        "Context window",
+        "Max output",
+        "Input",
+        "Output"
+      ],
+      [
+        "Claude Fable 5.2",
+        "1M tokens",
+        "128K tokens",
+        "$8 / MTok",
+        "$40 / MTok"
+      ],
+      [
+        "Claude Opus 5.5",
+        "1M tokens",
+        "128K tokens",
+        "$4 / MTok",
+        "$20 / MTok"
+      ],
+      [
+        "Claude Sonnet 5.5",
+        "1M tokens",
+        "128K tokens",
+        "$2 / MTok",
+        "$10 / MTok"
+      ],
+      [
+        "Claude Haiku 5.5",
+        "1M tokens",
+        "128K tokens",
+        "From $0.10 / MTok",
+        "From $0.50 / MTok"
+      ],
+      [
+        "Claude Mythos 5.2\ue0a1",
+        "1M tokens",
+        "128K tokens",
+        "$8 / MTok",
+        "$40 / MTok"
+      ],
+      [
+        "Claude Fable 5.1",
+        "1M tokens",
+        "128K tokens",
+        "$10 / MTok",
+        "$50 / MTok"
+      ],
+      [
+        "Claude Mythos 5.1\ue0a1",
+        "1M tokens",
+        "128K tokens",
+        "$10 / MTok",
+        "$50 / MTok"
+      ],
+      [
+        "Claude Fable 5",
+        "1M tokens",
+        "128K tokens",
+        "$10 / MTok",
+        "$50 / MTok"
+      ],
+      [
+        "Claude Mythos 5\ue0a1",
+        "1M tokens",
+        "128K tokens",
+        "$10 / MTok",
+        "$50 / MTok"
+      ],
+      [
+        "Claude Opus 5",
+        "1M tokens",
+        "128K tokens",
+        "$5 / MTok",
+        "$25 / MTok"
+      ],
+      [
+        "Claude Opus 4.8",
+        "1M tokens",
+        "128K tokens",
+        "$5 / MTok",
+        "$25 / MTok"
+      ],
+      [
+        "Claude Opus 4.7",
+        "1M tokens",
+        "128K tokens",
+        "$5 / MTok",
+        "$25 / MTok"
+      ],
+      [
+        "Claude Opus 4.6",
+        "1M tokens",
+        "128K tokens",
+        "$5 / MTok",
+        "$25 / MTok"
+      ],
+      [
+        "Claude Opus 4.5",
+        "200K tokens",
+        "64K tokens",
+        "$5 / MTok",
+        "$25 / MTok"
+      ],
+      [
+        "Claude Opus 4.1\ue0f0",
+        "200K tokens",
+        "32K tokens",
+        "$15 / MTok",
+        "$75 / MTok"
+      ],
+      [
+        "Claude Opus 4\ue0f0",
+        "200K tokens",
+        "32K tokens",
+        "$15 / MTok",
+        "$75 / MTok"
+      ],
+      [
+        "Claude Sonnet 5",
+        "1M tokens",
+        "128K tokens",
+        "$2 / MTok",
+        "$10 / MTok"
+      ],
+      [
+        "Claude Sonnet 4.6",
+        "1M tokens",
+        "128K tokens",
+        "$3 / MTok",
+        "$15 / MTok"
+      ],
+      [
+        "Claude Sonnet 4.5",
+        "200K tokens",
+        "64K tokens",
+        "$3 / MTok",
+        "$15 / MTok"
+      ],
+      [
+        "Claude Sonnet 4\ue0f0",
+        "200K tokens",
+        "64K tokens",
+        "$3 / MTok",
+        "$15 / MTok"
+      ],
+      [
+        "Claude Haiku 4.5",
+        "200K tokens",
+        "64K tokens",
+        "$1 / MTok",
+        "$5 / MTok"
+      ]
+    ]
+  ],
+  "anthropic-pricing.html": [
+    [
+      [
+        "Model",
+        "Base tokens",
+        "Prompt caching"
+      ],
+      [
+        "Name",
+        "Input",
+        "Output",
+        "5m writes",
+        "1h writes",
+        "Hits and refreshes"
+      ],
+      [
+        "Claude Fable 5.2For demanding reasoning and long-horizon agentic work",
+        "$8 / MTok",
+        "$40 / MTok",
+        "$10 / MTok",
+        "$16 / MTok",
+        "$0.20 / MTok"
+      ],
+      [
+        "Claude Opus 5.5For long-running agentic coding and knowledge work",
+        "$4 / MTok",
+        "$20 / MTok",
+        "$5 / MTok",
+        "$8 / MTok",
+        "$0.20 / MTok"
+      ],
+      [
+        "Claude Sonnet 5.5The best combination of speed and intelligence",
+        "$2 / MTok",
+        "$10 / MTok",
+        "$2.50 / MTok",
+        "$4 / MTok",
+        "$0.10 / MTok"
+      ],
+      [
+        "Claude Haiku 5.5For high-volume, latency-sensitive tasks such as classification, extraction, and routing",
+        "$0.10 / MTokfor prompts up to 100,000 tokens",
+        "$0.50 / MTok",
+        "$0.125 / MTok",
+        "$0.20 / MTok",
+        "$0.01 / MTok"
+      ],
+      [
+        "$0.50 / MTokfor prompts over 100,000 tokens",
+        "$2.50 / MTok",
+        "$0.625 / MTok",
+        "$1 / MTok",
+        "$0.05 / MTok"
+      ],
+      [
+        "\uf003Additional models"
+      ],
+      [
+        "Claude Mythos 5.2\ue0a1",
+        "$8 / MTok",
+        "$40 / MTok",
+        "$10 / MTok",
+        "$16 / MTok",
+        "$0.20 / MTok"
+      ],
+      [
+        "Claude Fable 5.1",
+        "$10 / MTok",
+        "$50 / MTok",
+        "$12.50 / MTok",
+        "$20 / MTok",
+        "$0.25 / MTok"
+      ],
+      [
+        "Claude Mythos 5.1\ue0a1",
+        "$10 / MTok",
+        "$50 / MTok",
+        "$12.50 / MTok",
+        "$20 / MTok",
+        "$0.25 / MTok"
+      ],
+      [
+        "Claude Fable 5",
+        "$10 / MTok",
+        "$50 / MTok",
+        "$12.50 / MTok",
+        "$20 / MTok",
+        "$1 / MTok"
+      ],
+      [
+        "Claude Mythos 5\ue0a1",
+        "$10 / MTok",
+        "$50 / MTok",
+        "$12.50 / MTok",
+        "$20 / MTok",
+        "$1 / MTok"
+      ],
+      [
+        "Claude Opus 5",
+        "$5 / MTok",
+        "$25 / MTok",
+        "$6.25 / MTok",
+        "$10 / MTok",
+        "$0.50 / MTok"
+      ],
+      [
+        "Claude Opus 4.8",
+        "$5 / MTok",
+        "$25 / MTok",
+        "$6.25 / MTok",
+        "$10 / MTok",
+        "$0.50 / MTok"
+      ],
+      [
+        "Claude Opus 4.7",
+        "$5 / MTok",
+        "$25 / MTok",
+        "$6.25 / MTok",
+        "$10 / MTok",
+        "$0.50 / MTok"
+      ],
+      [
+        "Claude Opus 4.6",
+        "$5 / MTok",
+        "$25 / MTok",
+        "$6.25 / MTok",
+        "$10 / MTok",
+        "$0.50 / MTok"
+      ],
+      [
+        "Claude Opus 4.5",
+        "$5 / MTok",
+        "$25 / MTok",
+        "$6.25 / MTok",
+        "$10 / MTok",
+        "$0.50 / MTok"
+      ],
+      [
+        "Claude Opus 4.1\ue0f0",
+        "$15 / MTok",
+        "$75 / MTok",
+        "$18.75 / MTok",
+        "$30 / MTok",
+        "$1.50 / MTok"
+      ],
+      [
+        "Claude Opus 4\ue0f0",
+        "$15 / MTok",
+        "$75 / MTok",
+        "$18.75 / MTok",
+        "$30 / MTok",
+        "$1.50 / MTok"
+      ],
+      [
+        "Claude Sonnet 5",
+        "$2 / MTok",
+        "$10 / MTok",
+        "$2.50 / MTok",
+        "$4 / MTok",
+        "$0.20 / MTok"
+      ],
+      [
+        "Claude Sonnet 4.6",
+        "$3 / MTok",
+        "$15 / MTok",
+        "$3.75 / MTok",
+        "$6 / MTok",
+        "$0.30 / MTok"
+      ],
+      [
+        "Claude Sonnet 4.5",
+        "$3 / MTok",
+        "$15 / MTok",
+        "$3.75 / MTok",
+        "$6 / MTok",
+        "$0.30 / MTok"
+      ],
+      [
+        "Claude Sonnet 4\ue0f0",
+        "$3 / MTok",
+        "$15 / MTok",
+        "$3.75 / MTok",
+        "$6 / MTok",
+        "$0.30 / MTok"
+      ],
+      [
+        "Claude Haiku 4.5",
+        "$1 / MTok",
+        "$5 / MTok",
+        "$1.25 / MTok",
+        "$2 / MTok",
+        "$0.10 / MTok"
+      ]
+    ],
+    [
+      [
+        "Concept",
+        "Details"
+      ],
+      [
+        "Billing unit",
+        "Claude Consumption Unit (CCU)"
+      ],
+      [
+        "CCU price",
+        "$0.01 USD per CCU (fixed; discounts apply at token-to-CCU conversion, not to the CCU price)"
+      ],
+      [
+        "Conversion",
+        "Token usage rated in USD at standard per-model, per-feature rates (same as Model pricing), then converted to CCUs at $0.01 USD per CCU"
+      ],
+      [
+        "Billing cadence",
+        "Hourly metering to AWS Marketplace; monthly invoices"
+      ],
+      [
+        "Payment model",
+        "Arrears only (postpaid); no prepaid credits"
+      ],
+      [
+        "Discounts",
+        "Applied as fewer CCUs metered"
+      ],
+      [
+        "Tax",
+        "Pre-tax metering; AWS Marketplace handles tax"
+      ],
+      [
+        "Cost visibility",
+        "Real-time breakdown in the Claude Console (access through the AWS Console); AWS Cost Explorer shows aggregated CCU"
+      ]
+    ],
+    [
+      [
+        "Concept",
+        "Details"
+      ],
+      [
+        "Billing unit",
+        "Claude Consumption Unit (CCU)"
+      ],
+      [
+        "CCU price",
+        "$0.01 USD per CCU (fixed; discounts apply at token-to-CCU conversion, not to the CCU price)"
+      ],
+      [
+        "Conversion",
+        "Token usage rated in USD at standard per-model, per-feature rates (same as Model pricing), then converted to CCUs at $0.01 USD per CCU"
+      ],
+      [
+        "Billing cadence",
+        "Hourly metering to the Azure Marketplace; monthly invoices"
+      ],
+      [
+        "Payment model",
+        "Arrears only (postpaid); no prepaid credits"
+      ],
+      [
+        "Discounts",
+        "Applied as fewer CCUs metered"
+      ],
+      [
+        "Tax",
+        "Pre-tax metering; Azure Marketplace handles tax"
+      ],
+      [
+        "Cost visibility",
+        "Azure Cost Management shows aggregated CCU"
+      ]
+    ],
+    [
+      [
+        "Cache operation",
+        "Multiplier",
+        "Duration"
+      ],
+      [
+        "5-minute cache write",
+        "1.25x base input price",
+        "Cache valid for 5 minutes"
+      ],
+      [
+        "1-hour cache write",
+        "2x base input price",
+        "Cache valid for 1 hour"
+      ],
+      [
+        "Cache read (hit)",
+        "0.1x base input price on most models",
+        "Same duration as the preceding write"
+      ]
+    ],
+    [
+      [
+        "Model",
+        "Cache hit multiplier",
+        "Cache hit price per million tokens"
+      ],
+      [
+        "Claude Fable 5.2 and Claude Mythos 5.2",
+        "0.025x",
+        "$0.20 USD"
+      ],
+      [
+        "Claude Fable 5.1 and Claude Mythos 5.1",
+        "0.025x",
+        "$0.25 USD"
+      ],
+      [
+        "Claude Opus 5.5",
+        "0.05x",
+        "$0.20 USD"
+      ],
+      [
+        "Claude Sonnet 5.5",
+        "0.05x",
+        "$0.10 USD"
+      ],
+      [
+        "All other models",
+        "0.1x",
+        "See Model pricing"
+      ]
+    ],
+    [
+      [
+        "Model",
+        "Input",
+        "Output"
+      ],
+      [
+        "Claude Fable 5.2",
+        "$16 USD / MTok",
+        "$80 USD / MTok"
+      ],
+      [
+        "Claude Mythos 5.2",
+        "$16 USD / MTok",
+        "$80 USD / MTok"
+      ],
+      [
+        "Claude Opus 5.5",
+        "$8 USD / MTok",
+        "$40 USD / MTok"
+      ],
+      [
+        "Claude Opus 5 / Claude Opus 4.8",
+        "$10 USD / MTok",
+        "$50 USD / MTok"
+      ]
+    ],
+    [
+      [
+        "Model",
+        "Batch tokens"
+      ],
+      [
+        "Name",
+        "Input",
+        "Output"
+      ],
+      [
+        "Claude Fable 5.2For demanding reasoning and long-horizon agentic work",
+        "$4 / MTok",
+        "$20 / MTok"
+      ],
+      [
+        "Claude Opus 5.5For long-running agentic coding and knowledge work",
+        "$2 / MTok",
+        "$10 / MTok"
+      ],
+      [
+        "Claude Sonnet 5.5The best combination of speed and intelligence",
+        "$1 / MTok",
+        "$5 / MTok"
+      ],
+      [
+        "Claude Haiku 5.5For high-volume, latency-sensitive tasks such as classification, extraction, and routing",
+        "$0.05 / MTokfor prompts up to 100,000 tokens",
+        "$0.25 / MTok"
+      ],
+      [
+        "$0.25 / MTokfor prompts over 100,000 tokens",
+        "$1.25 / MTok"
+      ],
+      [
+        "\uf003Additional models"
+      ],
+      [
+        "Claude Mythos 5.2\ue0a1",
+        "$4 / MTok",
+        "$20 / MTok"
+      ],
+      [
+        "Claude Fable 5.1",
+        "$5 / MTok",
+        "$25 / MTok"
+      ],
+      [
+        "Claude Mythos 5.1\ue0a1",
+        "$5 / MTok",
+        "$25 / MTok"
+      ],
+      [
+        "Claude Fable 5",
+        "$5 / MTok",
+        "$25 / MTok"
+      ],
+      [
+        "Claude Mythos 5\ue0a1",
+        "$5 / MTok",
+        "$25 / MTok"
+      ],
+      [
+        "Claude Opus 5",
+        "$2.50 / MTok",
+        "$12.50 / MTok"
+      ],
+      [
+        "Claude Opus 4.8",
+        "$2.50 / MTok",
+        "$12.50 / MTok"
+      ],
+      [
+        "Claude Opus 4.7",
+        "$2.50 / MTok",
+        "$12.50 / MTok"
+      ],
+      [
+        "Claude Opus 4.6",
+        "$2.50 / MTok",
+        "$12.50 / MTok"
+      ],
+      [
+        "Claude Opus 4.5",
+        "$2.50 / MTok",
+        "$12.50 / MTok"
+      ],
+      [
+        "Claude Opus 4.1\ue0f0",
+        "$7.50 / MTok",
+        "$37.50 / MTok"
+      ],
+      [
+        "Claude Opus 4\ue0f0",
+        "$7.50 / MTok",
+        "$37.50 / MTok"
+      ],
+      [
+        "Claude Sonnet 5",
+        "$1 / MTok",
+        "$5 / MTok"
+      ],
+      [
+        "Claude Sonnet 4.6",
+        "$1.50 / MTok",
+        "$7.50 / MTok"
+      ],
+      [
+        "Claude Sonnet 4.5",
+        "$1.50 / MTok",
+        "$7.50 / MTok"
+      ],
+      [
+        "Claude Sonnet 4\ue0f0",
+        "$1.50 / MTok",
+        "$7.50 / MTok"
+      ],
+      [
+        "Claude Haiku 4.5",
+        "$0.50 / MTok",
+        "$2.50 / MTok"
+      ]
+    ],
+    [
+      [
+        "Model",
+        "Tool use system prompt tokens"
+      ],
+      [
+        "Name",
+        "Tool choice",
+        "Token count"
+      ],
+      [
+        "Claude Opus 5.5For long-running agentic coding and knowledge work",
+        "auto, none",
+        "286 tokens"
+      ],
+      [
+        "Claude Sonnet 5.5The best combination of speed and intelligence",
+        "auto, none",
+        "286 tokens"
+      ],
+      [
+        "Claude Haiku 5.5For high-volume, latency-sensitive tasks such as classification, extraction, and routing",
+        "auto, none",
+        "286 tokens"
+      ],
+      [
+        "any, tool",
+        "406 tokens"
+      ],
+      [
+        "\uf003Additional models"
+      ],
+      [
+        "Claude Opus 5",
+        "auto, none",
+        "286 tokens"
+      ],
+      [
+        "any, tool",
+        "406 tokens"
+      ],
+      [
+        "Claude Opus 4.8",
+        "auto, none",
+        "290 tokens"
+      ],
+      [
+        "any, tool",
+        "410 tokens"
+      ],
+      [
+        "Claude Opus 4.7",
+        "auto, none",
+        "675 tokens"
+      ],
+      [
+        "any, tool",
+        "804 tokens"
+      ],
+      [
+        "Claude Opus 4.6",
+        "auto, none",
+        "497 tokens"
+      ],
+      [
+        "any, tool",
+        "589 tokens"
+      ],
+      [
+        "Claude Opus 4.5",
+        "auto, none",
+        "496 tokens"
+      ],
+      [
+        "any, tool",
+        "588 tokens"
+      ],
+      [
+        "Claude Opus 4.1\ue0f0",
+        "auto, none",
+        "313 tokens"
+      ],
+      [
+        "any, tool",
+        "315 tokens"
+      ],
+      [
+        "Claude Opus 4\ue0f0",
+        "auto, none",
+        "313 tokens"
+      ],
+      [
+        "any, tool",
+        "315 tokens"
+      ],
+      [
+        "Claude Sonnet 5",
+        "auto, none",
+        "354 tokens"
+      ],
+      [
+        "any, tool",
+        "474 tokens"
+      ],
+      [
+        "Claude Sonnet 4.6",
+        "auto, none",
+        "497 tokens"
+      ],
+      [
+        "any, tool",
+        "589 tokens"
+      ],
+      [
+        "Claude Sonnet 4.5",
+        "auto, none",
+        "496 tokens"
+      ],
+      [
+        "any, tool",
+        "588 tokens"
+      ],
+      [
+        "Claude Sonnet 4\ue0f0",
+        "auto, none",
+        "313 tokens"
+      ],
+      [
+        "any, tool",
+        "315 tokens"
+      ],
+      [
+        "Claude Haiku 4.5",
+        "auto, none",
+        "496 tokens"
+      ],
+      [
+        "any, tool",
+        "588 tokens"
+      ]
+    ],
+    [
+      [
+        "Model",
+        "Additional input tokens"
+      ],
+      [
+        "Claude 4.7 and later models and Claude Mythos Preview",
+        "325 tokens"
+      ],
+      [
+        "Claude 4.6 and earlier models",
+        "244 tokens"
+      ]
+    ],
+    [
+      [
+        "Tool",
+        "Additional input tokens"
+      ],
+      [
+        "text_editor_20250728 (Claude 4.7 and later models and Claude Mythos Preview)",
+        "974 tokens"
+      ],
+      [
+        "text_editor_20250728 (Claude 4.6 and earlier models)",
+        "745 tokens"
+      ]
+    ],
+    [
+      [
+        "Modifier",
+        "Why it doesn\u2019t apply"
+      ],
+      [
+        "Batch API discount",
+        "Sessions are stateful and interactive. There is no batch mode."
+      ],
+      [
+        "Cloud platform pricing",
+        "Not available on partner-operated cloud platforms."
+      ]
+    ],
+    [
+      [
+        "SKU",
+        "Rate",
+        "Metering"
+      ],
+      [
+        "Session runtime",
+        "$0.08 USD per session-hour",
+        "running status duration"
+      ]
+    ],
+    [
+      [
+        "Line item",
+        "Calculation",
+        "Cost"
+      ],
+      [
+        "Input tokens",
+        "50,000 \u00d7 $4 / 1,000,000",
+        "$0.20 USD"
+      ],
+      [
+        "Output tokens",
+        "15,000 \u00d7 $20 / 1,000,000",
+        "$0.30 USD"
+      ],
+      [
+        "Session runtime",
+        "1.0 hour \u00d7 $0.08",
+        "$0.08 USD"
+      ],
+      [
+        "Total",
+        "",
+        "$0.58 USD"
+      ]
+    ],
+    [
+      [
+        "Line item",
+        "Calculation",
+        "Cost"
+      ],
+      [
+        "Uncached input tokens",
+        "10,000 \u00d7 $4 / 1,000,000",
+        "$0.04 USD"
+      ],
+      [
+        "Cache read tokens",
+        "40,000 \u00d7 $4 \u00d7 0.05 / 1,000,000",
+        "$0.008 USD"
+      ],
+      [
+        "Output tokens",
+        "15,000 \u00d7 $20 / 1,000,000",
+        "$0.30 USD"
+      ],
+      [
+        "Session runtime",
+        "1.0 hour \u00d7 $0.08",
+        "$0.08 USD"
+      ],
+      [
+        "Total",
+        "",
+        "$0.428 USD"
+      ]
+    ]
+  ],
+  "backboard-27b.html": [
+    [
+      [
+        "Input length",
+        "Concurrency",
+        "vs. vLLM 0.33",
+        "vs. SGLang"
+      ],
+      [
+        "1K tokens",
+        "1",
+        "+31%",
+        "+26%"
+      ],
+      [
+        "1K tokens",
+        "4",
+        "+26%",
+        "+21%"
+      ],
+      [
+        "1K tokens",
+        "16",
+        "+27%",
+        "+20%"
+      ],
+      [
+        "1K tokens",
+        "64",
+        "+44%",
+        "+4%"
+      ],
+      [
+        "8K tokens",
+        "1",
+        "+34%",
+        "+22%"
+      ],
+      [
+        "8K tokens",
+        "4",
+        "+29%",
+        "+22%"
+      ],
+      [
+        "8K tokens",
+        "16",
+        "+22%",
+        "+14%"
+      ],
+      [
+        "8K tokens",
+        "64",
+        "+16%",
+        "+7%"
+      ]
+    ],
+    [
+      [
+        "Condition",
+        "Metric",
+        "SGLang advantage"
+      ],
+      [
+        "1K input, concurrency 64",
+        "TTFT p99",
+        "3.0%"
+      ],
+      [
+        "8K input, concurrency 64",
+        "TTFT p99",
+        "0.3%"
+      ]
+    ],
+    [
+      [
+        "Parameter",
+        "Configuration"
+      ],
+      [
+        "Model",
+        "Qwen3.8-27B"
+      ],
+      [
+        "Precision",
+        "BF16 weights, FP32 accumulation"
+      ],
+      [
+        "Hardware",
+        "1\u00d7 NVIDIA RTX PRO 6000 Blackwell"
+      ],
+      [
+        "Backboard configuration",
+        "One setting against both competitors"
+      ],
+      [
+        "vLLM version",
+        "0.33"
+      ],
+      [
+        "Input lengths",
+        "1K and 8K tokens"
+      ],
+      [
+        "Output length",
+        "1K tokens"
+      ],
+      [
+        "Concurrency",
+        "1, 4, 16 and 64"
+      ]
+    ],
+    [
+      [
+        "Comparison",
+        "Metric cells won",
+        "Result"
+      ],
+      [
+        "Backboard vs. vLLM 0.33",
+        "104/104",
+        "100%"
+      ],
+      [
+        "Backboard vs. SGLang",
+        "102/104",
+        "98.1%"
+      ]
+    ]
+  ],
+  "backboard-35b.html": [
+    [
+      [
+        "Concurrent requests",
+        "Backboard throughput advantage"
+      ],
+      [
+        "8",
+        "1.63\u00d7 (+63%)"
+      ],
+      [
+        "16",
+        "1.57\u00d7 (+57%)"
+      ],
+      [
+        "32",
+        "1.62\u00d7 (+62%)"
+      ],
+      [
+        "64",
+        "1.65\u00d7 (+65%)"
+      ],
+      [
+        "128",
+        "1.87\u00d7 (+87%)"
+      ],
+      [
+        "256",
+        "1.95\u00d7 (+95%)"
+      ]
+    ],
+    [
+      [
+        "Concurrent requests",
+        "Median TTFT advantage",
+        "90th-percentile TTFT advantage"
+      ],
+      [
+        "8",
+        "1.70\u00d7",
+        "1.72\u00d7"
+      ],
+      [
+        "16",
+        "1.87\u00d7",
+        "1.71\u00d7"
+      ],
+      [
+        "32",
+        "2.03\u00d7",
+        "1.70\u00d7"
+      ],
+      [
+        "64",
+        "3.39\u00d7",
+        "3.57\u00d7"
+      ],
+      [
+        "128",
+        "5.75\u00d7",
+        "3.22\u00d7"
+      ],
+      [
+        "256",
+        "2.09\u00d7",
+        "2.65\u00d7"
+      ]
+    ],
+    [
+      [
+        "Concurrent requests",
+        "Backboard throughput advantage"
+      ],
+      [
+        "8",
+        "1.59\u00d7 (+59%)"
+      ],
+      [
+        "16",
+        "1.57\u00d7 (+57%)"
+      ],
+      [
+        "32",
+        "1.66\u00d7 (+66%)"
+      ],
+      [
+        "64",
+        "1.64\u00d7 (+64%)"
+      ],
+      [
+        "128",
+        "1.71\u00d7 (+71%)"
+      ],
+      [
+        "256",
+        "1.78\u00d7 (+78%)"
+      ]
+    ],
+    [
+      [
+        "Parameter",
+        "Configuration"
+      ],
+      [
+        "Model",
+        "Qwen3.6-35B-A3B"
+      ],
+      [
+        "Model precision",
+        "BF16"
+      ],
+      [
+        "GPU",
+        "1\u00d7 NVIDIA RTX PRO 6000 Blackwell Server Edition"
+      ],
+      [
+        "Infrastructure",
+        "Google Cloud"
+      ],
+      [
+        "Baseline",
+        "vLLM 0.33.0"
+      ],
+      [
+        "GPU memory utilization",
+        "95% for vLLM"
+      ],
+      [
+        "Context limit",
+        "32K tokens"
+      ],
+      [
+        "Decoding",
+        "Greedy"
+      ],
+      [
+        "MTP draft tokens",
+        "3 on both engines"
+      ],
+      [
+        "Concurrency levels",
+        "8, 16, 32, 64, 128 and 256"
+      ]
+    ]
+  ],
+  "backboard-glm.html": [
+    [
+      [
+        "Metric",
+        "Backboard",
+        "vLLM 0.32",
+        "Backboard advantage"
+      ],
+      [
+        "Aggregate output throughput",
+        "370.0 tok/s",
+        "74.9 tok/s",
+        "4.94\u00d7"
+      ],
+      [
+        "Workflows admitted",
+        "462",
+        "116",
+        "3.98\u00d7"
+      ],
+      [
+        "Workflows completed",
+        "461",
+        "96",
+        "\u2014"
+      ]
+    ],
+    [
+      [
+        "TTFT measurement",
+        "Backboard",
+        "vLLM 0.32",
+        "Reported speed advantage"
+      ],
+      [
+        "Median (p50)",
+        "3.24 s",
+        "357.50 s",
+        "110.34\u00d7"
+      ],
+      [
+        "90th percentile (p90)",
+        "61.20 s",
+        "504.90 s",
+        "8.25\u00d7"
+      ]
+    ],
+    [
+      [
+        "Metric",
+        "Backboard",
+        "vLLM 0.32",
+        "Backboard advantage"
+      ],
+      [
+        "Aggregate output throughput",
+        "165.5 tok/s",
+        "63.5 tok/s",
+        "2.61\u00d7"
+      ],
+      [
+        "Median per-request generation speed",
+        "22.38 tok/s",
+        "7.45 tok/s",
+        "3.00\u00d7"
+      ],
+      [
+        "Median TTFT",
+        "1.63 s",
+        "16.40 s",
+        "10.06\u00d7"
+      ],
+      [
+        "90th-percentile TTFT",
+        "58.30 s",
+        "481.00 s",
+        "8.25\u00d7"
+      ],
+      [
+        "Workflows completed",
+        "95/96",
+        "82/96",
+        "\u2014"
+      ]
+    ],
+    [
+      [
+        "Test parameter",
+        "Configuration"
+      ],
+      [
+        "Model",
+        "GLM-5.3 Full"
+      ],
+      [
+        "Model precision",
+        "BF16"
+      ],
+      [
+        "GPU hardware",
+        "8 NVIDIA B200 GPUs"
+      ],
+      [
+        "Baseline",
+        "vLLM 0.32"
+      ],
+      [
+        "Context limit",
+        "32K tokens"
+      ],
+      [
+        "Concurrency",
+        "32 workflows"
+      ],
+      [
+        "Workload source",
+        "Workflows from the GLM-5.3 benchmark report"
+      ]
+    ]
+  ],
+  "backboard-h100.html": [
+    [
+      [
+        "Metric",
+        "Concurrency 1",
+        "Concurrency 4",
+        "Concurrency 8",
+        "Concurrency 12",
+        "Concurrency 16"
+      ],
+      [
+        "P90 interactivity (tokens/s/user)",
+        "209.0 / 16.3",
+        "156.3 / 140.0",
+        "147.0 / 138.0",
+        "100.4 / 14.4",
+        "71.6 / 14.4"
+      ],
+      [
+        "P90 TTFT (seconds)",
+        "0.78 / 10.6",
+        "0.74 / 1.6",
+        "0.86 / 1.4",
+        "1.01 / 3.1",
+        "1.41 / 3.5"
+      ],
+      [
+        "Total throughput (tokens/s/GPU)",
+        "1,858 / 870",
+        "3,010 / 2,146",
+        "5,064 / 4,830",
+        "7,640 / 5,060",
+        "10,525 / 8,013"
+      ],
+      [
+        "Output throughput (tokens/s/GPU)",
+        "21.0 / 9.7",
+        "32.8 / 23.9",
+        "49.5 / 46.0",
+        "69.3 / 48.4",
+        "90.7 / 72.2"
+      ]
+    ],
+    [
+      [
+        "Concurrent sessions",
+        "Backboard BF16 (tokens/s)",
+        "SGLang FP8 (tokens/s)",
+        "Backboard gain"
+      ],
+      [
+        "1",
+        "209.0",
+        "16.3",
+        "12.8\u00d7"
+      ],
+      [
+        "4",
+        "156.3",
+        "140.0",
+        "1.1\u00d7"
+      ],
+      [
+        "8",
+        "147.0",
+        "138.0",
+        "1.1\u00d7"
+      ],
+      [
+        "12",
+        "100.4",
+        "14.4",
+        "7.0\u00d7"
+      ],
+      [
+        "16",
+        "71.6",
+        "14.4",
+        "5.0\u00d7"
+      ]
+    ],
+    [
+      [
+        "Concurrent sessions",
+        "Backboard BF16 (s)",
+        "SGLang FP8 (s)",
+        "Backboard faster by"
+      ],
+      [
+        "1",
+        "0.78",
+        "10.6",
+        "13.6\u00d7"
+      ],
+      [
+        "4",
+        "0.74",
+        "1.6",
+        "2.2\u00d7"
+      ],
+      [
+        "8",
+        "0.86",
+        "1.4",
+        "1.6\u00d7"
+      ],
+      [
+        "12",
+        "1.01",
+        "3.1",
+        "3.1\u00d7"
+      ],
+      [
+        "16",
+        "1.41",
+        "3.5",
+        "2.5\u00d7"
+      ]
+    ],
+    [
+      [
+        "Concurrent sessions",
+        "Backboard BF16 (tokens/s)",
+        "SGLang FP8 (tokens/s)",
+        "Backboard gain"
+      ],
+      [
+        "1",
+        "21.0",
+        "9.7",
+        "2.16\u00d7"
+      ],
+      [
+        "4",
+        "32.8",
+        "23.9",
+        "1.37\u00d7"
+      ],
+      [
+        "8",
+        "49.5",
+        "46.0",
+        "1.08\u00d7"
+      ],
+      [
+        "12",
+        "69.3",
+        "48.4",
+        "1.43\u00d7"
+      ],
+      [
+        "16",
+        "90.7",
+        "72.2",
+        "1.26\u00d7"
+      ]
+    ],
+    [
+      [
+        "Concurrent sessions",
+        "Backboard BF16 (tokens/s)",
+        "SGLang FP8 (tokens/s)",
+        "Backboard gain"
+      ],
+      [
+        "1",
+        "1,858",
+        "870",
+        "2.14\u00d7"
+      ],
+      [
+        "4",
+        "3,010",
+        "2,146",
+        "1.40\u00d7"
+      ],
+      [
+        "8",
+        "5,064",
+        "4,830",
+        "1.05\u00d7"
+      ],
+      [
+        "12",
+        "7,640",
+        "5,060",
+        "1.51\u00d7"
+      ],
+      [
+        "16",
+        "10,525",
+        "8,013",
+        "1.31\u00d7"
+      ]
+    ],
+    [
+      [
+        "Metric",
+        "Concurrency 1",
+        "Concurrency 4",
+        "Concurrency 8",
+        "Concurrency 12",
+        "Concurrency 16"
+      ],
+      [
+        "Requests",
+        "588",
+        "991",
+        "1,483",
+        "2,144",
+        "2,839"
+      ],
+      [
+        "Aggregate output throughput (tokens/s, all 8 GPUs)",
+        "168",
+        "262",
+        "396",
+        "554",
+        "726"
+      ],
+      [
+        "TTFT p50 (seconds)",
+        "0.28",
+        "0.29",
+        "0.31",
+        "0.34",
+        "0.39"
+      ],
+      [
+        "TTFT p99 (seconds)",
+        "4.65",
+        "3.53",
+        "3.57",
+        "9.07",
+        "11.98"
+      ],
+      [
+        "Interactivity p50 (tokens/s/user)",
+        "248.6",
+        "231.9",
+        "213.5",
+        "190.6",
+        "153.3"
+      ],
+      [
+        "Interactivity p99 (tokens/s/user)",
+        "101.6",
+        "93.6",
+        "87.7",
+        "41.6",
+        "37.7"
+      ],
+      [
+        "ITL p50 / p90 / p99 (ms)",
+        "4.02 / 4.79 / 9.84",
+        "4.31 / 6.40 / 10.68",
+        "4.68 / 6.80 / 11.41",
+        "5.25 / 9.96 / 24.05",
+        "6.52 / 13.97 / 26.56"
+      ],
+      [
+        "E2E-normalized interactivity p50 / p90",
+        "185.3 / 121.0",
+        "184.0 / 109.8",
+        "173.3 / 101.3",
+        "150.4 / 70.3",
+        "118.8 / 50.5"
+      ],
+      [
+        "E2E latency p50 / p90 (seconds)",
+        "1.2 / 11.8",
+        "2.1 / 10.4",
+        "2.2 / 9.8",
+        "2.4 / 12.4",
+        "3.2 / 16.7"
+      ],
+      [
+        "Mean input / output tokens",
+        "90K / 1,032",
+        "87K / 956",
+        "97K / 961",
+        "102K / 933",
+        "106K / 920"
+      ]
+    ]
+  ],
+  "google-gemini31.html": [
+    [
+      [
+        "Model ID",
+        "gemini-3.1-pro-preview"
+      ],
+      [
+        "Modalities",
+        "description Text Input and output photo Image Input only mic Audio Input only videocam Video Input only"
+      ],
+      [
+        "Token limits",
+        "Context window",
+        "1,048,576"
+      ],
+      [
+        "Maximum output tokens",
+        "65,536"
+      ],
+      [
+        "Capabilities",
+        "Thinking Supported System instructions Supported Structured output Supported Context caching Implicit context caching, explicit context caching Supported RAG Engine Supported Tuning Not supported Agentic video understanding Not supported"
+      ],
+      [
+        "Tools",
+        "Grounding Google Search, Parallel Web Search, Exa Web Search Supported Code execution Supported Function calling Supported URL context Supported Computer use Not supported"
+      ],
+      [
+        "APIs",
+        "GenerateContent API Supported Interactions API Supported Gemini Live API Not supported Count Tokens API Supported Chat Completions API Supported"
+      ],
+      [
+        "Consumption options",
+        "Provisioned Throughput Supported Batch inference Supported Pay-as-you-go Standard PayGo, Flex PayGo, Priority PayGo Supported Fixed quota Not supported"
+      ],
+      [
+        "Input size limit",
+        "GenerateContent API: 500 MiB compressed Interactions API: 256 MiB compressed (synchronous or streaming); 9.75 MiB uncompressed (deferred, when background and store are true)"
+      ],
+      [
+        "Interactions API URI limit",
+        "Up to 100 distinct Cloud Storage (gs://) URIs per request across all modalities on the Interactions API, including URIs carried forward from earlier turns using previous_interaction_id. generateContent supports gs:// URIs up to the per-modality model item limits (up to 6,500 combined multimodal files when including plain-text files)."
+      ],
+      [
+        "Technical specifications",
+        "Image photo",
+        "Maximum images per prompt: 3,000 (images and PDFs combined) Maximum inline part size (GenerateContent API): 256 MB Maximum file size per file from Cloud Storage: 2 GiB minus 500 KiB Maximum file size per file from public HTTP or HTTPS URLs: 15 MiB Maximum file size per file for direct local uploads in the console: 7 MiB inline (up to 50 MiB staged to Cloud Storage) Maximum file size per file for Google Drive imports in the console: 7 MB (10 MB total) Default resolution tokens: 1,120 Supported MIME types: image/png, image/jpeg, image/webp, image/heic, image/heif"
+      ],
+      [
+        "Text description",
+        "Maximum number of files per prompt: 3,000 PDFs (shared with images; up to 6,500 total files when including plain text) Maximum number of pages per file: 3,000 Maximum inline part size (GenerateContent API): 256 MB Maximum file size per file from Cloud Storage: 2 GiB minus 500 KiB Maximum file size per file from public HTTP or HTTPS URLs: 15 MiB Maximum file size per file for direct local uploads in the console: 7 MiB inline (up to 50 MiB staged to Cloud Storage) Maximum file size per file for Google Drive imports in the console: 7 MB (10 MB total) Default resolution tokens: 560 OCR for scanned PDFs: Not used by default Supported MIME types: application/pdf, text/plain"
+      ],
+      [
+        "Video videocam",
+        "Maximum video length (with audio): Approximately 45 minutes Maximum video length (without audio): Approximately 1 hour Maximum number of videos per prompt: 10 Maximum inline part size (GenerateContent API): 256 MB Maximum file size per file from Cloud Storage: 2 GiB minus 500 KiB Maximum file size per file from public HTTP or HTTPS URLs: 15 MiB Default resolution tokens per frame: 70 Supported MIME types: video/x-flv, video/quicktime, video/mpeg, video/mpegs, video/mpg, video/mp4, video/webm, video/wmv, video/3gpp"
+      ],
+      [
+        "Audio mic",
+        "Maximum audio length per prompt: Approximately 8.4 hours, or up to 1 million tokens Maximum number of audio files per prompt: 1,000 Maximum inline part size (GenerateContent API): 256 MB Maximum file size per file from Cloud Storage: 2 GiB minus 500 KiB Maximum file size per file from public HTTP or HTTPS URLs: 15 MiB Speech understanding for: Audio summarization, transcription, and translation Supported MIME types: audio/x-aac, audio/flac, audio/mp3, audio/m4a, audio/mpeg, audio/mpga, audio/mp4, audio/ogg, audio/pcm, audio/wav, audio/webm"
+      ],
+      [
+        "Parameter defaults tune",
+        "Temperature: 0.0-2.0 (default 1.0) topP: 0.0-1.0 (default 0.95) topK: 64 (fixed) candidateCount: 1\u20138 (default 1)"
+      ],
+      [
+        "Supported regions",
+        "Model availability",
+        "Global: global"
+      ],
+      [
+        "Versions",
+        "gemini-3.1-pro-preview Launch stage: Public preview Release date: February 19, 2026 gemini-3.1-pro-preview-customtools* Launch stage: Public preview Release date: February 23, 2026"
+      ]
+    ]
+  ],
+  "google-locations.html": [
+    [
+      [
+        "Multi-region",
+        "Location",
+        "Hostname"
+      ],
+      [
+        "United States",
+        "us",
+        "https://aiplatform.us.rep.googleapis.com"
+      ],
+      [
+        "European Union",
+        "eu",
+        "https://aiplatform.eu.rep.googleapis.com"
+      ]
+    ],
+    [
+      [
+        "Model",
+        "Latest supported model version"
+      ],
+      [
+        "Gemini 4 Hydrogen",
+        "gemini-4-hydrogen"
+      ],
+      [
+        "Gemini 4 Carbon",
+        "gemini-4-carbon"
+      ],
+      [
+        "Gemini 4 Carbon for cyber",
+        "gemini-4-carbon-cyber-permissive"
+      ],
+      [
+        "Gemini 4 Argon",
+        "gemini-4-argon"
+      ],
+      [
+        "Gemini 4 Argon Cyber Permissive",
+        "gemini-4-argon-cyber-permissive"
+      ],
+      [
+        "Gemini 3.8 Flash Cyber",
+        "gemini-3.8-flash-cyber"
+      ],
+      [
+        "Gemini 3.8 Flash",
+        "gemini-3.8-flash"
+      ],
+      [
+        "Gemini Omni 1.2 Flash",
+        "gemini-omni-1.2-flash"
+      ],
+      [
+        "Gemini Omni 1.1 Flash preview",
+        "gemini-omni-1.1-flash-preview"
+      ],
+      [
+        "Gemini 3.7 Flash",
+        "gemini-3.7-flash"
+      ],
+      [
+        "Gemini 3.6 Flash",
+        "gemini-3.6-flash"
+      ],
+      [
+        "Gemini 3.5 Flash-Lite",
+        "gemini-3.5-flash-lite"
+      ],
+      [
+        "Gemini 3.1 Flash-Lite Image (Nano Banana 2 Lite)",
+        "gemini-3.1-flash-lite-image"
+      ],
+      [
+        "Gemini 3 Pro Image",
+        "gemini-3-pro-image"
+      ],
+      [
+        "Gemini Nano Banana 2.1",
+        "gemini-nano-banana-2.1"
+      ],
+      [
+        "Gemini 3.1 Flash Image",
+        "gemini-3.1-flash-image"
+      ],
+      [
+        "Gemini 3.5 Flash",
+        "gemini-3.5-flash"
+      ],
+      [
+        "Gemini 3.1 Flash-Lite",
+        "gemini-3.1-flash-lite"
+      ],
+      [
+        "Gemini 3.1 Pro preview",
+        "gemini-3.1-pro-preview"
+      ],
+      [
+        "Gemini 3 Flash preview",
+        "gemini-3-flash-preview"
+      ],
+      [
+        "Gemini 2.5 Pro",
+        "gemini-2.5-pro"
+      ],
+      [
+        "Gemini 2.5 Flash Image",
+        "gemini-2.5-flash-image"
+      ],
+      [
+        "Gemini 2.5 Flash",
+        "gemini-2.5-flash"
+      ],
+      [
+        "Gemini 2.5 Flash-Lite",
+        "gemini-2.5-flash-lite"
+      ]
+    ],
+    [
+      [
+        "",
+        "Global(global)"
+      ],
+      [
+        "Gemini models"
+      ],
+      [
+        "Gemini 4 Hydrogen (gemini-4-hydrogen)",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon (gemini-4-carbon)",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon for cyber (gemini-4-carbon-cyber-permissive)",
+        ""
+      ],
+      [
+        "Gemini 4 Argon (gemini-4-argon)",
+        ""
+      ],
+      [
+        "Gemini 4 Argon Cyber Permissive (gemini-4-argon-cyber-permissive)",
+        ""
+      ],
+      [
+        "Gemini 3.8 Live (gemini-3.8-live)",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash Cyber (gemini-3.8-flash-cyber)",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash (gemini-3.8-flash)",
+        ""
+      ],
+      [
+        "Gemini Omni 1.2 Flash (gemini-omni-1.2-flash)",
+        ""
+      ],
+      [
+        "Gemini Omni 1.1 Flash preview (gemini-omni-1.1-flash-preview)",
+        ""
+      ],
+      [
+        "Gemini 3.7 Flash (gemini-3.7-flash)",
+        ""
+      ],
+      [
+        "Gemini 3.6 Flash (gemini-3.6-flash)",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash-Lite (gemini-3.5-flash-lite)",
+        ""
+      ],
+      [
+        "Gemini Omni Flash preview (gemini-omni-flash-preview)",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite Image (Nano Banana 2 Lite) (gemini-3.1-flash-lite-image)",
+        ""
+      ],
+      [
+        "Gemini 3 Pro Image (gemini-3-pro-image)",
+        ""
+      ],
+      [
+        "Gemini Nano Banana 2.1 (gemini-nano-banana-2.1)",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash Image (gemini-3.1-flash-image)",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash (gemini-3.5-flash)",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite (gemini-3.1-flash-lite)",
+        ""
+      ],
+      [
+        "Gemini 3.1 Pro preview (gemini-3.1-pro-preview)",
+        ""
+      ],
+      [
+        "Gemini 3 Flash preview (gemini-3-flash-preview)",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro (gemini-2.5-pro)",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Image (gemini-2.5-flash-image)",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash (gemini-2.5-flash)",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash-Lite (gemini-2.5-flash-lite)",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash with Gemini Live API native audio (gemini-live-2.5-flash-native-audio)",
+        ""
+      ],
+      [
+        "Virtual Try-On (virtual-try-on-001)",
+        ""
+      ],
+      [
+        "Gemini 3.5 Transcribe (['gemini-3.5-transcribe', 'gemini-3.5-transcribe-live'])",
+        ""
+      ],
+      [
+        "Gemini 3.5 Live Translate preview (['gemini-3.5-live-translate-preview'])",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash TTS (gemini-3.8-flash-tts)",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash-Lite TTS (gemini-3.8-flash-lite-tts)",
+        ""
+      ],
+      [
+        "Gemini Robotics ER 2 preview (gemini-robotics-er-2-preview)",
+        ""
+      ],
+      [
+        "Embeddings models"
+      ],
+      [
+        "Gemini Embedding 2 (gemini-embedding-2)",
+        ""
+      ],
+      [
+        "Gemini Embedding (gemini-embedding-001)",
+        ""
+      ],
+      [
+        "Embeddings for Text",
+        ""
+      ],
+      [
+        "Embeddings for Multimodal",
+        ""
+      ],
+      [
+        "Veo on Gemini Enterprise Agent Platform models"
+      ],
+      [
+        "Veo 3.1 Generate (veo-3.1-generate-001)",
+        ""
+      ],
+      [
+        "Veo 3.1 Fast Generate (veo-3.1-fast-generate-001)",
+        ""
+      ],
+      [
+        "Veo 3.1 Lite Generate preview (veo-3.1-lite-generate-001)",
+        ""
+      ],
+      [
+        "Speech-to-Text and Text-to-Speech models"
+      ],
+      [
+        "Chirp 3: Transcription (chirp_3)",
+        ""
+      ],
+      [
+        "Chirp 3: HD Voices",
+        ""
+      ],
+      [
+        "Chirp 3: Instant Custom Voice",
+        ""
+      ],
+      [
+        "Chirp 2: Transcription (chirp_2)",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro TTS (gemini-2.5-pro-tts)",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash TTS (gemini-2.5-flash-tts)",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Lite Preview TTS preview (gemini-2.5-flash-lite-preview-tts)",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "United States multi-region(us)",
+        "European Union multi-region(eu)"
+      ],
+      [
+        "Gemini models"
+      ],
+      [
+        "Gemini 4 Hydrogen (gemini-4-hydrogen)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon (gemini-4-carbon)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon for cyber (gemini-4-carbon-cyber-permissive)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon (gemini-4-argon)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon Cyber Permissive (gemini-4-argon-cyber-permissive)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Live (gemini-3.8-live)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash Cyber (gemini-3.8-flash-cyber)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash (gemini-3.8-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.2 Flash (gemini-omni-1.2-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.1 Flash preview (gemini-omni-1.1-flash-preview)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.7 Flash (gemini-3.7-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.6 Flash (gemini-3.6-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash-Lite (gemini-3.5-flash-lite)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni Flash preview (gemini-omni-flash-preview)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite Image (Nano Banana 2 Lite) (gemini-3.1-flash-lite-image)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Pro Image (gemini-3-pro-image)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Nano Banana 2.1 (gemini-nano-banana-2.1)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash Image (gemini-3.1-flash-image)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash (gemini-3.5-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite (gemini-3.1-flash-lite)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Pro preview (gemini-3.1-pro-preview)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Flash preview (gemini-3-flash-preview)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro (gemini-2.5-pro)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Image (gemini-2.5-flash-image)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash (gemini-2.5-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash-Lite (gemini-2.5-flash-lite)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash with Gemini Live API native audio (gemini-live-2.5-flash-native-audio)",
+        "",
+        ""
+      ],
+      [
+        "Virtual Try-On (virtual-try-on-001)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Transcribe (['gemini-3.5-transcribe', 'gemini-3.5-transcribe-live'])",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Live Translate preview (['gemini-3.5-live-translate-preview'])",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash TTS (gemini-3.8-flash-tts)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash-Lite TTS (gemini-3.8-flash-lite-tts)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Robotics ER 2 preview (gemini-robotics-er-2-preview)",
+        "",
+        ""
+      ],
+      [
+        "Embeddings models"
+      ],
+      [
+        "Gemini Embedding 2 (gemini-embedding-2)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Embedding (gemini-embedding-001)",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Text",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Multimodal",
+        "",
+        ""
+      ],
+      [
+        "Veo on Gemini Enterprise Agent Platform models"
+      ],
+      [
+        "Veo 3.1 Generate (veo-3.1-generate-001)",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Fast Generate (veo-3.1-fast-generate-001)",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Lite Generate preview (veo-3.1-lite-generate-001)",
+        "",
+        ""
+      ],
+      [
+        "Speech-to-Text and Text-to-Speech models"
+      ],
+      [
+        "Chirp 3: Transcription (chirp_3)",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: HD Voices",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: Instant Custom Voice",
+        "",
+        ""
+      ],
+      [
+        "Chirp 2: Transcription (chirp_2)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro TTS (gemini-2.5-pro-tts)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash TTS (gemini-2.5-flash-tts)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Lite Preview TTS preview (gemini-2.5-flash-lite-preview-tts)",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Oregon(us-west1)",
+        "Las Vegas(us-west4)",
+        "Iowa(us-central1)",
+        "South Carolina(us-east1)",
+        "N. Virginia(us-east4)",
+        "Columbus(us-east5)",
+        "Dallas(us-south1)"
+      ],
+      [
+        "Gemini models"
+      ],
+      [
+        "Gemini 4 Hydrogen (gemini-4-hydrogen)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon (gemini-4-carbon)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon for cyber (gemini-4-carbon-cyber-permissive)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon (gemini-4-argon)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon Cyber Permissive (gemini-4-argon-cyber-permissive)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Live (gemini-3.8-live)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash Cyber (gemini-3.8-flash-cyber)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash (gemini-3.8-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.2 Flash (gemini-omni-1.2-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.1 Flash preview (gemini-omni-1.1-flash-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.7 Flash (gemini-3.7-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.6 Flash (gemini-3.6-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash-Lite (gemini-3.5-flash-lite)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni Flash preview (gemini-omni-flash-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite Image (Nano Banana 2 Lite) (gemini-3.1-flash-lite-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Pro Image (gemini-3-pro-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Nano Banana 2.1 (gemini-nano-banana-2.1)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash Image (gemini-3.1-flash-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash (gemini-3.5-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite (gemini-3.1-flash-lite)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Pro preview (gemini-3.1-pro-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Flash preview (gemini-3-flash-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro (gemini-2.5-pro)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Image (gemini-2.5-flash-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash (gemini-2.5-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash-Lite (gemini-2.5-flash-lite)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash with Gemini Live API native audio (gemini-live-2.5-flash-native-audio)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Virtual Try-On (virtual-try-on-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Transcribe (['gemini-3.5-transcribe', 'gemini-3.5-transcribe-live'])",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Live Translate preview (['gemini-3.5-live-translate-preview'])",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash TTS (gemini-3.8-flash-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash-Lite TTS (gemini-3.8-flash-lite-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Robotics ER 2 preview (gemini-robotics-er-2-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings models"
+      ],
+      [
+        "Gemini Embedding 2 (gemini-embedding-2)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Embedding (gemini-embedding-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Text",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Multimodal",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo on Gemini Enterprise Agent Platform models"
+      ],
+      [
+        "Veo 3.1 Generate (veo-3.1-generate-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Fast Generate (veo-3.1-fast-generate-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Lite Generate preview (veo-3.1-lite-generate-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Speech-to-Text and Text-to-Speech models"
+      ],
+      [
+        "Chirp 3: Transcription (chirp_3)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: HD Voices",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: Instant Custom Voice",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 2: Transcription (chirp_2)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro TTS (gemini-2.5-pro-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash TTS (gemini-2.5-flash-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Lite Preview TTS preview (gemini-2.5-flash-lite-preview-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Montr\u00e9al(northamerica-northeast1)",
+        "S\u00e3o Paulo(southamerica-east1)"
+      ],
+      [
+        "Gemini models"
+      ],
+      [
+        "Gemini 4 Hydrogen (gemini-4-hydrogen)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon (gemini-4-carbon)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon for cyber (gemini-4-carbon-cyber-permissive)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon (gemini-4-argon)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon Cyber Permissive (gemini-4-argon-cyber-permissive)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Live (gemini-3.8-live)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash Cyber (gemini-3.8-flash-cyber)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash (gemini-3.8-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.2 Flash (gemini-omni-1.2-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.1 Flash preview (gemini-omni-1.1-flash-preview)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.7 Flash (gemini-3.7-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.6 Flash (gemini-3.6-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash-Lite (gemini-3.5-flash-lite)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni Flash preview (gemini-omni-flash-preview)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite Image (Nano Banana 2 Lite) (gemini-3.1-flash-lite-image)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Pro Image (gemini-3-pro-image)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Nano Banana 2.1 (gemini-nano-banana-2.1)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash Image (gemini-3.1-flash-image)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash (gemini-3.5-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite (gemini-3.1-flash-lite)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Pro preview (gemini-3.1-pro-preview)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Flash preview (gemini-3-flash-preview)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro (gemini-2.5-pro)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Image (gemini-2.5-flash-image)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash (gemini-2.5-flash)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash-Lite (gemini-2.5-flash-lite)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash with Gemini Live API native audio (gemini-live-2.5-flash-native-audio)",
+        "",
+        ""
+      ],
+      [
+        "Virtual Try-On (virtual-try-on-001)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Transcribe (['gemini-3.5-transcribe', 'gemini-3.5-transcribe-live'])",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Live Translate preview (['gemini-3.5-live-translate-preview'])",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash TTS (gemini-3.8-flash-tts)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash-Lite TTS (gemini-3.8-flash-lite-tts)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Robotics ER 2 preview (gemini-robotics-er-2-preview)",
+        "",
+        ""
+      ],
+      [
+        "Embeddings models"
+      ],
+      [
+        "Gemini Embedding 2 (gemini-embedding-2)",
+        "",
+        ""
+      ],
+      [
+        "Gemini Embedding (gemini-embedding-001)",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Text",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Multimodal",
+        "",
+        ""
+      ],
+      [
+        "Veo on Gemini Enterprise Agent Platform models"
+      ],
+      [
+        "Veo 3.1 Generate (veo-3.1-generate-001)",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Fast Generate (veo-3.1-fast-generate-001)",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Lite Generate preview (veo-3.1-lite-generate-001)",
+        "",
+        ""
+      ],
+      [
+        "Speech-to-Text and Text-to-Speech models"
+      ],
+      [
+        "Chirp 3: Transcription (chirp_3)",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: HD Voices",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: Instant Custom Voice",
+        "",
+        ""
+      ],
+      [
+        "Chirp 2: Transcription (chirp_2)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro TTS (gemini-2.5-pro-tts)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash TTS (gemini-2.5-flash-tts)",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Lite Preview TTS preview (gemini-2.5-flash-lite-preview-tts)",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "London(europe-west2)",
+        "Belgium(europe-west1)",
+        "Netherlands(europe-west4)",
+        "Z\u00fcrich(europe-west6)",
+        "Frankfurt(europe-west3)",
+        "Finland(europe-north1)",
+        "Warsaw(europe-central2)",
+        "Milan(europe-west8)",
+        "Madrid(europe-southwest1)",
+        "Paris(europe-west9)"
+      ],
+      [
+        "Gemini models"
+      ],
+      [
+        "Gemini 4 Hydrogen (gemini-4-hydrogen)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon (gemini-4-carbon)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon for cyber (gemini-4-carbon-cyber-permissive)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon (gemini-4-argon)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon Cyber Permissive (gemini-4-argon-cyber-permissive)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Live (gemini-3.8-live)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash Cyber (gemini-3.8-flash-cyber)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash (gemini-3.8-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.2 Flash (gemini-omni-1.2-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.1 Flash preview (gemini-omni-1.1-flash-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.7 Flash (gemini-3.7-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.6 Flash (gemini-3.6-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash-Lite (gemini-3.5-flash-lite)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni Flash preview (gemini-omni-flash-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite Image (Nano Banana 2 Lite) (gemini-3.1-flash-lite-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Pro Image (gemini-3-pro-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Nano Banana 2.1 (gemini-nano-banana-2.1)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash Image (gemini-3.1-flash-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash (gemini-3.5-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite (gemini-3.1-flash-lite)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Pro preview (gemini-3.1-pro-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Flash preview (gemini-3-flash-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro (gemini-2.5-pro)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Image (gemini-2.5-flash-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash (gemini-2.5-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash-Lite (gemini-2.5-flash-lite)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash with Gemini Live API native audio (gemini-live-2.5-flash-native-audio)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Virtual Try-On (virtual-try-on-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Transcribe (['gemini-3.5-transcribe', 'gemini-3.5-transcribe-live'])",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Live Translate preview (['gemini-3.5-live-translate-preview'])",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash TTS (gemini-3.8-flash-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash-Lite TTS (gemini-3.8-flash-lite-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Robotics ER 2 preview (gemini-robotics-er-2-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings models"
+      ],
+      [
+        "Gemini Embedding 2 (gemini-embedding-2)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Embedding (gemini-embedding-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Text",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Multimodal",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo on Gemini Enterprise Agent Platform models"
+      ],
+      [
+        "Veo 3.1 Generate (veo-3.1-generate-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Fast Generate (veo-3.1-fast-generate-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Lite Generate preview (veo-3.1-lite-generate-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Speech-to-Text and Text-to-Speech models"
+      ],
+      [
+        "Chirp 3: Transcription (chirp_3)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: HD Voices",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: Instant Custom Voice",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 2: Transcription (chirp_2)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro TTS (gemini-2.5-pro-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash TTS (gemini-2.5-flash-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Lite Preview TTS preview (gemini-2.5-flash-lite-preview-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Mumbai(asia-south1)",
+        "Singapore(asia-southeast1)",
+        "Hong Kong(asia-east2)",
+        "Taiwan(asia-east1)",
+        "Tokyo(asia-northeast1)",
+        "Sydney(australia-southeast1)",
+        "Seoul(asia-northeast3)"
+      ],
+      [
+        "Gemini models"
+      ],
+      [
+        "Gemini 4 Hydrogen (gemini-4-hydrogen)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon (gemini-4-carbon)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon for cyber (gemini-4-carbon-cyber-permissive)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon (gemini-4-argon)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon Cyber Permissive (gemini-4-argon-cyber-permissive)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Live (gemini-3.8-live)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash Cyber (gemini-3.8-flash-cyber)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash (gemini-3.8-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.2 Flash (gemini-omni-1.2-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.1 Flash preview (gemini-omni-1.1-flash-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.7 Flash (gemini-3.7-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.6 Flash (gemini-3.6-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash-Lite (gemini-3.5-flash-lite)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni Flash preview (gemini-omni-flash-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite Image (Nano Banana 2 Lite) (gemini-3.1-flash-lite-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Pro Image (gemini-3-pro-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Nano Banana 2.1 (gemini-nano-banana-2.1)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash Image (gemini-3.1-flash-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash (gemini-3.5-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite (gemini-3.1-flash-lite)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Pro preview (gemini-3.1-pro-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Flash preview (gemini-3-flash-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro (gemini-2.5-pro)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Image (gemini-2.5-flash-image)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash (gemini-2.5-flash)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash-Lite (gemini-2.5-flash-lite)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash with Gemini Live API native audio (gemini-live-2.5-flash-native-audio)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Virtual Try-On (virtual-try-on-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Transcribe (['gemini-3.5-transcribe', 'gemini-3.5-transcribe-live'])",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Live Translate preview (['gemini-3.5-live-translate-preview'])",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash TTS (gemini-3.8-flash-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash-Lite TTS (gemini-3.8-flash-lite-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Robotics ER 2 preview (gemini-robotics-er-2-preview)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings models"
+      ],
+      [
+        "Gemini Embedding 2 (gemini-embedding-2)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Embedding (gemini-embedding-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Text",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Multimodal",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo on Gemini Enterprise Agent Platform models"
+      ],
+      [
+        "Veo 3.1 Generate (veo-3.1-generate-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Fast Generate (veo-3.1-fast-generate-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Lite Generate preview (veo-3.1-lite-generate-001)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Speech-to-Text and Text-to-Speech models"
+      ],
+      [
+        "Chirp 3: Transcription (chirp_3)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: HD Voices",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: Instant Custom Voice",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 2: Transcription (chirp_2)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro TTS (gemini-2.5-pro-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash TTS (gemini-2.5-flash-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Lite Preview TTS preview (gemini-2.5-flash-lite-preview-tts)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Tel Aviv(me-west1)",
+        "Doha(me-central1)",
+        "Dammam(me-central2)"
+      ],
+      [
+        "Gemini models"
+      ],
+      [
+        "Gemini 4 Hydrogen (gemini-4-hydrogen)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon (gemini-4-carbon)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Carbon for cyber (gemini-4-carbon-cyber-permissive)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon (gemini-4-argon)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 4 Argon Cyber Permissive (gemini-4-argon-cyber-permissive)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Live (gemini-3.8-live)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash Cyber (gemini-3.8-flash-cyber)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash (gemini-3.8-flash)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.2 Flash (gemini-omni-1.2-flash)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni 1.1 Flash preview (gemini-omni-1.1-flash-preview)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.7 Flash (gemini-3.7-flash)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.6 Flash (gemini-3.6-flash)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash-Lite (gemini-3.5-flash-lite)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Omni Flash preview (gemini-omni-flash-preview)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite Image (Nano Banana 2 Lite) (gemini-3.1-flash-lite-image)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Pro Image (gemini-3-pro-image)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Nano Banana 2.1 (gemini-nano-banana-2.1)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash Image (gemini-3.1-flash-image)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Flash (gemini-3.5-flash)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Flash-Lite (gemini-3.1-flash-lite)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.1 Pro preview (gemini-3.1-pro-preview)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3 Flash preview (gemini-3-flash-preview)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro (gemini-2.5-pro)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Image (gemini-2.5-flash-image)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash (gemini-2.5-flash)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash-Lite (gemini-2.5-flash-lite)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash with Gemini Live API native audio (gemini-live-2.5-flash-native-audio)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Virtual Try-On (virtual-try-on-001)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Transcribe (['gemini-3.5-transcribe', 'gemini-3.5-transcribe-live'])",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.5 Live Translate preview (['gemini-3.5-live-translate-preview'])",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash TTS (gemini-3.8-flash-tts)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 3.8 Flash-Lite TTS (gemini-3.8-flash-lite-tts)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Robotics ER 2 preview (gemini-robotics-er-2-preview)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings models"
+      ],
+      [
+        "Gemini Embedding 2 (gemini-embedding-2)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini Embedding (gemini-embedding-001)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Text",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Embeddings for Multimodal",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo on Gemini Enterprise Agent Platform models"
+      ],
+      [
+        "Veo 3.1 Generate (veo-3.1-generate-001)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Fast Generate (veo-3.1-fast-generate-001)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Veo 3.1 Lite Generate preview (veo-3.1-lite-generate-001)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Speech-to-Text and Text-to-Speech models"
+      ],
+      [
+        "Chirp 3: Transcription (chirp_3)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: HD Voices",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 3: Instant Custom Voice",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Chirp 2: Transcription (chirp_2)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Pro TTS (gemini-2.5-pro-tts)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash TTS (gemini-2.5-flash-tts)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Gemini 2.5 Flash Lite Preview TTS preview (gemini-2.5-flash-lite-preview-tts)",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Global(global)"
+      ],
+      [
+        "Anthropic models"
+      ],
+      [
+        "Anthropic's Claude Haiku 5.5 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5.5 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5.5 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.2 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.1 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.8 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.7 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.6 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.5 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.6 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.5 on Google Cloud (deprecated)",
+        ""
+      ],
+      [
+        "Anthropic's Claude Haiku 4.5 on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.7 Sonnet on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.5 Haiku on Google Cloud",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3 Haiku on Google Cloud (deprecated)",
+        ""
+      ],
+      [
+        "Mistral models"
+      ],
+      [
+        "Mistral Medium 3",
+        ""
+      ],
+      [
+        "Mistral OCR (25.05)",
+        ""
+      ],
+      [
+        "Mistral Small 3.1 (25.03)",
+        ""
+      ],
+      [
+        "Mistral Large (24.07)",
+        ""
+      ],
+      [
+        "Codestral 2",
+        ""
+      ],
+      [
+        "Codestral (24.05)",
+        ""
+      ],
+      [
+        "Grok models"
+      ],
+      [
+        "Grok 4.7",
+        ""
+      ],
+      [
+        "Grok 4.6",
+        ""
+      ],
+      [
+        "Grok 4.20 (Reasoning)",
+        ""
+      ],
+      [
+        "Grok 4.20 (Non-reasoning)",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "United States multi-region(us)",
+        "European Union multi-region(eu)"
+      ],
+      [
+        "Anthropic models"
+      ],
+      [
+        "Anthropic's Claude Haiku 5.5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5.5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5.5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.2 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.1 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.8 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.7 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.6 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.6 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.5 on Google Cloud (deprecated)",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Haiku 4.5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.7 Sonnet on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.5 Haiku on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3 Haiku on Google Cloud (deprecated)",
+        "",
+        ""
+      ],
+      [
+        "Mistral models"
+      ],
+      [
+        "Mistral Medium 3",
+        "",
+        ""
+      ],
+      [
+        "Mistral OCR (25.05)",
+        "",
+        ""
+      ],
+      [
+        "Mistral Small 3.1 (25.03)",
+        "",
+        ""
+      ],
+      [
+        "Mistral Large (24.07)",
+        "",
+        ""
+      ],
+      [
+        "Codestral 2",
+        "",
+        ""
+      ],
+      [
+        "Codestral (24.05)",
+        "",
+        ""
+      ],
+      [
+        "Grok models"
+      ],
+      [
+        "Grok 4.7",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.6",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Reasoning)",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Non-reasoning)",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Oregon(us-west1)",
+        "Las Vegas(us-west4)",
+        "Iowa(us-central1)",
+        "South Carolina(us-east1)",
+        "N. Virginia(us-east4)",
+        "Columbus(us-east5)",
+        "Dallas(us-south1)"
+      ],
+      [
+        "Anthropic models"
+      ],
+      [
+        "Anthropic's Claude Haiku 5.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.2 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.1 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.8 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.7 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.6 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.6 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.5 on Google Cloud (deprecated)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Haiku 4.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.7 Sonnet on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.5 Haiku on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3 Haiku on Google Cloud (deprecated)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral models"
+      ],
+      [
+        "Mistral Medium 3",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral OCR (25.05)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral Small 3.1 (25.03)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral Large (24.07)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Codestral 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Codestral (24.05)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok models"
+      ],
+      [
+        "Grok 4.7",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.6",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Reasoning)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Non-reasoning)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Montr\u00e9al(northamerica-northeast1)",
+        "S\u00e3o Paulo(southamerica-east1)"
+      ],
+      [
+        "Anthropic models"
+      ],
+      [
+        "Anthropic's Claude Haiku 5.5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5.5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5.5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.2 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.1 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.8 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.7 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.6 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.6 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.5 on Google Cloud (deprecated)",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Haiku 4.5 on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.7 Sonnet on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.5 Haiku on Google Cloud",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3 Haiku on Google Cloud (deprecated)",
+        "",
+        ""
+      ],
+      [
+        "Mistral models"
+      ],
+      [
+        "Mistral Medium 3",
+        "",
+        ""
+      ],
+      [
+        "Mistral OCR (25.05)",
+        "",
+        ""
+      ],
+      [
+        "Mistral Small 3.1 (25.03)",
+        "",
+        ""
+      ],
+      [
+        "Mistral Large (24.07)",
+        "",
+        ""
+      ],
+      [
+        "Codestral 2",
+        "",
+        ""
+      ],
+      [
+        "Codestral (24.05)",
+        "",
+        ""
+      ],
+      [
+        "Grok models"
+      ],
+      [
+        "Grok 4.7",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.6",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Reasoning)",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Non-reasoning)",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "London(europe-west2)",
+        "Belgium(europe-west1)",
+        "Netherlands(europe-west4)",
+        "Z\u00fcrich(europe-west6)",
+        "Frankfurt(europe-west3)",
+        "Finland(europe-north1)",
+        "Warsaw(europe-central2)",
+        "Milan(europe-west8)",
+        "Madrid(europe-southwest1)",
+        "Paris(europe-west9)"
+      ],
+      [
+        "Anthropic models"
+      ],
+      [
+        "Anthropic's Claude Haiku 5.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.2 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.1 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.8 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.7 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.6 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.6 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.5 on Google Cloud (deprecated)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Haiku 4.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.7 Sonnet on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.5 Haiku on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3 Haiku on Google Cloud (deprecated)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral models"
+      ],
+      [
+        "Mistral Medium 3",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral OCR (25.05)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral Small 3.1 (25.03)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral Large (24.07)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Codestral 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Codestral (24.05)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok models"
+      ],
+      [
+        "Grok 4.7",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.6",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Reasoning)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Non-reasoning)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Mumbai(asia-south1)",
+        "Singapore(asia-southeast1)",
+        "Hong Kong(asia-east2)",
+        "Taiwan(asia-east1)",
+        "Tokyo(asia-northeast1)",
+        "Sydney(australia-southeast1)",
+        "Seoul(asia-northeast3)"
+      ],
+      [
+        "Anthropic models"
+      ],
+      [
+        "Anthropic's Claude Haiku 5.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.2 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.1 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.8 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.7 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.6 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.6 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.5 on Google Cloud (deprecated)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Haiku 4.5 on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.7 Sonnet on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.5 Haiku on Google Cloud",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3 Haiku on Google Cloud (deprecated)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral models"
+      ],
+      [
+        "Mistral Medium 3",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral OCR (25.05)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral Small 3.1 (25.03)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral Large (24.07)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Codestral 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Codestral (24.05)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok models"
+      ],
+      [
+        "Grok 4.7",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.6",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Reasoning)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Non-reasoning)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Tel Aviv(me-west1)",
+        "Doha(me-central1)",
+        "Dammam(me-central2)"
+      ],
+      [
+        "Anthropic models"
+      ],
+      [
+        "Anthropic's Claude Haiku 5.5 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5.5 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 5 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5.5 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 5 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.2 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5.1 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Fable 5 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.8 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.7 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.6 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Opus 4.5 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.6 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Sonnet 4.5 on Google Cloud (deprecated)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude Haiku 4.5 on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.7 Sonnet on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3.5 Haiku on Google Cloud",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Anthropic's Claude 3 Haiku on Google Cloud (deprecated)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral models"
+      ],
+      [
+        "Mistral Medium 3",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral OCR (25.05)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral Small 3.1 (25.03)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Mistral Large (24.07)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Codestral 2",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Codestral (24.05)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok models"
+      ],
+      [
+        "Grok 4.7",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.6",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Reasoning)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Grok 4.20 (Non-reasoning)",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Global(global)"
+      ],
+      [
+        "Deepseek models"
+      ],
+      [
+        "DeepSeek-V4.1-Flash preview (deepseek-v4.1-flash-maas)",
+        ""
+      ],
+      [
+        "Google models"
+      ],
+      [
+        "Gemma 4 26B A4B IT experimental (gemma-4-26b-a4b-it-maas)",
+        ""
+      ],
+      [
+        "ZAI.org models"
+      ],
+      [
+        "GLM 5.2 preview (glm-5.2-maas)",
+        ""
+      ],
+      [
+        "OpenAI models"
+      ],
+      [
+        "gpt-oss 120B (gpt-oss-120b-maas)",
+        ""
+      ],
+      [
+        "Llama models"
+      ],
+      [
+        "Llama 4 Maverick 17B-128E",
+        ""
+      ],
+      [
+        "Llama 4 Scout 17B-16E",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "United States multi-region(us)",
+        "European Union multi-region(eu)"
+      ],
+      [
+        "Deepseek models"
+      ],
+      [
+        "DeepSeek-V4.1-Flash preview (deepseek-v4.1-flash-maas)",
+        "",
+        ""
+      ],
+      [
+        "Google models"
+      ],
+      [
+        "Gemma 4 26B A4B IT experimental (gemma-4-26b-a4b-it-maas)",
+        "",
+        ""
+      ],
+      [
+        "ZAI.org models"
+      ],
+      [
+        "GLM 5.2 preview (glm-5.2-maas)",
+        "",
+        ""
+      ],
+      [
+        "OpenAI models"
+      ],
+      [
+        "gpt-oss 120B (gpt-oss-120b-maas)",
+        "",
+        ""
+      ],
+      [
+        "Llama models"
+      ],
+      [
+        "Llama 4 Maverick 17B-128E",
+        "",
+        ""
+      ],
+      [
+        "Llama 4 Scout 17B-16E",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Oregon(us-west1)",
+        "Las Vegas(us-west4)",
+        "Iowa(us-central1)",
+        "South Carolina(us-east1)",
+        "N. Virginia(us-east4)",
+        "Columbus(us-east5)",
+        "Dallas(us-south1)"
+      ],
+      [
+        "Deepseek models"
+      ],
+      [
+        "DeepSeek-V4.1-Flash preview (deepseek-v4.1-flash-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Google models"
+      ],
+      [
+        "Gemma 4 26B A4B IT experimental (gemma-4-26b-a4b-it-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ZAI.org models"
+      ],
+      [
+        "GLM 5.2 preview (glm-5.2-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "OpenAI models"
+      ],
+      [
+        "gpt-oss 120B (gpt-oss-120b-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Llama models"
+      ],
+      [
+        "Llama 4 Maverick 17B-128E",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Llama 4 Scout 17B-16E",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Montr\u00e9al(northamerica-northeast1)",
+        "S\u00e3o Paulo(southamerica-east1)"
+      ],
+      [
+        "Deepseek models"
+      ],
+      [
+        "DeepSeek-V4.1-Flash preview (deepseek-v4.1-flash-maas)",
+        "",
+        ""
+      ],
+      [
+        "Google models"
+      ],
+      [
+        "Gemma 4 26B A4B IT experimental (gemma-4-26b-a4b-it-maas)",
+        "",
+        ""
+      ],
+      [
+        "ZAI.org models"
+      ],
+      [
+        "GLM 5.2 preview (glm-5.2-maas)",
+        "",
+        ""
+      ],
+      [
+        "OpenAI models"
+      ],
+      [
+        "gpt-oss 120B (gpt-oss-120b-maas)",
+        "",
+        ""
+      ],
+      [
+        "Llama models"
+      ],
+      [
+        "Llama 4 Maverick 17B-128E",
+        "",
+        ""
+      ],
+      [
+        "Llama 4 Scout 17B-16E",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "London(europe-west2)",
+        "Belgium(europe-west1)",
+        "Netherlands(europe-west4)",
+        "Z\u00fcrich(europe-west6)",
+        "Frankfurt(europe-west3)",
+        "Finland(europe-north1)",
+        "Warsaw(europe-central2)",
+        "Milan(europe-west8)",
+        "Madrid(europe-southwest1)",
+        "Paris(europe-west9)"
+      ],
+      [
+        "Deepseek models"
+      ],
+      [
+        "DeepSeek-V4.1-Flash preview (deepseek-v4.1-flash-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Google models"
+      ],
+      [
+        "Gemma 4 26B A4B IT experimental (gemma-4-26b-a4b-it-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ZAI.org models"
+      ],
+      [
+        "GLM 5.2 preview (glm-5.2-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "OpenAI models"
+      ],
+      [
+        "gpt-oss 120B (gpt-oss-120b-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Llama models"
+      ],
+      [
+        "Llama 4 Maverick 17B-128E",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Llama 4 Scout 17B-16E",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Mumbai(asia-south1)",
+        "Singapore(asia-southeast1)",
+        "Hong Kong(asia-east2)",
+        "Taiwan(asia-east1)",
+        "Tokyo(asia-northeast1)",
+        "Sydney(australia-southeast1)",
+        "Seoul(asia-northeast3)"
+      ],
+      [
+        "Deepseek models"
+      ],
+      [
+        "DeepSeek-V4.1-Flash preview (deepseek-v4.1-flash-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Google models"
+      ],
+      [
+        "Gemma 4 26B A4B IT experimental (gemma-4-26b-a4b-it-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ZAI.org models"
+      ],
+      [
+        "GLM 5.2 preview (glm-5.2-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "OpenAI models"
+      ],
+      [
+        "gpt-oss 120B (gpt-oss-120b-maas)",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Llama models"
+      ],
+      [
+        "Llama 4 Maverick 17B-128E",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Llama 4 Scout 17B-16E",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      [
+        "",
+        "Tel Aviv(me-west1)",
+        "Doha(me-central1)",
+        "Dammam(me-central2)"
+      ],
+      [
+        "Deepseek models"
+      ],
+      [
+        "DeepSeek-V4.1-Flash preview (deepseek-v4.1-flash-maas)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Google models"
+      ],
+      [
+        "Gemma 4 26B A4B IT experimental (gemma-4-26b-a4b-it-maas)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ZAI.org models"
+      ],
+      [
+        "GLM 5.2 preview (glm-5.2-maas)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "OpenAI models"
+      ],
+      [
+        "gpt-oss 120B (gpt-oss-120b-maas)",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Llama models"
+      ],
+      [
+        "Llama 4 Maverick 17B-128E",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Llama 4 Scout 17B-16E",
+        "",
+        "",
+        ""
+      ]
+    ]
+  ],
+  "jev-package.html": [
+    [
+      [
+        "Strategy",
+        "Re-decides",
+        "Result"
+      ],
+      [
+        "adaptive (default)",
+        "At every user message and every compaction",
+        "Picks the complex or standard slot again and re-arms handoff when eligible"
+      ],
+      [
+        "fixed",
+        "On the first user message only",
+        "Exchanges the planning model for the implementation model after the first successful write and keeps it for the rest of the branch"
+      ],
+      [
+        "record",
+        "Routes exactly like fixed",
+        "Logs the upgrade the classifier would have triggered without changing the route"
+      ]
+    ],
+    [
+      [
+        "Source",
+        "Scope"
+      ],
+      [
+        "$JEV_ROUTER_CONFIG",
+        "That file alone. pi reads no other config file."
+      ],
+      [
+        "~/.pi/agent/jev-router.json",
+        "Personal file. With PI_CODING_AGENT_DIR set, the personal file is $PI_CODING_AGENT_DIR/jev-router.json."
+      ],
+      [
+        "<project>/.pi/jev-router.json",
+        "Project file, merged over the personal file."
+      ]
+    ],
+    [
+      [
+        "Field",
+        "Default",
+        "Meaning"
+      ],
+      [
+        "strategy",
+        "adaptive",
+        "adaptive (default), fixed, or record. The old shadow value still parses to record and prints a warning"
+      ],
+      [
+        "provider",
+        "openai-codex",
+        "Provider that holds the slot models"
+      ],
+      [
+        "models.complex",
+        "gpt-6.1-sol",
+        "Planning model for work the classifier marks complex"
+      ],
+      [
+        "models.standard",
+        "gpt-6.1-terra",
+        "Planning model otherwise, and the fallback when the first classification is unavailable"
+      ],
+      [
+        "models.implementation",
+        "gpt-6-luna",
+        "Model after handoff. null or false turns handoff off"
+      ],
+      [
+        "models.direct",
+        "null",
+        "Model for direct requests. null uses models.implementation, then models.standard"
+      ],
+      [
+        "classifier.provider",
+        "typesafe",
+        "Classifier provider. null or false on classifier turns classification off"
+      ],
+      [
+        "classifier.id",
+        "jev-latest",
+        "Classifier model id"
+      ],
+      [
+        "classifier.temperature",
+        "omitted",
+        "Divisor for label logits before normalization. Greater than 0 and at most 100"
+      ],
+      [
+        "classifier.timeoutMs",
+        "omitted",
+        "Deadline for one classifier call, an integer from 1 to 60000. Replaces adaptive.decisionTimeoutMs for that call"
+      ],
+      [
+        "threshold",
+        "0.5",
+        "Probability at or above this value selects models.complex. From 0 to 1"
+      ],
+      [
+        "promptLimit",
+        "16000",
+        "Current-text limit in UTF-16 code units. From 1 to 1000000"
+      ],
+      [
+        "adaptive.decisionTimeoutMs",
+        "3000",
+        "Local deadline for classification, an integer from 1 to 60000. Applies to every strategy"
+      ]
+    ],
+    [
+      [
+        "API",
+        "Example model",
+        "Credentials",
+        "Notes"
+      ],
+      [
+        "typesafe-system-one",
+        "typesafe/jev-latest",
+        "TYPESAFE_API_KEY",
+        "Default. The model has no catalog price, so /jev-router usage reports its cost as unknown."
+      ],
+      [
+        "cloudflare-workers-ai-system-one",
+        "cloudflare-workers-ai/@cf/cloudflare/clef",
+        "CLOUDFLARE_API_KEY and CLOUDFLARE_ACCOUNT_ID",
+        "Also used for Jev models on Workers AI."
+      ],
+      [
+        "llama-cpp-classify",
+        "A chat model on a llama.cpp router",
+        "pi's /login llama.cpp connection. A server API key is optional.",
+        "Needs llama.cpp /tokenize, /apply-template, and /completion."
+      ],
+      [
+        "openai-decisions",
+        "openai/gpt-6-luna",
+        "OPENAI_API_KEY",
+        "A ChatGPT login from /login does not provide this key. Log out of the openai provider before using the key."
+      ]
+    ],
+    [
+      [
+        "Field",
+        "Default",
+        "Meaning"
+      ],
+      [
+        "adaptive.handoffPolicy",
+        "guarded",
+        "guarded, or first-write for the older handoff rule"
+      ],
+      [
+        "adaptive.handoffThreshold",
+        "0.2",
+        "Highest complex probability that still allows guarded handoff. From 0 to 1"
+      ],
+      [
+        "adaptive.maxHandoffContextTokens",
+        "50000",
+        "Largest context estimate that still allows guarded handoff. An integer from 1 to the maximum safe integer"
+      ],
+      [
+        "adaptive.handoffTools",
+        "edit, write",
+        "Tool names whose success can hand off under adaptive"
+      ],
+      [
+        "adaptive.downgradeThreshold",
+        "0.15",
+        "Complex can downgrade at or below this probability. Must be below threshold"
+      ],
+      [
+        "adaptive.minDwellTurns",
+        "2",
+        "Evaluated user turns required in complex before downgrade, from 1 to 20"
+      ],
+      [
+        "adaptive.historyMaxTurns",
+        "4",
+        "Earlier complete turns to keep. An integer from 1 to 8"
+      ],
+      [
+        "adaptive.historyCharLimit",
+        "8000",
+        "History text limit in UTF-16 code units. An integer from 1 to 32000"
+      ]
+    ],
+    [
+      [
+        "Field",
+        "Default",
+        "Meaning"
+      ],
+      [
+        "virtual.provider",
+        "jev",
+        "Provider shown for the virtual model"
+      ],
+      [
+        "virtual.id",
+        "auto",
+        "Model id. The default selection is jev/auto"
+      ],
+      [
+        "virtual.name",
+        "Auto (Jev)",
+        "Name shown in /model"
+      ],
+      [
+        "virtual.thinkingLevels",
+        "low, medium, high, xhigh, max",
+        "Thinking levels offered for the virtual model"
+      ],
+      [
+        "virtual.contextWindow",
+        "272000",
+        "Context window shown before the first routed response"
+      ],
+      [
+        "virtual.maxTokens",
+        "128000",
+        "Max output shown before the first routed response"
+      ],
+      [
+        "diagnostics.record",
+        "false",
+        "Store sanitized decision entries and main-request outcome entries"
+      ],
+      [
+        "debug",
+        "false",
+        "Write routing metadata to stderr. JEV_ROUTER_DEBUG=1 turns the same log on"
+      ]
+    ],
+    [
+      [
+        "Command",
+        "Scope"
+      ],
+      [
+        "/jev-router status",
+        "The configuration loaded at startup: strategy, models, classifier, diagnostics, debug, and the config files pi read"
+      ],
+      [
+        "/jev-router usage",
+        "Current branch"
+      ],
+      [
+        "/jev-router usage --session",
+        "Every entry in the current session file, including abandoned branches"
+      ],
+      [
+        "/jev-router usage --json",
+        "The same summary as JSON"
+      ],
+      [
+        "/jev-router help",
+        "This list. Bare /jev-router prints it too"
+      ]
+    ]
+  ],
+  "openai-data.html": [
+    [
+      [
+        "Endpoint",
+        "Data used for training",
+        "Abuse monitoring retention",
+        "Application state retention",
+        "Zero Data Retention eligible",
+        "Private Retention with PSP and Safety Retention eligible"
+      ],
+      [
+        "/v1/chat/completions",
+        "No",
+        "30 days",
+        "None, see below for exceptions",
+        "Yes, see below for limitations",
+        "Yes, see below for limitations"
+      ],
+      [
+        "/v1/responses",
+        "No",
+        "30 days",
+        "None, see below for exceptions",
+        "Yes, see below for limitations",
+        "Yes, see below for limitations"
+      ],
+      [
+        "/v1/decisions",
+        "No",
+        "30 days",
+        "None, see below for exceptions",
+        "Yes, see below for limitations",
+        "Yes, see below for limitations"
+      ],
+      [
+        "/v1/conversations",
+        "No",
+        "Until deleted",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/conversations/items",
+        "No",
+        "Until deleted",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/chatkit/threads",
+        "No",
+        "Until deleted",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/agents",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/assistants",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/threads",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/threads/messages",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/threads/runs",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/threads/runs/steps",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/vector_stores",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/images/generations",
+        "No",
+        "30 days",
+        "None",
+        "Yes, see below for limitations",
+        "No"
+      ],
+      [
+        "/v1/images/edits",
+        "No",
+        "30 days",
+        "None",
+        "Yes, see below for limitations",
+        "No"
+      ],
+      [
+        "/v1/embeddings",
+        "No",
+        "30 days",
+        "None",
+        "Yes",
+        "No"
+      ],
+      [
+        "/v1/audio/transcriptions",
+        "No",
+        "None",
+        "None",
+        "Yes",
+        "No"
+      ],
+      [
+        "/v1/audio/translations",
+        "No",
+        "None",
+        "None",
+        "Yes",
+        "No"
+      ],
+      [
+        "/v1/audio/speech",
+        "No",
+        "30 days",
+        "None",
+        "Yes",
+        "No"
+      ],
+      [
+        "/v1/audio/voices",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/files",
+        "No",
+        "30 days",
+        "Until deleted*",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/fine_tuning/jobs",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/evals",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/batches",
+        "No",
+        "30 days",
+        "Until deleted",
+        "No",
+        "No"
+      ],
+      [
+        "/v1/moderations",
+        "No",
+        "None",
+        "None",
+        "Yes",
+        "No"
+      ],
+      [
+        "/v1/completions",
+        "No",
+        "30 days",
+        "None",
+        "Yes",
+        "No"
+      ],
+      [
+        "/v1/live/sessions",
+        "No",
+        "30 days",
+        "None, or 30 days if stored",
+        "Yes, with limitations below",
+        "No"
+      ],
+      [
+        "/v1/realtime",
+        "No",
+        "30 days",
+        "None",
+        "Yes",
+        "No"
+      ]
+    ],
+    [
+      [
+        "Region",
+        "Availability",
+        "Supported services"
+      ],
+      [
+        "United Statesus.api.openai.comText, Audio, Voice, Image",
+        "StorageYesProcessingYes",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorageProcessing/v1/batchesStorageProcessing/v1/chat/completionsStorageProcessingShow 23 more services"
+      ],
+      [
+        "Europe (EEA + Switzerland)eu.api.openai.comText, Audio, Voice, Image*",
+        "StorageYesProcessingYesRequires MAM or ZDR**",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorageProcessing/v1/batchesStorageProcessing/v1/chat/completionsStorageProcessingShow 23 more services"
+      ],
+      [
+        "Australiaau.api.openai.comText, Audio, Voice, Image*",
+        "StorageYesProcessingYesRequires MAM or ZDR***",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorage/v1/batchesStorage/v1/chat/completionsStorageProcessinggpt-6-lunaShow 18 more services"
+      ],
+      [
+        "Canadaca.api.openai.comText, Audio, Voice, Image*",
+        "StorageYesProcessingNoRequires MAM or ZDR",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorage/v1/batchesStorage/v1/chat/completionsStorageShow 18 more services"
+      ],
+      [
+        "Japanjp.api.openai.comText, Audio, Voice, Image*",
+        "StorageYesProcessingYesRequires MAM or ZDR***",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorage/v1/batchesStorage/v1/chat/completionsStorageProcessinggpt-6-lunaShow 18 more services"
+      ],
+      [
+        "Indiain.api.openai.comText, Audio, Voice, Image*",
+        "StorageYesProcessingYesRequires MAM or ZDR***",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorage/v1/batchesStorage/v1/chat/completionsStorageProcessinggpt-6-lunaShow 18 more services"
+      ],
+      [
+        "Singaporesg.api.openai.comText, Audio, Voice, Image*",
+        "StorageYesProcessingNoRequires MAM or ZDR",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorage/v1/batchesStorage/v1/chat/completionsStorageShow 18 more services"
+      ],
+      [
+        "South Koreakr.api.openai.comText, Audio, Voice, Image*",
+        "StorageYesProcessingNoRequires MAM or ZDR",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorage/v1/batchesStorage/v1/chat/completionsStorageShow 18 more services"
+      ],
+      [
+        "United Kingdomgb.api.openai.comText, Audio, Voice, Image*",
+        "StorageYesProcessingNoRequires MAM or ZDR",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorage/v1/batchesStorage/v1/chat/completionsStorageShow 18 more services"
+      ],
+      [
+        "United Arab Emiratesae.api.openai.comText, Audio, Voice, Image*",
+        "StorageYesProcessingYesRequires MAM or ZDR",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speechStorage/v1/batchesStorage/v1/chat/completionsStorageProcessinggpt-5.6-lunagpt-5.5-2026-04-23+1 snapshotgpt-5.2-2025-12-11Show 18 more services"
+      ]
+    ],
+    [
+      [
+        "Endpoint or feature",
+        "Service",
+        "Supported models",
+        "Notes"
+      ],
+      [
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech",
+        "Audio",
+        "tts-1whisper-1gpt-4o-tts+ 3 model snapshotsgpt-4o-transcribegpt-4o-mini-transcribegpt-transcribe",
+        "\u2014"
+      ],
+      [
+        "/v1/batches",
+        "Batches",
+        "gpt-6-astragpt-6.1-solgpt-6.1-terra+ 33 model snapshotsgpt-6-solgpt-6-lunagpt-5.5-pro-2026-04-23gpt-5.4-pro-2026-03-05gpt-5.2-pro-2025-12-11gpt-5-pro-2025-10-06gpt-5.6-solgpt-5.6-terragpt-5.6-lunagpt-5.5-2026-04-23gpt-5.4-2026-03-05gpt-5-2025-08-07gpt-5.4-mini-2026-03-17gpt-5.4-nano-2026-03-17gpt-5.2-2025-12-11gpt-5.1-2025-11-13gpt-5-mini-2025-08-07gpt-5-nano-2025-08-07gpt-4.1-2025-04-14gpt-4.1-mini-2025-04-14gpt-4.1-nano-2025-04-14o3-2025-04-16o4-mini-2025-04-16o1-proo1-pro-2025-03-19o3-mini-2025-01-31o1-2024-12-17gpt-4o-2024-11-20gpt-4o-2024-08-06gpt-4o-mini-2024-07-18gpt-4-turbo-2024-04-09gpt-4-0613gpt-3.5-turbo-0125",
+        "GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency."
+      ],
+      [
+        "/v1/chat/completions",
+        "Chat Completions",
+        "gpt-6-astragpt-6.1-solgpt-6.1-terra+ 27 model snapshotsgpt-6-solgpt-6-lunagpt-5.6-solgpt-5.6-terragpt-5.6-lunagpt-5.5-2026-04-23gpt-5.4-2026-03-05gpt-5.4-mini-2026-03-17gpt-5.4-nano-2026-03-17gpt-5.2-2025-12-11gpt-5.1-2025-11-13gpt-5-2025-08-07gpt-5-mini-2025-08-07gpt-5-nano-2025-08-07gpt-4.1-2025-04-14gpt-4.1-mini-2025-04-14gpt-4.1-nano-2025-04-14o3-mini-2025-01-31o3-2025-04-16o4-mini-2025-04-16o1-2024-12-17gpt-4o-2024-11-20gpt-4o-2024-08-06gpt-4o-mini-2024-07-18gpt-4-turbo-2024-04-09gpt-4-0613gpt-3.5-turbo-0125",
+        "Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency."
+      ],
+      [
+        "/v1/decisions",
+        "Decisions",
+        "gpt-6-luna",
+        "Available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Prompt caching is subject to the retention limitations below."
+      ],
+      [
+        "/v1/embeddings",
+        "Embeddings",
+        "text-embedding-3-smalltext-embedding-3-largetext-embedding-ada-002",
+        "\u2014"
+      ],
+      [
+        "/v1/evals",
+        "Evals",
+        "Supported",
+        "\u2014"
+      ],
+      [
+        "/v1/files",
+        "Files",
+        "Supported",
+        "\u2014"
+      ],
+      [
+        "/v1/fine_tuning/jobs",
+        "Fine-tuning",
+        "gpt-4o-2024-08-06gpt-4o-mini-2024-07-18gpt-4.1-2025-04-14+ 1 model snapshotgpt-4.1-mini-2025-04-14",
+        "\u2014"
+      ],
+      [
+        "/v1/images/edits",
+        "Images",
+        "gpt-image-2gpt-image-1.5gpt-image-1-mini",
+        "\u2014"
+      ],
+      [
+        "/v1/images/generations",
+        "Images",
+        "gpt-image-2gpt-image-1.5gpt-image-1-mini",
+        "\u2014"
+      ],
+      [
+        "/v1/moderations",
+        "Moderation",
+        "omni-moderation-latest",
+        "\u2014"
+      ],
+      [
+        "/v1/live/sessions",
+        "GPT-Live",
+        "gpt-live-1",
+        "\u2014"
+      ],
+      [
+        "/v1/realtime",
+        "Realtime",
+        "gpt-realtimegpt-realtime-1.5gpt-realtime-mini+ 3 model snapshotsgpt-realtime-2gpt-realtime-2.1gpt-realtime-2.1-mini",
+        "\u2014"
+      ],
+      [
+        "/v1/realtime/transcription_sessions",
+        "Realtime",
+        "gpt-realtime-whispergpt-live-transcribegpt-transcribe",
+        "\u2014"
+      ],
+      [
+        "/v1/realtime/translations",
+        "Realtime",
+        "gpt-realtime-translate",
+        "\u2014"
+      ],
+      [
+        "/v1/responses",
+        "Responses",
+        "gpt-6-astragpt-6.1-solgpt-6.1-terra+ 33 model snapshotsgpt-6-solgpt-6-lunagpt-5.5-pro-2026-04-23gpt-5.4-pro-2026-03-05gpt-5.2-pro-2025-12-11gpt-5-pro-2025-10-06gpt-5.6-solgpt-5.6-terragpt-5.6-lunagpt-5.5-2026-04-23gpt-5.4-2026-03-05gpt-5-2025-08-07gpt-5.4-mini-2026-03-17gpt-5.4-nano-2026-03-17gpt-5.2-2025-12-11gpt-5.1-2025-11-13gpt-5-mini-2025-08-07gpt-5-nano-2025-08-07gpt-4.1-2025-04-14gpt-4.1-mini-2025-04-14gpt-4.1-nano-2025-04-14o3-2025-04-16o4-mini-2025-04-16o1-proo1-pro-2025-03-19o3-mini-2025-01-31o1-2024-12-17gpt-4o-2024-11-20gpt-4o-2024-08-06gpt-4o-mini-2024-07-18gpt-4-turbo-2024-04-09gpt-4-0613gpt-3.5-turbo-0125",
+        "Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency."
+      ],
+      [
+        "/v1/responses File Search",
+        "Responses",
+        "Supported",
+        "\u2014"
+      ],
+      [
+        "/v1/responses Web Search",
+        "Responses",
+        "Supported",
+        "\u2014"
+      ],
+      [
+        "/v1/vector_stores",
+        "Vector stores",
+        "Supported",
+        "\u2014"
+      ],
+      [
+        "Code Interpreter tool",
+        "Tools",
+        "Supported",
+        "\u2014"
+      ],
+      [
+        "File Search",
+        "Tools",
+        "Supported",
+        "\u2014"
+      ],
+      [
+        "File Uploads",
+        "Files",
+        "Supported",
+        "Supported when used with base64 file uploads."
+      ],
+      [
+        "Remote MCP server tool",
+        "Tools",
+        "Supported",
+        "MCP servers are third-party services. Data sent to an MCP server is subject to its data residency policies."
+      ],
+      [
+        "Scale Tier",
+        "Other",
+        "Supported",
+        "\u2014"
+      ],
+      [
+        "Structured Outputs (excluding schema)",
+        "Other",
+        "Supported",
+        "\u2014"
+      ],
+      [
+        "Supported input modalities",
+        "Other",
+        "TextImageAudio/Voice",
+        "\u2014"
+      ]
+    ],
+    [
+      [
+        "Region",
+        "Domain prefix",
+        "Regional storage",
+        "Regional processing",
+        "MAM or ZDR required",
+        "Supported modes",
+        "Storage services",
+        "Processing services"
+      ],
+      [
+        "United States",
+        "us.api.openai.com",
+        "Yes",
+        "Yes",
+        "No",
+        "Text, Audio, Voice, Image",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/evals/v1/files/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/live/sessions/v1/realtime/v1/realtime/transcription_sessions/v1/realtime/translations/v1/responses/v1/responses File Search/v1/responses Web Search/v1/vector_storesCode Interpreter toolFile SearchFile UploadsRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/evals/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/live/sessions/v1/realtime/v1/realtime/transcription_sessions/v1/realtime/translations/v1/responses/v1/responses File Search/v1/responses Web SearchCode Interpreter toolFile SearchRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities"
+      ],
+      [
+        "Europe (EEA + Switzerland)",
+        "eu.api.openai.com",
+        "Yes",
+        "Yes",
+        "Yes**",
+        "Text, Audio, Voice, Image*",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/evals/v1/files/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/live/sessions/v1/realtime/v1/realtime/transcription_sessions/v1/realtime/translations/v1/responses/v1/responses File Search/v1/responses Web Search/v1/vector_storesCode Interpreter toolFile SearchFile UploadsRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/evals/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/live/sessions/v1/realtime/v1/realtime/transcription_sessions/v1/realtime/translations/v1/responses/v1/responses File Search/v1/responses Web SearchCode Interpreter toolFile SearchRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities"
+      ],
+      [
+        "Australia*",
+        "au.api.openai.com",
+        "Yes",
+        "Yes",
+        "Yes***",
+        "Text, Audio, Voice, Image",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/files/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/responses/v1/responses File Search/v1/responses Web Search/v1/vector_storesCode Interpreter toolFile SearchFile UploadsRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities",
+        "/v1/chat/completions (gpt-6-luna)/v1/responses (gpt-6-luna)"
+      ],
+      [
+        "Canada*",
+        "ca.api.openai.com",
+        "Yes",
+        "No",
+        "Yes",
+        "Text, Audio, Voice, Image",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/files/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/responses/v1/responses File Search/v1/responses Web Search/v1/vector_storesCode Interpreter toolFile SearchFile UploadsRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities",
+        "None"
+      ],
+      [
+        "Japan*",
+        "jp.api.openai.com",
+        "Yes",
+        "Yes",
+        "Yes***",
+        "Text, Audio, Voice, Image",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/files/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/responses/v1/responses File Search/v1/responses Web Search/v1/vector_storesCode Interpreter toolFile SearchFile UploadsRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities",
+        "/v1/chat/completions (gpt-6-luna)/v1/responses (gpt-6-luna)"
+      ],
+      [
+        "India*",
+        "in.api.openai.com",
+        "Yes",
+        "Yes",
+        "Yes***",
+        "Text, Audio, Voice, Image",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/files/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/responses/v1/responses File Search/v1/responses Web Search/v1/vector_storesCode Interpreter toolFile SearchFile UploadsRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities",
+        "/v1/chat/completions (gpt-6-luna)/v1/responses (gpt-6-luna)"
+      ],
+      [
+        "Singapore*",
+        "sg.api.openai.com",
+        "Yes",
+        "No",
+        "Yes",
+        "Text, Audio, Voice, Image",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/files/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/responses/v1/responses File Search/v1/responses Web Search/v1/vector_storesCode Interpreter toolFile SearchFile UploadsRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities",
+        "None"
+      ],
+      [
+        "South Korea*",
+        "kr.api.openai.com",
+        "Yes",
+        "No",
+        "Yes",
+        "Text, Audio, Voice, Image",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/files/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/responses/v1/responses File Search/v1/responses Web Search/v1/vector_storesCode Interpreter toolFile SearchFile UploadsRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities",
+        "None"
+      ],
+      [
+        "United Kingdom*",
+        "gb.api.openai.com",
+        "Yes",
+        "No",
+        "Yes",
+        "Text, Audio, Voice, Image",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/files/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/responses/v1/responses File Search/v1/responses Web Search/v1/vector_storesCode Interpreter toolFile SearchFile UploadsRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities",
+        "None"
+      ],
+      [
+        "United Arab Emirates*",
+        "ae.api.openai.com",
+        "Yes",
+        "Yes",
+        "Yes",
+        "Text, Audio, Voice, Image",
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech/v1/batches/v1/chat/completions/v1/decisions/v1/embeddings/v1/files/v1/fine_tuning/jobs/v1/images/edits/v1/images/generations/v1/moderations/v1/responses/v1/responses File Search/v1/responses Web Search/v1/vector_storesCode Interpreter toolFile SearchFile UploadsRemote MCP server toolScale TierStructured Outputs (excluding schema)Supported input modalities",
+        "/v1/chat/completions (gpt-5.6-luna, gpt-5.5-2026-04-23, gpt-5.2-2025-12-11)/v1/embeddings (text-embedding-3-large)/v1/responses (gpt-5.5-pro-2026-04-23, gpt-5.6-luna, gpt-5.5-2026-04-23, gpt-5.2-2025-12-11)"
+      ]
+    ],
+    [
+      [
+        "Endpoint or feature",
+        "Service",
+        "Storage regions",
+        "Processing regions",
+        "Supported models and snapshots",
+        "Regional processing snapshot exceptions",
+        "Notes"
+      ],
+      [
+        "/v1/audio/transcriptions, /v1/audio/translations, /v1/audio/speech",
+        "Audio",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "tts-1, whisper-1, gpt-4o-tts, gpt-4o-transcribe, gpt-4o-mini-transcribe, gpt-transcribe",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/batches",
+        "Batches",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "gpt-6-astra, gpt-6.1-sol, gpt-6.1-terra, gpt-6-sol, gpt-6-luna, gpt-5.5-pro-2026-04-23, gpt-5.4-pro-2026-03-05, gpt-5.2-pro-2025-12-11, gpt-5-pro-2025-10-06, gpt-5.6-sol, gpt-5.6-terra, gpt-5.6-luna, gpt-5.5-2026-04-23, gpt-5.4-2026-03-05, gpt-5-2025-08-07, gpt-5.4-mini-2026-03-17, gpt-5.4-nano-2026-03-17, gpt-5.2-2025-12-11, gpt-5.1-2025-11-13, gpt-5-mini-2025-08-07, gpt-5-nano-2025-08-07, gpt-4.1-2025-04-14, gpt-4.1-mini-2025-04-14, gpt-4.1-nano-2025-04-14, o3-2025-04-16, o4-mini-2025-04-16, o1-pro, o1-pro-2025-03-19, o3-mini-2025-01-31, o1-2024-12-17, gpt-4o-2024-11-20, gpt-4o-2024-08-06, gpt-4o-mini-2024-07-18, gpt-4-turbo-2024-04-09, gpt-4-0613, gpt-3.5-turbo-0125",
+        "None",
+        "GPT-6.1 Sol, GPT-6.1 Terra, GPT-6 Sol, and GPT-6 Luna support EU data residency with Standard, Flex, and Batch processing. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency."
+      ],
+      [
+        "/v1/chat/completions",
+        "Chat Completions",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland), United Arab Emirates, Australia, India, Japan",
+        "gpt-6-astra, gpt-6.1-sol, gpt-6.1-terra, gpt-6-sol, gpt-6-luna, gpt-5.6-sol, gpt-5.6-terra, gpt-5.6-luna, gpt-5.5-2026-04-23, gpt-5.4-2026-03-05, gpt-5.4-mini-2026-03-17, gpt-5.4-nano-2026-03-17, gpt-5.2-2025-12-11, gpt-5.1-2025-11-13, gpt-5-2025-08-07, gpt-5-mini-2025-08-07, gpt-5-nano-2025-08-07, gpt-4.1-2025-04-14, gpt-4.1-mini-2025-04-14, gpt-4.1-nano-2025-04-14, o3-mini-2025-01-31, o3-2025-04-16, o4-mini-2025-04-16, o1-2024-12-17, gpt-4o-2024-11-20, gpt-4o-2024-08-06, gpt-4o-mini-2024-07-18, gpt-4-turbo-2024-04-09, gpt-4-0613, gpt-3.5-turbo-0125",
+        "United Arab Emirates: gpt-5.6-luna, gpt-5.5-2026-04-23, gpt-5.2-2025-12-11Australia, India, Japan: gpt-6-luna",
+        "Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency."
+      ],
+      [
+        "/v1/decisions",
+        "Decisions",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "gpt-6-luna",
+        "None",
+        "Available in all supported API regions. Regional processing is supported in the United States and Europe (EEA + Switzerland). Prompt caching is subject to the retention limitations below."
+      ],
+      [
+        "/v1/embeddings",
+        "Embeddings",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland), United Arab Emirates",
+        "text-embedding-3-small, text-embedding-3-large, text-embedding-ada-002",
+        "United Arab Emirates: text-embedding-3-large",
+        "\u2014"
+      ],
+      [
+        "/v1/evals",
+        "Evals",
+        "United States, Europe (EEA + Switzerland)",
+        "United States, Europe (EEA + Switzerland)",
+        "Service-level support",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/files",
+        "Files",
+        "All listed regions",
+        "None",
+        "Service-level support",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/fine_tuning/jobs",
+        "Fine-tuning",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "gpt-4o-2024-08-06, gpt-4o-mini-2024-07-18, gpt-4.1-2025-04-14, gpt-4.1-mini-2025-04-14",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/images/edits",
+        "Images",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "gpt-image-2.5-sunburst, gpt-image-2.5-sunburst-2026-09-08, gpt-image-2.5-flare, gpt-image-2.5-flare-2026-09-08, gpt-image-2, gpt-image-1.5, gpt-image-1-mini",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/images/generations",
+        "Images",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "gpt-image-2.5-sunburst, gpt-image-2.5-sunburst-2026-09-08, gpt-image-2.5-flare, gpt-image-2.5-flare-2026-09-08, gpt-image-2, gpt-image-1.5, gpt-image-1-mini",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/moderations",
+        "Moderation",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "omni-moderation-latest",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/live/sessions",
+        "GPT-Live",
+        "United States, Europe (EEA + Switzerland)",
+        "United States, Europe (EEA + Switzerland)",
+        "gpt-live-1",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/realtime",
+        "Realtime",
+        "United States, Europe (EEA + Switzerland)",
+        "United States, Europe (EEA + Switzerland)",
+        "gpt-realtime, gpt-realtime-1.5, gpt-realtime-mini, gpt-realtime-2, gpt-realtime-2.1, gpt-realtime-2.1-mini",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/realtime/transcription_sessions",
+        "Realtime",
+        "United States, Europe (EEA + Switzerland)",
+        "United States, Europe (EEA + Switzerland)",
+        "gpt-realtime-whisper, gpt-live-transcribe, gpt-transcribe",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/realtime/translations",
+        "Realtime",
+        "United States, Europe (EEA + Switzerland)",
+        "United States, Europe (EEA + Switzerland)",
+        "gpt-realtime-translate",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/responses",
+        "Responses",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland), United Arab Emirates, Australia, India, Japan",
+        "gpt-6-astra, gpt-6.1-sol, gpt-6.1-terra, gpt-6-sol, gpt-6-luna, gpt-5.5-pro-2026-04-23, gpt-5.4-pro-2026-03-05, gpt-5.2-pro-2025-12-11, gpt-5-pro-2025-10-06, gpt-5.6-sol, gpt-5.6-terra, gpt-5.6-luna, gpt-5.5-2026-04-23, gpt-5.4-2026-03-05, gpt-5-2025-08-07, gpt-5.4-mini-2026-03-17, gpt-5.4-nano-2026-03-17, gpt-5.2-2025-12-11, gpt-5.1-2025-11-13, gpt-5-mini-2025-08-07, gpt-5-nano-2025-08-07, gpt-4.1-2025-04-14, gpt-4.1-mini-2025-04-14, gpt-4.1-nano-2025-04-14, o3-2025-04-16, o4-mini-2025-04-16, o1-pro, o1-pro-2025-03-19, o3-mini-2025-01-31, o1-2024-12-17, gpt-4o-2024-11-20, gpt-4o-2024-08-06, gpt-4o-mini-2024-07-18, gpt-4-turbo-2024-04-09, gpt-4-0613, gpt-3.5-turbo-0125",
+        "United Arab Emirates: gpt-5.5-pro-2026-04-23, gpt-5.6-luna, gpt-5.5-2026-04-23, gpt-5.2-2025-12-11Australia, India, Japan: gpt-6-luna",
+        "Fast mode supports EU data residency for GPT-6.1 Sol, GPT-6.1 Terra, and GPT-6 Luna. Fast mode is not available with EU data residency for GPT-6 Astra or GPT-6 Sol. GPT-6.1 Sol and GPT-6.1 Terra support only US and EU data residency."
+      ],
+      [
+        "/v1/responses File Search",
+        "Responses",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "Service-level support",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/responses Web Search",
+        "Responses",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "Service-level support",
+        "None",
+        "\u2014"
+      ],
+      [
+        "/v1/vector_stores",
+        "Vector stores",
+        "All listed regions",
+        "None",
+        "Service-level support",
+        "None",
+        "\u2014"
+      ],
+      [
+        "Code Interpreter tool",
+        "Tools",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "Service-level support",
+        "None",
+        "\u2014"
+      ],
+      [
+        "File Search",
+        "Tools",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "Service-level support",
+        "None",
+        "\u2014"
+      ],
+      [
+        "File Uploads",
+        "Files",
+        "All listed regions",
+        "None",
+        "Service-level support",
+        "None",
+        "Supported when used with base64 file uploads."
+      ],
+      [
+        "Remote MCP server tool",
+        "Tools",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "Service-level support",
+        "None",
+        "MCP servers are third-party services. Data sent to an MCP server is subject to its data residency policies."
+      ],
+      [
+        "Scale Tier",
+        "Other",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "Service-level support",
+        "None",
+        "\u2014"
+      ],
+      [
+        "Structured Outputs (excluding schema)",
+        "Other",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "Service-level support",
+        "None",
+        "\u2014"
+      ],
+      [
+        "Supported input modalities",
+        "Other",
+        "All listed regions",
+        "United States, Europe (EEA + Switzerland)",
+        "Text, Image, Audio/Voice",
+        "None",
+        "\u2014"
+      ]
+    ]
+  ],
+  "openai-sol.html": [
+    [
+      [
+        "Provider",
+        "Model ID"
+      ],
+      [
+        "Amazon Bedrock",
+        "openai.gpt-6.1-sol"
+      ],
+      [
+        "Google CloudPrivate preview",
+        "gpt-6.1-sol"
+      ]
+    ],
+    [
+      [
+        "Tier",
+        "RPM",
+        "TPM"
+      ],
+      [
+        "Free",
+        "Not supported"
+      ],
+      [
+        "Build",
+        "5,000",
+        "1,000,000"
+      ],
+      [
+        "Launch",
+        "10,000",
+        "4,000,000"
+      ],
+      [
+        "Grow",
+        "15,000",
+        "40,000,000"
+      ]
+    ]
+  ],
+  "petronella-deepseek.html": [],
+  "petronella-qwen.html": []
+}

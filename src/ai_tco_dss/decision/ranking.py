@@ -48,7 +48,18 @@ def rank_candidates(inp: RankingInput, params: EngineParameters) -> RankingResul
     weight_contract = CriterionWeights(
         **dict(zip((c.value for c in Criterion), norm_weights, strict=True))
     )
-    raws = [_raw(c) for c in inp.feasible]
+    originals = [_raw(c) for c in inp.feasible]
+    raws = [
+        tuple(
+            min(x, inp.tps_target)
+            if j == 2 and x is not None and inp.tps_target is not None
+            else max(x, inp.ttft_target)
+            if j == 3 and x is not None and inp.ttft_target is not None
+            else x
+            for j, x in enumerate(row)
+        )
+        for row in originals
+    ]
     ranges = [tuple(x for row in raws if (x := row[j]) is not None) for j in range(6)]
     rows = []
     for candidate, raw in zip(inp.feasible, raws, strict=True):
@@ -65,7 +76,7 @@ def rank_candidates(inp: RankingInput, params: EngineParameters) -> RankingResul
             criteria.append(
                 CriterionScore(
                     criterion=criterion,
-                    raw=x,
+                    raw=_raw(candidate)[j],
                     missing=x is None,
                     normalised=normalised,
                     weight=weight,
@@ -155,6 +166,8 @@ def rank_candidates(inp: RankingInput, params: EngineParameters) -> RankingResul
                 f"(D+ {top.d_plus:.3f}, D- {top.d_minus:.3f}; SAW rank {top.saw_rank}). "
                 "SAW contributions are shown for comparison. " + " ".join(top.evaluation.notes)
             )
+    if explanation and (inp.tps_target is not None or inp.ttft_target is not None):
+        explanation += " Performance scores saturate at the requested TPS and TTFT targets."
     return RankingResult(
         method=inp.method,
         weights_normalised=weight_contract,

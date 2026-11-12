@@ -1,0 +1,910 @@
+"""End-to-end TTFT / decode over streaming HTTP. Stdlib only (tokenizers / transformers used if importable).
+
+Two uses:
+
+1. Generic (unchanged): any OpenAI-compatible server (oMLX, llama-server, ds4-server...), schema 2 rows on stdout.
+
+    python3 tools/stream_bench.py --url http://127.0.0.1:8000/v1 --model <id> --runtime omlx \
+        --label "oQ2e-mtp" --ctx 1024,4096,16384,32768,65536,131072 -n 3 >> results_long.jsonl
+
+2. Round 2, apps as a user runs them: oMLX (OpenAI endpoint + oMLX extras) vs Ollama (native /api/chat),
+   schema 3 rows appended to --out (one row per model x app config x context rung).
+
+    python3 tools/stream_bench.py --matrix apps.json --dry-run                      # zero network calls
+    python3 tools/stream_bench.py --matrix apps.json --apps omlx-mtp-off --omlx-version 0.7.3 --out results_apps.jsonl
+    python3 tools/stream_bench.py --matrix apps.json --apps ollama-default --server-env default --out results_apps.jsonl
+    python3 tools/stream_bench.py --check-pairs results_apps.jsonl
+    # single model, round-2 protocol: --backend omlx|ollama --url <server root> --model <id or tag> --app-config <label>
+
+Protocol per (model, app config, rung): 1 warm-up at the same context (same num_ctx on Ollama, not recorded as a
+trial), then N measured trials, temperature 0, fixed seed, fixed max output tokens, cooldown between trials and
+between rungs. Every prompt = per-trial nonce + deterministic filler sized to the rung + an instruction that makes the
+model write long output (no ignore_eos on oMLX). The same trial index gets the same nonce and text on both apps.
+The script never changes server settings: it reads them, records them, and aborts on a mismatch.
+"""
+# ---------------------------------------------------------------------------------------------------------------
+# Sources for the server behaviour relied on below.
+#
+# oMLX -- verified in the installed 0.7.2 source (omlx/api/openai_models.py, omlx/server.py,
+#         omlx/admin/routes.py, omlx/model_settings.py) and <git remote>
+#   * POST /v1/chat/completions accepts model, messages, temperature, top_p, top_k, max_tokens, stream,
+#     stream_options.include_usage, seed, enable_thinking, chat_template_kwargs, specprefill.
+#     It does NOT support ignore_eos: generation length is driven by the prompt instruction instead.
+#   * The streamed usage chunk carries usage.prompt_tokens, usage.completion_tokens and
+#     usage.prompt_tokens_details.cached_tokens (prompt tokens served from the prefix cache): cache-hit proof.
+#   * Request header "X-oMLX-Cache-Store: off" keeps a request out of the prefix cache (0.7.3.dev1, PR #4815;
+#     0.7.2 ignores it). It does not stop a request from reusing prefixes stored by others, hence the nonce at
+#     the very start of the user message. Always sent; rows record whether the version honours it.
+#   * Lightning MTP / speculative decoding is a per-model setting, not a request field: mtp_enabled,
+#     dflash_enabled, specprefill_enabled, vlm_mtp_enabled. Read via GET /admin/api/models (the main API key works
+#     as Bearer), stored in ~/.omlx/model_settings.json, changed via PUT /admin/api/models/{model_id}/settings.
+#     ON by default for models with an MTP head; only works if the checkpoint contains MTP weights.
+#   * Response header X-oMLX-Request-ID (recorded per trial to cross-check server logs).
+#   * Model ids = subdirectory names of settings.json model.model_dirs.
+#   * `omlx serve --no-cache` disables the prefix/SSD cache server-wide (--omlx-cache-mode no-cache-server).
+#
+# Ollama -- <git remote> and https://docs.ollama.com/api
+#   * Native POST /api/chat (NDJSON stream), not the OpenAI shim, so num_ctx can be set per request:
+#     {model, messages, stream, think, keep_alive, options: {num_ctx, num_predict, temperature, seed}}.
+#   * Final chunk (done: true): total_duration, load_duration, prompt_eval_count, prompt_eval_cached_count,
+#     prompt_eval_duration, eval_count, eval_duration (ns). prompt_eval_cached_count is the cache-hit proof.
+#   * GET /api/version, GET /api/tags (digest, details.format, details.quantization_level), POST /api/show,
+#     GET /api/ps (size_vram, context_length if present).
+#   * Changing num_ctx reloads the model: warm-up uses the rung's num_ctx; trials with load_duration > 0.5 s flagged.
+#   * OLLAMA_FLASH_ATTENTION, OLLAMA_KV_CACHE_TYPE, OLLAMA_NUM_PARALLEL, OLLAMA_CONTEXT_LENGTH, OLLAMA_KEEP_ALIVE
+#     are server env vars the API does not expose: recorded from --server-env (+ read-only `launchctl getenv`).
+#     ollama-default = Ollama's defaults (all OLLAMA_* unset) + explicit per-request num_ctx: --server-env default.
+# ---------------------------------------------------------------------------------------------------------------
+import argparse, datetime, glob, importlib.util, json, math, os, random, re, statistics, struct, subprocess, sys, time
+import urllib.error, urllib.parse, urllib.request
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+SCHEMA = 3
+WORDS = ("the of and to in is that for it as with was on be by this are from at or an have not which but "
+         "they you were his all one can had her there their we been has when who will more no if out so").split()
+INSTRUCTION = "\n\nRepeat the text above word for word, from the beginning, without any comment."
+APP_CONFIGS = {
+    "omlx-mtp-off": {"app": "omlx", "mtp": False},
+    "omlx-mtp-on": {"app": "omlx", "mtp": True},
+    "ollama-default": {"app": "ollama"},
+}
+OMLX_SPEC_KEYS = ("mtp_enabled", "dflash_enabled", "specprefill_enabled", "vlm_mtp_enabled")
+OLLAMA_ENV_KEYS = ("OLLAMA_FLASH_ATTENTION", "OLLAMA_KV_CACHE_TYPE", "OLLAMA_NUM_PARALLEL",
+                   "OLLAMA_CONTEXT_LENGTH", "OLLAMA_KEEP_ALIVE", "OLLAMA_MAX_LOADED_MODELS", "OLLAMA_MAX_QUEUE",
+                   "OLLAMA_NEW_ENGINE", "OLLAMA_SCHED_SPREAD", "OLLAMA_GPU_OVERHEAD", "OLLAMA_LOAD_TIMEOUT",
+                   "OLLAMA_MULTIUSER_CACHE", "OLLAMA_LLM_LIBRARY", "OLLAMA_DEBUG", "OLLAMA_MODELS", "OLLAMA_HOST",
+                   "OLLAMA_ORIGINS", "OLLAMA_NOPRUNE", "OLLAMA_NOHISTORY")
+OMLX_HEADER_MIN = (0, 7, 3)          # X-oMLX-Cache-Store honoured from 0.7.3.dev1
+ENDPOINT = {"omlx": "/v1/chat/completions", "ollama": "/api/chat", "openai": "/chat/completions"}
+TEMPLATE_OVERHEAD = 16               # chat-template tokens added around the user text (tokenizers-only sizing)
+LOAD_FLAG_S = 0.5
+PAIR_TOLERANCE = 0.02
+TTFT_METHOD = ("client-side, time.perf_counter from just before the HTTP request to the first streamed content or "
+               "reasoning token, over HTTP streaming on localhost; per-trial nonce at the start of the prompt; oMLX: "
+               "X-oMLX-Cache-Store: off header (honoured from 0.7.3); cache hits checked per trial with the "
+               "server's cached-token count")
+DECODE_METHOD = ("client-side: (server-reported completion/eval tokens - 1) / (time of last streamed token - time of "
+                 "first); reasoning tokens included; with oMLX MTP on, accepted speculative tokens are counted, so "
+                 "omlx-mtp-on is an app-level speed, not raw decode")
+
+
+# ---------- small helpers ----------
+
+def tilde(p):
+    h = os.path.expanduser("~")
+    return "~" + str(p)[len(h):] if str(p).startswith(h) else str(p)
+
+
+def now_iso():
+    return datetime.datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+def sh(*cmd):
+    """Read-only local command; metadata only, never fails a run."""
+    try:
+        return subprocess.run(cmd, check=True, text=True, capture_output=True, timeout=15).stdout.strip()
+    except Exception:
+        return None
+
+
+def machine():
+    """Chip, RAM, macOS only: never hostname, serial, UUID or user name."""
+    mem = sh("sysctl", "-n", "hw.memsize")
+    return {"chip": sh("sysctl", "-n", "machdep.cpu.brand_string"), "hw_model": sh("sysctl", "-n", "hw.model"),
+            "memory_gb": round(int(mem) / 2**30) if mem and mem.isdigit() else None,
+            "macos": sh("sw_vers", "-productVersion"), "macos_build": sh("sw_vers", "-buildVersion"),
+            "wired_limit_mb": sh("sysctl", "-n", "iogpu.wired_limit_mb")}
+
+
+def swap_used_mb():
+    m = re.search(r"used = ([\d.]+)M", sh("sysctl", "-n", "vm.swapusage") or "")
+    return float(m.group(1)) if m else None
+
+
+def thermal():
+    t = sh("pmset", "-g", "therm") or ""
+    lines = [l.strip() for l in t.splitlines() if l.strip() and not l.startswith("Note")]
+    return "; ".join(lines) or "no thermal warning recorded"
+
+
+def version_tuple(s):
+    return tuple(int(x) for x in re.findall(r"\d+", s or "")[:3])
+
+
+def med(xs, nd=2):
+    xs = [x for x in xs if x is not None]
+    return round(statistics.median(xs), nd) if xs else None
+
+
+def std(xs, nd=2):
+    xs = [x for x in xs if x is not None]
+    return round(statistics.stdev(xs), nd) if len(xs) > 1 else None
+
+
+def ollama_num_ctx(ctx, max_tokens):
+    return math.ceil((ctx + max_tokens + 256) / 256) * 256
+
+
+def launchctl_ollama_env():
+    """Best effort, read-only: OLLAMA_* vars visible to launchd (where Ollama.app gets its env). Known keys via
+    `launchctl getenv`, plus any other OLLAMA_* key listed by `launchctl print gui/<uid>`."""
+    found = {k: sh("launchctl", "getenv", k) or None for k in OLLAMA_ENV_KEYS}
+    dump = sh("launchctl", "print", f"gui/{os.getuid()}") or ""
+    for k, v in re.findall(r"^\s*(OLLAMA_\w+)\s*=>\s*(.*?)\s*$", dump, re.M):
+        if not found.get(k):
+            found[k] = v or None
+    return found
+
+
+def server_env_record(spec):
+    """--server-env: "default" (every OLLAMA_* unset = Ollama defaults, checked against launchctl) or "K=V,...".
+    Returns the dict stored in rows as server_env, or raises AbortRun."""
+    if not (spec or "").strip():
+        raise AbortRun('--server-env is required for ollama-default: "default" (all OLLAMA_* server vars unset) or '
+                       '"K=V,K=V" (explicit values); the API does not expose server env vars')
+    seen = launchctl_ollama_env()
+    if spec.strip() == "default":
+        set_ = {k: v for k, v in seen.items() if v}
+        if set_:
+            raise AbortRun("--server-env default, but launchctl shows OLLAMA_* set: "
+                           + ", ".join(f"{k}={v}" for k, v in sorted(set_.items()))
+                           + "\n  unset them (launchctl unsetenv <KEY>, then quit and relaunch Ollama.app) or record "
+                             "them explicitly with --server-env \"K=V,...\" (a separately labelled config)")
+        return {"mode": "default", "launchctl": seen}
+    env = parse_env(spec)
+    if not env or any(not k or not k.startswith("OLLAMA_") for k in env):
+        raise AbortRun(f'--server-env {spec!r}: expected "default" or "OLLAMA_X=V,OLLAMA_Y=W"')
+    return {"mode": "explicit", "values": env, "launchctl": seen}
+
+
+def parse_env(s):
+    out = {}
+    for kv in filter(None, (x.strip() for x in (s or "").split(","))):
+        k, _, v = kv.partition("=")
+        out[k.strip()] = v.strip()
+    return out
+
+
+def cooldown(seconds, why):
+    if seconds > 0:
+        print(f"# cooldown {seconds}s ({why})", file=sys.stderr, flush=True)
+        time.sleep(seconds)
+
+
+# ---------- prompt (identical text on both apps) ----------
+
+def filler(n_words, seed):
+    rng = random.Random(f"filler:{seed}")
+    return " ".join(rng.choice(WORDS) for _ in range(n_words))
+
+
+def nonce(seed, model, ctx, trial):
+    return f"[{random.Random(f'nonce:{seed}:{model}:{ctx}:{trial}').getrandbits(64):016x}]"
+
+
+def user_text(n_words, seed, nonce_s):
+    return f"{nonce_s} {filler(n_words, seed)}{INSTRUCTION}"
+
+
+def sizing_method_available():
+    if importlib.util.find_spec("transformers") and importlib.util.find_spec("jinja2"):
+        return "transformers"
+    if importlib.util.find_spec("tokenizers"):
+        return "tokenizers"
+    return "server-calibrated"
+
+
+def token_counter(mlx_dir):
+    """Returns (method, count(text) -> prompt tokens incl. chat template) or ('server-calibrated', None)."""
+    d = os.path.expanduser(mlx_dir or "")
+    if not d or not os.path.isdir(d):
+        return "server-calibrated", None
+    method = sizing_method_available()
+    try:
+        if method == "transformers":
+            from transformers import AutoTokenizer
+            tok = AutoTokenizer.from_pretrained(d)
+
+            def count(text):
+                ids = tok.apply_chat_template([{"role": "user", "content": text}], add_generation_prompt=True,
+                                              tokenize=True, enable_thinking=False)
+                if hasattr(ids, "keys"):          # transformers 5 may return a BatchEncoding
+                    ids = ids["input_ids"]
+                return len(ids)
+            return "transformers apply_chat_template (MLX dir tokenizer)", count
+        if method == "tokenizers" and os.path.exists(os.path.join(d, "tokenizer.json")):
+            from tokenizers import Tokenizer
+            tok = Tokenizer.from_file(os.path.join(d, "tokenizer.json"))
+            return (f"tokenizers tokenizer.json + {TEMPLATE_OVERHEAD} template tokens",
+                    lambda text: len(tok.encode(text).ids) + TEMPLATE_OVERHEAD)
+    except Exception as e:
+        print(f"# tokenizer sizing unavailable for {tilde(d)} ({type(e).__name__}: {e})", file=sys.stderr)
+    return "server-calibrated", None
+
+
+def words_for(count, ctx, seed):
+    """Filler word count whose formatted prompt is ~ctx tokens (within 0.2 %)."""
+    n = max(1, ctx - 64)
+    c = count(user_text(n, seed, nonce(seed, "sizing", ctx, 0)))
+    for _ in range(8):
+        if abs(c - ctx) <= max(2, ctx * 0.002):
+            break
+        n = max(1, n + round((ctx - c) * n / max(c, 1)))
+        c = count(user_text(n, seed, nonce(seed, "sizing", ctx, 0)))
+    return n, c
+
+
+class Sizing:
+    """Per (model, ctx, seed) filler word counts, persisted next to --out so both apps get the same text even when
+    the first app calibrated the size from its own prompt_tokens (no tokenizer package installed)."""
+
+    def __init__(self, path):
+        self.path = path
+        self.d = json.load(open(path)) if path and os.path.exists(path) else {}
+
+    def get(self, model, ctx, seed):
+        return self.d.get(f"{model}|{ctx}|{seed}")
+
+    def put(self, model, ctx, seed, n_words, method, expected):
+        self.d[f"{model}|{ctx}|{seed}"] = {"n_words": n_words, "method": method, "expected_prompt_tokens": expected}
+        if self.path:
+            with open(self.path, "w") as f:
+                json.dump(self.d, f, indent=1, sort_keys=True)
+
+
+# ---------- offline checkpoint inspection ----------
+
+MTP_TENSOR = re.compile(r"(^|[._])(mtp|nextn)([._]|$)", re.I)
+
+
+def tensor_names(mlx_dir):
+    d = os.path.expanduser(mlx_dir)
+    idx = os.path.join(d, "model.safetensors.index.json")
+    if os.path.exists(idx):
+        return set(json.load(open(idx)).get("weight_map", {}))
+    names = set()
+    for f in sorted(glob.glob(os.path.join(d, "*.safetensors"))):   # no index: read each file's JSON header only
+        with open(f, "rb") as fh:
+            n = struct.unpack("<Q", fh.read(8))[0]
+            names |= set(json.loads(fh.read(n))) - {"__metadata__"}
+    return names
+
+
+def mtp_head(mlx_dir):
+    """(has_head, note): MTP / nextn tensors present in the checkpoint, checked offline."""
+    d = os.path.expanduser(mlx_dir or "")
+    if not d or not os.path.isdir(d):
+        return None, "mlx dir missing"
+    try:
+        hits = sorted(n for n in tensor_names(d) if MTP_TENSOR.search(n))
+    except Exception as e:
+        return None, f"unreadable ({type(e).__name__})"
+    if hits:
+        return True, f"{len(hits)} MTP tensors (e.g. {hits[0]})"
+    cfg = {}
+    try:
+        cfg = json.load(open(os.path.join(d, "config.json")))
+    except Exception:
+        pass
+    declared = {k: v for k, v in cfg.get("text_config", cfg).items() if re.search("mtp|nextn", k, re.I) and v}
+    return False, ("config declares " + ", ".join(f"{k}={v}" for k, v in declared.items())
+                   + " but no MTP weights (stripped in conversion)") if declared else "no MTP tensors"
+
+
+def max_context(mlx_dir):
+    try:
+        cfg = json.load(open(os.path.join(os.path.expanduser(mlx_dir), "config.json")))
+        return cfg.get("text_config", cfg).get("max_position_embeddings")
+    except Exception:
+        return None
+
+
+# ---------- HTTP ----------
+
+def http_json(method, url, body=None, headers=None, timeout=30):
+    req = urllib.request.Request(url, json.dumps(body).encode() if body is not None else None,
+                                 {"Content-Type": "application/json", **(headers or {})}, method=method)
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return json.loads(r.read() or b"null")
+
+
+def server_up(url):
+    try:
+        urllib.request.urlopen(url, timeout=2).close()
+        return True
+    except urllib.error.HTTPError:
+        return True                        # answered (401, 404...): a server is listening
+    except Exception:
+        return False
+
+
+def trial_openai(base, model, text, max_tokens, seed, extra_body=None, headers=None, ignore_eos=False):
+    """One streamed request to an OpenAI-compatible /chat/completions (generic server or oMLX)."""
+    body = {"model": model, "stream": True, "max_tokens": max_tokens, "temperature": 0,
+            "stream_options": {"include_usage": True}, "messages": [{"role": "user", "content": text}],
+            **(extra_body or {})}
+    if seed is not None:
+        body["seed"] = seed
+    if ignore_eos:
+        body["ignore_eos"] = True
+    req = urllib.request.Request(base.rstrip("/") + "/chat/completions", json.dumps(body).encode(),
+                                 {"Content-Type": "application/json", **(headers or {})})
+    first = last = None; chunks = reason_chunks = 0; usage = None; finish = None
+    t0 = time.perf_counter()
+    with urllib.request.urlopen(req, timeout=4 * 3600) as resp:
+        rid = resp.headers.get("X-oMLX-Request-ID")
+        for raw in resp:
+            line = raw.decode("utf-8", "replace").strip()
+            if not line.startswith("data:"):
+                continue
+            data = line[5:].strip()
+            if data == "[DONE]":
+                break
+            ev = json.loads(data)
+            if ev.get("error"):
+                raise RuntimeError(f"server error: {ev['error']}")
+            usage = ev.get("usage") or usage
+            for ch in ev.get("choices") or []:
+                d = ch.get("delta") or {}
+                r = d.get("reasoning_content") or d.get("reasoning")
+                if d.get("content") or r:
+                    last = time.perf_counter(); first = first or last
+                    chunks += 1; reason_chunks += bool(r)
+                finish = ch.get("finish_reason") or finish
+    u = usage or {}
+    gen = u.get("completion_tokens") or chunks
+    out = {"ttft_s": first - t0 if first else None, "prompt_tokens": u.get("prompt_tokens"), "generated_tokens": gen,
+           "streamed_chunks": chunks, "reasoning_chunks": reason_chunks,
+           "reasoning_tokens": (u.get("completion_tokens_details") or {}).get("reasoning_tokens", reason_chunks),
+           "cached_tokens": (u.get("prompt_tokens_details") or {}).get("cached_tokens"),
+           "request_id": rid, "finish_reason": finish, "usage_reported": usage is not None}
+    out["decode_tps"] = (gen - 1) / (last - first) if first and gen > 1 and last > first else None
+    return out
+
+
+def trial_ollama(base, tag, text, max_tokens, seed, num_ctx, keep_alive):
+    body = {"model": tag, "messages": [{"role": "user", "content": text}], "stream": True, "think": False,
+            "keep_alive": keep_alive,
+            "options": {"num_ctx": num_ctx, "num_predict": max_tokens, "temperature": 0, "seed": seed}}
+    req = urllib.request.Request(base.rstrip("/") + "/api/chat", json.dumps(body).encode(),
+                                 {"Content-Type": "application/json"})
+    first = last = None; chunks = reason_chunks = 0; final = {}
+    t0 = time.perf_counter()
+    with urllib.request.urlopen(req, timeout=4 * 3600) as resp:
+        for raw in resp:
+            line = raw.decode("utf-8", "replace").strip()
+            if not line:
+                continue
+            ev = json.loads(line)
+            if ev.get("error"):
+                raise RuntimeError(f"server error: {ev['error']}")
+            m = ev.get("message") or {}
+            if m.get("content") or m.get("thinking"):
+                last = time.perf_counter(); first = first or last
+                chunks += 1; reason_chunks += bool(m.get("thinking"))
+            if ev.get("done"):
+                final = ev
+                break
+    ns = {k: final.get(k) for k in ("total_duration", "load_duration", "prompt_eval_count", "prompt_eval_cached_count",
+                                    "prompt_eval_duration", "eval_count", "eval_duration")}
+    gen = ns["eval_count"] or chunks
+    rate = lambda n, d: n / (d / 1e9) if n and d else None
+    out = {"ttft_s": first - t0 if first else None, "prompt_tokens": ns["prompt_eval_count"], "generated_tokens": gen,
+           "streamed_chunks": chunks, "reasoning_chunks": reason_chunks, "reasoning_tokens": reason_chunks,
+           "cached_tokens": ns["prompt_eval_cached_count"], "request_id": None, "finish_reason": final.get("done_reason"),
+           "server_timings_ns": ns, "load_duration_s": ns["load_duration"] / 1e9 if ns["load_duration"] else 0.0,
+           "server_prefill_tps": rate(ns["prompt_eval_count"], ns["prompt_eval_duration"]),
+           "server_decode_tps": rate(ns["eval_count"], ns["eval_duration"])}
+    out["decode_tps"] = (gen - 1) / (last - first) if first and gen > 1 and last > first else None
+    return out
+
+
+# ---------- generic mode (schema 2, unchanged behaviour) ----------
+
+def legacy_main(a):
+    ctxs = a.ctx or "1024,4096,16384,32768,65536,131072"
+    cpt = a.chars_per_token
+    headers = {"Authorization": f"Bearer {a.api_key}"}
+
+    def text(n_tokens, seed):
+        words, size, rng = [], 0, random.Random(seed)
+        while size < int(n_tokens * cpt):
+            w = rng.choice(WORDS); words.append(w); size += len(w) + 1
+        return f"[{random.getrandbits(64):016x}] " + " ".join(words) + "\nSummarise."
+
+    def trial(n, seed):
+        try:
+            return trial_openai(a.url, a.model, text(n, seed), a.g, None, headers=headers, ignore_eos=True)
+        except Exception as e:
+            print(f"# trial failed: {e}", file=sys.stderr)
+            return {"ttft_s": None, "decode_tps": None, "prompt_tokens": None, "generated_tokens": 0}
+
+    for n in map(int, ctxs.split(",")):
+        trial(min(n, 1024), 0)                       # warm-up
+        rs = [trial(n, i + 1) for i in range(a.n)]
+        if rs[0]["prompt_tokens"]:
+            cpt *= n / rs[0]["prompt_tokens"]        # recalibrate for the next length
+        tt = [r["ttft_s"] for r in rs if r["ttft_s"] is not None]; tg = [r["decode_tps"] for r in rs if r["decode_tps"]]
+        pt = rs[0]["prompt_tokens"] or n
+        row = {"schema": 2, "runtime": a.runtime, "runtime_version": a.runtime_version, "model": a.model,
+               "quant": a.label, "prompt_tokens": pt, "depth": pt, "ttft_s": round(statistics.median(tt), 2) if tt else None,
+               "ttft_method": "measured end-to-end over HTTP streaming, prefix cache defeated by nonce",
+               # N / TTFT end to end (HTTP, tokenisation, queueing): not the cold prefill of llama-bench's prefill_tps
+               "prefill_tps_e2e": round(pt / statistics.median(tt), 1) if tt else None,
+               "decode_tps": round(statistics.median(tg), 2) if tg else None,
+               "decode_tps_std": round(statistics.stdev(tg), 2) if len(tg) > 1 else None,
+               "decode_method": "streamed chunks after first token (MTP/speculation counted if enabled)",
+               "samples_ttft": tt, "samples_decode": tg, "generated_tokens": rs[0]["generated_tokens"],
+               "trials": a.n, "date": time.strftime("%Y-%m-%d")}
+        if len(tt) < len(rs):
+            row["error"] = f"{len(rs) - len(tt)} of {len(rs)} trials streamed no token"
+        print(json.dumps(row), flush=True)
+        print(f"# {n}: ttft {statistics.median(tt) if tt else 0:.1f}s decode {statistics.median(tg) if tg else 0:.1f} tok/s",
+              file=sys.stderr)
+
+
+# ---------- round 2: matrix ----------
+
+def load_matrix(path, a):
+    cfg = json.load(open(path))
+    models = {m["name"]: m for m in json.load(open(ROOT / "models.json"))}
+    entries = [e for e in cfg["models"] if not a.only or a.only.lower() in e["name"].lower()]
+    for e in entries:
+        m = models.get(e["name"], {})
+        e["mlx_repo"], e["mlx_rev"] = m.get("mlx", {}).get("repo"), m.get("mlx", {}).get("rev")
+        e["gguf_repo"], e["gguf_rev"] = m.get("gguf", {}).get("repo"), m.get("gguf", {}).get("rev")
+    return cfg, entries
+
+
+def plan(entries, apps, ctxs, a):
+    """[(app_config, entry, [ctx...], skip_reason or None)], app-major so one server runs at a time."""
+    out = []
+    for label in apps:
+        for e in entries:
+            skip = None
+            if label == "omlx-mtp-on" and e.get("mlx_dir"):     # single-model mode has no dir: not checked
+                has, _ = mtp_head(e["mlx_dir"])
+                if has is False:
+                    skip = "no MTP head in checkpoint"
+                elif has is None:
+                    skip = "MTP head unknown (mlx dir missing)"
+            out.append((label, e, ctxs, skip))
+    return out
+
+
+def engine_throughput(path=ROOT / "results_long.jsonl"):
+    """{(model, runtime): {depth: (prefill_tps, decode_tps)}} from the engine round, f16 KV, valid rows only."""
+    t = {}
+    if not os.path.exists(path):
+        return t
+    for line in open(path):
+        r = json.loads(line)
+        if r.get("kv_type") != "f16" or r.get("error") or r.get("setting") or not r.get("prefill_tps"):
+            continue
+        if r["runtime"] == "llama.cpp" and r.get("n_ubatch") not in (None, 2048):
+            continue
+        t.setdefault((r["model"], r["runtime"]), {})[r["prompt_tokens"]] = (r["prefill_tps"], r.get("decode_tps"))
+    return t
+
+
+def dry_run(cfg, entries, items, ctxs, a):
+    eng = engine_throughput()
+    method = sizing_method_available()
+    print(f"# DRY RUN: no network call. trials={a.trials} (+1 warm-up) max_tokens={a.max_tokens} seed={a.seed} "
+          f"cooldown trial={a.cooldown_trial}s rung={a.cooldown_rung}s load allowance={a.load_allowance}s")
+    print(f"# prompt sizing: {method}" + ("" if method != "server-calibrated" else
+          " (no tokenizers/transformers importable: the first app's warm-up calibrates, the size is cached in "
+          f"{tilde(a.out)}.sizing.json and reused by the other app)"))
+    print("\n## Models (offline checks)")
+    for e in entries:
+        md, gg = os.path.expanduser(e["mlx_dir"]), os.path.expanduser(e["gguf"])
+        has, note = mtp_head(e["mlx_dir"])
+        size = lambda p: f"{sum(os.path.getsize(f) for f in glob.glob(os.path.join(p, '*.safetensors'))) / 1e9:.1f} GB" \
+            if os.path.isdir(p) else ""
+        print(f"- {e['name']}: mlx {tilde(md)} [{'ok ' + size(md) if os.path.isdir(md) else 'MISSING'}], "
+              f"gguf {tilde(gg)} [{'ok %.1f GB' % (os.path.getsize(gg) / 1e9) if os.path.exists(gg) else 'MISSING'}]")
+        print(f"    omlx id {e['omlx_model_id']} | ollama tag {e['ollama_tag']} | MTP head: {has} ({note})")
+        print(f"    quant: {e['mlx_quant']} vs {e['gguf_quant']} -- {e['quant_match']}")
+        mc = max_context(e["mlx_dir"])
+        too_long = [c for c in ctxs if mc and c + a.max_tokens > mc]
+        if too_long:
+            print(f"    WARNING: rung(s) {too_long} + {a.max_tokens} output tokens exceed max_position_embeddings={mc}")
+    print("\n## Plan (app-major: run one app at a time)")
+    total, per_app = 0.0, {}
+    print(f"{'config':15} {'model':24} {'ctx':>7} {'num_ctx':>8} {'trials':>6} {'est. min':>8}  note")
+    for label, e, cs, skip in items:
+        app = APP_CONFIGS[label]["app"]
+        if skip:
+            print(f"{label:15} {e['name']:24} {'-':>7} {'-':>8} {'-':>6} {'-':>8}  SKIP: {skip}")
+            continue
+        runtime = "mlx" if app == "omlx" else "llama.cpp"
+        tp = eng.get((e["name"], runtime), {})
+        secs = a.load_allowance if app == "omlx" else 0.0     # oMLX: one load per model and config
+        for c in cs:
+            note = ""
+            if tp:
+                depth = min(tp, key=lambda d: abs(d - c))
+                pre, dec = tp[depth]
+                per = c / pre + a.max_tokens / (dec or 1)
+                note = f"engine {runtime} f16 @ {depth}: {pre:.0f} pp / {dec or 0:.1f} tg tok/s"
+                if label == "omlx-mtp-on":
+                    note += " (MTP decode estimated = off)"
+            else:
+                per, note = 0.0, "no engine-round row: not estimated"
+            rung = (a.trials + 1) * per + a.trials * a.cooldown_trial + a.cooldown_rung
+            if app == "ollama":
+                rung += a.load_allowance                       # num_ctx changes per rung: one reload per rung
+            secs += rung
+            nc = ollama_num_ctx(c, a.max_tokens) if app == "ollama" else "-"
+            print(f"{label:15} {e['name']:24} {c:>7} {nc:>8} {a.trials:>6} {rung / 60:>8.1f}  {note}")
+        per_app[label] = per_app.get(label, 0.0) + secs
+        total += secs
+    print("\n## Estimated duration (engine-round throughput; Ollama's default batch may be slower than llama-bench -ub 2048)")
+    for label, s in per_app.items():
+        print(f"- {label}: {s / 3600:.1f} h")
+    print(f"- total: {total / 3600:.1f} h  (load allowance {a.load_allowance}s per oMLX model/config and per Ollama rung)")
+    print(f"\nOutput would be appended to {tilde(a.out)} (schema {SCHEMA}).")
+
+
+class AbortRun(Exception):
+    pass
+
+
+def find_omlx_model(listing, model_id):
+    """Locates one model in GET /admin/api/models whatever the envelope (list, {models: [...]}, {id: {...}})."""
+    items = listing
+    if isinstance(listing, dict):
+        items = listing.get("models") or listing.get("data") or [dict(v, id=k) for k, v in listing.items()
+                                                                  if isinstance(v, dict)]
+    for m in items or []:
+        if isinstance(m, dict) and model_id in (m.get("id"), m.get("model_id"), m.get("name")):
+            return m
+    return None
+
+
+def omlx_settings(m):
+    s = dict(m.get("settings") or {})
+    for k, v in m.items():                                     # some versions may flatten settings into the entry
+        if k in OMLX_SPEC_KEYS or re.search(r"kv|cache", k, re.I):
+            s.setdefault(k, v)
+    return {k: v for k, v in s.items() if k in OMLX_SPEC_KEYS or re.search(r"kv|cache", k, re.I)}
+
+
+def preflight_omlx(label, items, a):
+    if not a.omlx_version:
+        raise AbortRun("--omlx-version is required (e.g. 0.7.3): the API does not report it")
+    other = a.ollama_url.rstrip("/") + "/api/version"
+    if server_up(other) and not a.allow_other_server:
+        raise AbortRun(f"Ollama answers on {a.ollama_url}: quit it (one server loaded at a time) "
+                       "or pass --allow-other-server")
+    hdr = {"Authorization": f"Bearer {a.omlx_api_key}"} if a.omlx_api_key else {}
+    listing = http_json("GET", a.omlx_url.rstrip("/") + "/admin/api/models", headers=hdr)
+    want_mtp = APP_CONFIGS[label]["mtp"]
+    want = {"mtp_enabled": want_mtp, "dflash_enabled": False, "specprefill_enabled": False, "vlm_mtp_enabled": False}
+    meta, missing, fixes = {}, [], []
+    for _, e, _, skip in items:
+        if skip:
+            continue
+        m = find_omlx_model(listing, e["omlx_model_id"])
+        if m is None:
+            missing.append(e["omlx_model_id"]); continue
+        s = omlx_settings(m)
+        bad = {k: v for k, v in want.items() if bool(s.get(k, False)) != v}
+        if bad:
+            body = json.dumps(want)
+            fixes.append(f"curl -X PUT -H 'Authorization: Bearer $OMLX_API_KEY' -H 'Content-Type: application/json' "
+                         f"{a.omlx_url.rstrip('/')}/admin/api/models/{urllib.parse.quote(e['omlx_model_id'], safe='')}"
+                         f"/settings -d '{body}'   # {e['name']}: now {json.dumps({k: s.get(k) for k in bad})}")
+        meta[e["name"]] = s
+    if missing:
+        raise AbortRun("oMLX does not list: " + ", ".join(missing) +
+                       "\n  add their parent dirs (~/hf-bench/mlx, ~/models) to settings.json model.model_dirs and restart")
+    if fixes:
+        raise AbortRun(f"oMLX model settings do not match {label}; the script does not change them. Run:\n  "
+                       + "\n  ".join(fixes))
+    return meta
+
+
+def preflight_ollama(items, a):
+    env = server_env_record(a.server_env)         # before any server contact
+    if server_up(a.omlx_url.rstrip("/") + "/v1/models") and not a.allow_other_server:
+        raise AbortRun(f"oMLX answers on {a.omlx_url}: quit it (one server loaded at a time) or pass --allow-other-server")
+    base = a.ollama_url.rstrip("/")
+    version = (http_json("GET", base + "/api/version") or {}).get("version")
+    tags = {m.get("name"): m for m in (http_json("GET", base + "/api/tags") or {}).get("models", [])}
+    tags.update({m.get("model"): m for m in tags.values() if m.get("model")})
+    meta, missing = {}, []
+    for _, e, _, skip in items:
+        if skip:
+            continue
+        t = e["ollama_tag"]
+        m = tags.get(t) or tags.get(t + ":latest")
+        if m is None:
+            missing.append(f"{t}  (ollama create {t} -f <Modelfile with FROM {e['gguf']}>)"); continue
+        show = http_json("POST", base + "/api/show", {"model": t}) or {}
+        info = show.get("model_info") or {}
+        meta[e["name"]] = {"digest": m.get("digest"), "format": (m.get("details") or {}).get("format"),
+                           "quantization_level": (m.get("details") or {}).get("quantization_level"),
+                           "show_details": show.get("details"), "show_parameters": show.get("parameters"),
+                           "architecture": info.get("general.architecture"),
+                           "context_length": next((v for k, v in info.items() if k.endswith(".context_length")), None)}
+    if missing:
+        raise AbortRun("Ollama does not have:\n  " + "\n  ".join(missing))
+    return version, env, meta
+
+
+def run_rung(label, e, ctx, a, sizing, ctxinfo):
+    app = APP_CONFIGS[label]["app"]
+    seed, name = a.seed, e["name"]
+    num_ctx = ollama_num_ctx(ctx, a.max_tokens) if app == "ollama" else None
+    if app == "omlx":
+        hdr = {"X-oMLX-Cache-Store": "off"}
+        if a.omlx_api_key:
+            hdr["Authorization"] = f"Bearer {a.omlx_api_key}"
+        extra = {"enable_thinking": False, "chat_template_kwargs": {"enable_thinking": False}}
+        send = lambda text: trial_openai(a.omlx_url.rstrip("/") + "/v1", e["omlx_model_id"], text, a.max_tokens,
+                                         seed, extra_body=extra, headers=hdr)
+    else:
+        send = lambda text: trial_ollama(a.ollama_url, e["ollama_tag"], text, a.max_tokens, seed, num_ctx, a.keep_alive)
+
+    def safe(text):
+        try:
+            return send(text)
+        except Exception as ex:
+            print(f"# trial failed: {type(ex).__name__}: {ex}", file=sys.stderr)
+            return {"error": f"{type(ex).__name__}: {ex}"}
+
+    cached = sizing.get(name, ctx, seed)
+    if cached:
+        n_words, method = cached["n_words"], cached["method"] + " (cached)"
+    else:
+        method, count = ctxinfo["counter"]
+        if count:
+            n_words, expected = words_for(count, ctx, seed)
+            sizing.put(name, ctx, seed, n_words, method, expected)
+        else:
+            n_words = int((ctx - 64) * 0.9)          # ~1 token per filler word; 10 % margin below num_ctx
+    th0, sw0 = thermal(), swap_used_mb()
+    warm = safe(user_text(n_words, seed, nonce(seed, name, ctx, "warmup")))
+    if not cached and not ctxinfo["counter"][1]:
+        p = warm.get("prompt_tokens")
+        if not p:
+            raise AbortRun(f"{name} @ {ctx}: warm-up gave no prompt_tokens, cannot size the prompt")
+        if num_ctx and p >= num_ctx - a.max_tokens:
+            raise AbortRun(f"{name} @ {ctx}: calibration prompt may be truncated by num_ctx; install tokenizers")
+        n_words = round(n_words * ctx / p)
+        method = "server-calibrated from warm-up prompt_tokens"
+        sizing.put(name, ctx, seed, n_words, f"{method} ({label})", None)
+    cooldown(a.cooldown_trial, "after warm-up")
+    rs = []
+    for i in range(a.trials):
+        rs.append(safe(user_text(n_words, seed, nonce(seed, name, ctx, i))))
+        r = rs[-1]
+        print(f"# {label} {name} @ {ctx} trial {i + 1}: ttft {r.get('ttft_s') or 0:.2f}s "
+              f"decode {r.get('decode_tps') or 0:.1f} tok/s prompt {r.get('prompt_tokens')} "
+              f"cached {r.get('cached_tokens')}", file=sys.stderr, flush=True)
+        if i < a.trials - 1:
+            cooldown(a.cooldown_trial, "between trials")
+    ok = [r for r in rs if "error" not in r and r.get("ttft_s")]
+    col = lambda k: [r.get(k) for r in ok]
+    pt = col("prompt_tokens")
+    e2e = [p / t for p, t in zip(pt, col("ttft_s")) if p and t]
+    gen = col("generated_tokens")
+    short = [g is None or g < 0.9 * a.max_tokens for g in gen]
+    hits = [(c or 0) > a.cache_hit_min for c in col("cached_tokens")]
+    loads = [r.get("load_duration_s") for r in ok] if app == "ollama" else []
+    row = {
+        "schema": SCHEMA, "round": "apps", "model": name, "app": app, "app_version": ctxinfo["version"],
+        "app_config": label, "api_endpoint": ENDPOINT[app],
+        "model_id": e["omlx_model_id"] if app == "omlx" else e["ollama_tag"],
+        "format": "mlx" if app == "omlx" else "gguf",
+        "weights": e["mlx_repo"] if app == "omlx" else e["gguf_repo"],
+        "revision": e["mlx_rev"] if app == "omlx" else e["gguf_rev"],
+        "quant": e["mlx_quant"] if app == "omlx" else e["gguf_quant"], "quant_match": e["quant_match"],
+        "mlx_dir": e["mlx_dir"] if app == "omlx" else None,
+        "gguf_file": os.path.basename(e["gguf"]) if app == "ollama" else None,
+        "ollama_digest": ctxinfo["meta"].get("digest") if app == "ollama" else None,
+        "ollama_quantization_level": ctxinfo["meta"].get("quantization_level") if app == "ollama" else None,
+        "ollama_format": ctxinfo["meta"].get("format") if app == "ollama" else None,
+        "ollama_model": ctxinfo["meta"] if app == "ollama" else None,
+        "omlx_settings": ctxinfo["meta"] if app == "omlx" else None,
+        "mtp_enabled": ctxinfo["meta"].get("mtp_enabled") if app == "omlx" else None,
+        "dflash_enabled": ctxinfo["meta"].get("dflash_enabled") if app == "omlx" else None,
+        "specprefill_enabled": ctxinfo["meta"].get("specprefill_enabled") if app == "omlx" else None,
+        "mtp_head_in_checkpoint": mtp_head(e["mlx_dir"])[0] if app == "omlx" else None,
+        "cache_mode": a.omlx_cache_mode if app == "omlx" else "server default, nonce only",
+        "cache_store_header_honoured": version_tuple(ctxinfo["version"]) >= OMLX_HEADER_MIN if app == "omlx" else None,
+        "num_ctx": num_ctx, "server_env": ctxinfo.get("env"),
+        "thinking": "enable_thinking=false + chat_template_kwargs" if app == "omlx" else "think=false",
+        "target_ctx": ctx, "prompt_tokens": med(pt, 0), "samples_prompt_tokens": pt, "filler_words": n_words,
+        "prompt_sizing": method, "max_tokens": a.max_tokens, "trials": a.trials, "warmup": 1,
+        "cooldown_s": {"trial": a.cooldown_trial, "rung": a.cooldown_rung}, "temperature": 0, "seed": seed,
+        "ttft_s": med(col("ttft_s")), "samples_ttft": [round(x, 3) for x in col("ttft_s")],
+        "prefill_tps_e2e": med(e2e, 1), "samples_prefill_tps_e2e": [round(x, 1) for x in e2e],
+        "decode_tps": med(col("decode_tps")), "decode_tps_std": std(col("decode_tps")),
+        "samples_decode": [round(x, 2) if x else x for x in col("decode_tps")],
+        "server_prefill_tps": med(col("server_prefill_tps"), 1) if app == "ollama" else None,
+        "server_decode_tps": med(col("server_decode_tps")) if app == "ollama" else None,
+        "samples_server_prefill_tps": col("server_prefill_tps") if app == "ollama" else None,
+        "samples_server_decode_tps": col("server_decode_tps") if app == "ollama" else None,
+        "server_timings_ns": col("server_timings_ns") if app == "ollama" else None,
+        "generated_tokens": gen, "streamed_chunks": col("streamed_chunks"), "reasoning_tokens": col("reasoning_tokens"),
+        "cached_tokens": col("cached_tokens"), "cache_hit_trials": hits, "cache_hit": any(hits),
+        "cache_hit_min_tokens": a.cache_hit_min,
+        "short_generation_trials": short, "short_generation": any(short),
+        "load_duration_s": loads, "load_during_trial": any((x or 0) > LOAD_FLAG_S for x in loads),
+        "finish_reasons": col("finish_reason"), "request_ids": col("request_id"),
+        "warmup_result": {k: warm.get(k) for k in ("ttft_s", "prompt_tokens", "cached_tokens", "load_duration_s",
+                                                   "error")},
+        "ttft_method": TTFT_METHOD, "decode_method": DECODE_METHOD,
+        "prefill_method": "prompt_tokens / client TTFT (end to end); Ollama also server-side prompt_eval_count / "
+                          "prompt_eval_duration",
+        "date": now_iso(), "machine": ctxinfo["machine"], "thermal_before": th0, "thermal_after": thermal(),
+        "swap_before_mb": sw0, "swap_after_mb": swap_used_mb(),
+        "bench_commit": sh("git", "-C", str(ROOT), "describe", "--always", "--dirty"),
+    }
+    if len(ok) < len(rs):
+        row["error"] = f"{len(rs) - len(ok)} of {len(rs)} trials failed or streamed no token: " + \
+            "; ".join(r.get("error", "no token") for r in rs if r not in ok)
+    return row
+
+
+def run_matrix(cfg, entries, items, ctxs, a):
+    sizing = Sizing(a.out + ".sizing.json")
+    mach = machine()
+    first_rung = True
+    for label in dict.fromkeys(i[0] for i in items):
+        group = [i for i in items if i[0] == label]
+        for _, e, _, skip in group:
+            if skip:
+                print(f"# {label} {e['name']}: skipped ({skip})", file=sys.stderr)
+        if all(i[3] for i in group):
+            continue
+        app = APP_CONFIGS[label]["app"]
+        if app == "omlx":
+            metas = preflight_omlx(label, group, a)
+            base = {"version": a.omlx_version}
+        else:
+            version, env, metas = preflight_ollama(group, a)
+            base = {"version": version, "env": env}
+        for _, e, cs, skip in group:
+            if skip:
+                continue
+            ctxinfo = dict(base, meta=metas.get(e["name"], {}), machine=mach, counter=token_counter(e["mlx_dir"]))
+            for c in cs:
+                if not first_rung:
+                    cooldown(a.cooldown_rung, "between rungs/configs")
+                first_rung = False
+                row = run_rung(label, e, c, a, sizing, ctxinfo)
+                with open(a.out, "a") as f:
+                    f.write(json.dumps(row) + "\n")
+                print(f"# {label} {e['name']} @ {c}: ttft {row['ttft_s']}s decode {row['decode_tps']} tok/s "
+                      f"prompt {row['prompt_tokens']} cache_hit={row['cache_hit']} short={row['short_generation']}",
+                      file=sys.stderr, flush=True)
+
+
+def check_pairs(path):
+    rows = [json.loads(l) for l in open(path) if l.strip()]
+    rows = [r for r in rows if r.get("schema") == SCHEMA]
+    by = {}
+    for r in rows:
+        by.setdefault((r["model"], r["target_ctx"]), {}).setdefault(r["app"], []).append(r)
+    bad = 0
+    print(f"{'model':24} {'ctx':>7} {'oMLX':>8} {'Ollama':>8} {'diff':>7}  flags")
+    for (model, ctx), apps in sorted(by.items()):
+        o, l = apps.get("omlx", []), apps.get("ollama", [])
+        po = next((r["prompt_tokens"] for r in o if r.get("prompt_tokens")), None)
+        pl = next((r["prompt_tokens"] for r in l if r.get("prompt_tokens")), None)
+        flags = [f"{r['app_config']}: " + ",".join(k for k in ("cache_hit", "short_generation", "load_during_trial",
+                                                                  "error") if r.get(k)) for r in o + l
+                 if any(r.get(k) for k in ("cache_hit", "short_generation", "load_during_trial", "error"))]
+        if po and pl:
+            d = (pl - po) / po
+            if abs(d) > PAIR_TOLERANCE:
+                flags.insert(0, f"PROMPT MISMATCH > {PAIR_TOLERANCE:.0%}"); bad += 1
+            print(f"{model:24} {ctx:>7} {po:>8} {pl:>8} {d:>+7.1%}  {'; '.join(flags)}")
+        else:
+            print(f"{model:24} {ctx:>7} {po or '-':>8} {pl or '-':>8} {'-':>7}  unpaired {'; '.join(flags)}")
+    print(f"\n{bad} pair(s) with a prompt-token difference > {PAIR_TOLERANCE:.0%}")
+    return 1 if bad else 0
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    g = ap.add_argument_group("generic / single model")
+    g.add_argument("--url", help="generic: OpenAI base (…/v1); omlx/ollama: server root")
+    g.add_argument("--model")
+    g.add_argument("--backend", choices=("openai", "omlx", "ollama"), default="openai")
+    g.add_argument("--runtime", help="generic rows: omlx | ds4 | llama-server ...")
+    g.add_argument("--runtime-version", default="")
+    g.add_argument("--label", default="")
+    g.add_argument("--app-config", choices=tuple(APP_CONFIGS), help="single model on omlx/ollama backend")
+    g.add_argument("-g", type=int, default=128, help="generic: generated tokens")
+    g.add_argument("-n", type=int, default=3, help="generic: trials")
+    g.add_argument("--chars-per-token", type=float, default=3.6, help="generic: first guess, refined from usage")
+    g.add_argument("--api-key", default=os.environ.get("OPENAI_API_KEY", "none"))
+    m = ap.add_argument_group("round 2 (apps)")
+    m.add_argument("--matrix", help="apps.json")
+    m.add_argument("--check-pairs", metavar="JSONL")
+    m.add_argument("--only", help="substring of the model name")
+    m.add_argument("--apps", default="omlx-mtp-off,omlx-mtp-on,ollama-default")
+    m.add_argument("--ctx", help="context ladder (default 4096,32768,131072; generic: 1024..131072)")
+    m.add_argument("--trials", type=int, default=3)
+    m.add_argument("--max-tokens", type=int, default=128, help="= engine round -g")
+    m.add_argument("--seed", type=int, default=42)
+    m.add_argument("--cooldown-trial", type=int, default=10)
+    m.add_argument("--cooldown-rung", type=int, default=60, help="between rungs and configs (engine round: 60)")
+    m.add_argument("--load-allowance", type=int, default=60, help="dry-run estimate: seconds per model load")
+    m.add_argument("--cache-hit-min", type=int, default=32,
+                   help="cached tokens above this flag a cache hit (the chat-template header before the nonce "
+                        "may legitimately be reused)")
+    m.add_argument("--out", default="results_apps.jsonl")
+    m.add_argument("--dry-run", action="store_true")
+    m.add_argument("--omlx-url", default=os.environ.get("OMLX_URL", "http://127.0.0.1:8000"))
+    m.add_argument("--omlx-api-key", default=os.environ.get("OMLX_API_KEY"))
+    m.add_argument("--omlx-version", help="e.g. 0.7.3 (not exposed by the API)")
+    m.add_argument("--omlx-cache-mode", choices=("header", "no-cache-server"), default="header")
+    m.add_argument("--ollama-url", default=os.environ.get("OLLAMA_HOST_URL", "http://127.0.0.1:11434"))
+    m.add_argument("--keep-alive", default="30m")
+    m.add_argument("--server-env", help='Ollama server env, required for ollama-default: "default" (all OLLAMA_* '
+                                        'unset, checked via launchctl) or "K=V,K=V" (explicit values)')
+    m.add_argument("--allow-other-server", action="store_true")
+    a = ap.parse_args()
+
+    if a.check_pairs:
+        sys.exit(check_pairs(a.check_pairs))
+    if not a.matrix and a.backend == "openai":
+        if not (a.url and a.model and a.runtime):
+            ap.error("generic mode needs --url, --model and --runtime")
+        return legacy_main(a)
+
+    ctxs = [int(x) for x in (a.ctx or "4096,32768,131072").split(",")]
+    if a.matrix:
+        cfg, entries = load_matrix(a.matrix, a)
+        apps = [x.strip() for x in a.apps.split(",") if x.strip()]
+    else:                                         # single model, round-2 protocol
+        if not (a.url and a.model and a.app_config) or APP_CONFIGS[a.app_config]["app"] != a.backend:
+            ap.error("--backend omlx|ollama needs --url, --model and a matching --app-config")
+        if a.backend == "omlx":
+            a.omlx_url = a.url
+        else:
+            a.ollama_url = a.url
+        cfg, apps = {}, [a.app_config]
+        entries = [{"name": a.model, "omlx_model_id": a.model, "ollama_tag": a.model, "mlx_dir": "", "gguf": "",
+                    "mlx_quant": a.label, "gguf_quant": a.label, "quant_match": None, "mlx_repo": None,
+                    "mlx_rev": None, "gguf_repo": None, "gguf_rev": None}]
+    unknown = [x for x in apps if x not in APP_CONFIGS]
+    if unknown:
+        ap.error(f"unknown app config(s) {unknown}; choose from {list(APP_CONFIGS)}")
+    items = plan(entries, apps, ctxs, a)
+    if a.dry_run:
+        return dry_run(cfg, entries, items, ctxs, a)
+    try:
+        run_matrix(cfg, entries, items, ctxs, a)
+    except AbortRun as ex:
+        sys.exit(f"ABORT: {ex}")
+
+
+if __name__ == "__main__":
+    main()

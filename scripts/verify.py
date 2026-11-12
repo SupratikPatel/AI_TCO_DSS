@@ -4,7 +4,9 @@ Usage: ``uv run python scripts/verify.py [focus test paths ...]``
 
 Runs the focus tests, then ``ruff check``, ``ruff format --check``, ``mypy``, the
 Validate_CLI (once ``ai-tco-validate`` is declared in ``pyproject.toml``) and the
-full ``pytest`` suite. Stops at the first failing step and exits with its code.
+full ``pytest`` suite and all web checks. Runs every step and reports all failures;
+exits nonzero if any step failed.
+Browser servers stop before launcher tests begin. Requires npm ci and Chromium.
 """
 
 import shutil
@@ -43,16 +45,37 @@ def _steps(focus: list[str]) -> list[tuple[str, list[str]]]:
         validate = shutil.which(VALIDATE_SCRIPT) or VALIDATE_SCRIPT
         steps.append(("validate", [validate]))
     steps.append(("full pytest", [python, "-m", "pytest"]))
+    npm = shutil.which("npm.cmd" if sys.platform == "win32" else "npm") or "npm"
+    steps.extend(
+        (f"web {script}", [npm, "run", script])
+        for script in (
+            "typecheck",
+            "lint",
+            "test",
+            "types:check",
+            "build",
+            "test:browser",
+            "test:launcher",
+        )
+    )
     return steps
 
 
 def main(argv: list[str]) -> int:
+    failures = []
     for name, command in _steps(argv):
         print(f"[verify] step: {name}", flush=True)
-        code = subprocess.run(command, cwd=ROOT, check=False).returncode
+        try:
+            code = subprocess.run(command, cwd=ROOT, check=False).returncode
+        except OSError as exc:
+            print(f"[verify] cannot start {name}: {exc}", flush=True)
+            code = 1
         if code != 0:
             print(f"[verify] FAILED: {name} (exit code {code})", flush=True)
-            return code
+            failures.append(name)
+    if failures:
+        print(f"[verify] failed steps: {', '.join(failures)}", flush=True)
+        return 1
     print("[verify] all steps passed", flush=True)
     return 0
 

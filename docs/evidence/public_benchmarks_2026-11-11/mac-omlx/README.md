@@ -1,0 +1,88 @@
+# Qwen3.8-Flash-Next on a Mac Studio M5 Ultra: oMLX recipe
+
+A recipe for serving **Qwen3.8-Flash-Next** (`mlx-community/Qwen3.8-Flash-Next-oQ6e-mtp`) on one Mac Studio M5 Ultra (80-core GPU, 256 GB) with
+[oMLX](https://github.com/jundot/omlx).
+- **The build:** oMLX `main`, which since 2026-09-28 includes the Qwen4-Exp / MoE performance PRs of jonathan308 and jerryfane ([CREDITS.md](CREDITS.md)). On top go yoyo930021's open #4030 and one small patch of ours: **prompt-lookup drafts in oMLX's MTP decoding**, and a limit that keeps the exact-verify path to MTP-sized windows.
+- **Quality:** KLD against BF16 is identical to stock oMLX, and every gate passes, vision included.
+
+Companion recipe: [GLM-5.3-Flash on the same machine](https://github.com/sethforprivacy/GLM-5.3-Flash-M5-Ultra-oMLX).
+
+## Two profiles
+
+- **Recommended: oMLX `main` built from source** (@ a98d8c8c) + #4030 (one pinned patch) + the recipe patch.
+  It needs git, Xcode and Python 3.11–3.13. The build takes ~10 minutes.
+- **Alternative: the oMLX 0.7.0rc1 app (DMG)** + the lookup patch. There's nothing to build, but prefill is ~22–28 % slower and fresh-prompt decode ~11 % slower.
+
+## Results (M5 Ultra 80c / 256 GB, macOS 27.0)
+
+| | stock oMLX 0.7.0rc1 | alternative (rc1 + lookup) | **recommended** |
+|---|---|---|---|
+| agent edit/copy turns: return a file with a change · add docstrings · reproduce JSON | 164 · 175 · 172 tok/s | 275 · 259 · 229 | **272 · 261 · 225 tok/s** |
+| same at T=0.6 | 121 · 167 · 164 | 265 · 254 · 229 | **269 · 254 · 230** |
+| prose · new code (T=0) | | 105 · 144 | **118 · 155** |
+| prefill 2K · 8K · 32K · 128K · 256K | as the alternative (the lookup patch doesn't touch prefill) | 2,783 · 3,300 · 3,579 · 3,469 · 3,321 | **3,357 · 4,549 · 4,759 · 4,510 · 4,214** |
+| decode, fresh prompt (greedy) · 2K code prompt | 146–150 · 112–126 | 147 · 123 | **158–165 · 130–172** |
+| aggregate at 1 · 2 · 4 · 8 streams | | 156 · 159 · 170 · 193 | **173 · 172 · 184 · 197** |
+| KLD vs BF16: teacher-forced · decode-path | 0.023 | 0.023 | **0.0226 · 0.0268** (stock `main`: 0.0228 · 0.0268) |
+| reasoning / tool / long-context / vision gates | pass | 12/12, all pass | **12/12, all pass** |
+
+A 128K-token prompt is read in ~29 s, and a 256K one in ~61 s. A warm follow-up turn at 32K takes 0.37 s.
+
+### Choosing an engine for Qwen on this machine
+
+Same suite and box. mlx-serve measured 2026-09-27; this recipe and TensorFold 0.3.6.1 on 2026-09-28:
+
+| | fresh decode | edit turns | prefill 32K | 8 streams | KLD vs BF16 (lower is better) |
+|---|---|---|---|---|---|
+| **oMLX + this recipe** (oQ6e) | 158–165 | 272 | **4,759** | 197 | **0.023** |
+| mlx-serve 26.9.6 (its own mixed 4/8 checkpoint) | 160 | 331 | 3,840 | 236 | 0.035 |
+| TensorFold 0.3.6.1 (Vontra 4-bit) | **183–197** | **437** | 2,826 (2,657 at 128K) | **327** | 0.128 |
+
+- This recipe gives the **best quality** of the three, and the fastest prefill (4,759 tok/s at 32K).
+- [TensorFold](https://github.com/ashhart/TensorFold) 0.3.6.1 is now the fastest decoder and batcher here: fresh decode +18 %, edit turns 1.6×, 1.7× at 8 streams. It's also exact under concurrency, with every stream equal to its solo output; here 3 of 8 are. That's on a plain 4-bit checkpoint with ~5.5× the KLD, and it prefills 1.1–2.0× slower.
+- [mlx-serve](https://github.com/ddalcu/mlx-serve) sits between the two, at slightly lower quality than this recipe.
+
+## What changes, and why
+
+| # | Change | Effect |
+|---|---|---|
+| 1 | *(recommended)* **Upstream Qwen4-Exp / MoE PRs** ([CREDITS.md](CREDITS.md); in oMLX `main` since 2026-09-28, except #4030).<br>Prefill (jonathan308): wider prefill steps, NAX HC prefill projections and a depthwise PLE conv, the pipelined GDN prefill recurrence, QSA on the tensor units, NAX gather tiles and the fused MoE gate/up.<br>Decode (jerryfane): bit-exact MTP verify, fused one-token decode kernels, and fused verify windows for MoE, DeltaNet and attention.<br>QSA KV allocation fixes (yoyo930021). | prefill +28–38 % at 8K–256K, fresh decode +11–13 % (over rc1); KLD identical |
+| 2 | *(recommended)* **Row-exact verify only for MTP-sized windows** (`OMLX_P2_ROW_EXACT_MAX_ROWS=4`). The upstream exact-verify mode runs every row as a one-row decode: fast for one stream's 4-row MTP window, slow for lookup's 8–15-row verifies, so those keep the batched kernels. (Our companion gate for batched streams was adopted upstream in 3c5f1d41.) | edit turns 199 → 273 |
+| 3 | **Prompt-lookup drafts in the MTP cycle** (`OMLX_P2_LOOKUP`). When the text being written already appears in the prompt or output (an 8-gram match), the next cycle verifies that earlier continuation instead of an MTP chain: 7 drafts, or 14 when the match runs back ≥32 tokens (mlx-serve #533's rule).<br>Acceptance is the engine's own, with a one-hot draft distribution when sampling, so output is unchanged. Lookup cycles are gated against MTP cycles on measured tokens/s. The idea comes from mlx-serve #523/#533. | 1.3–1.7× on edit turns (up to 2.2× at T=0.6), flat elsewhere |
+| 4 | **Fixed MTP depth 3** instead of adaptive. It's within noise of adaptive, and +7 % on code. | small |
+
+## Setup (recommended profile)
+
+1. **Raise the Metal wired-memory limit** to 240 GiB:
+   ```bash
+   sudo sysctl iogpu.wired_limit_mb=245760
+   ```
+2. **Build patched oMLX `main`.** This clones oMLX into `~/omlx-qwen-src`, applies #4030 and this recipe's patch, builds the native kernels, and checks that they all load.
+   ```bash
+   scripts/install.sh
+   ```
+3. **Download the model** (~147 GB). [docs/SETUP.md](docs/SETUP.md) has the pinned revision.
+4. **Serve:**
+   ```bash
+   scripts/serve.sh
+   ```
+   The server is an OpenAI-compatible endpoint at `http://127.0.0.1:8000/v1`. Send `chat_template_kwargs: {"enable_thinking": false}` when you don't want thinking.
+
+## Setup (alternative: oMLX 0.7.0rc1 DMG, no build)
+
+1. Install `oMLX-0.7.0rc1-macos26-27.dmg` from the [v0.7.0rc1 release](https://github.com/jundot/omlx/releases/tag/v0.7.0rc1)
+   (sha256 `82c1ea4d882153bb2da5cd2793e950620b2d2eb81b2e90695272e878be79b83a`) and raise the wired limit as above.
+2. Run `scripts/install-dmg.sh`. It copies the app's `Contents/` to `~/omlx-qwen-m5ultra` and applies the patch; the installed app is untouched.
+3. Download the model as above, and serve with `scripts/serve-dmg.sh`.
+
+## Known issues
+
+- Lookup is single-stream only (B=1); multi-stream batches use plain MTP.
+- **The recommended profile builds on oMLX `main` plus one unmerged PR** (#4030, pinned in `patches/upstream-omlx-qwen4-4030.patch`). As it merges, the recipe will move to an oMLX release that contains it.
+
+## Credits and license
+
+See [CREDITS.md](CREDITS.md) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Evidence tables: [docs/RESULTS.md](docs/RESULTS.md). Validation: [docs/VALIDATION.md](docs/VALIDATION.md).
+
+The scripts, configs and docs are MIT ([LICENSE](LICENSE)). The patches modify oMLX, which is Apache-2.0, so they are distributed under Apache-2.0
+([licenses/omlx-Apache-2.0.txt](licenses/omlx-Apache-2.0.txt)). No model weights are included.

@@ -1,0 +1,392 @@
+{
+  "purpose": "Review supplied M5 Ultra 512 GB report; no production imports or inference.",
+  "files": [
+    {
+      "path": "m5_ultra_512gb_benchmark_evidence_report.md",
+      "origin": "user-supplied report",
+      "original_path": "C:\\Users\\supra\\Downloads\\m5_ultra_512gb_benchmark_evidence_report.md",
+      "archived_at": "2026-11-12T17:07:53.490774+00:00",
+      "bytes": 32552,
+      "sha256": "f9d46efd62778dd4250f3f9d659d89cab9437be6a71f51a867538edec7004039"
+    },
+    {
+      "path": "apple/newsroom.html",
+      "url": "https://www.apple.com/newsroom/2026/08/apple-introduces-new-mac-studio-with-m5-max-and-m5-ultra/",
+      "resolved_url": "https://www.apple.com/newsroom/2026/08/apple-introduces-new-mac-studio-with-m5-max-and-m5-ultra/",
+      "retrieved_at": "2026-11-12T17:07:54.675698+00:00",
+      "status": 200,
+      "bytes": 232609,
+      "sha256": "bee0811154984ea63a95542b60739879a3e81bdbe775487f12c4b735a693a703"
+    },
+    {
+      "path": "apple/store-512-1tb.html",
+      "url": "https://www.apple.com/shop/buy-mac/mac-studio/m5-ultra-chip-36-core-cpu-80-core-gpu-512gb-memory-1tb-storage",
+      "resolved_url": "https://www.apple.com/shop/buy-mac/mac-studio/m5-ultra-chip-36-core-cpu-80-core-gpu-512gb-memory-1tb-storage",
+      "retrieved_at": "2026-11-12T17:07:54.066058+00:00",
+      "status": 200,
+      "bytes": 572369,
+      "sha256": "e2f8402fd2e61d60d5807ce6bdb8ec73a2d3e85a231af4c2584c1ee6c26bd683"
+    },
+    {
+      "path": "apple/store-512-16tb.html",
+      "url": "https://www.apple.com/shop/buy-mac/mac-studio/m5-ultra-chip-36-core-cpu-80-core-gpu-512gb-memory-16tb-storage",
+      "resolved_url": "https://www.apple.com/shop/buy-mac/mac-studio/m5-ultra-chip-36-core-cpu-80-core-gpu-512gb-memory-16tb-storage",
+      "retrieved_at": "2026-11-12T17:07:54.679141+00:00",
+      "status": 200,
+      "bytes": 572390,
+      "sha256": "eb39c6103ae865643f06710c0f63e30f472c264752198cb3601aa05815524487"
+    },
+    {
+      "path": "apple/tech-specs.html",
+      "url": "https://www.apple.com/mac-studio/specs/",
+      "resolved_url": "https://www.apple.com/mac-studio/specs/",
+      "retrieved_at": "2026-11-12T17:07:54.264060+00:00",
+      "status": 200,
+      "bytes": 213902,
+      "sha256": "7344db9f8b4df8626d89a7a0be662460fb32195cbc761ec21ca7b8db46c42a57"
+    },
+    {
+      "path": "apple/mlx-distributed.html",
+      "url": "https://machinelearning.apple.com/research/mlx-distributed-inference",
+      "resolved_url": "https://machinelearning.apple.com/research/mlx-distributed-inference",
+      "retrieved_at": "2026-11-12T17:07:54.942371+00:00",
+      "status": 200,
+      "bytes": 122074,
+      "sha256": "b607b126d957dc75c27d6f251b5fe50eafd01da2e8e7885e5221d9e6c31c94ef"
+    },
+    {
+      "path": "vdf.html",
+      "url": "https://vdf.ai/blog/mac-studio-m5-ultra-local-llm/",
+      "resolved_url": "https://vdf.ai/blog/mac-studio-m5-ultra-local-llm/",
+      "retrieved_at": "2026-11-12T17:07:55.059086+00:00",
+      "status": 200,
+      "bytes": 149388,
+      "sha256": "2db2dc34c96aac37283e2640597688753180f57c91f12e2b4dd8fc6f14c6bb5c"
+    },
+    {
+      "path": "omlx/leaderboard-qwen512.html",
+      "url": "https://omlx.ai/benchmarks/performance?cursor=WyJwZXJmb3JtYW5jZTpoaWRlX3NwZWNwcmVmaWxsPTEiLCIyMDI2LTExLTEyIDA4OjI5OjUxIiw2MTQ5NTAsMiwyLDEwXQ%3D%3D&hide_specprefill=1",
+      "resolved_url": "https://omlx.ai/benchmarks/performance?cursor=WyJwZXJmb3JtYW5jZTpoaWRlX3NwZWNwcmVmaWxsPTEiLCIyMDI2LTExLTEyIDA4OjI5OjUxIiw2MTQ5NTAsMiwyLDEwXQ%3D%3D&hide_specprefill=1",
+      "retrieved_at": "2026-11-12T17:07:55.788081+00:00",
+      "status": 200,
+      "bytes": 33336,
+      "sha256": "faf374b0dc08ebb98f67a6a101a8b0ee427c19cad030928bbb14c50bafefea5d"
+    },
+    {
+      "path": "omlx/leaderboard-deepseek512.html",
+      "url": "https://omlx.ai/benchmarks/performance?cursor=WyJwZXJmb3JtYW5jZTpoaWRlX3NwZWNwcmVmaWxsPTEiLCIyMDI2LTExLTA5IDE2OjQxOjQzIiw2MTAxNjIsMiwyLDEwXQ%3D%3D&hide_specprefill=1",
+      "resolved_url": "https://omlx.ai/benchmarks/performance?cursor=WyJwZXJmb3JtYW5jZTpoaWRlX3NwZWNwcmVmaWxsPTEiLCIyMDI2LTExLTA5IDE2OjQxOjQzIiw2MTAxNjIsMiwyLDEwXQ%3D%3D&hide_specprefill=1",
+      "retrieved_at": "2026-11-12T17:07:55.814247+00:00",
+      "status": 200,
+      "bytes": 33873,
+      "sha256": "50f7051b87d67d9e49f908f54dbb87cdfb31868c3091b29a3e1259bf20d2e543"
+    },
+    {
+      "path": "quality/ista-api.json",
+      "url": "https://huggingface.co/api/models/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+      "resolved_url": "https://huggingface.co/api/models/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+      "retrieved_at": "2026-11-12T17:07:54.452337+00:00",
+      "status": 200,
+      "bytes": 13570,
+      "sha256": "0faccedbd38c85239c43e0ef53b6c8e7f257427f21ca354d6ec66058162ac3d9"
+    },
+    {
+      "path": "quality/unsloth-next.html",
+      "url": "https://unsloth.ai/docs/models/qwen3.8-next",
+      "resolved_url": "https://unsloth.ai/docs/models/qwen3.8-next",
+      "retrieved_at": "2026-11-12T17:07:54.812441+00:00",
+      "status": 200,
+      "bytes": 1519689,
+      "sha256": "7bcc268067cb41782c20a269e3939d636562b05970a56688a7dfeeb722bdd266"
+    },
+    {
+      "path": "quality/unsloth-dynamic31.html",
+      "url": "https://unsloth.ai/docs/basics/dynamic-3.0-ggufs/dynamic-3.1-ggufs",
+      "resolved_url": "https://unsloth.ai/docs/basics/dynamic-3.0-ggufs/dynamic-3.1-ggufs",
+      "retrieved_at": "2026-11-12T17:07:54.917934+00:00",
+      "status": 200,
+      "bytes": 960206,
+      "sha256": "96da040c2138d1374b475ab5f2cb0f34d12bfde70065214b698539cb29e22318"
+    },
+    {
+      "path": "quality/unsloth-dynamic30.html",
+      "url": "https://unsloth.ai/docs/basics/dynamic-3.0-ggufs",
+      "resolved_url": "https://unsloth.ai/docs/basics/dynamic-3.0-ggufs",
+      "retrieved_at": "2026-11-12T17:07:55.330982+00:00",
+      "status": 200,
+      "bytes": 1399182,
+      "sha256": "eda9db23c3ede6a791aed4bb7bb2633f8306c5e03330b4ae389271860edd0ff4"
+    },
+    {
+      "path": "reddit-512.json",
+      "url": "https://www.reddit.com/r/MacStudio/comments/1xrxm5f/m5_ultra_512gb_benchmarks/.json",
+      "resolved_url": "https://www.reddit.com/r/MacStudio/comments/1xrxm5f/m5_ultra_512gb_benchmarks/.json",
+      "retrieved_at": "2026-11-12T17:07:55.094218+00:00",
+      "status": 403,
+      "bytes": 189908,
+      "sha256": "13bcba13bd1bad5aace04e8a76880b710337a8d595224967e874401832cc203c"
+    },
+    {
+      "path": "youtube-lead.html",
+      "url": "https://www.youtube.com/watch?v=6UjDw-2s4ik",
+      "resolved_url": "https://www.youtube.com/watch?v=6UjDw-2s4ik",
+      "retrieved_at": "2026-11-12T17:07:55.649766+00:00",
+      "status": 200,
+      "bytes": 1593703,
+      "sha256": "f4407b1a2c76e34d3aaa85234b0d18a01f39a1514dddd7ea4ee26b84b059a54b"
+    },
+    {
+      "path": "youtube-lead-oembed.json",
+      "url": "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=6UjDw-2s4ik&format=json",
+      "resolved_url": "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=6UjDw-2s4ik&format=json",
+      "retrieved_at": "2026-11-12T17:07:55.144671+00:00",
+      "status": 200,
+      "bytes": 859,
+      "sha256": "2d3bd79c18b81865385d33817cd7773c09200b26b49ae59124536cdf468c219d"
+    },
+    {
+      "path": "omlx/3u2u1f9j.html",
+      "url": "https://omlx.ai/benchmarks/performance/3u2u1f9j",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/3u2u1f9j",
+      "retrieved_at": "2026-11-12T17:07:56.187154+00:00",
+      "status": 200,
+      "bytes": 31532,
+      "sha256": "edb1486d32ef128cb639ae8a5bcc686aff6d3808a2b82832386a9fdfe4c7495e"
+    },
+    {
+      "path": "omlx/odblvo21.html",
+      "url": "https://omlx.ai/benchmarks/performance/odblvo21",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/odblvo21",
+      "retrieved_at": "2026-11-12T17:07:56.399433+00:00",
+      "status": 200,
+      "bytes": 31544,
+      "sha256": "f5ec3471723fd0b022f6ffa1fa7ab431fb87384a3de404d92b974f92f20fb111"
+    },
+    {
+      "path": "omlx/9aa0q4b3.html",
+      "url": "https://omlx.ai/benchmarks/performance/9aa0q4b3",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/9aa0q4b3",
+      "retrieved_at": "2026-11-12T17:07:56.249048+00:00",
+      "status": 200,
+      "bytes": 34665,
+      "sha256": "ef64905d863378d3f3eca8d23526b0adae82b0069de72c79a00a3e3fd2b3c9f8"
+    },
+    {
+      "path": "omlx/u6ocbrlv.html",
+      "url": "https://omlx.ai/benchmarks/performance/u6ocbrlv",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/u6ocbrlv",
+      "retrieved_at": "2026-11-12T17:07:56.298930+00:00",
+      "status": 200,
+      "bytes": 34570,
+      "sha256": "9b0bdec9bb3ef4aa5affe837c622a1e83e372b2774af6342170a8532dbb3d925"
+    },
+    {
+      "path": "omlx/7hdr933y.html",
+      "url": "https://omlx.ai/benchmarks/performance/7hdr933y",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/7hdr933y",
+      "retrieved_at": "2026-11-12T17:07:56.635191+00:00",
+      "status": 200,
+      "bytes": 33014,
+      "sha256": "3af3eb231698a75ed98571b138f184306eb905588493289d55adeba1885f4b4b"
+    },
+    {
+      "path": "quality/mkzszvig.html",
+      "url": "https://omlx.ai/benchmarks/intelligence/mkzszvig",
+      "resolved_url": "https://omlx.ai/benchmarks/intelligence/mkzszvig",
+      "retrieved_at": "2026-11-12T17:07:56.408042+00:00",
+      "status": 200,
+      "bytes": 41185,
+      "sha256": "6b786e07254ee6e39d95e455b8b67ee41b401455b3b66acf0f9be1ee3eb03265"
+    },
+    {
+      "path": "quality/ybmeme01.html",
+      "url": "https://omlx.ai/benchmarks/intelligence/ybmeme01",
+      "resolved_url": "https://omlx.ai/benchmarks/intelligence/ybmeme01",
+      "retrieved_at": "2026-11-12T17:07:56.608663+00:00",
+      "status": 200,
+      "bytes": 36719,
+      "sha256": "aebe3d21aecfc78db3539e51e5b13ea7ec0c8638d17a590f6998844c3b7e6ce6"
+    },
+    {
+      "path": "quality/qvlxvz1i.html",
+      "url": "https://omlx.ai/benchmarks/intelligence/qvlxvz1i",
+      "resolved_url": "https://omlx.ai/benchmarks/intelligence/qvlxvz1i",
+      "retrieved_at": "2026-11-12T17:07:56.566383+00:00",
+      "status": 200,
+      "bytes": 37101,
+      "sha256": "bc2b99a907f0f86343d75db0fca97a2c6bf962b9448a821aa28b4372de94d2f7"
+    },
+    {
+      "path": "quality/6b3p2k87.html",
+      "url": "https://omlx.ai/benchmarks/intelligence/6b3p2k87",
+      "resolved_url": "https://omlx.ai/benchmarks/intelligence/6b3p2k87",
+      "retrieved_at": "2026-11-12T17:07:57.155954+00:00",
+      "status": 200,
+      "bytes": 37560,
+      "sha256": "3e9c8a690d8c511b5954e4dd203d0772ab2da7ccfd1658b8aa48f1d9f86378bd"
+    },
+    {
+      "path": "omlx/ktcmbmrj.html",
+      "url": "https://omlx.ai/benchmarks/performance/ktcmbmrj",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/ktcmbmrj",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:54.648449+00:00",
+      "bytes": 33534,
+      "sha256": "88dd2dfa8b5f89728d0db402d5214d96972774991d2e4bee8cc430a77eddb19e"
+    },
+    {
+      "path": "omlx/2zvzoy8b.html",
+      "url": "https://omlx.ai/benchmarks/performance/2zvzoy8b",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/2zvzoy8b",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:54.859942+00:00",
+      "bytes": 33538,
+      "sha256": "c3e9a619b6ac521b5dbd7ad58acefd55efe537244258b8e7cbd5ced18ba39d38"
+    },
+    {
+      "path": "omlx/nb6qd3m4.html",
+      "url": "https://omlx.ai/benchmarks/performance/nb6qd3m4",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/nb6qd3m4",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:54.864934+00:00",
+      "bytes": 33530,
+      "sha256": "9ee0737f9e42c6ee38848ccf721ad3e3ac2de95197cb35192be99631b482ea6e"
+    },
+    {
+      "path": "omlx/nyzs4s47.html",
+      "url": "https://omlx.ai/benchmarks/performance/nyzs4s47",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/nyzs4s47",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:54.545946+00:00",
+      "bytes": 33532,
+      "sha256": "9d84d4a951996311abb1fbeec0f50d4d9dcfc315efb2c4a3b249969375955e68"
+    },
+    {
+      "path": "omlx/g48lzp6b.html",
+      "url": "https://omlx.ai/benchmarks/performance/g48lzp6b",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/g48lzp6b",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:54.825874+00:00",
+      "bytes": 32677,
+      "sha256": "d49bbe7121d32444ebba614627cfb7bfec2691a2c3b3649fccb27c7714d4168a"
+    },
+    {
+      "path": "omlx/hu57yay1.html",
+      "url": "https://omlx.ai/benchmarks/performance/hu57yay1",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/hu57yay1",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:54.588307+00:00",
+      "bytes": 32677,
+      "sha256": "9edb41f6fa61b11858cc72994002be61bbab365f52a33ac065c582a514632c48"
+    },
+    {
+      "path": "omlx/hjtyr310.html",
+      "url": "https://omlx.ai/benchmarks/performance/hjtyr310",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/hjtyr310",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:54.807649+00:00",
+      "bytes": 32677,
+      "sha256": "784002f9004a9d92343030a33047a28001bea7d7d9e1a63363e174b2991f6ab0"
+    },
+    {
+      "path": "omlx/ji5vd5tk.html",
+      "url": "https://omlx.ai/benchmarks/performance/ji5vd5tk",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/ji5vd5tk",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:54.620357+00:00",
+      "bytes": 32673,
+      "sha256": "5b109ac271433fbfffe77400ab6cd1df809fd1e8537953e9c06f8cf97a7941df"
+    },
+    {
+      "path": "omlx/bqd393jn.html",
+      "url": "https://omlx.ai/benchmarks/performance/bqd393jn",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/bqd393jn",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:55.847197+00:00",
+      "bytes": 32673,
+      "sha256": "10ea4ad7b21b47a56fecae866d24cd8dcbde57853c967bc72ca5a99f20f1a11d"
+    },
+    {
+      "path": "omlx/7luq7hnm.html",
+      "url": "https://omlx.ai/benchmarks/performance/7luq7hnm",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/7luq7hnm",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:55.862293+00:00",
+      "bytes": 32674,
+      "sha256": "3e4dccd322f4fceda3ecaa71497c5f9b1f5a1495be0f31cadea3178765149f2d"
+    },
+    {
+      "path": "omlx/lakpmqoy.html",
+      "url": "https://omlx.ai/benchmarks/performance/lakpmqoy",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/lakpmqoy",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:55.756407+00:00",
+      "bytes": 32280,
+      "sha256": "e5def767420b81c0fe08956c24ae97d2169ff4dacf31d72544e8a7e170429fe5"
+    },
+    {
+      "path": "quality/mkzszvig-raw.json.gz",
+      "url": "https://omlx.ai/api/benchmarks/intelligence/mkzszvig/raw?download=1",
+      "resolved_url": "https://omlx.ai/api/benchmarks/intelligence/mkzszvig/raw?download=1",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:56.304539+00:00",
+      "bytes": 158417,
+      "sha256": "9894467f110be3b637b6cca13a8cc1ab588b9bd954e574ad50debcca13a08201"
+    },
+    {
+      "path": "quality/ybmeme01-raw.json.gz",
+      "url": "https://omlx.ai/api/benchmarks/intelligence/ybmeme01/raw?download=1",
+      "resolved_url": "https://omlx.ai/api/benchmarks/intelligence/ybmeme01/raw?download=1",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:57.117719+00:00",
+      "bytes": 256180,
+      "sha256": "74ac7ebd765e914498485e337b81b24c1c8eb71bfd8e9106035d5de0605cf207"
+    },
+    {
+      "path": "quality/qvlxvz1i-raw.json.gz",
+      "url": "https://omlx.ai/api/benchmarks/intelligence/qvlxvz1i/raw?download=1",
+      "resolved_url": "https://omlx.ai/api/benchmarks/intelligence/qvlxvz1i/raw?download=1",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:56.431713+00:00",
+      "bytes": 21623,
+      "sha256": "1ab3217b842ad843dacc929042418af3e73a9fce88b8c80519df3858fbe26596"
+    },
+    {
+      "path": "quality/6b3p2k87-raw.json.gz",
+      "url": "https://omlx.ai/api/benchmarks/intelligence/6b3p2k87/raw?download=1",
+      "resolved_url": "https://omlx.ai/api/benchmarks/intelligence/6b3p2k87/raw?download=1",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:56.181180+00:00",
+      "bytes": 22869,
+      "sha256": "1ac528c8cff273723f2e1baae59d77ec2a4381bb207e2744512c8be619c6a873"
+    },
+    {
+      "path": "quality/ista-README.md",
+      "url": "https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF/raw/ed59f92082b1e93c0e96d60a8b11aab089b52f09/README.md",
+      "resolved_url": "https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF/raw/ed59f92082b1e93c0e96d60a8b11aab089b52f09/README.md",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:55.256902+00:00",
+      "bytes": 15693,
+      "sha256": "71496aac3c9126085519dbe3aa82e46eb9f5749ee122b089a66182a94b0db6a3"
+    },
+    {
+      "path": "youtube-lead-captions.json",
+      "url": "https://www.youtube.com/api/timedtext?v=6UjDw-2s4ik&ei=a_L1atOIG8uNg8UP5o_MmAY&caps=asr&opi=112496729&exp=xpe&xoaf=5&xowf=1&xospf=1&hl=en-GB&ip=0.0.0.0&ipbits=0&expire=1794528475&sparams=ip,ipbits,expire,v,ei,caps,opi,exp,xoaf&signature=4BB5CC13A556F6A0EA2906D879EF722E136268F6.10F7A0E64FD3077719FDA4043D749C3297B61AF6&key=yt8&kind=asr&lang=en&variant=gemini&fmt=json3",
+      "resolved_url": "https://www.youtube.com/api/timedtext?v=6UjDw-2s4ik&ei=a_L1atOIG8uNg8UP5o_MmAY&caps=asr&opi=112496729&exp=xpe&xoaf=5&xowf=1&xospf=1&hl=en-GB&ip=0.0.0.0&ipbits=0&expire=1794528475&sparams=ip,ipbits,expire,v,ei,caps,opi,exp,xoaf&signature=4BB5CC13A556F6A0EA2906D879EF722E136268F6.10F7A0E64FD3077719FDA4043D749C3297B61AF6&key=yt8&kind=asr&lang=en&variant=gemini&fmt=json3",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:09:40.961664+00:00",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "reddit-initial-image-response.bin",
+      "url": "https://preview.redd.it/m5-ultra-512gb-benchmarks-v0-cenhnfvrem0i1.jpeg?auto=webp&crop=smart&s=8486516fbf4633f8876aa498f408a60bb180d097&width=640",
+      "resolved_url": "https://preview.redd.it/m5-ultra-512gb-benchmarks-v0-cenhnfvrem0i1.jpeg?auto=webp&crop=smart&s=8486516fbf4633f8876aa498f408a60bb180d097&width=640",
+      "status": 403,
+      "content_type": "text/html; charset=utf-8",
+      "retrieved_at": "2026-11-12T17:10:47.022122+00:00",
+      "bytes": 419,
+      "sha256": "adc68e1c5cac30832ca60906bba2f85b1827756512a51b195283161f3634e183"
+    }
+  ]
+}

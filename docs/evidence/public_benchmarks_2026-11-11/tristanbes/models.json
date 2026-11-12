@@ -1,0 +1,886 @@
+[
+  {
+    "name": "Humanizer 12B",
+    "mlx": {
+      "path": "~/models/humanizer-mlx-8bit",
+      "label": "8-bit (own conversion of jialinyyzz/humanizer)",
+      "repo": "jialinyyzz/humanizer"
+    },
+    "gguf": {
+      "path": "~/hf-bench/gguf/humanizer-12b-Q8_0.gguf",
+      "repo": "jialinyyzz/humanizer",
+      "file": "humanizer-12b-Q8_0.gguf",
+      "label": "Q8_0"
+    },
+    "tier": 0
+  },
+  {
+    "name": "Qwen3.8 27B",
+    "mlx": {
+      "repo": "mlx-community/Qwen3.8-27B-4bit",
+      "rev": "10c35caafbb80f7dc6a7a432cdd11af10a6d4818",
+      "label": "4-bit"
+    },
+    "gguf": {
+      "repo": "unsloth/Qwen3.8-27B-GGUF",
+      "rev": "4ca720788d1e01f1bff70c033e0d0028fd02e502",
+      "file": "Qwen3.8-27B-UD-Q4_K_M.gguf",
+      "label": "UD-Q4_K_M"
+    },
+    "tier": 0
+  },
+  {
+    "name": "gpt-oss 20B",
+    "mlx": {
+      "repo": "mlx-community/gpt-oss-20b-MXFP4-Q8",
+      "rev": "773a7da77e569019bb0fd17a554b263738d669a3",
+      "label": "MXFP4-Q8"
+    },
+    "gguf": {
+      "repo": "ggml-org/gpt-oss-20b-GGUF",
+      "rev": "15dcfc7e7c608c6161507211ed43c5b590801b4b",
+      "file": "gpt-oss-20b-MXFP4.gguf",
+      "label": "MXFP4"
+    },
+    "tier": 0
+  },
+  {
+    "name": "Qwen3.6 35B-A3B",
+    "mlx": {
+      "repo": "mlx-community/Qwen3.6-35B-A3B-4bit",
+      "rev": "38740b847e4cb78f352aba30aa41c76e08e6eb46",
+      "label": "4-bit"
+    },
+    "gguf": {
+      "repo": "unsloth/Qwen3.6-35B-A3B-GGUF",
+      "rev": "a483e9e6cbd595906af30beda3187c2663a1118c",
+      "file": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+      "label": "UD-Q4_K_M"
+    },
+    "tier": 0
+  },
+  {
+    "name": "Gemma 4 31B",
+    "mlx": {
+      "repo": "mlx-community/gemma-4-31b-it-4bit",
+      "rev": "696d436c404745a59f30e4939a658162b0a9e57f",
+      "label": "4-bit"
+    },
+    "gguf": {
+      "repo": "unsloth/gemma-4-31B-it-GGUF",
+      "rev": "c1ac76e99d5513b141e8adde7288b85c3f9c32ec",
+      "file": "gemma-4-31B-it-Q4_K_M.gguf",
+      "label": "Q4_K_M"
+    },
+    "tier": 0
+  },
+  {
+    "name": "Devstral Small 2 24B",
+    "mlx": {
+      "repo": "mlx-community/Devstral-Small-2-24B-Instruct-2512-4bit",
+      "rev": "97228558fcbdd1adefd39d515155db3a894b37f7",
+      "label": "4-bit"
+    },
+    "gguf": {
+      "repo": "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF",
+      "rev": "6e458b8add42681bfd023de5eab93637694aaf82",
+      "file": "Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf",
+      "label": "Q4_K_M"
+    },
+    "tier": 0
+  },
+  {
+    "name": "Flint 40B-A2.5B",
+    "tier": 0,
+    "params_total": "40B",
+    "params_active": "2.5B",
+    "released": "2026-10-21",
+    "mlx": {
+      "repo": "RecursiveSI/flint-int4",
+      "rev": "3b93f9053b530488405ae9fca51d4900d6ce21f0",
+      "label": "int4 (official)",
+      "size_gb": 22.6,
+      "runtime": "mlx-lm",
+      "mlx_lm": "git+https://github.com/ml-explore/mlx-lm@4cfc6478473b0668ede3eb0cc93f2a9181a15052",
+      "mlx_lm_note": "Flint support landed in mlx-lm main on 2026-10-24 (#1998), not in 0.32.2"
+    },
+    "gguf": {
+      "repo": "unsloth/flint-GGUF",
+      "rev": "20468edfc38ab43d6914cc88b08cbecb05d0fc62",
+      "file": "flint-UD-Q4_K_XL.gguf",
+      "label": "UD-Q4_K_XL",
+      "size_gb": 25.1,
+      "min_llama_build": 11803
+    }
+  },
+  {
+    "name": "Nanbeige4.3 33B",
+    "tier": 0,
+    "params_total": "33B",
+    "params_active": "33B (dense, Llama architecture)",
+    "released": "2026-10-24",
+    "mlx": {
+      "repo": "fcmeyer/Nanbeige4.3-33B-MLX-4bit",
+      "rev": "e134e560ad92608dc3ce45474b31ec32236b9954",
+      "label": "4-bit",
+      "size_gb": 18.7,
+      "runtime": "mlx-lm"
+    },
+    "gguf": {
+      "repo": "bartowski/Nanbeige_Nanbeige4.3-33B-GGUF",
+      "rev": "9beb68421fdf7be095093a6888325fa2c83ddd38",
+      "file": "Nanbeige_Nanbeige4.3-33B-Q4_K_M.gguf",
+      "label": "Q4_K_M",
+      "size_gb": 20.8
+    }
+  },
+  {
+    "name": "DeepSeek-V4.1-Flash-1017",
+    "tier": 1,
+    "params_total": "≈552B without Engram (llamaperf); ≈763B with Engram (unsloth figure, to verify)",
+    "params_active": "16B",
+    "gguf_variants": [
+      {
+        "repo": "unsloth/DeepSeek-V4.1-Flash-1017-GGUF",
+        "rev": "60ad3651641b5c97679c807e064ab1d7a3ca1455",
+        "files": [
+          "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00001-of-00007.gguf",
+          "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00002-of-00007.gguf",
+          "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00003-of-00007.gguf",
+          "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00004-of-00007.gguf",
+          "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00005-of-00007.gguf",
+          "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00006-of-00007.gguf",
+          "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00007-of-00007.gguf"
+        ],
+        "file": "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00001-of-00007.gguf",
+        "size_gb": 334.8,
+        "label": "UD-Q2_K_XL",
+        "note": "Engram tensor (per_layer_token_embd, Q5_K) stays on the SSD via mmap, see extra_args",
+        "extra_args": [
+          "-lm",
+          "mmap",
+          "-lzm",
+          "on",
+          "-ot",
+          "per_layer_token_embd.weight=CPU"
+        ],
+        "min_llama_build": 11870
+      },
+      {
+        "repo": "unsloth/DeepSeek-V4.1-Flash-1017-GGUF",
+        "rev": "60ad3651641b5c97679c807e064ab1d7a3ca1455",
+        "files": [
+          "UD-IQ2_XXS/DeepSeek-V4.1-Flash-1017-UD-IQ2_XXS-00001-of-00006.gguf",
+          "UD-IQ2_XXS/DeepSeek-V4.1-Flash-1017-UD-IQ2_XXS-00002-of-00006.gguf",
+          "UD-IQ2_XXS/DeepSeek-V4.1-Flash-1017-UD-IQ2_XXS-00003-of-00006.gguf",
+          "UD-IQ2_XXS/DeepSeek-V4.1-Flash-1017-UD-IQ2_XXS-00004-of-00006.gguf",
+          "UD-IQ2_XXS/DeepSeek-V4.1-Flash-1017-UD-IQ2_XXS-00005-of-00006.gguf",
+          "UD-IQ2_XXS/DeepSeek-V4.1-Flash-1017-UD-IQ2_XXS-00006-of-00006.gguf"
+        ],
+        "file": "UD-IQ2_XXS/DeepSeek-V4.1-Flash-1017-UD-IQ2_XXS-00001-of-00006.gguf",
+        "size_gb": 300.5,
+        "label": "UD-IQ2_XXS",
+        "note": "Engram tensor (per_layer_token_embd, Q5_K) stays on the SSD via mmap, see extra_args",
+        "extra_args": [
+          "-lm",
+          "mmap",
+          "-lzm",
+          "on",
+          "-ot",
+          "per_layer_token_embd.weight=CPU"
+        ],
+        "min_llama_build": 11870
+      }
+    ],
+    "mlx_variants": [
+      {
+        "repo": "mlx-community/DeepSeek-V4.1-Flash-1017-oQ2e-mtp",
+        "rev": "e528ef9f84d24ca00e591cda2ef407b3d6917ac0",
+        "size_gb": 313.3,
+        "label": "oQ2e-mtp",
+        "note": "Engram 4-bit, served from the SSD by oMLX",
+        "runtime": "omlx"
+      }
+    ],
+    "ds4": {
+      "repo": "antirez/deepseek-v4.1-flash-gguf",
+      "file": "DeepSeek-V4.1-Flash-1017-IQ2_XXS-Q2_K-imatrix.gguf",
+      "label": "ds41f-q2",
+      "note": "DwarfStar: 152 GiB resident, 189 GiB of Engram tables read from the SSD",
+      "rev": "9dcee51692e6540f697141fc98b097e3c96492a3",
+      "download": "./download_model.sh ds41f-q2"
+    },
+    "gguf": {
+      "repo": "unsloth/DeepSeek-V4.1-Flash-1017-GGUF",
+      "rev": "60ad3651641b5c97679c807e064ab1d7a3ca1455",
+      "files": [
+        "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00001-of-00007.gguf",
+        "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00002-of-00007.gguf",
+        "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00003-of-00007.gguf",
+        "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00004-of-00007.gguf",
+        "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00005-of-00007.gguf",
+        "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00006-of-00007.gguf",
+        "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00007-of-00007.gguf"
+      ],
+      "file": "UD-Q2_K_XL/DeepSeek-V4.1-Flash-1017-UD-Q2_K_XL-00001-of-00007.gguf",
+      "size_gb": 334.8,
+      "label": "UD-Q2_K_XL",
+      "note": "Engram tensor (per_layer_token_embd, Q5_K) stays on the SSD via mmap, see extra_args",
+      "extra_args": [
+        "-lm",
+        "mmap",
+        "-lzm",
+        "on",
+        "-ot",
+        "per_layer_token_embd.weight=CPU"
+      ],
+      "min_llama_build": 11870
+    },
+    "mlx": {
+      "repo": "mlx-community/DeepSeek-V4.1-Flash-1017-oQ2e-mtp",
+      "rev": "e528ef9f84d24ca00e591cda2ef407b3d6917ac0",
+      "size_gb": 313.3,
+      "label": "oQ2e-mtp",
+      "note": "Engram 4-bit, served from the SSD by oMLX",
+      "runtime": "omlx"
+    }
+  },
+  {
+    "name": "MiniMax-M3.1-Flash",
+    "tier": 1,
+    "params_total": "≈428B (model card)",
+    "params_active": "23B (model card)",
+    "gguf_variants": [
+      {
+        "repo": "unsloth/MiniMax-M3.1-Flash-GGUF",
+        "rev": "ce4d8620574874556f280f2bfd2f3445718d59d6",
+        "files": [
+          "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00001-of-00005.gguf",
+          "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00002-of-00005.gguf",
+          "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00003-of-00005.gguf",
+          "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00004-of-00005.gguf",
+          "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00005-of-00005.gguf"
+        ],
+        "file": "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00001-of-00005.gguf",
+        "size_gb": 194.0,
+        "label": "UD-Q3_K_XL",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [
+      {
+        "repo": "mlx-community/MiniMax-M3.1-Flash-Text-3bit",
+        "rev": "71463b23769721057082e06fc14c1a54be981012",
+        "size_gb": 186.5,
+        "label": "3-bit text-only",
+        "runtime": "mlx-lm"
+      }
+    ],
+    "gguf": {
+      "repo": "unsloth/MiniMax-M3.1-Flash-GGUF",
+      "rev": "ce4d8620574874556f280f2bfd2f3445718d59d6",
+      "files": [
+        "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00001-of-00005.gguf",
+        "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00002-of-00005.gguf",
+        "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00003-of-00005.gguf",
+        "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00004-of-00005.gguf",
+        "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00005-of-00005.gguf"
+      ],
+      "file": "UD-Q3_K_XL/MiniMax-M3.1-Flash-UD-Q3_K_XL-00001-of-00005.gguf",
+      "size_gb": 194.0,
+      "label": "UD-Q3_K_XL",
+      "extra_args": []
+    },
+    "mlx": {
+      "repo": "mlx-community/MiniMax-M3.1-Flash-Text-3bit",
+      "rev": "71463b23769721057082e06fc14c1a54be981012",
+      "size_gb": 186.5,
+      "label": "3-bit text-only",
+      "runtime": "mlx-lm"
+    }
+  },
+  {
+    "name": "GLM-5.3-Flash",
+    "tier": 1,
+    "params_total": "320B",
+    "params_active": "18B",
+    "gguf_variants": [
+      {
+        "repo": "unsloth/GLM-5.3-Flash-GGUF",
+        "rev": "a38483c8cd5df544f53d70fb281afe97369d5ab6",
+        "files": [
+          "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00001-of-00006.gguf",
+          "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00002-of-00006.gguf",
+          "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00003-of-00006.gguf",
+          "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00004-of-00006.gguf",
+          "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00005-of-00006.gguf",
+          "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00006-of-00006.gguf"
+        ],
+        "file": "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00001-of-00006.gguf",
+        "size_gb": 199.7,
+        "label": "UD-Q4_K_XL",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [
+      {
+        "repo": "mlx-community/GLM-5.3-Flash-4bit",
+        "rev": "fa04cbc3622b16aa7475404060b05e506d81bd4e",
+        "size_gb": 204.0,
+        "label": "4-bit",
+        "runtime": "omlx"
+      }
+    ],
+    "gguf": {
+      "repo": "unsloth/GLM-5.3-Flash-GGUF",
+      "rev": "a38483c8cd5df544f53d70fb281afe97369d5ab6",
+      "files": [
+        "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00001-of-00006.gguf",
+        "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00002-of-00006.gguf",
+        "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00003-of-00006.gguf",
+        "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00004-of-00006.gguf",
+        "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00005-of-00006.gguf",
+        "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00006-of-00006.gguf"
+      ],
+      "file": "UD-Q4_K_XL/GLM-5.3-Flash-UD-Q4_K_XL-00001-of-00006.gguf",
+      "size_gb": 199.7,
+      "label": "UD-Q4_K_XL",
+      "extra_args": []
+    },
+    "mlx": {
+      "repo": "mlx-community/GLM-5.3-Flash-4bit",
+      "rev": "fa04cbc3622b16aa7475404060b05e506d81bd4e",
+      "size_gb": 204.0,
+      "label": "4-bit",
+      "runtime": "omlx"
+    }
+  },
+  {
+    "name": "Qwen3.8-Flash-Next",
+    "tier": 1,
+    "params_total": "125B",
+    "params_active": "6B",
+    "gguf_variants": [
+      {
+        "repo": "ggml-org/Qwen3.8-Flash-Next-GGUF",
+        "rev": "91fb00353e766eb43944ed223665ea4fb87dad47",
+        "files": [
+          "Qwen3.8-Flash-Next-IQ4_NL-00001-of-00002.gguf",
+          "Qwen3.8-Flash-Next-IQ4_NL-00002-of-00002.gguf"
+        ],
+        "file": "Qwen3.8-Flash-Next-IQ4_NL-00001-of-00002.gguf",
+        "size_gb": 102.0,
+        "label": "IQ4_NL",
+        "note": "same file as the public 57 tok/s figure",
+        "extra_args": []
+      },
+      {
+        "repo": "ggml-org/Qwen3.8-Flash-Next-GGUF",
+        "rev": "91fb00353e766eb43944ed223665ea4fb87dad47",
+        "files": [
+          "Qwen3.8-Flash-Next-Q8_0-00001-of-00002.gguf",
+          "Qwen3.8-Flash-Next-Q8_0-00002-of-00002.gguf"
+        ],
+        "file": "Qwen3.8-Flash-Next-Q8_0-00001-of-00002.gguf",
+        "size_gb": 162.6,
+        "label": "Q8_0",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [
+      {
+        "repo": "mlx-community/Qwen3.8-Flash-Next-4bit",
+        "rev": "07b5dc6c54600a359b87f1e53e7adf6351c72a2c",
+        "size_gb": 111.5,
+        "label": "4-bit",
+        "runtime": "omlx"
+      }
+    ],
+    "gguf": {
+      "repo": "ggml-org/Qwen3.8-Flash-Next-GGUF",
+      "rev": "91fb00353e766eb43944ed223665ea4fb87dad47",
+      "files": [
+        "Qwen3.8-Flash-Next-IQ4_NL-00001-of-00002.gguf",
+        "Qwen3.8-Flash-Next-IQ4_NL-00002-of-00002.gguf"
+      ],
+      "file": "Qwen3.8-Flash-Next-IQ4_NL-00001-of-00002.gguf",
+      "size_gb": 102.0,
+      "label": "IQ4_NL",
+      "note": "same file as the public 57 tok/s figure",
+      "extra_args": []
+    },
+    "mlx": {
+      "repo": "mlx-community/Qwen3.8-Flash-Next-4bit",
+      "rev": "07b5dc6c54600a359b87f1e53e7adf6351c72a2c",
+      "size_gb": 111.5,
+      "label": "4-bit",
+      "runtime": "omlx"
+    }
+  },
+  {
+    "name": "Beam-1.0-501B-A23B",
+    "tier": 2,
+    "params_total": "501B",
+    "params_active": "23.4B",
+    "gguf_variants": [
+      {
+        "repo": "unsloth/Beam-1.0-501B-A23B-GGUF",
+        "rev": "4cc80272381734e2b16b34c1af3362c7268a0ebc",
+        "files": [
+          "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00001-of-00005.gguf",
+          "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00002-of-00005.gguf",
+          "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00003-of-00005.gguf",
+          "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00004-of-00005.gguf",
+          "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00005-of-00005.gguf"
+        ],
+        "file": "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00001-of-00005.gguf",
+        "size_gb": 197.2,
+        "label": "UD-IQ3_XXS",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [],
+    "gguf": {
+      "repo": "unsloth/Beam-1.0-501B-A23B-GGUF",
+      "rev": "4cc80272381734e2b16b34c1af3362c7268a0ebc",
+      "files": [
+        "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00001-of-00005.gguf",
+        "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00002-of-00005.gguf",
+        "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00003-of-00005.gguf",
+        "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00004-of-00005.gguf",
+        "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00005-of-00005.gguf"
+      ],
+      "file": "UD-IQ3_XXS/Beam-1.0-501B-A23B-UD-IQ3_XXS-00001-of-00005.gguf",
+      "size_gb": 197.2,
+      "label": "UD-IQ3_XXS",
+      "extra_args": []
+    }
+  },
+  {
+    "name": "MiMo-V2.6-Flash-RL",
+    "tier": 2,
+    "params_total": "309B (model card)",
+    "params_active": "15B (model card)",
+    "gguf_variants": [
+      {
+        "repo": "ggml-org/MiMo-V2.6-Flash-RL-GGUF",
+        "rev": "f1ef9bfdc3706af3f807752765e52b885e113aae",
+        "files": [
+          "MiMo-V2.6-Flash-RL-MXFP4-00001-of-00002.gguf",
+          "MiMo-V2.6-Flash-RL-MXFP4-00002-of-00002.gguf"
+        ],
+        "file": "MiMo-V2.6-Flash-RL-MXFP4-00001-of-00002.gguf",
+        "size_gb": 167.4,
+        "label": "MXFP4",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [
+      {
+        "repo": "mlx-community/MiMo-V2.6-Flash-RL-mxfp4-q8",
+        "rev": "f12ddf1cca03c0124f2da1ee94b9ce7aab9d3149",
+        "size_gb": 167.3,
+        "label": "mxfp4 (+q8)",
+        "runtime": "omlx"
+      }
+    ],
+    "gguf": {
+      "repo": "ggml-org/MiMo-V2.6-Flash-RL-GGUF",
+      "rev": "f1ef9bfdc3706af3f807752765e52b885e113aae",
+      "files": [
+        "MiMo-V2.6-Flash-RL-MXFP4-00001-of-00002.gguf",
+        "MiMo-V2.6-Flash-RL-MXFP4-00002-of-00002.gguf"
+      ],
+      "file": "MiMo-V2.6-Flash-RL-MXFP4-00001-of-00002.gguf",
+      "size_gb": 167.4,
+      "label": "MXFP4",
+      "extra_args": []
+    },
+    "mlx": {
+      "repo": "mlx-community/MiMo-V2.6-Flash-RL-mxfp4-q8",
+      "rev": "f12ddf1cca03c0124f2da1ee94b9ce7aab9d3149",
+      "size_gb": 167.3,
+      "label": "mxfp4 (+q8)",
+      "runtime": "omlx"
+    }
+  },
+  {
+    "name": "Ling-3.1-flash",
+    "tier": 2,
+    "params_total": "560B",
+    "params_active": "25B",
+    "gguf_variants": [
+      {
+        "repo": "bartowski/Ling-3.1-flash-GGUF",
+        "rev": "de6623498835e4aefd8d60806da9d952078531b3",
+        "files": [
+          "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00001-of-00005.gguf",
+          "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00002-of-00005.gguf",
+          "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00003-of-00005.gguf",
+          "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00004-of-00005.gguf",
+          "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00005-of-00005.gguf"
+        ],
+        "file": "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00001-of-00005.gguf",
+        "size_gb": 188.5,
+        "label": "IQ2_S",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [],
+    "gguf": {
+      "repo": "bartowski/Ling-3.1-flash-GGUF",
+      "rev": "de6623498835e4aefd8d60806da9d952078531b3",
+      "files": [
+        "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00001-of-00005.gguf",
+        "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00002-of-00005.gguf",
+        "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00003-of-00005.gguf",
+        "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00004-of-00005.gguf",
+        "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00005-of-00005.gguf"
+      ],
+      "file": "Ling-3.1-flash-IQ2_S/Ling-3.1-flash-IQ2_S-00001-of-00005.gguf",
+      "size_gb": 188.5,
+      "label": "IQ2_S",
+      "extra_args": []
+    }
+  },
+  {
+    "name": "DeepSeek-V4-Flash-0731",
+    "tier": 2,
+    "params_total": "284B",
+    "params_active": "13B",
+    "gguf_variants": [
+      {
+        "repo": "unsloth/DeepSeek-V4-Flash-0731-GGUF",
+        "rev": "fbbb5b93fb787c21338159b0af3318bb3f4d9768",
+        "files": [
+          "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00001-of-00005.gguf",
+          "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00002-of-00005.gguf",
+          "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00003-of-00005.gguf",
+          "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00004-of-00005.gguf",
+          "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00005-of-00005.gguf"
+        ],
+        "file": "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00001-of-00005.gguf",
+        "size_gb": 155.1,
+        "label": "UD-Q4_K_XL",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [
+      {
+        "repo": "mlx-community/DeepSeek-V4-Flash-4bit",
+        "rev": "38c0bd20a6fba70f22c5ee2940ec0092b36ab936",
+        "size_gb": 151.5,
+        "label": "4-bit (not 0731)",
+        "note": "this MLX repo looks like the original DeepSeek-V4-Flash checkpoint, not 0731: to verify",
+        "runtime": "omlx"
+      }
+    ],
+    "gguf": {
+      "repo": "unsloth/DeepSeek-V4-Flash-0731-GGUF",
+      "rev": "fbbb5b93fb787c21338159b0af3318bb3f4d9768",
+      "files": [
+        "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00001-of-00005.gguf",
+        "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00002-of-00005.gguf",
+        "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00003-of-00005.gguf",
+        "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00004-of-00005.gguf",
+        "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00005-of-00005.gguf"
+      ],
+      "file": "UD-Q4_K_XL/DeepSeek-V4-Flash-0731-UD-Q4_K_XL-00001-of-00005.gguf",
+      "size_gb": 155.1,
+      "label": "UD-Q4_K_XL",
+      "extra_args": []
+    },
+    "mlx": {
+      "repo": "mlx-community/DeepSeek-V4-Flash-4bit",
+      "rev": "38c0bd20a6fba70f22c5ee2940ec0092b36ab936",
+      "size_gb": 151.5,
+      "label": "4-bit (not 0731)",
+      "note": "this MLX repo looks like the original DeepSeek-V4-Flash checkpoint, not 0731: to verify",
+      "runtime": "omlx"
+    }
+  },
+  {
+    "name": "Step-3.7-Flash",
+    "tier": 3,
+    "params_total": "198B",
+    "params_active": "≈11B",
+    "gguf_variants": [
+      {
+        "repo": "unsloth/Step-3.7-Flash-GGUF",
+        "rev": "8dd62fe8a98f3c8994160d0c521542560b558f37",
+        "files": [
+          "Q8_0/Step-3.7-Flash-Q8_0-00001-of-00006.gguf",
+          "Q8_0/Step-3.7-Flash-Q8_0-00002-of-00006.gguf",
+          "Q8_0/Step-3.7-Flash-Q8_0-00003-of-00006.gguf",
+          "Q8_0/Step-3.7-Flash-Q8_0-00004-of-00006.gguf",
+          "Q8_0/Step-3.7-Flash-Q8_0-00005-of-00006.gguf",
+          "Q8_0/Step-3.7-Flash-Q8_0-00006-of-00006.gguf"
+        ],
+        "file": "Q8_0/Step-3.7-Flash-Q8_0-00001-of-00006.gguf",
+        "size_gb": 209.4,
+        "label": "Q8_0",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [
+      {
+        "repo": "mlx-community/Step-3.7-Flash-8bit",
+        "rev": "a4efa6b0152babde095a10208a7ddc7f44d91346",
+        "size_gb": 209.3,
+        "label": "8-bit",
+        "runtime": "omlx"
+      }
+    ],
+    "gguf": {
+      "repo": "unsloth/Step-3.7-Flash-GGUF",
+      "rev": "8dd62fe8a98f3c8994160d0c521542560b558f37",
+      "files": [
+        "Q8_0/Step-3.7-Flash-Q8_0-00001-of-00006.gguf",
+        "Q8_0/Step-3.7-Flash-Q8_0-00002-of-00006.gguf",
+        "Q8_0/Step-3.7-Flash-Q8_0-00003-of-00006.gguf",
+        "Q8_0/Step-3.7-Flash-Q8_0-00004-of-00006.gguf",
+        "Q8_0/Step-3.7-Flash-Q8_0-00005-of-00006.gguf",
+        "Q8_0/Step-3.7-Flash-Q8_0-00006-of-00006.gguf"
+      ],
+      "file": "Q8_0/Step-3.7-Flash-Q8_0-00001-of-00006.gguf",
+      "size_gb": 209.4,
+      "label": "Q8_0",
+      "extra_args": []
+    },
+    "mlx": {
+      "repo": "mlx-community/Step-3.7-Flash-8bit",
+      "rev": "a4efa6b0152babde095a10208a7ddc7f44d91346",
+      "size_gb": 209.3,
+      "label": "8-bit",
+      "runtime": "omlx"
+    }
+  },
+  {
+    "name": "Nemotron-3.5-Super-VL-120B-A12B",
+    "tier": 3,
+    "params_total": "120B",
+    "params_active": "12B",
+    "gguf_variants": [
+      {
+        "repo": "ggml-org/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-GGUF",
+        "rev": "c7259d800429003c12cb39cdc118e2bdc4b76519",
+        "files": [
+          "NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-Q8_0.gguf"
+        ],
+        "file": "NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-Q8_0.gguf",
+        "size_gb": 128.5,
+        "label": "Q8_0",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [],
+    "gguf": {
+      "repo": "ggml-org/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-GGUF",
+      "rev": "c7259d800429003c12cb39cdc118e2bdc4b76519",
+      "files": [
+        "NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-Q8_0.gguf"
+      ],
+      "file": "NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-Q8_0.gguf",
+      "size_gb": 128.5,
+      "label": "Q8_0",
+      "extra_args": []
+    }
+  },
+  {
+    "name": "Mistral-Medium-3.5-128B (dense)",
+    "tier": 3,
+    "params_total": "128B",
+    "params_active": "128B (dense)",
+    "gguf_variants": [
+      {
+        "repo": "unsloth/Mistral-Medium-3.5-128B-GGUF",
+        "rev": "c8f5b1477e1b22cd2d819157d450f001f7047298",
+        "files": [
+          "Q8_0/Mistral-Medium-3.5-128B-Q8_0-00001-of-00004.gguf",
+          "Q8_0/Mistral-Medium-3.5-128B-Q8_0-00002-of-00004.gguf",
+          "Q8_0/Mistral-Medium-3.5-128B-Q8_0-00003-of-00004.gguf",
+          "Q8_0/Mistral-Medium-3.5-128B-Q8_0-00004-of-00004.gguf"
+        ],
+        "file": "Q8_0/Mistral-Medium-3.5-128B-Q8_0-00001-of-00004.gguf",
+        "size_gb": 132.9,
+        "label": "Q8_0",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [
+      {
+        "repo": "mlx-community/Mistral-Medium-3.5-128B-4bit",
+        "rev": "5a7b6b72ca9eb2324a90bdb5e6079789dae68348",
+        "size_gb": 78.0,
+        "label": "4-bit",
+        "runtime": "mlx-lm"
+      }
+    ],
+    "gguf": {
+      "repo": "unsloth/Mistral-Medium-3.5-128B-GGUF",
+      "rev": "c8f5b1477e1b22cd2d819157d450f001f7047298",
+      "files": [
+        "Q8_0/Mistral-Medium-3.5-128B-Q8_0-00001-of-00004.gguf",
+        "Q8_0/Mistral-Medium-3.5-128B-Q8_0-00002-of-00004.gguf",
+        "Q8_0/Mistral-Medium-3.5-128B-Q8_0-00003-of-00004.gguf",
+        "Q8_0/Mistral-Medium-3.5-128B-Q8_0-00004-of-00004.gguf"
+      ],
+      "file": "Q8_0/Mistral-Medium-3.5-128B-Q8_0-00001-of-00004.gguf",
+      "size_gb": 132.9,
+      "label": "Q8_0",
+      "extra_args": []
+    },
+    "mlx": {
+      "repo": "mlx-community/Mistral-Medium-3.5-128B-4bit",
+      "rev": "5a7b6b72ca9eb2324a90bdb5e6079789dae68348",
+      "size_gb": 78.0,
+      "label": "4-bit",
+      "runtime": "mlx-lm"
+    }
+  },
+  {
+    "name": "gpt-oss-120b",
+    "note": "reference model: run it first, quick then long, and compare with the 512/4096 figures published elsewhere",
+    "tier": 3,
+    "params_total": "117B",
+    "params_active": "5.1B",
+    "gguf_variants": [
+      {
+        "repo": "ggml-org/gpt-oss-120b-GGUF",
+        "rev": "7200b74bea78b0a2964ef9f3897eefa401e890ff",
+        "files": [
+          "gpt-oss-120b-MXFP4.gguf"
+        ],
+        "file": "gpt-oss-120b-MXFP4.gguf",
+        "size_gb": 63.4,
+        "label": "MXFP4",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [
+      {
+        "repo": "mlx-community/gpt-oss-120b-MXFP4-Q8",
+        "rev": "81e5ac3ad0af6efb1298a8e8c7a10ed2990c137b",
+        "size_gb": 63.4,
+        "label": "MXFP4-Q8",
+        "runtime": "mlx-lm"
+      }
+    ],
+    "gguf": {
+      "repo": "ggml-org/gpt-oss-120b-GGUF",
+      "rev": "7200b74bea78b0a2964ef9f3897eefa401e890ff",
+      "files": [
+        "gpt-oss-120b-MXFP4.gguf"
+      ],
+      "file": "gpt-oss-120b-MXFP4.gguf",
+      "size_gb": 63.4,
+      "label": "MXFP4",
+      "extra_args": []
+    },
+    "mlx": {
+      "repo": "mlx-community/gpt-oss-120b-MXFP4-Q8",
+      "rev": "81e5ac3ad0af6efb1298a8e8c7a10ed2990c137b",
+      "size_gb": 63.4,
+      "label": "MXFP4-Q8",
+      "runtime": "mlx-lm"
+    }
+  },
+  {
+    "name": "Ornith-1.5-122B",
+    "tier": 3,
+    "params_total": "122B",
+    "params_active": "not stated on the model card",
+    "gguf_variants": [
+      {
+        "repo": "unsloth/Ornith-1.5-122B-GGUF",
+        "rev": "745bd742473a6cdddb1c6f78fb9a3b3a9293bd41",
+        "files": [
+          "Q8_0/Ornith-1.5-122B-Q8_0-00001-of-00004.gguf",
+          "Q8_0/Ornith-1.5-122B-Q8_0-00002-of-00004.gguf",
+          "Q8_0/Ornith-1.5-122B-Q8_0-00003-of-00004.gguf",
+          "Q8_0/Ornith-1.5-122B-Q8_0-00004-of-00004.gguf"
+        ],
+        "file": "Q8_0/Ornith-1.5-122B-Q8_0-00001-of-00004.gguf",
+        "size_gb": 132.6,
+        "label": "Q8_0",
+        "extra_args": []
+      }
+    ],
+    "mlx_variants": [
+      {
+        "repo": "ornith-ai/Ornith-1.5-122B-MLX-8bit",
+        "rev": "5e8df2d2e50478f221602f0997b8cbbec51f9c8a",
+        "size_gb": 130.6,
+        "label": "8-bit",
+        "runtime": "mlx-lm"
+      }
+    ],
+    "gguf": {
+      "repo": "unsloth/Ornith-1.5-122B-GGUF",
+      "rev": "745bd742473a6cdddb1c6f78fb9a3b3a9293bd41",
+      "files": [
+        "Q8_0/Ornith-1.5-122B-Q8_0-00001-of-00004.gguf",
+        "Q8_0/Ornith-1.5-122B-Q8_0-00002-of-00004.gguf",
+        "Q8_0/Ornith-1.5-122B-Q8_0-00003-of-00004.gguf",
+        "Q8_0/Ornith-1.5-122B-Q8_0-00004-of-00004.gguf"
+      ],
+      "file": "Q8_0/Ornith-1.5-122B-Q8_0-00001-of-00004.gguf",
+      "size_gb": 132.6,
+      "label": "Q8_0",
+      "extra_args": []
+    },
+    "mlx": {
+      "repo": "ornith-ai/Ornith-1.5-122B-MLX-8bit",
+      "rev": "5e8df2d2e50478f221602f0997b8cbbec51f9c8a",
+      "size_gb": 130.6,
+      "label": "8-bit",
+      "runtime": "mlx-lm"
+    }
+  },
+  {
+    "name": "Mistral-Large-4-1T-A52B",
+    "tier": 1,
+    "params_total": "1T",
+    "params_active": "52B (49B without embeddings)",
+    "released": "2026-10-29",
+    "gguf_variants": [
+      {
+        "repo": "unsloth/Mistral-Large-4-1T-A52B-GGUF",
+        "rev": "1eb4373d37e76f6e7b4b8efa20e1b1ca40b3b964",
+        "files": [
+          "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00001-of-00006.gguf",
+          "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00002-of-00006.gguf",
+          "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00003-of-00006.gguf",
+          "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00004-of-00006.gguf",
+          "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00005-of-00006.gguf",
+          "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00006-of-00006.gguf"
+        ],
+        "file": "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00001-of-00006.gguf",
+        "size_gb": 233.0,
+        "label": "UD-IQ1_S",
+        "note": "only quant that fits in 256 GB; MLX 2-bit (mlx-community, 338 GB) does not fit",
+        "extra_args": [],
+        "min_llama_build": 11999
+      }
+    ],
+    "mlx_variants": [],
+    "gguf": {
+      "repo": "unsloth/Mistral-Large-4-1T-A52B-GGUF",
+      "rev": "1eb4373d37e76f6e7b4b8efa20e1b1ca40b3b964",
+      "files": [
+        "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00001-of-00006.gguf",
+        "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00002-of-00006.gguf",
+        "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00003-of-00006.gguf",
+        "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00004-of-00006.gguf",
+        "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00005-of-00006.gguf",
+        "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00006-of-00006.gguf"
+      ],
+      "file": "UD-IQ1_S/Mistral-Large-4-1T-A52B-UD-IQ1_S-00001-of-00006.gguf",
+      "size_gb": 233.0,
+      "label": "UD-IQ1_S",
+      "note": "only quant that fits in 256 GB; MLX 2-bit (mlx-community, 338 GB) does not fit",
+      "extra_args": [],
+      "min_llama_build": 11999
+    }
+  }
+]

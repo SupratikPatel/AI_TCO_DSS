@@ -14,7 +14,7 @@ describe('editable accessible primitives', () => {
   });
   it('converts only presentation and preserves missing values', () => {
     expect(money(111.65, 'EUR', 1.1165)).toContain('100');
-    expect(money(111.65, 'USD', 1.1165)).toContain('112');
+    expect(money(111.65, 'USD', 1.1165)).toBe('$111.65');
     expect(money(null, 'USD', 1.1165)).toBe('Unavailable');
   });
 });

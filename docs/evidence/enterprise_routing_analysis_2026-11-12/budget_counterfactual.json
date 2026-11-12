@@ -1,0 +1,937 @@
+{
+  "purpose": "Explicit budget counterfactual, not a change to saved defaults or a recommendation.",
+  "engine_version": "0.1.4",
+  "catalog_fingerprint": "533bdcadb4dd9a1ba2dc492697a8f58b2f2284a00641298ead6c116588ce0212",
+  "cases": [
+    {
+      "users": 1050,
+      "changed_only": "financials.max_capex_budget_usd: 100000 -> null",
+      "scenario": {
+        "workload": {
+          "active_users": 1050,
+          "concurrent_agent_instances": 8,
+          "daily_requests_per_user": 40,
+          "working_days_per_month": 22,
+          "avg_input_tokens": 15000,
+          "avg_output_tokens": 1500,
+          "thinking_effort_preset": "medium",
+          "reasoning_token_multiplier": 2.5,
+          "has_verification_agent_layer": false,
+          "context_length_p50": 32000,
+          "context_length_p90": 128000,
+          "context_length_p99": 250000,
+          "peak_concurrent_requests": 5,
+          "harness_type": "claude-code",
+          "mcp_code_mode_pruning": false,
+          "custom_scaffolding_tokens": null,
+          "gateway_type": "litellm-python",
+          "prompt_cache_hit_rate": 0.5,
+          "batch_api_eligible_ratio": 0.2,
+          "mega_session_ratio": 0.35,
+          "work_schedule_mode": "interactive-workday",
+          "active_hours_per_month": 176,
+          "min_acceptable_tps": 20.0,
+          "max_acceptable_ttft_seconds": 15.0
+        },
+        "financials": {
+          "cost_model": "enterprise",
+          "currency": "USD",
+          "max_tco_budget_usd": null,
+          "max_capex_budget_usd": null,
+          "electricity_tariff_tier": "de-industrial-bdew",
+          "cooling_pue": 1.2,
+          "engineering_hub_location": "ro-cluj-bucharest",
+          "devops_fte_allocation": 0.5,
+          "enable_nvidia_nim_licensing": false,
+          "nvidia_nim_license_per_gpu_yr_usd": 4500.0,
+          "developer_hourly_opportunity_cost": 72.57,
+          "include_wait_time_penalty": false,
+          "capital_opportunity_rate": 0.045,
+          "depreciation_years": 3,
+          "strict_eu_sovereignty": true,
+          "require_third_party_harness": true,
+          "local_offload_ratio": 0.7,
+          "include_resale_value": false,
+          "subscription_plan_id": null
+        },
+        "sizing": {
+          "benchmark_conditions": null,
+          "performance_prompt_tokens": null,
+          "weight_precision": "INT4",
+          "kv_precision": "FP16",
+          "target_context_length": 128000,
+          "apply_mac_wired_memory_override": false,
+          "linux_amd_override": false,
+          "speculative_mode": "none",
+          "enable_optimized_backend": true,
+          "requested_nodes": null,
+          "gpu_memory_utilization": 0.9,
+          "runtime_overhead_gb": 2.0,
+          "repo_workspace_gb": 4.0,
+          "runtime_format": "auto"
+        },
+        "decision": {
+          "reward_excess_performance": false,
+          "use_case": "agentic-coding",
+          "preset": "best-fit",
+          "weights": null,
+          "method": "saw",
+          "reference_api_model_id": null
+        },
+        "fx_override": null
+      },
+      "admitted": 13,
+      "winner": {
+        "candidate_id": "onprem:mac-studio-m5-ultra-256gb:1x:glm-5-3-flash:INT2",
+        "kind": "onprem",
+        "label": "Mac Studio (M5 Ultra 256GB) x 1 + GLM 5.3 Flash INT2",
+        "archetype": "Sovereign Per-Seat Workstation",
+        "hardware_id": "mac-studio-m5-ultra-256gb",
+        "nodes": 1,
+        "model_id": "glm-5-3-flash",
+        "precision": "INT2",
+        "rental_id": null,
+        "api_model_id": null,
+        "local_candidate_id": null,
+        "sizing": {
+          "hardware_id": "mac-studio-m5-ultra-256gb",
+          "model_id": "glm-5-3-flash",
+          "precision": "INT2",
+          "requested_nodes": 1,
+          "nodes_required": 1,
+          "alpha_scaling": 1.0,
+          "is_feasible": true,
+          "oom_reason": null,
+          "usable_memory_gb": 206.08,
+          "usable_memory_default_gb": 206.08,
+          "usable_system_ram_gb": null,
+          "weights": {
+            "value": 108.7,
+            "unit": "GB",
+            "origin": {
+              "origin": "measured",
+              "source_ids": [
+                "UNSLOTH-GGUF"
+              ]
+            }
+          },
+          "kv_per_token_bytes": 890.0,
+          "m_kv_single_gb": 0.11392,
+          "kv_pool_gb": 95.37999999999998,
+          "max_concurrent_users": 837,
+          "max_usable_context": 1048576,
+          "agent_state_memory_required_gb": 32.91136,
+          "memory_breakdown": [
+            [
+              "weights",
+              108.7
+            ],
+            [
+              "kv_cache_active",
+              0.5696
+            ],
+            [
+              "agent_state_parked",
+              32.91136
+            ],
+            [
+              "os_reserved",
+              49.920000000000016
+            ],
+            [
+              "runtime_overhead",
+              2.0
+            ]
+          ],
+          "triggered_mac_default_split_trap": false,
+          "meets_128k_agentic_context_floor": true,
+          "eu_commercial_license_valid": true,
+          "context_eviction_risk": false,
+          "token_agreement_rate": null,
+          "thunderbolt_mesh_cables": 0,
+          "warnings": [],
+          "traces": [
+            {
+              "name": "usable_memory",
+              "symbolic": "M_usable = N * usable_per_node",
+              "substituted": "1 * 206.0800 GB",
+              "result": 206.07999999999998,
+              "unit": "GB"
+            },
+            {
+              "name": "weights",
+              "symbolic": "M_weights = calibrated_weights_gb[precision]",
+              "substituted": "calibrated_weights_gb[INT2] = 108.7 GB",
+              "result": 108.7,
+              "unit": "GB"
+            },
+            {
+              "name": "kv_per_token",
+              "symbolic": "M_kv_per_token = 890 bytes (multi-head latent attention)",
+              "substituted": "890.0 bytes",
+              "result": 890.0,
+              "unit": "bytes"
+            },
+            {
+              "name": "kv_pool",
+              "symbolic": "M_kv_pool = M_usable - M_weights_on_device - M_runtime_overhead",
+              "substituted": "206.0800 - 108.7000 - 2.0",
+              "result": 95.37999999999998,
+              "unit": "GB"
+            },
+            {
+              "name": "max_concurrent_users",
+              "symbolic": "U_max = \u230aM_kv_pool / M_kv_single\u230b",
+              "substituted": "\u230a95.3800 / 0.113920\u230b",
+              "result": 837.0,
+              "unit": "users"
+            }
+          ]
+        },
+        "performance": {
+          "decode_tps": {
+            "value": 65.29740786227269,
+            "unit": "tok/s",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "APPLE-MAC-STUDIO-SPECS",
+                "HF-GLM-5-3-FLASH"
+              ]
+            }
+          },
+          "prefill_tps": {
+            "value": 2700.0,
+            "unit": "tok/s",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "YT-21"
+              ]
+            }
+          },
+          "ttft_s": {
+            "value": 8.88888888888889,
+            "unit": "s",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "YT-21"
+              ]
+            }
+          },
+          "effective_tps": {
+            "value": 56.54536976503836,
+            "unit": "tok/s",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "APPLE-MAC-STUDIO-SPECS",
+                "HF-GLM-5-3-FLASH",
+                "YT-21"
+              ]
+            }
+          },
+          "prefill_1m_minutes": {
+            "value": 6.172839506172839,
+            "unit": "min",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "YT-21"
+              ]
+            }
+          },
+          "warnings": [
+            "mac-studio-m5-ultra-256gb: the 1,000,000-token prefill time uses the prefill rate at 128000 tokens; long-context prefill speed is likely overestimated"
+          ],
+          "traces": [
+            {
+              "name": "decode_tps",
+              "symbolic": "TPS_decode = BW / (P_active * bits / 8 * 1.05) * eta_engine * gamma_spec * delta_ctx * alpha_scaling",
+              "substituted": "1200.0 / (18.0 * 2 / 8 * 1.05) * 0.425 * 1.0 * 0.6050 * 1.0",
+              "result": 65.29740786227269,
+              "unit": "tok/s"
+            },
+            {
+              "name": "prefill_tps",
+              "symbolic": "prefill_tps = catalog value",
+              "substituted": "2700.0",
+              "result": 2700.0,
+              "unit": "tok/s"
+            },
+            {
+              "name": "ttft_s",
+              "symbolic": "TTFT = T_in_hat * (1 - r_cache) / (prefill_TPS * beta_backend)",
+              "substituted": "48000.0 * (1 - 0.5) / (2700.0 * 1.0)",
+              "result": 8.88888888888889,
+              "unit": "s"
+            },
+            {
+              "name": "effective_tps",
+              "symbolic": "TPS_eff = T_out * mu / (TTFT + T_out * mu / TPS_decode)",
+              "substituted": "3750.0 / (8.8889 + 3750.0 / 65.2974)",
+              "result": 56.54536976503836,
+              "unit": "tok/s"
+            },
+            {
+              "name": "prefill_1m_minutes",
+              "symbolic": "t_1M = 1,000,000 / prefill_TPS_1M / 60",
+              "substituted": "1000000 / 2700.0 / 60",
+              "result": 6.172839506172839,
+              "unit": "min"
+            }
+          ]
+        },
+        "tco": {
+          "units": 1050,
+          "gpu_count": 1050,
+          "capex": {
+            "value": 11135915.175,
+            "unit": "USD",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "SPEC-03",
+                "SPEC-02"
+              ]
+            }
+          },
+          "monthly_opex": [
+            [
+              "energy",
+              17602.19539848
+            ],
+            [
+              "personnel",
+              3567.56640625
+            ],
+            [
+              "nim_licensing",
+              0.0
+            ],
+            [
+              "capital_opportunity",
+              41759.68190625
+            ],
+            [
+              "wait_penalty",
+              0.0
+            ],
+            [
+              "eviction_loss",
+              0.0
+            ]
+          ],
+          "monthly_opex_total": 62929.44371098,
+          "munich_vs_romania_personnel_savings_monthly": 3204.006093750001,
+          "aggregate_tps": {
+            "value": 1518334.1897386592,
+            "unit": "tok/s",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "APPLE-MAC-STUDIO-SPECS",
+                "HF-GLM-5-3-FLASH",
+                "YT-21"
+              ]
+            }
+          },
+          "capacity_tokens_month": 962016542618.4144,
+          "utilization": 0.0036018091649120407,
+          "meets_70_percent_utilization_threshold": false,
+          "capacity_insufficient": false,
+          "resale_retention_3yr": 0.6,
+          "cost_60m": 14911681.797658801,
+          "warnings": [
+            "Idle capacity financial warning: Utilization 0.4% is below 55%. Low utilization spreads fixed costs over less work; compare modeled total costs before choosing local or API deployment."
+          ],
+          "traces": [
+            {
+              "name": "capex",
+              "symbolic": "CapEx = (units * street_price) * \u03bc_datacenter + cabling_and_switch_kit",
+              "substituted": "(1050 * 10605.63) * 1.0 + 0.00",
+              "result": 11135915.175,
+              "unit": "USD"
+            },
+            {
+              "name": "energy",
+              "symbolic": "Energy = units * (H_active * W_load + H_idle * W_idle) / 1000 * PUE * rate",
+              "substituted": "1050 * (176 * 385.0 + 554 * 9.0) / 1000 * 1.2 * 0.1920",
+              "result": 17602.19539848,
+              "unit": "USD"
+            },
+            {
+              "name": "personnel",
+              "symbolic": "Personnel = FTE * annual_base_salary * (1 + \u03c4_employer) / 12",
+              "substituted": "0.5 * 83737.50 * (1 + 2.25%) / 12",
+              "result": 3567.56640625,
+              "unit": "USD"
+            },
+            {
+              "name": "munich_vs_romania_personnel_savings",
+              "symbolic": "Savings = Personnel(de-munich-hq) - Personnel(ro-cluj-bucharest)",
+              "substituted": "6771.57 - 3567.57",
+              "result": 3204.006093750001,
+              "unit": "USD"
+            },
+            {
+              "name": "nim_licensing",
+              "symbolic": "NIM = license_per_gpu_yr / 12 * GPU count (0 if disabled)",
+              "substituted": "disabled",
+              "result": 0.0,
+              "unit": "USD"
+            },
+            {
+              "name": "capital_opportunity",
+              "symbolic": "Opportunity = CapEx * capital_opportunity_rate / 12 (rate: assumption)",
+              "substituted": "11135915.18 * 0.045 / 12",
+              "result": 41759.68190625,
+              "unit": "USD"
+            },
+            {
+              "name": "wait_penalty",
+              "symbolic": "Wait = max(0, H_local_wait - H_cloud_wait) * dev_rate, H = requests * TTFT / 3600",
+              "substituted": "disabled",
+              "result": 0.0,
+              "unit": "USD"
+            },
+            {
+              "name": "eviction_loss",
+              "symbolic": "Eviction = N_ev * (rebuild_tokens / 1e6 * P_compute + wait_h * dev_rate / N_agents); N_ev and P_compute: assumption",
+              "substituted": "no context eviction risk",
+              "result": 0.0,
+              "unit": "USD"
+            },
+            {
+              "name": "aggregate_tps",
+              "symbolic": "aggregate = units_factor * min(decode * n * 1/(1 + c(n - 1)), nodes * prefill_32k), n = min(U_max, batch_cap * nodes)",
+              "substituted": "1050 * min(65.2974 * 64 * 0.346021, 1 * 2700.0)",
+              "result": 1518334.1897386592,
+              "unit": "tok/s"
+            },
+            {
+              "name": "utilization",
+              "symbolic": "Utilization = demanded output tokens / (aggregate TPS * 3600 * H_active)",
+              "substituted": "3465000000 / (1518334.1897 * 3600 * 176)",
+              "result": 0.0036018091649120407,
+              "unit": "ratio"
+            },
+            {
+              "name": "cost_60m",
+              "symbolic": "TCO(60) = CapEx + 60 * monthly OpEx - resale(60) (resale only if included)",
+              "substituted": "11135915.18 + 60 * 62929.44 - 0.00",
+              "result": 14911681.797658801,
+              "unit": "USD"
+            }
+          ]
+        },
+        "capex": 11135915.175,
+        "monthly_cost": 62929.44371098,
+        "cost_60m": 14911681.797658801,
+        "price_origin": {
+          "origin": "formula",
+          "source_ids": [
+            "SPEC-03",
+            "SPEC-02"
+          ]
+        },
+        "quality": {
+          "value": 84.3,
+          "benchmark": "terminal_bench",
+          "origin": {
+            "origin": "measured",
+            "source_ids": [
+              "HF-GLM-5-3-FLASH"
+            ]
+          },
+          "fallback_note": null
+        },
+        "risk": 0.025000000000000022,
+        "popularity": 14058.8,
+        "utilization": 0.0036018091649120407,
+        "eu_compliant": true,
+        "failures": [],
+        "notes": [],
+        "model_max_context_tokens": 1048576,
+        "api_has_eu_endpoint": false,
+        "components": []
+      }
+    },
+    {
+      "users": 2000,
+      "changed_only": "financials.max_capex_budget_usd: 100000 -> null",
+      "scenario": {
+        "workload": {
+          "active_users": 2000,
+          "concurrent_agent_instances": 8,
+          "daily_requests_per_user": 40,
+          "working_days_per_month": 22,
+          "avg_input_tokens": 15000,
+          "avg_output_tokens": 1500,
+          "thinking_effort_preset": "medium",
+          "reasoning_token_multiplier": 2.5,
+          "has_verification_agent_layer": false,
+          "context_length_p50": 32000,
+          "context_length_p90": 128000,
+          "context_length_p99": 250000,
+          "peak_concurrent_requests": 5,
+          "harness_type": "claude-code",
+          "mcp_code_mode_pruning": false,
+          "custom_scaffolding_tokens": null,
+          "gateway_type": "litellm-python",
+          "prompt_cache_hit_rate": 0.5,
+          "batch_api_eligible_ratio": 0.2,
+          "mega_session_ratio": 0.35,
+          "work_schedule_mode": "interactive-workday",
+          "active_hours_per_month": 176,
+          "min_acceptable_tps": 20.0,
+          "max_acceptable_ttft_seconds": 15.0
+        },
+        "financials": {
+          "cost_model": "enterprise",
+          "currency": "USD",
+          "max_tco_budget_usd": null,
+          "max_capex_budget_usd": null,
+          "electricity_tariff_tier": "de-industrial-bdew",
+          "cooling_pue": 1.2,
+          "engineering_hub_location": "ro-cluj-bucharest",
+          "devops_fte_allocation": 0.5,
+          "enable_nvidia_nim_licensing": false,
+          "nvidia_nim_license_per_gpu_yr_usd": 4500.0,
+          "developer_hourly_opportunity_cost": 72.57,
+          "include_wait_time_penalty": false,
+          "capital_opportunity_rate": 0.045,
+          "depreciation_years": 3,
+          "strict_eu_sovereignty": true,
+          "require_third_party_harness": true,
+          "local_offload_ratio": 0.7,
+          "include_resale_value": false,
+          "subscription_plan_id": null
+        },
+        "sizing": {
+          "benchmark_conditions": null,
+          "performance_prompt_tokens": null,
+          "weight_precision": "INT4",
+          "kv_precision": "FP16",
+          "target_context_length": 128000,
+          "apply_mac_wired_memory_override": false,
+          "linux_amd_override": false,
+          "speculative_mode": "none",
+          "enable_optimized_backend": true,
+          "requested_nodes": null,
+          "gpu_memory_utilization": 0.9,
+          "runtime_overhead_gb": 2.0,
+          "repo_workspace_gb": 4.0,
+          "runtime_format": "auto"
+        },
+        "decision": {
+          "reward_excess_performance": false,
+          "use_case": "agentic-coding",
+          "preset": "best-fit",
+          "weights": null,
+          "method": "saw",
+          "reference_api_model_id": null
+        },
+        "fx_override": null
+      },
+      "admitted": 10,
+      "winner": {
+        "candidate_id": "onprem:mac-studio-m5-ultra-256gb:1x:glm-5-3-flash:INT2",
+        "kind": "onprem",
+        "label": "Mac Studio (M5 Ultra 256GB) x 1 + GLM 5.3 Flash INT2",
+        "archetype": "Sovereign Per-Seat Workstation",
+        "hardware_id": "mac-studio-m5-ultra-256gb",
+        "nodes": 1,
+        "model_id": "glm-5-3-flash",
+        "precision": "INT2",
+        "rental_id": null,
+        "api_model_id": null,
+        "local_candidate_id": null,
+        "sizing": {
+          "hardware_id": "mac-studio-m5-ultra-256gb",
+          "model_id": "glm-5-3-flash",
+          "precision": "INT2",
+          "requested_nodes": 1,
+          "nodes_required": 1,
+          "alpha_scaling": 1.0,
+          "is_feasible": true,
+          "oom_reason": null,
+          "usable_memory_gb": 206.08,
+          "usable_memory_default_gb": 206.08,
+          "usable_system_ram_gb": null,
+          "weights": {
+            "value": 108.7,
+            "unit": "GB",
+            "origin": {
+              "origin": "measured",
+              "source_ids": [
+                "UNSLOTH-GGUF"
+              ]
+            }
+          },
+          "kv_per_token_bytes": 890.0,
+          "m_kv_single_gb": 0.11392,
+          "kv_pool_gb": 95.37999999999998,
+          "max_concurrent_users": 837,
+          "max_usable_context": 1048576,
+          "agent_state_memory_required_gb": 32.91136,
+          "memory_breakdown": [
+            [
+              "weights",
+              108.7
+            ],
+            [
+              "kv_cache_active",
+              0.5696
+            ],
+            [
+              "agent_state_parked",
+              32.91136
+            ],
+            [
+              "os_reserved",
+              49.920000000000016
+            ],
+            [
+              "runtime_overhead",
+              2.0
+            ]
+          ],
+          "triggered_mac_default_split_trap": false,
+          "meets_128k_agentic_context_floor": true,
+          "eu_commercial_license_valid": true,
+          "context_eviction_risk": false,
+          "token_agreement_rate": null,
+          "thunderbolt_mesh_cables": 0,
+          "warnings": [],
+          "traces": [
+            {
+              "name": "usable_memory",
+              "symbolic": "M_usable = N * usable_per_node",
+              "substituted": "1 * 206.0800 GB",
+              "result": 206.07999999999998,
+              "unit": "GB"
+            },
+            {
+              "name": "weights",
+              "symbolic": "M_weights = calibrated_weights_gb[precision]",
+              "substituted": "calibrated_weights_gb[INT2] = 108.7 GB",
+              "result": 108.7,
+              "unit": "GB"
+            },
+            {
+              "name": "kv_per_token",
+              "symbolic": "M_kv_per_token = 890 bytes (multi-head latent attention)",
+              "substituted": "890.0 bytes",
+              "result": 890.0,
+              "unit": "bytes"
+            },
+            {
+              "name": "kv_pool",
+              "symbolic": "M_kv_pool = M_usable - M_weights_on_device - M_runtime_overhead",
+              "substituted": "206.0800 - 108.7000 - 2.0",
+              "result": 95.37999999999998,
+              "unit": "GB"
+            },
+            {
+              "name": "max_concurrent_users",
+              "symbolic": "U_max = \u230aM_kv_pool / M_kv_single\u230b",
+              "substituted": "\u230a95.3800 / 0.113920\u230b",
+              "result": 837.0,
+              "unit": "users"
+            }
+          ]
+        },
+        "performance": {
+          "decode_tps": {
+            "value": 65.29740786227269,
+            "unit": "tok/s",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "APPLE-MAC-STUDIO-SPECS",
+                "HF-GLM-5-3-FLASH"
+              ]
+            }
+          },
+          "prefill_tps": {
+            "value": 2700.0,
+            "unit": "tok/s",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "YT-21"
+              ]
+            }
+          },
+          "ttft_s": {
+            "value": 8.88888888888889,
+            "unit": "s",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "YT-21"
+              ]
+            }
+          },
+          "effective_tps": {
+            "value": 56.54536976503836,
+            "unit": "tok/s",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "APPLE-MAC-STUDIO-SPECS",
+                "HF-GLM-5-3-FLASH",
+                "YT-21"
+              ]
+            }
+          },
+          "prefill_1m_minutes": {
+            "value": 6.172839506172839,
+            "unit": "min",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "YT-21"
+              ]
+            }
+          },
+          "warnings": [
+            "mac-studio-m5-ultra-256gb: the 1,000,000-token prefill time uses the prefill rate at 128000 tokens; long-context prefill speed is likely overestimated"
+          ],
+          "traces": [
+            {
+              "name": "decode_tps",
+              "symbolic": "TPS_decode = BW / (P_active * bits / 8 * 1.05) * eta_engine * gamma_spec * delta_ctx * alpha_scaling",
+              "substituted": "1200.0 / (18.0 * 2 / 8 * 1.05) * 0.425 * 1.0 * 0.6050 * 1.0",
+              "result": 65.29740786227269,
+              "unit": "tok/s"
+            },
+            {
+              "name": "prefill_tps",
+              "symbolic": "prefill_tps = catalog value",
+              "substituted": "2700.0",
+              "result": 2700.0,
+              "unit": "tok/s"
+            },
+            {
+              "name": "ttft_s",
+              "symbolic": "TTFT = T_in_hat * (1 - r_cache) / (prefill_TPS * beta_backend)",
+              "substituted": "48000.0 * (1 - 0.5) / (2700.0 * 1.0)",
+              "result": 8.88888888888889,
+              "unit": "s"
+            },
+            {
+              "name": "effective_tps",
+              "symbolic": "TPS_eff = T_out * mu / (TTFT + T_out * mu / TPS_decode)",
+              "substituted": "3750.0 / (8.8889 + 3750.0 / 65.2974)",
+              "result": 56.54536976503836,
+              "unit": "tok/s"
+            },
+            {
+              "name": "prefill_1m_minutes",
+              "symbolic": "t_1M = 1,000,000 / prefill_TPS_1M / 60",
+              "substituted": "1000000 / 2700.0 / 60",
+              "result": 6.172839506172839,
+              "unit": "min"
+            }
+          ]
+        },
+        "tco": {
+          "units": 2000,
+          "gpu_count": 2000,
+          "capex": {
+            "value": 21211267.0,
+            "unit": "USD",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "SPEC-03",
+                "SPEC-02"
+              ]
+            }
+          },
+          "monthly_opex": [
+            [
+              "energy",
+              33527.991235199996
+            ],
+            [
+              "personnel",
+              3567.56640625
+            ],
+            [
+              "nim_licensing",
+              0.0
+            ],
+            [
+              "capital_opportunity",
+              79542.25125
+            ],
+            [
+              "wait_penalty",
+              0.0
+            ],
+            [
+              "eviction_loss",
+              0.0
+            ]
+          ],
+          "monthly_opex_total": 116637.80889145,
+          "munich_vs_romania_personnel_savings_monthly": 3204.006093750001,
+          "aggregate_tps": {
+            "value": 2892065.123311732,
+            "unit": "tok/s",
+            "origin": {
+              "origin": "formula",
+              "source_ids": [
+                "APPLE-MAC-STUDIO-SPECS",
+                "HF-GLM-5-3-FLASH",
+                "YT-21"
+              ]
+            }
+          },
+          "capacity_tokens_month": 1832412462130.3135,
+          "utilization": 0.0036018091649120403,
+          "meets_70_percent_utilization_threshold": false,
+          "capacity_insufficient": false,
+          "resale_retention_3yr": 0.6,
+          "cost_60m": 28209535.533487,
+          "warnings": [
+            "Idle capacity financial warning: Utilization 0.4% is below 55%. Low utilization spreads fixed costs over less work; compare modeled total costs before choosing local or API deployment."
+          ],
+          "traces": [
+            {
+              "name": "capex",
+              "symbolic": "CapEx = (units * street_price) * \u03bc_datacenter + cabling_and_switch_kit",
+              "substituted": "(2000 * 10605.63) * 1.0 + 0.00",
+              "result": 21211267.0,
+              "unit": "USD"
+            },
+            {
+              "name": "energy",
+              "symbolic": "Energy = units * (H_active * W_load + H_idle * W_idle) / 1000 * PUE * rate",
+              "substituted": "2000 * (176 * 385.0 + 554 * 9.0) / 1000 * 1.2 * 0.1920",
+              "result": 33527.991235199996,
+              "unit": "USD"
+            },
+            {
+              "name": "personnel",
+              "symbolic": "Personnel = FTE * annual_base_salary * (1 + \u03c4_employer) / 12",
+              "substituted": "0.5 * 83737.50 * (1 + 2.25%) / 12",
+              "result": 3567.56640625,
+              "unit": "USD"
+            },
+            {
+              "name": "munich_vs_romania_personnel_savings",
+              "symbolic": "Savings = Personnel(de-munich-hq) - Personnel(ro-cluj-bucharest)",
+              "substituted": "6771.57 - 3567.57",
+              "result": 3204.006093750001,
+              "unit": "USD"
+            },
+            {
+              "name": "nim_licensing",
+              "symbolic": "NIM = license_per_gpu_yr / 12 * GPU count (0 if disabled)",
+              "substituted": "disabled",
+              "result": 0.0,
+              "unit": "USD"
+            },
+            {
+              "name": "capital_opportunity",
+              "symbolic": "Opportunity = CapEx * capital_opportunity_rate / 12 (rate: assumption)",
+              "substituted": "21211267.00 * 0.045 / 12",
+              "result": 79542.25125,
+              "unit": "USD"
+            },
+            {
+              "name": "wait_penalty",
+              "symbolic": "Wait = max(0, H_local_wait - H_cloud_wait) * dev_rate, H = requests * TTFT / 3600",
+              "substituted": "disabled",
+              "result": 0.0,
+              "unit": "USD"
+            },
+            {
+              "name": "eviction_loss",
+              "symbolic": "Eviction = N_ev * (rebuild_tokens / 1e6 * P_compute + wait_h * dev_rate / N_agents); N_ev and P_compute: assumption",
+              "substituted": "no context eviction risk",
+              "result": 0.0,
+              "unit": "USD"
+            },
+            {
+              "name": "aggregate_tps",
+              "symbolic": "aggregate = units_factor * min(decode * n * 1/(1 + c(n - 1)), nodes * prefill_32k), n = min(U_max, batch_cap * nodes)",
+              "substituted": "2000 * min(65.2974 * 64 * 0.346021, 1 * 2700.0)",
+              "result": 2892065.123311732,
+              "unit": "tok/s"
+            },
+            {
+              "name": "utilization",
+              "symbolic": "Utilization = demanded output tokens / (aggregate TPS * 3600 * H_active)",
+              "substituted": "6600000000 / (2892065.1233 * 3600 * 176)",
+              "result": 0.0036018091649120403,
+              "unit": "ratio"
+            },
+            {
+              "name": "cost_60m",
+              "symbolic": "TCO(60) = CapEx + 60 * monthly OpEx - resale(60) (resale only if included)",
+              "substituted": "21211267.00 + 60 * 116637.81 - 0.00",
+              "result": 28209535.533487,
+              "unit": "USD"
+            }
+          ]
+        },
+        "capex": 21211267.0,
+        "monthly_cost": 116637.80889145,
+        "cost_60m": 28209535.533487,
+        "price_origin": {
+          "origin": "formula",
+          "source_ids": [
+            "SPEC-03",
+            "SPEC-02"
+          ]
+        },
+        "quality": {
+          "value": 84.3,
+          "benchmark": "terminal_bench",
+          "origin": {
+            "origin": "measured",
+            "source_ids": [
+              "HF-GLM-5-3-FLASH"
+            ]
+          },
+          "fallback_note": null
+        },
+        "risk": 0.025000000000000022,
+        "popularity": 14058.8,
+        "utilization": 0.0036018091649120403,
+        "eu_compliant": true,
+        "failures": [],
+        "notes": [],
+        "model_max_context_tokens": 1048576,
+        "api_has_eu_endpoint": false,
+        "components": []
+      }
+    }
+  ],
+  "last_admitted_deployment_capacity": {
+    "candidate_id": "onprem:rtx-pro-6000-96gb:4x:qwen-3-8-flash-next:INT2",
+    "aggregate_tps": {
+      "value": 5263.046562031967,
+      "unit": "tok/s",
+      "origin": {
+        "origin": "formula",
+        "source_ids": [
+          "NVIDIA-RTX-PRO-6000",
+          "HF-QWEN-3-8-FLASH-NEXT",
+          "SPEC-03"
+        ]
+      }
+    },
+    "monthly_capacity_tokens": 3334666301.703454,
+    "monthly_output_tokens_per_user": 3300000.0,
+    "capacity_users_at_same_workload": 1010.5049399101376,
+    "utilization_at_1050": 1.0390844799762926,
+    "capacity_origin": "formula, not measured concurrent throughput"
+  }
+}

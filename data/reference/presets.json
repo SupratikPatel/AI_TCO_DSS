@@ -1,7 +1,7 @@
 {
   "presets": [
-    {"id": "cheapest", "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07",
-     "weights": {"tco_60m": 0.50, "quality": 0.15, "effective_tps": 0.10, "ttft": 0.10, "risk": 0.10, "popularity": 0.05}},
+    {"id": "cheapest", "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-10",
+     "weights": {"tco_60m": 1.0, "quality": 0.0, "effective_tps": 0.0, "ttft": 0.0, "risk": 0.0, "popularity": 0.0}},
     {"id": "best-fit", "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07",
      "weights": {"tco_60m": 0.25, "quality": 0.25, "effective_tps": 0.15, "ttft": 0.15, "risk": 0.10, "popularity": 0.10}},
     {"id": "most-capable", "source_id": "ASSUMPTION-MVP", "tier": "assumption", "accessed": "2026-11-07",

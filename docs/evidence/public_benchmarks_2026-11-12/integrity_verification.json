@@ -1,0 +1,13 @@
+{
+  "verified_at": "2026-11-12T11:26:07.641254+00:00",
+  "source_files_sha256_and_size_verified": 34,
+  "supplemental_api_responses_sha256_and_size_verified": 7,
+  "api_http_200": 1,
+  "api_http_404": 6,
+  "source_rows_exactly_reconciled": 12,
+  "raw_records": 36,
+  "samples": 108,
+  "checks": "Original summary row equality, raw-record equality, token/ns sample rates at upstream six-significant-digit precision and unrounded mean at six-decimal precision. All passed.",
+  "software_suites": "Not rerun: no application changes; reuse engine 0.1.4 verification.",
+  "strict_comparable_observations": 0
+}

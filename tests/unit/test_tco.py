@@ -1,11 +1,10 @@
 """TCO_Engine, Utilization, `project_tco` and the View 2 cost table
 (Req 13.7, 22.1 to 22.14, 23.1 to 23.8, 34.3)."""
 
-from pathlib import Path
 from typing import Any
 
 import pytest
-from streamlit.testing.v1 import AppTest
+from tests.benchmark_fixtures import conditions
 
 from ai_tco_dss.catalog import get_default_repository
 from ai_tco_dss.domain import (
@@ -48,7 +47,6 @@ OPEX_NAMES = (
     "eviction_loss",
 )
 REL = 1e-9
-APP_PATH = Path(__file__).resolve().parents[2] / "src" / "ai_tco_dss" / "ui" / "app.py"
 
 
 def _catalog() -> Any:
@@ -69,7 +67,13 @@ def _base(
     hardware = next(h for h in catalog.hardware if h.id == hardware_id)
     model = next(m for m in catalog.models if m.id == model_id)
     profile = profile or WorkloadProfile()
-    options = SizingOptions(target_context_length=context)
+    options = SizingOptions(
+        target_context_length=context,
+        performance_prompt_tokens=context,
+        benchmark_conditions=conditions(
+            nodes=nodes, accelerator_memory_gb=hardware.advertised_memory_gb.value
+        ),
+    )
     workload = compute_workload(
         WorkloadInput(profile=profile, model=model, harnesses=catalog.harnesses), PARAMS
     )
@@ -100,6 +104,7 @@ def _base(
         PARAMS,
     )
     return TcoInput(
+        options=options,
         hardware=hardware,
         nodes=nodes,
         sizing=sizing,
@@ -136,6 +141,8 @@ def _aggregate_record(value: float, context: int = 128_000) -> BenchmarkRecord:
             "hardware_id": HW_ID,
             "precision": "INT4",
             "context_tokens": context,
+            "prompt_tokens": context,
+            "conditions": conditions(nodes=NODES, accelerator_memory_gb=96),
             "source_id": "AGG-1",
             "tier": "community",
             "accessed": "2026-11-07",
@@ -305,7 +312,10 @@ def _bad_hardware(**changes: Any) -> dict[str, Any]:
         (_bad_hardware(street_price=-1.0), "street_price"),
         (_bad_hardware(load_watts=-1.0), "load_watts"),
         (_bad_hardware(idle_watts=-1.0), "idle_watts"),
-        ({"profile": WorkloadProfile(active_hours_per_month=731)}, "active_hours_per_month"),
+        (
+            {"profile": WorkloadProfile.model_construct(active_hours_per_month=745)},
+            "active_hours_per_month",
+        ),
         ({"nodes": 0}, "nodes"),
         ({"cloud_ttft_s": -1.0}, "cloud_ttft_s"),
         ({"tariffs": ()}, "electricity_tariff_tier"),
@@ -450,8 +460,10 @@ def test_req_23_6_idle_warning_states_the_utilization() -> None:
     assert result.utilization is not None and result.utilization < 0.55
     idle = [w for w in result.warnings if "idle capacity" in w.lower()]
     assert len(idle) == 1
-    assert f"{result.utilization:.3f}" in idle[0]
-    assert "pay-as-you-go" in idle[0]
+    assert f"{result.utilization:.1%}" in idle[0]
+    # C-044: author-approved neutral wording supersedes the old API-cost prediction.
+    assert "compare modeled total costs" in idle[0]
+    assert "likely to exceed" not in idle[0]
 
 
 def test_req_23_8_infeasible_deployment_has_undefined_utilization() -> None:
@@ -592,23 +604,3 @@ def test_req_34_3_cost_table_lists_capex_six_opex_utilization_and_baselines() ->
     utilization = rows["Value"][items.index("Utilization")]
     assert viability_badge(tco.utilization) in utilization
     assert len(rows["Value"]) == len(items) == len(rows["Origin"])
-
-
-def test_view_2_card_renders_the_cost_table_and_counts_renders() -> None:
-    at = AppTest.from_file(str(APP_PATH), default_timeout=60)
-    at.run()
-    assert not at.exception
-    assert not at.error
-    assert at.session_state["render_counts"].get("timeline", 0) >= 1
-    tables = [t for t in at.table if "CapEx" in str(t.value)]
-    assert tables, "View 2 cost table not rendered"
-    personnel_before = _personnel_cell(tables[0].value)
-    at.selectbox(key="timeline_hub").set_value("de-munich-hq").run()
-    assert not at.exception
-    tables = [t for t in at.table if "CapEx" in str(t.value)]
-    assert _personnel_cell(tables[0].value) != personnel_before
-
-
-def _personnel_cell(frame: Any) -> str:
-    items = list(frame["Item"])
-    return str(list(frame["Value"])[items.index("Personnel OpEx / month")])

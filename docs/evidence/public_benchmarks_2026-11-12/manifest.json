@@ -1,0 +1,312 @@
+{
+  "purpose": "New U-02 history investigation and independent isolated-prefill raw evidence; no old downloads repeated.",
+  "files": [
+    {
+      "path": "tristanbes-history.json",
+      "url": "https://huggingface.co/api/datasets/tristanbes/m5-ultra-llm-bench/commits/main",
+      "resolved_url": "https://huggingface.co/api/datasets/tristanbes/m5-ultra-llm-bench/commits/main",
+      "retrieved_at": "2026-11-12T11:17:25.238412+00:00",
+      "status": 200,
+      "bytes": 1042,
+      "sha256": "525084880f2261dfdb71816e528fbb4bb54e345bf2ceddd45599c220fad5041a"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-202825-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-202825-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-202825-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-202825-prefill.jsonl=&etag=%22e5b1513f13b05b445ca9e8e8f9f65cf697cad715%22",
+      "retrieved_at": "2026-11-12T11:17:25.668105+00:00",
+      "status": 200,
+      "bytes": 1057,
+      "sha256": "f492cc6518c5cff750ed32fb901335ab8a7e4c4638ee99b77e0cd330705a24d7"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-202940-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-202940-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-202940-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-202940-decode.jsonl=&etag=%22613955aa828ea51665bd6667bcb5e828b041a95d%22",
+      "retrieved_at": "2026-11-12T11:17:25.563637+00:00",
+      "status": 200,
+      "bytes": 2125,
+      "sha256": "a461a9c14efeb1e21914adc6501d5dd766e2c6209158f9d70db5d1380f387cc9"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-203053-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-203053-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-203053-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-203053-prefill.jsonl=&etag=%22ef5ad5c632c606f1e80afdb9e0559564e29f8b8d%22",
+      "retrieved_at": "2026-11-12T11:17:25.564624+00:00",
+      "status": 200,
+      "bytes": 1063,
+      "sha256": "e281ae78b0ae534acecb3a4b205ac30c1f34a3ef300ee7a6340f616069a54d00"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-203212-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-203212-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-203212-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-203212-decode.jsonl=&etag=%22f3ad7c65b867239e92ac9365dcea1e299e80e6d5%22",
+      "retrieved_at": "2026-11-12T11:17:25.569370+00:00",
+      "status": 200,
+      "bytes": 2128,
+      "sha256": "179758c764807d4f15af7c50db1c9b63a0afb7bf3a357a0245204738570cdff2"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-203406-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-203406-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-203406-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-203406-prefill.jsonl=&etag=%22339ad1c77277ee7951cf3b83eae7024c4a22df02%22",
+      "retrieved_at": "2026-11-12T11:17:25.563637+00:00",
+      "status": 200,
+      "bytes": 1067,
+      "sha256": "2f2490790af731682d13232115e45467982f432ec4c4ff42cd4bd2d062afa76d"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-203536-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-203536-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-203536-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-203536-decode.jsonl=&etag=%2238f0c3eb3580d1420465a676d58664efa73eb6a6%22",
+      "retrieved_at": "2026-11-12T11:17:25.950060+00:00",
+      "status": 200,
+      "bytes": 2125,
+      "sha256": "55102b474d9eeb4014e27758b08191670fb9d1806e9419754017c751da6bd575"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-203833-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-203833-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-203833-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-203833-prefill.jsonl=&etag=%2266ff82ea4b79b91ee648ae019a631c2151098942%22",
+      "retrieved_at": "2026-11-12T11:17:26.285025+00:00",
+      "status": 200,
+      "bytes": 1068,
+      "sha256": "0cd3e17ca203583a3090bc757cf895fe0fbe0e7279d2b3efa4c1672661743940"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-204021-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-204021-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-204021-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-204021-decode.jsonl=&etag=%22baa90fc7d1a9e4666231a5d728114716d172d5a6%22",
+      "retrieved_at": "2026-11-12T11:17:26.285025+00:00",
+      "status": 200,
+      "bytes": 2129,
+      "sha256": "7ba801864ab21966a9cc25e514cfdf6ba65b218e852000ee2d3b12156381f240"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-204604-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-204604-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-204604-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-204604-prefill.jsonl=&etag=%228f734260696f11c9904250dd78cede817066d81b%22",
+      "retrieved_at": "2026-11-12T11:17:26.312272+00:00",
+      "status": 200,
+      "bytes": 1069,
+      "sha256": "23d6c16d88160b86439e80b46e40c0d314e7bfbbde3a30f6676cc62610027e06"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-204837-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-204837-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-204837-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-204837-decode.jsonl=&etag=%22c23444a3ad42d480fb8d0adfca6d0795a7f089ed%22",
+      "retrieved_at": "2026-11-12T11:17:26.301091+00:00",
+      "status": 200,
+      "bytes": 2127,
+      "sha256": "b1489ddc59c2d10e81d6e64dc566fd38c9a470bbdc98c03618caf8641ae6dc15"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-210152-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-210152-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-210152-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-210152-prefill.jsonl=&etag=%22f2fe5fbb05d7cb683f9fa0dc0dc614a4034c7e74%22",
+      "retrieved_at": "2026-11-12T11:17:26.399040+00:00",
+      "status": 200,
+      "bytes": 1074,
+      "sha256": "9682dcf5e8e17c1a06970fac41dcf4b812e46c8ac25ea237f8eb807aed13a1b8"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-210625-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-210625-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-210625-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-210625-decode.jsonl=&etag=%22cf3d2b2da55f795db8c5688cae3487b96306e1cb%22",
+      "retrieved_at": "2026-11-12T11:17:26.711386+00:00",
+      "status": 200,
+      "bytes": 2133,
+      "sha256": "23c6e3778ea490984234f830152f6e7fe474c881764096c2b2124182863a17b7"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-210728-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-210728-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-210728-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-210728-prefill.jsonl=&etag=%2262c439b40df4d575fe65b2d51cbfcd499157e3a6%22",
+      "retrieved_at": "2026-11-12T11:17:27.036880+00:00",
+      "status": 200,
+      "bytes": 1060,
+      "sha256": "a2f1c4d2a18d03ae8c61501c7944180a6cba94824db8a5702754ae94ff6bc44e"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-210843-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-210843-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-210843-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-210843-decode.jsonl=&etag=%22efc2b0a8476e0509c7fe28ccc69cea38e37969b8%22",
+      "retrieved_at": "2026-11-12T11:17:27.023575+00:00",
+      "status": 200,
+      "bytes": 2129,
+      "sha256": "698adb789e91f5aaf165b062065ef0aa5198b92824fc39620bf51d6ce10f738e"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-210956-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-210956-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-210956-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-210956-prefill.jsonl=&etag=%22e5b598cd9e75a893de1d7e47f4307527c0eb43bb%22",
+      "retrieved_at": "2026-11-12T11:17:27.002514+00:00",
+      "status": 200,
+      "bytes": 1065,
+      "sha256": "6278042b9c28baef01c0aaf7b0ae0229cd9059928db3b07d264d371aa7ecf2a2"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-211115-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-211115-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-211115-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-211115-decode.jsonl=&etag=%22eb67386611b7b4b7ce81dc93916e350bba228af4%22",
+      "retrieved_at": "2026-11-12T11:17:27.108111+00:00",
+      "status": 200,
+      "bytes": 2135,
+      "sha256": "9b144eea0805131f9eb4829a402e133d9580f61d80e20f0d1cd6b8fcc799624c"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-211310-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-211310-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-211310-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-211310-prefill.jsonl=&etag=%226abf859fc42071d91e959e3ffc3968ca58fdd5a8%22",
+      "retrieved_at": "2026-11-12T11:17:27.149357+00:00",
+      "status": 200,
+      "bytes": 1068,
+      "sha256": "40880548dbe254baee2f72857946a899d985211fd363bb0eddf98e74e45148a4"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-211440-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-211440-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-211440-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-211440-decode.jsonl=&etag=%225008e10085b74f2bf23db249eb77cd3f5174a6f6%22",
+      "retrieved_at": "2026-11-12T11:17:27.417745+00:00",
+      "status": 200,
+      "bytes": 2136,
+      "sha256": "4643ffea0cd137699828abf40ff420a20d3f922dc70ecb2cc757df458ae1cce7"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-211738-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-211738-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-211738-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-211738-prefill.jsonl=&etag=%22826b0cf3d3a1d34fd4843b1a6e913fd762d9793c%22",
+      "retrieved_at": "2026-11-12T11:17:27.700837+00:00",
+      "status": 200,
+      "bytes": 1070,
+      "sha256": "afc9201f977a41b9e21be731e0d0291012db60c309bf2a10814d5fe68f1c7bc7"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-211926-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-211926-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-211926-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-211926-decode.jsonl=&etag=%22576be86932e4f79dc1f1027359a75b5e73b80d8c%22",
+      "retrieved_at": "2026-11-12T11:17:27.763335+00:00",
+      "status": 200,
+      "bytes": 2135,
+      "sha256": "27a2df6d87ada391087069821af1d67e87fd5e9016e075aa86c7d3f3847a9d73"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-212505-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-212505-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-212505-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-212505-prefill.jsonl=&etag=%22e7e1b00ff892f59e9792609c6ca7f094bffe8c48%22",
+      "retrieved_at": "2026-11-12T11:17:27.763335+00:00",
+      "status": 200,
+      "bytes": 1070,
+      "sha256": "d8c0e88ab3d0c3cf0c6ba3639b94d78a171e43246868d118ff0eff04d684e878"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-212737-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-212737-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-212737-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-212737-decode.jsonl=&etag=%2245e6fb92246eec5a81770265e0a531f2eb3e13b5%22",
+      "retrieved_at": "2026-11-12T11:17:27.864895+00:00",
+      "status": 200,
+      "bytes": 2135,
+      "sha256": "dd41186ce077266b763718873635719f65c79a3a1177dd9e2cbecd1c309ff339"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-214048-prefill.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-214048-prefill.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-214048-prefill.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-214048-prefill.jsonl=&etag=%220ef3c89369c4c8cee0aa02c896712fe09ed48f2d%22",
+      "retrieved_at": "2026-11-12T11:17:27.931556+00:00",
+      "status": 200,
+      "bytes": 1075,
+      "sha256": "da6990a62a9231b200ce286179a5530466a4fadd7e622aeda479a92a89fc09f5"
+    },
+    {
+      "path": "tristanbes/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-214520-decode.jsonl",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs/2026-10-26/Qwen3.8-27B-UD-Q4_K_M-214520-decode.jsonl",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/cb78e33292442f8f6f430dd3a3b9acdef4fe9707/runs%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-214520-decode.jsonl?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fcb78e33292442f8f6f430dd3a3b9acdef4fe9707%2Fruns%2F2026-10-26%2FQwen3.8-27B-UD-Q4_K_M-214520-decode.jsonl=&etag=%22d9b4fb1bfd8cd4f325c20cea6e901a37e6188e97%22",
+      "retrieved_at": "2026-11-12T11:17:28.126482+00:00",
+      "status": 200,
+      "bytes": 2135,
+      "sha256": "f3c21e993447949853453e86debd57f884403ce6af7cf8233f974c05c2ef2503"
+    },
+    {
+      "path": "history/d1dc723fdca5f7fcccf2065e9d723915e635a841-bench.py.txt",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/d1dc723fdca5f7fcccf2065e9d723915e635a841/bench.py",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/d1dc723fdca5f7fcccf2065e9d723915e635a841/bench.py?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fd1dc723fdca5f7fcccf2065e9d723915e635a841%2Fbench.py=&etag=%222f38c4b1907c58758e18d032663c0e6442d6e2d2%22",
+      "retrieved_at": "2026-11-12T11:17:57.774666+00:00",
+      "status": 200,
+      "bytes": 40190,
+      "sha256": "80005c0ec628a0c6907b54eb3e0fd89fe79941063c0d891976746a71accf924c"
+    },
+    {
+      "path": "history/ae9fda91f0fb6e3e9133f992eebebe70a38ee6b3-bench.py.txt",
+      "url": "https://huggingface.co/datasets/tristanbes/m5-ultra-llm-bench/resolve/ae9fda91f0fb6e3e9133f992eebebe70a38ee6b3/bench.py",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/tristanbes/m5-ultra-llm-bench/ae9fda91f0fb6e3e9133f992eebebe70a38ee6b3/bench.py?%2Fdatasets%2Ftristanbes%2Fm5-ultra-llm-bench%2Fresolve%2Fae9fda91f0fb6e3e9133f992eebebe70a38ee6b3%2Fbench.py=&etag=%22401abf0e4e247dc0e507df4953c013c4a4624293%22",
+      "retrieved_at": "2026-11-12T11:17:57.774666+00:00",
+      "status": 200,
+      "bytes": 5894,
+      "sha256": "f05acd91e690e1833d7d7099759eb56b28175d319d1c23824860acb56b52a894"
+    },
+    {
+      "path": "strata/issue-3942.json",
+      "url": "https://api.github.com/repos/Niko1221/Strata/issues/3942",
+      "resolved_url": "https://api.github.com/repos/Niko1221/Strata/issues/3942",
+      "retrieved_at": "2026-11-12T11:17:57.584766+00:00",
+      "status": 200,
+      "bytes": 7028,
+      "sha256": "fca79e690552b21bf2fcc95f374aebc21a4f95930b3c1c7b1bc24269a53cf5d7"
+    },
+    {
+      "path": "strata/issue-3942-comments.json",
+      "url": "https://api.github.com/repos/Niko1221/Strata/issues/3942/comments",
+      "resolved_url": "https://api.github.com/repos/Niko1221/Strata/issues/3942/comments",
+      "retrieved_at": "2026-11-12T11:17:57.631101+00:00",
+      "status": 200,
+      "bytes": 10864,
+      "sha256": "1491dda5470a019d6162a6aa92e74c3b2e4d9be1789c2cbb3ea17e5d69f0e562"
+    },
+    {
+      "path": "strata/issue-4074.json",
+      "url": "https://api.github.com/repos/Niko1221/Strata/issues/4074",
+      "resolved_url": "https://api.github.com/repos/Niko1221/Strata/issues/4074",
+      "retrieved_at": "2026-11-12T11:17:57.608333+00:00",
+      "status": 200,
+      "bytes": 7079,
+      "sha256": "cffebd8e50e2bacefca71d62479820f07e98c4e6af3cd63d15412d3e195cddac"
+    },
+    {
+      "path": "strata/issue-4074-comments.json",
+      "url": "https://api.github.com/repos/Niko1221/Strata/issues/4074/comments",
+      "resolved_url": "https://api.github.com/repos/Niko1221/Strata/issues/4074/comments",
+      "retrieved_at": "2026-11-12T11:17:58.101239+00:00",
+      "status": 200,
+      "bytes": 7950,
+      "sha256": "bfe5fa6129c6eb69476abeabb0563a6b3dc805fc92e6ef67f6c527c13351cb4e"
+    },
+    {
+      "path": "strata/issue-4170.json",
+      "url": "https://api.github.com/repos/Niko1221/Strata/issues/4170",
+      "resolved_url": "https://api.github.com/repos/Niko1221/Strata/issues/4170",
+      "retrieved_at": "2026-11-12T11:17:58.116797+00:00",
+      "status": 200,
+      "bytes": 7527,
+      "sha256": "fd5aa3738ad4df34289aa5e69a356ac66f8e8f1d092f0bba7746f12e99b8f03f"
+    },
+    {
+      "path": "strata/issue-4170-comments.json",
+      "url": "https://api.github.com/repos/Niko1221/Strata/issues/4170/comments",
+      "resolved_url": "https://api.github.com/repos/Niko1221/Strata/issues/4170/comments",
+      "retrieved_at": "2026-11-12T11:17:58.219312+00:00",
+      "status": 200,
+      "bytes": 14417,
+      "sha256": "a35793d1764d38626e2a47c73d771d1d53fab8f2b47cb9879f8325958289fa5c"
+    },
+    {
+      "path": "llama-bench-b11896.cpp.txt",
+      "url": "https://raw.githubusercontent.com/ggml-org/llama.cpp/b11896/tools/llama-bench/llama-bench.cpp",
+      "resolved_url": "https://raw.githubusercontent.com/ggml-org/llama.cpp/b11896/tools/llama-bench/llama-bench.cpp",
+      "retrieved_at": "2026-11-12T11:17:58.218048+00:00",
+      "status": 200,
+      "bytes": 103496,
+      "sha256": "8eed21016aabf399c7223f1c8588840edc1d15398e87f2048056d381b8a182ec"
+    }
+  ],
+  "archive_note": "Raw source bytes retained. No external source code executed; no weights downloaded or inference run."
+}

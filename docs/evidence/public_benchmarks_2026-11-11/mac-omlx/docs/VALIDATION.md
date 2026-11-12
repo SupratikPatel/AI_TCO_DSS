@@ -1,0 +1,66 @@
+# Validation log
+
+## 2026-09-26/27: from scratch on the M5 Ultra
+
+1. **Combined-patch run (2026-09-26):** `scripts/install.sh` into a fresh tree from `/Applications/oMLX.app` 0.7.0rc1, then a full cell through the serve script:
+
+   | | recipe, from scratch | dev tree |
+   |---|---|---|
+   | decode fresh greedy | 145.2 | 146.9 |
+   | prefill 2K · 32K · 256K | 2,924 · 3,574 · 3,324 | 2,783 · 3,579 · 3,321 |
+   | ladder c=1 · 8 | 155.0 · 192.2 | 155.5 · 193.1 |
+   | gates | 12/12; all pass incl. vision | 12/12; all pass |
+
+   That run used the combined patch, which also carried GLM-only changes that Qwen never exercises.
+2. **This recipe's 2-file lookup-only patch** (`patches/omlx-0.7.0rc1-qwen-lookup.patch`), 2026-09-27: `scripts/install.sh` from scratch, then `scripts/serve.sh`.
+   - Agent mix at T=0: greedy text byte-identical to the dev-tree run on all 6 tasks. Reasoning 12/12, and every qualify gate passes, vision and 127K retrieval included.
+   - That run also exposed the lookup-gate cold-sample bug: edit_file came in at 242 vs 275 tok/s with identical text. See the CHANGELOG.
+3. **After the gate fix**, two fresh installs, each with a freshly started server: edit · json · fix · diff · prose · new code =
+   266.0 · 228.6 · 258.1 · 187.4 · 104.7 · 143.9 and 273.9 · 228.9 · 259.0 · 187.4 · 104.9 · 143.8 tok/s
+   (published: 274.6 · 228.8 · 259.1 · 187.4 · 105.0 · 143.9). Greedy text was identical on all 6 tasks in both runs.
+
+## 2026-09-27: recommended profile (main + upstream Qwen4-Exp / MoE PR stack + lookup), from scratch
+
+1. `scripts/install.sh` into a fresh tree: every native kernel loads, and the tree is **identical** to the development branch.
+   Qwen/MoE test suites in that tree: 2,044 passed and 1 failed. The failure is `test_qwen35_verify_sdpa_split[5000]`, which passes on its own at every merge step: test-order state leakage, not a code defect.
+2. Full cell through `scripts/serve.sh`: prefill 3,030 · 4,481 · 4,733 · 4,510 · 4,243 tok/s at 2K–256K, fresh decode 140–141, warm 32K 0.43 s, ladder 150 · 160 · 171 · 191, reasoning 12/12, all qualify gates pass (vision, tool, 127K retrieval).
+3. Agent mix: T=0 edit 274.5 · JSON 229.5 · fix 256.5 · diff 185.4 · prose 104.7 · new code 146.6; T=0.6 edit 268.2 · JSON 228.6 · fix 253.4.
+4. KLD with the fresh tree's Python, against stock `main` f0d8428a: teacher-forced **0.0226** / top-1 0.9490 (main 0.0228 / 0.9483), decode-path **0.0268** / 0.9332 (main 0.0268 / 0.9332).
+
+## 2026-09-28: recommended profile v3 (upstream stack with jerryfane's #4041 chain + recipe patch), from scratch
+
+- **Build:** `scripts/install.sh` into a fresh tree. It is identical to the development branch (`qwen-stack-d`), and every native kernel loads.
+- **Tests:** 2,426 passed and 1 failed. The failure is the same order-dependent `test_qwen35_verify_sdpa_split[5000]`, which passes on its own: 112 passed.
+- **Cell** (`scripts/serve.sh`):
+  - prefill 3,057 · 4,300 · 4,615 · 4,379 · 4,128 tok/s at 2K–256K;
+  - decode fresh 164.8 / 158.0 and code 2K 144.9 / 170.2 (passes 1 / 2);
+  - warm 32K 0.42 s;
+  - ladder 173 · 169 · 175 · 192;
+  - reasoning 12/12, all qualify gates pass (vision, tool, 127K).
+- **Agent mix:**
+  - T=0: edit 272.8 · JSON 230.1 · fix 260.4 · diff 169.1 · prose 114.7 · new code 164.0;
+  - T=0.6: edit 268.2 · JSON 228.3 · fix 252.3.
+- **KLD against stock `main`:** teacher-forced 0.0226 (main 0.0228), decode-path 0.0268 (main 0.0268).
+
+## 2026-09-28: recommended profile v4 (v3 + #3982's NAX HC prefill and PLE conv), from scratch
+
+- **Build:** `scripts/install.sh` into a fresh tree. It is identical to the development branch (`qwen-stack-v4`), and every native kernel loads.
+- **Tests:** 2,476 passed, plus the known order-dependent `test_qwen35_verify_sdpa_split[5000]`, which passes on its own. #3982's own `test_model_prefill_logits_are_bit_identical` (NAX HC prefill with the chain's deferred writes) passes.
+- **Served** (`scripts/serve.sh`): reasoning 12/12, all qualify gates pass (vision, tool, 127K retrieval at 4,504 tok/s), decode fresh 164.3, code 2K 145.0, prefill 3,084 · 4,535 · 4,725 · 4,496 at 2K–128K.
+- **Full cell on the same tree** (development worktree; `bench/phase2/qwen-stack-e/`):
+  - prefill 3,110 · 4,571 · 4,734 · 4,505 · 4,259, fresh 163–166, ladder 172 · 169 · 173 · 193;
+  - agent T=0: edit 272.1 · JSON 229.6 · fix 260.8 · prose 115.1 · new code 164.7;
+  - teacher-forced KLD 0.0226 / top-1 0.9490, identical to v2 / v3 and to stock `main` (0.0228).
+
+## 2026-09-28: recommended profile rebased onto oMLX `main` @ a98d8c8c (+ #4030 + recipe patch), from scratch
+
+- **Build:** `scripts/install.sh` into a fresh tree. It is identical to the development branch (`qwen-v5`), and every native kernel loads.
+- **Tests:** Qwen / MoE suites 2,440 passed, plus the known order-dependent `test_qwen35_verify_sdpa_split[5000]`.
+- **Cell:**
+  - prefill 3,357 · 4,549 · 4,759 · 4,510 · 4,214; decode fresh 164.8 / 157.9, code 2K 130.0 / 172.3;
+  - warm 8K · 32K 0.26 · 0.37 s; ladder 173 · 172 · 184 · 197;
+  - reasoning 12/12, all qualify gates pass (vision, tool, 127K).
+- **Agent mix:**
+  - T=0: edit 272.2 · JSON 225.0 · fix 260.7 · diff 181.0 · prose 118.2 · new code 154.6;
+  - T=0.6: edit 268.6 · JSON 230.2 · fix 253.9.
+- **KLD:** teacher-forced 0.0226 / top-1 0.9490, decode-path 0.0268 / 0.9332, both identical to earlier profiles and to stock `main`.

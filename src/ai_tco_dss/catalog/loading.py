@@ -492,13 +492,18 @@ class _Loader:
         for index, record in enumerate(records):
             if not isinstance(record, dict) or record.get("metric") not in CONTEXT_METRICS:
                 continue
-            tokens = record.get("context_tokens")
-            if not isinstance(tokens, int) or isinstance(tokens, bool) or tokens < 1:
-                self.report.add(
-                    rel,
-                    f"records[{index}].context_tokens",
-                    f"metric {record['metric']} needs context_tokens >= 1, got {tokens!r}",
-                )
+            # Incomplete observations remain loadable; eligibility is the resolver's job.
+            # Reject invalid supplied lengths, but never fabricate a missing prompt.
+            for context_field in ("context_tokens", "prompt_tokens", "configured_context_tokens"):
+                tokens = record.get(context_field)
+                if tokens is not None and (
+                    not isinstance(tokens, int) or isinstance(tokens, bool) or tokens < 1
+                ):
+                    self.report.add(
+                        rel,
+                        f"records[{index}].{context_field}",
+                        f"{context_field} must be >= 1 when supplied, got {tokens!r}",
+                    )
 
     def check_benchmark_references(
         self, files: list[str], hardware_ids: set[str], model_ids: set[str]

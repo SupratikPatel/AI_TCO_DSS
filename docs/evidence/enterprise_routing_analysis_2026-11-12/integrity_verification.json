@@ -1,0 +1,9 @@
+{
+  "remote_files_verified": 6,
+  "source_hashes_and_sizes_match": true,
+  "new_user_count_scenarios": 8,
+  "budget_counterfactuals": 2,
+  "arithmetic_checks_pass": true,
+  "peak_policy_unchanged": true,
+  "local_report_links_resolve": true
+}

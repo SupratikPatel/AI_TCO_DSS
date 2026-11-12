@@ -1,0 +1,335 @@
+{
+  "purpose": "New enterprise report verification; prior archives reused separately.",
+  "files": [
+    {
+      "path": "evidence_report.md",
+      "source_path": "C:\\Users\\supra\\Downloads\\evidence_report.md",
+      "bytes": 46724,
+      "sha256": "2e82d5087bbb2b14d08c58d079a1f32da9db7368a439c9b7c7ec5115dfa46361"
+    },
+    {
+      "path": "backboard-glm.html",
+      "url": "https://backboard.io/blog/glm-5-3-inference-throughput-vllm",
+      "resolved_url": "https://backboard.io/blog/glm-5-3-inference-throughput-vllm",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:22.792133+00:00",
+      "bytes": 239638,
+      "sha256": "562da79f8044416712517dc0f10cf7a164813dce9da781401a89f66df1aa066c",
+      "error": null
+    },
+    {
+      "path": "backboard-h100.html",
+      "url": "https://backboard.io/blog/qwen-flash-next-h100-full-precision",
+      "resolved_url": "https://backboard.io/blog/qwen-flash-next-h100-full-precision",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:22.760980+00:00",
+      "bytes": 254962,
+      "sha256": "b01356261dcb45abe7cf3a6010c0e84c7c0969832766c91a47f532373e4e2baa",
+      "error": null
+    },
+    {
+      "path": "backboard-27b.html",
+      "url": "https://backboard.io/blog/qwen3-8-27b-vllm-sglang-inference",
+      "resolved_url": "https://backboard.io/blog/qwen3-8-27b-vllm-sglang-inference",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:22.792749+00:00",
+      "bytes": 254157,
+      "sha256": "87d52c415b71396a5a742430ad977bb55932cc7ebc686abc20ff9f8dcefa4dd4",
+      "error": null
+    },
+    {
+      "path": "backboard-35b.html",
+      "url": "https://backboard.io/blog/qwen3-6-inference-throughput-vllm",
+      "resolved_url": "https://backboard.io/blog/qwen3-6-inference-throughput-vllm",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:23.038111+00:00",
+      "bytes": 243583,
+      "sha256": "d69b17b779637638d126779574c32f61ffe2a3b48dba059bf7ddf0b8507e3568",
+      "error": null
+    },
+    {
+      "path": "petronella-deepseek.html",
+      "url": "https://petronellatech.com/ai/llm-benchmarks/models/deepseek-v4-1-flash/",
+      "resolved_url": "https://petronellatech.com/ai/llm-benchmarks/models/deepseek-v4-1-flash/",
+      "status": 403,
+      "retrieved_at": "2026-11-12T18:10:22.450118+00:00",
+      "bytes": 5767,
+      "sha256": "cd2ddbc9a1fcf74e979f7a8a4c18373031c8293798f26e65cd7db9fab41cbd14",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "path": "petronella-qwen.html",
+      "url": "https://petronellatech.com/ai/llm-benchmarks/models/qwen3-8-flash-next/",
+      "resolved_url": "https://petronellatech.com/ai/llm-benchmarks/models/qwen3-8-flash-next/",
+      "status": 403,
+      "retrieved_at": "2026-11-12T18:10:22.465041+00:00",
+      "bytes": 5764,
+      "sha256": "4648a77521ea6eeb8e31068904664bfcd1cc224ae3f10b97b47edd9b18ac7088",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "path": "jev-package.html",
+      "url": "https://pi.dev/packages/@caph42/pi-jev-router",
+      "resolved_url": "https://pi.dev/packages/@caph42/pi-jev-router",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:23.498238+00:00",
+      "bytes": 82656,
+      "sha256": "a4a514d5bd871be54de657663f0537815681a6a20e7df97aefa62730247295e7",
+      "error": null
+    },
+    {
+      "path": "jev-npm.json",
+      "url": "https://registry.npmjs.org/@caph42/pi-jev-router/2.0.0",
+      "resolved_url": "https://registry.npmjs.org/@caph42/pi-jev-router/2.0.0",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:22.652108+00:00",
+      "bytes": 1855,
+      "sha256": "1fbc57435e4d8126253e3d00bae1290dbf0bf3e27a1612db11c38f5a84cf3b60",
+      "error": null
+    },
+    {
+      "path": "synthtraces-head.json",
+      "url": "https://api.github.com/repos/julien-c/synthtraces/commits/main",
+      "resolved_url": "https://api.github.com/repos/julien-c/synthtraces/commits/main",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:23.113028+00:00",
+      "bytes": 4535,
+      "sha256": "c3ff8e3eb179adec0b291717829d2a1c65bec114e608cf733d211dfdea91f878",
+      "error": null
+    },
+    {
+      "path": "omlx-releases.json",
+      "url": "https://api.github.com/repos/jundot/omlx/releases?per_page=20",
+      "resolved_url": "https://api.github.com/repos/jundot/omlx/releases?per_page=20",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:23.528546+00:00",
+      "bytes": 417330,
+      "sha256": "f9b448cdc570e28dd6a7ecac6936986ef54d2676cd4800783cf522dbf96456b8",
+      "error": null
+    },
+    {
+      "path": "openai-sol.html",
+      "url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+      "resolved_url": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:23.259387+00:00",
+      "bytes": 495776,
+      "sha256": "cbd7710f0cdce46276bffb937151f79849fb0a1af32bc3c540e804030efdb8e7",
+      "error": null
+    },
+    {
+      "path": "openai-data.html",
+      "url": "https://developers.openai.com/api/docs/guides/your-data",
+      "resolved_url": "https://developers.openai.com/api/docs/guides/your-data",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:23.661460+00:00",
+      "bytes": 667189,
+      "sha256": "b3d42f550b0df4dea789aed9b78af036bff71e89b029cd40ce0fdf0088d99432",
+      "error": null
+    },
+    {
+      "path": "anthropic-models.html",
+      "url": "https://platform.claude.com/docs/en/about-claude/models/overview",
+      "resolved_url": "https://platform.claude.com/docs/en/models/overview",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:24.034056+00:00",
+      "bytes": 673275,
+      "sha256": "7105026ff7b5276ab5c76c17640e96c1ad0591a898e42294921e226b5445b4b8",
+      "error": null
+    },
+    {
+      "path": "anthropic-pricing.html",
+      "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "resolved_url": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:23.573247+00:00",
+      "bytes": 929687,
+      "sha256": "12352e3ccd23fce940a1ccef718a93ce2147be3e542cb2152a3ed5b097fed951",
+      "error": null
+    },
+    {
+      "path": "google-locations.html",
+      "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations",
+      "resolved_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/locations",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:26.308508+00:00",
+      "bytes": 461354,
+      "sha256": "63f79d592db4c4cd15a7415b08cc569bd70a3da2cabf222dfb5df609211fade5",
+      "error": null
+    },
+    {
+      "path": "google-gemini31.html",
+      "url": "https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/3-1-pro",
+      "resolved_url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/3-1-pro",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:10:25.701400+00:00",
+      "bytes": 431330,
+      "sha256": "4b27847fda116d4ff1f9d6c5c39eef6346155d85ef1583f130acee98a52201ee",
+      "error": null
+    },
+    {
+      "path": "jev-2.0.0.tgz",
+      "url": "https://registry.npmjs.org/@caph42/pi-jev-router/-/pi-jev-router-2.0.0.tgz",
+      "resolved_url": "https://registry.npmjs.org/@caph42/pi-jev-router/-/pi-jev-router-2.0.0.tgz",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:14:01.624371+00:00",
+      "bytes": 39716,
+      "sha256": "06248c2a59dd3c793c8f576d27fab96f74c0a25cde171af988ac16a72b268009",
+      "error": null
+    },
+    {
+      "path": "synthtraces-README.md",
+      "url": "https://raw.githubusercontent.com/julien-c/synthtraces/e5f8ec99d8140bcf650b61d9401af996c0c70789/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/julien-c/synthtraces/e5f8ec99d8140bcf650b61d9401af996c0c70789/README.md",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:14:02.060256+00:00",
+      "bytes": 3919,
+      "sha256": "27402ae394abaa6b886c428351a54f1ca18c50c2a9e6e342061c88f54b29976c",
+      "error": null
+    },
+    {
+      "path": "revolut-tuning-slide.webp",
+      "url": "https://ai.engineer/nyc/2026/reading/frames/afternoon-revolut.webp",
+      "resolved_url": "https://ai.engineer/nyc/2026/reading/frames/afternoon-revolut.webp",
+      "status": 200,
+      "retrieved_at": "2026-11-12T18:15:41.630205+00:00",
+      "bytes": 38838,
+      "sha256": "98dc8957491980258cf4c8b69c0d9fb93dd6d108d6b60cf0666455fb768aed06",
+      "error": null
+    },
+    {
+      "path": "petronella-web-excerpts.json",
+      "kind": "web-tool-excerpt",
+      "retrieved_at": "2026-11-12T18:17:04.775956+00:00",
+      "bytes": 20296,
+      "sha256": "b06a2bf9bb3d818ab22a90e35110e3e63ff00e088d8ec3fbbf86e2e4421e0b6f"
+    },
+    {
+      "path": "jev-README.md",
+      "kind": "npm-tarball-member",
+      "retrieved_at": "2026-11-12T18:17:04.775956+00:00",
+      "bytes": 28941,
+      "sha256": "4839c1432e630546a006ce06123d53e16eddc2787ec7186b2c6d3d96b1a18a79"
+    },
+    {
+      "path": "jev-jev-router.ts.txt",
+      "kind": "npm-tarball-member",
+      "retrieved_at": "2026-11-12T18:17:04.775956+00:00",
+      "bytes": 66462,
+      "sha256": "3498748e0492e0f80aed0a35241a3dbe34ff97620dcd10e5ef4afc44f59c2f59"
+    },
+    {
+      "path": "jev-package.json",
+      "kind": "npm-tarball-member",
+      "retrieved_at": "2026-11-12T18:17:04.775956+00:00",
+      "bytes": 1054,
+      "sha256": "7b3113d74b8cc07f7b050016bd74fd32906052f1c90efa551cbdf4936510913b"
+    }
+  ],
+  "companion_probes": [
+    {
+      "path": "C:\\Users\\supra\\Downloads\\evidence_records.json",
+      "exists": false
+    },
+    {
+      "path": "C:\\Users\\supra\\Downloads\\ai_deployment_benchmark_evidence.json",
+      "exists": false
+    },
+    {
+      "path": "C:\\Users\\supra\\Downloads\\m5_ultra_512gb_benchmark_evidence.json",
+      "exists": false
+    }
+  ],
+  "reused_files": [
+    {
+      "path": "docs/evidence/enterprise_routing_analysis_2026-11-12/pi-linkedin.html",
+      "url": "https://www.linkedin.com/posts/julienchaumond_one-of-the-coolest-recent-features-in-pi-share-7525932966305267712-mb0k/",
+      "resolved_url": "https://www.linkedin.com/posts/julienchaumond_one-of-the-coolest-recent-features-in-pi-share-7525932966305267712-mb0k/",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:36:04.328994+00:00",
+      "bytes": 188978,
+      "sha256": "c05f041ac611a3c1ddeb1099435be8a83e444167a98793d2a378420af11dab03"
+    },
+    {
+      "path": "docs/evidence/enterprise_routing_analysis_2026-11-12/revolut-talk.html",
+      "url": "https://ai.engineer/nyc/2026/talks/revolut",
+      "resolved_url": "https://ai.engineer/nyc/2026/talks/revolut",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:36:04.353727+00:00",
+      "bytes": 145392,
+      "sha256": "60357687a50d89ae2ef442b64988d14c54b57aba4aa35d3163dc0cdb6d493a77"
+    },
+    {
+      "path": "docs/evidence/enterprise_routing_analysis_2026-11-12/pi-virtual-models.md",
+      "url": "https://raw.githubusercontent.com/earendil-works/pi/841dc6050b5f0014733ee40436f8ad7cf80c93fe/packages/coding-agent/docs/virtual-models.md",
+      "resolved_url": "https://raw.githubusercontent.com/earendil-works/pi/841dc6050b5f0014733ee40436f8ad7cf80c93fe/packages/coding-agent/docs/virtual-models.md",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:36:05.049889+00:00",
+      "bytes": 8177,
+      "sha256": "5ab04dee3b3712b317522bb0784e28a3fef2e6b7fe1aeb1c1ca27778685a38f7"
+    },
+    {
+      "path": "docs/evidence/m5_512gb_report_review_2026-11-12/quality/unsloth-next.html",
+      "url": "https://unsloth.ai/docs/models/qwen3.8-next",
+      "resolved_url": "https://unsloth.ai/docs/models/qwen3.8-next",
+      "retrieved_at": "2026-11-12T17:07:54.812441+00:00",
+      "status": 200,
+      "bytes": 1519689,
+      "sha256": "7bcc268067cb41782c20a269e3939d636562b05970a56688a7dfeeb722bdd266"
+    },
+    {
+      "path": "docs/evidence/m5_512gb_report_review_2026-11-12/quality/unsloth-dynamic31.html",
+      "url": "https://unsloth.ai/docs/basics/dynamic-3.0-ggufs/dynamic-3.1-ggufs",
+      "resolved_url": "https://unsloth.ai/docs/basics/dynamic-3.0-ggufs/dynamic-3.1-ggufs",
+      "retrieved_at": "2026-11-12T17:07:54.917934+00:00",
+      "status": 200,
+      "bytes": 960206,
+      "sha256": "96da040c2138d1374b475ab5f2cb0f34d12bfde70065214b698539cb29e22318"
+    },
+    {
+      "path": "docs/evidence/m5_512gb_report_review_2026-11-12/quality/unsloth-dynamic30.html",
+      "url": "https://unsloth.ai/docs/basics/dynamic-3.0-ggufs",
+      "resolved_url": "https://unsloth.ai/docs/basics/dynamic-3.0-ggufs",
+      "retrieved_at": "2026-11-12T17:07:55.330982+00:00",
+      "status": 200,
+      "bytes": 1399182,
+      "sha256": "eda9db23c3ede6a791aed4bb7bb2633f8306c5e03330b4ae389271860edd0ff4"
+    },
+    {
+      "path": "docs/evidence/m5_512gb_report_review_2026-11-12/omlx/2zvzoy8b.html",
+      "url": "https://omlx.ai/benchmarks/performance/2zvzoy8b",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/2zvzoy8b",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:54.859942+00:00",
+      "bytes": 33538,
+      "sha256": "c3e9a619b6ac521b5dbd7ad58acefd55efe537244258b8e7cbd5ced18ba39d38"
+    },
+    {
+      "path": "docs/evidence/m5_512gb_report_review_2026-11-12/quality/ista-README.md",
+      "url": "https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF/raw/ed59f92082b1e93c0e96d60a8b11aab089b52f09/README.md",
+      "resolved_url": "https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF/raw/ed59f92082b1e93c0e96d60a8b11aab089b52f09/README.md",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:08:55.256902+00:00",
+      "bytes": 15693,
+      "sha256": "71496aac3c9126085519dbe3aa82e46eb9f5749ee122b089a66182a94b0db6a3"
+    },
+    {
+      "path": "docs/evidence/user_report_v11_review_2026-11-12/sushi/README.md",
+      "url": "https://raw.githubusercontent.com/beamivalice/sushi/404e8b386b8ece983806cf190a780d6001b68072/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/beamivalice/sushi/404e8b386b8ece983806cf190a780d6001b68072/README.md",
+      "retrieved_at": "2026-11-12T13:15:54.581395+00:00",
+      "status": 200,
+      "bytes": 8627,
+      "sha256": "bbc3172dc35ef73592cd7cd28aec516ee438d96799804c0e0aef8df76514add6"
+    },
+    {
+      "path": "docs/evidence/user_report_v11_review_2026-11-12/sushi/docs/perf-baselines.md",
+      "url": "https://raw.githubusercontent.com/beamivalice/sushi/404e8b386b8ece983806cf190a780d6001b68072/docs/perf-baselines.md",
+      "resolved_url": "https://raw.githubusercontent.com/beamivalice/sushi/404e8b386b8ece983806cf190a780d6001b68072/docs/perf-baselines.md",
+      "retrieved_at": "2026-11-12T13:15:55.020615+00:00",
+      "status": 200,
+      "bytes": 41433,
+      "sha256": "5653dfb71de1a064b31358ead6ed9098e263aa2a9a407e80e032213742fd669d"
+    }
+  ]
+}

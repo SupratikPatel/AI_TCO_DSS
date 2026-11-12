@@ -2,13 +2,151 @@
 
 ## Current Status
 
+**Week-break checkpoint, 2026-11-12:** the author requested a clean restart point
+before a week away. Read [the current handoff](docs/SESSION_HANDOFF_2026-11-12.md)
+on return and follow the updated Next Session Prompt below. Substantive work stops
+here until resumed. The detailed suggested commit message and standalone restart
+prompt are saved in docs/COMMIT_MESSAGE_2026-11-12.txt and
+docs/START_NEXT_SESSION_2026-11-12.txt. Verification proof has versioned byte-preserved
+copies in docs/verification/session_checkpoint_2026-11-12/; original logs remain.
+Existing staging and unrelated files are preserved. No commit, push or scheduled
+background work. The checkpoint updates documentation and proof only.
+
+**Latest enterprise report / implementation checkpoint, 2026-11-12:** read
+[the new review](docs/ENTERPRISE_REPORT_REVIEW_2026-11-12.md) and
+[the bounded fleet scope](docs/FLEET_PLANNING_SCOPE_2026-11-12.md).
+The supplied evidence_report.md is preserved unchanged; named companion JSON files
+are absent. Twenty-four new source/input/excerpt/member hashes and ten reused files
+verify. C-076 through C-083 correct primary-source contradictions; earlier C-071/C-074
+still apply. Implemented an opt-in complete-replica resource lower-bound planner,
+with explicit spares and unknown/zero handling; it is not wired into recommendations
+and does not prove SLA/placement feasibility. Focused fleet/purity: 30 passed.
+Full Python: native exit 0, 858 passed, 13 skipped, 3 historical xfails.
+Proof: .enterprise-report-python.log / .enterprise-report-python-exit.json.
+No catalog, current engine 0.1.4 behavior, coefficients or capacity-policy change.
+Strict coverage stays zero / 13 existing exclusions / MAPE n/a. U-02 through U-08
+remain open; U-07 has a delivered planning primitive, not a deployed fleet/router.
+Reuse prior browser/launcher checks. Preserve staging/unrelated work and logs;
+never commit or push.
+
+
+**Latest enterprise/router analysis, 2026-11-12:** read
+[enterprise scale and routing analysis](docs/ENTERPRISE_SCALE_AND_ADAPTIVE_ROUTING_2026-11-12.md)
+for the author's 1050-user observation and two supplied posts. Reproduced no admission
+at 1050 with enterprise defaults and the saved self-managed profile: last eligible
+candidate has formula capacity 1010.5049 users, not a 1000-user input cap. The domain
+and frontend accept 100000. The USD 100000 CapEx cap and missing API latency evidence
+also constrain results; presets run after hard filters. Eight new scenarios and two
+budget-only counterfactuals are saved separately. Revolut's shared fleet and Pi's
+adaptive routing expose explicit replica/scheduler/router gaps beyond the existing
+static Hybrid Split. Six primary responses are hashed; the report contains the
+focused external-agent fetch request. No production changes or passed app/browser
+reruns; capacity policy and strict calibration status remain unchanged. Continue the
+latest 512 GB evidence review for core calibration. Preserve all staging/unrelated
+files and logs; never commit or push.
+
+
+**Latest 512 GB evidence checkpoint, 2026-11-12:** read
+[M5 Ultra 512 GB evidence review](docs/M5_ULTRA_512GB_EVIDENCE_REVIEW_2026-11-12.md)
+after the saved handoff/backlog. Official Apple specs and dated USD 22299 (1 TB) /
+29799 (16 TB) offers now verify the 36-core CPU / 80-core GPU / 512 GB target.
+Thirteen acquired oMLX records report 512 GB; Qwen Q6 at 131072 input reports
+28.250 s TTFT / 102.3 TPS with fixed MTP depth 3. Apple supplies independent 512 GB
+native-precision measurements. Four original quality logs reconcile 2647 questions.
+A new archive preserves the input and 42 remote responses, including explicit blocked/
+empty captures. C-070 through C-075 correct six report interpretations. Earlier
+statements that no 512 GB measurements were acquired are historical and superseded.
+Five simultaneous 128K requests, eight resident sessions and exact low-bit tool
+validity remain missing in inspected evidence. No 512 GB catalog/shared-serving
+implementation, production import, coefficient or capacity-policy change. Strict
+coverage remains zero / 13 existing exclusions / MAPE n/a; no U task closed.
+Reuse existing engine 0.1.4 verification and all archives. No benchmark machine;
+preserve staging/unrelated files and logs; never commit or push.
+
+
+**Latest v1.1 report checkpoint, 2026-11-12:** read
+[v1.1 evidence review](docs/YOUTUBE_EVIDENCE_REPORT_V11_REVIEW_2026-11-12.md)
+first after the saved handoff/backlog. A separate 34-file archive preserves the revised
+input and 33 new primary remote files. Reconciled 60 Kapitsa coding responses,
+12 cold prompt/TTFT records and 36 sweep requests; oMLX JSON is settings, not request
+events. Added a conditional Heretik context-shape diagnostic (128K +16.5%, 256K
++51.4% overprediction after anchoring the baseline), not strict MAPE or fitting.
+C-065 through C-069 correct M3-as-M5 attribution, loading-memory phase, unsupported
+FP16 cache, forward-meter interpretation and integrated full-fill timing. No M5 Ultra
+512 GB measurements or Max five-request / 128K logs acquired. Strict coverage remains
+zero / 13 existing exclusions / MAPE n/a; no production data/code, coefficients,
+capacity policy or task status changed. Reuse prior engine 0.1.4 verification and all
+archives. No benchmark machine available; preserve staging/unrelated files, never
+commit or push.
+
+
+**Author's Mac scope - 2026-11-12:** M5 Macs only. The 512 GB target is Mac Studio M5 Ultra 512 GB; M3 stays historical source context and cannot validate M5 performance. Existing Mac catalog entries already use M5. The 512 GB M5 configuration, price and relevant measurements remain to be verified; shared-serving implementation remains separately scoped. This records the author's generation choice without changing production data, capacity policy or coefficients.
+
+**Current restart checkpoint - supplied report review, 2026-11-12:** read **docs/YOUTUBE_EVIDENCE_REPORT_REVIEW_2026-11-12.md** after the saved handoff/backlog. Preserved the supplied ai_deployment_benchmark_evidence_report.md byte-for-byte and acquired 23 primary remote files in docs/evidence/user_report_review_2026-11-12/. All twelve headline rows are assessed in review_audit.json. Confirmed M5 Max non-MTP rates, DGX concurrency and serving results, distinct Mac-mini workload summaries and Requesty production API statistics. C-061 through C-064 correct supplied-report timing, memory, repetition and KV-pool attributions. These findings improve qualified external evidence; they do not establish exact Max five-request / 128K latency or INT2/INT3 tool quality. Original execution identities/raw logs remain missing, strict coverage stays zero / 13 exclusions / MAPE n/a. No production data, coefficients, code or capacity policy changed; engine 0.1.4 verification is reused. The author confirmed no benchmark machine is available. Preserve all staged/unrelated files, prior archives and logs; never commit or push.
+
+**Earlier 2026-11-12 acquisition checkpoint:** resumed U-02 from the saved evidence gaps; see **docs/U02_RUN_FACTS_CONTINUATION_2026-11-12.md** after the 2026-11-11 handoff and unfinished backlog. Added 34 newly acquired hashed primary files in a separate archive: 24 Qwen 27B raw llama-bench logs, published dataset history/two earlier harness snapshots, exact-tag timer source and three Strata operator issue/comment bundles. Twelve source rows / 36 raw timing records / 108 samples reconcile. Independent cold-prefill timing is now established for these dynamic-GGUF runs, but uniform-bit calibration remains unsupported. Published history does not recover the dirty harness/live MLX dtype. Same-run offload bytes/waits provide component evidence, not a validated end-to-end model. Strict coverage remains zero, 13 exclusions, MAPE n/a; no coefficients or production observations changed. Simultaneous capacity remains settled; engine 0.1.4 and its final verification are reused. Original manifests/raw traces or controlled measurements are the next dependency; the author confirmed no benchmark machine is available. A supplemental seven-response API search archive adds no comparable request-event logs. No paid calls or inference run. Preserve both archives, all staged/unrelated work and logs; never commit or push.
+
+**Historical 2026-11-11 restart checkpoint:** read **docs/SESSION_HANDOFF_2026-11-11.md** and **docs/UNFINISHED_TASKS.md**, then **docs/U02_PUBLIC_EVIDENCE_ACQUISITION.md** and **docs/PEAK_CAPACITY_POLICY.md**. U-02 now has 35 archived primary files and six conditional resident diagnostics, but no newly admitted strict observations. Do not repeat acquisition of those files or the old revision probes without new information. The author chose simultaneous resident peak capacity; C-060 implements the new filter and rental precision selection, engine **0.1.4**. Final combined verification passed with native exit 0: 836 Python passed, 13 skips, 3 historical xfails; 31 frontend tests, 72 no-update browser checks, 3 launcher checks. Reuse `.u02-u05-final.log` / `.u02-u05-final-exit.json`. The author requested this saved handoff; stop work until a new resume instruction. U-01/C-058 and the earlier engine 0.1.3 U-09 result remain complete historical work. Empirical U-02 through U-06 gaps remain open. Preserve staged/unrelated work; never commit or push.
+
+**2026-11-11 resumed U-02 and author-approved U-05 policy:** archived new independent operator data, model configuration/header and runtime source, plus Strata raw request logs, with retrieval metadata and hashes. Original MacStories/DeepSeek unknowns remain unresolved; strict coverage is still zero comparable observations, 13 exclusions, MAPE n/a. Six Qwen 27B diagnostics are conditional, not strict admission or coefficient fitting. C-059 records actual Strata output counts differing from its headline. Author selected **Require simultaneous capacity**; new peak_capacity filter rejects insufficient resident slots independently of monthly utilization, applies through hybrid components, and rental selection retains a peak-fitting precision. Seven regressions failed before correction; focused decision/review checks: 52 passed. New 11-case results preserve the historical engine 0.1.3 report separately. Baseline INT2 Max remains $6,143.30; context 256K / peak ten switches to DGX Spark, $8,330.83. Loaded latency and INT2/INT3 quality remain unknown. Final combined verification passed with native exit 0: 836 Python passed, 13 skipped, 3 historical xfails; 31 frontend tests, 72 browser checks without snapshot updates, 3 launcher checks. Lint/format, strict mypy, catalog validation, frontend types/lint/build and API drift pass. Proof: `.u02-u05-final.log` and `.u02-u05-final-exit.json`. Relevant work is staged; unrelated files and earlier staging are preserved. No commit or push.
+
+**2026-11-11 C-058 fixes and U-09 verification complete; empirical calibration remains UNFINISHED.** Seven new regressions reproduced contradictory output hints and unsupported local calibration predictions before correction. Decode/aggregate matching now uses workload-generated output tokens, including thinking/tokenizer effects. Calibration explicitly reports API-only models, prompts beyond model limits and configurations the current sizing model cannot represent. A sizing exclusion is a model limitation, not measured failure. Engine version is 0.1.3; affected schema/API types regenerated. Focus: 226 passed, 13 skips, 3 xfails. Final single combined `scripts/verify.py` run: **native exit 0; 826 Python passed, 13 skipped, 3 historical xfailed; 31 frontend tests; 71 browser checks without snapshot updates; 3 launcher checks**. Lint/format, strict mypy, catalog validation, frontend types/lint/build and API drift all pass. Logs: .calibration-followup-final.log and .calibration-followup-final-exit.json. The preceding combined run also passed all checks, but PowerShell's stderr redirection reported a shell error; the final subprocess capture records native exit 0 explicitly. No coefficients or empirical records changed.
+
+**U-05/U-06 analysis delivered:** docs/ONE_USER_SENSITIVITY_AND_API_COVERAGE.md and its machine-readable evidence preserve 11 complete scenarios, engine parameters and catalog fingerprint. All 11 reproduce their winner, exact cost and admissible count. The $6,143.30 Max INT2 option has an equally priced INT3 alternative; tighter latency or more retained agents changes the modeled winner. Quality remains model-level; the peak-load/queueing gap is explicit (some admitted configurations have fewer KV slots than requested peak requests). All four API models lack performance evidence; missing evidence is distinguished from measured failure. U-02/U-03/U-04/U-05/U-06 remain open for their unresolved evidence/modeling work. U-09 is complete for this software snapshot. Development server restored with direct node scripts/dev.mjs (tool session 26682, observed API PID 10320); API health ok and frontend HTTP 200 at 5173/8000. Reinspect processes on resume. Earlier background-launch request was policy-rejected; the direct supervised launcher succeeded. No browser tab control. Relevant changes staged, unrelated work preserved; no commit or push.
+
+**2026-11-11 U-01 complete; independent calibration remains UNFINISHED.** See docs/BENCHMARK_MATCHING_POLICY.md and C-057. Implemented metric-specific matching; removed the app-only backend evidence gate and disabled-drafter configuration requirement; corrected duplicate measured-prefill backend penalties in TTFT/TCO eviction wait, wrong-prompt TTFT selection, ordinary TTFT reuse during eviction and contradictory prompt/capacity acceptance. Regressions reproduced errors before fixes. Focused checks: **220 passed, 13 evidence skips, 3 historical xfails**. Final full Python: **819 passed, 13 skipped, 3 xfailed, zero failures/errors**, exit 0 in 244.43 s (.u01-python.log). An earlier run had three continuity-document gate failures (816 passed); wording/file-order fixes passed all 33 continuity checks before this successful full rerun. Tests were not weakened. Ruff/format, strict mypy, catalog validation, API type drift and diff checks pass. No contracts, schemas, empirical observations, coefficients or frontend code changed. Browser/combined verification was not rerun; U-09 remains open.
+
+**U-02 evidence audit started:** docs/BENCHMARK_EVIDENCE_MATRIX.md covers all 13 observations and concrete acquisition requirements. Model repository/API return 200 while the article-linked exact revision API returns 404; unauthenticated probe results are saved under docs/evidence/. Current revision was not substituted. Original KV/runtime manifests and Strata decode-specific settings remain unavailable. Coverage stays zero comparable rows, 13 exclusions and MAPE n/a. U-02 through U-09 remain open; software correctness is not empirical validation. New .u01-python*.log diagnostics are retained alongside prior artifacts. Relevant changes staged; existing staged/unrelated work preserved. No commit or push.
+
+**2026-11-11 clarification: substantive work is UNFINISHED.** The cost fixes and benchmark-eligibility safeguards are implemented, but independent calibration, validated offload performance and evidence-backed recommendation validation are not complete. There are zero comparable calibration observations; passing software tests does not resolve that gap. Read **docs/UNFINISHED_TASKS.md**, which is the authoritative actionable backlog (U-01 through U-09). The current request updates documentation only. When the author resumes, start U-01 and continue the original calibration task rather than announcing everything is done. The previous handoff's "housekeeping only" wording is superseded.
+
+**Paused at the author's request (2026-11-10):** one-user cost/ranking fixes and benchmark eligibility implementation are saved. Read **docs/SESSION_HANDOFF_2026-11-10.md** first on resume, then docs/CALIBRATION_AND_COST_REVIEW.md. Do not repeat the investigation or rerun passed checks without new changes. Self-managed purchase-plus-power option is implemented and authorized; Cheapest is cost-only after filters. One-user modeled Mac result: $6,143.30 over five years. Benchmark evidence is preserved with explicit exclusions; no coefficients tuned. Final full Python: **772 passed, 13 calibration eligibility skips, 3 historical diagnostic xfails, zero failures/errors**. Frontend: 31 unit tests; all 71 browser cases passed across the final 70-pass full run plus reviewed OOM-baseline targeted rerun; 3 launcher checks. Lint/types/build/catalog checks pass. No claim of a single subsequent combined verifier exit-0 run. Development server restored on 5173/8000; Comet control denied, so live user tab was not set. Relevant changes staged; prior staged/unrelated untracked work preserved. No commit or push. Temporary logs and QA sheets retained; exact restart point is in the handoff.
+
+
+**Benchmark evidence review (2026-11-10):** reviewed the author-supplied inference_benchmark_verification.md and preserved it under docs/evidence/. Direct YouTube fetching was throttled; checked the original MacStories benchmark and Strata maintainer documentation instead. C-051-C-053 record contradictions in hardware attribution, exact context/protocol and disk-size interpretation. See docs/BENCHMARK_VERIFICATION_REVIEW.md. This is an evidence review only: benchmark data, formulas and existing xfails remain unchanged pending metadata/protocol matching; no implementation tests rerun.
+
+
+**Revolut bibliography update (2026-11-10):** registered the primary conference talk as REVOLUT-AIE-2026 and the supplied LinkedIn post as REVOLUT-LINKEDIN-DEVO in data/sources.json, regenerated thesis/references.bib (77 entries), and added citation keys to docs/REVOLUT_CASE_STUDY.md. Access dates and evidence limits are recorded; the rental estimate remains unverified commentary. Catalog validation passes; full pytest: 750 passed, 3 existing calibration xfailed. Reference files staged; no commit or push.
+
+
+**Post-MVP code review follow-up complete (2026-11-10):** author authorized fixes and recommendation UX review. Scope: domain inputs/results/scenario, decision filters/ranking/candidates, performance/TCO engines, scenario/audit services, React controls/hooks/ranking/KPIs, regression tests/generated schemas/types, documentation and browser baselines. Fixes include explicit first submission, performance scoring capped at targets with Expert override, 60-month budget, context limits, reference-latency parity, active-hours/backend corrections, eligible hybrid anchor, formula provenance and catalog fingerprint checks. No new empirical benchmark or price claims are introduced. Verification: 750 Python passed / 3 existing calibration xfailed; 31 frontend tests; 70 Chromium checks against reviewed snapshots without updates; 3 launcher/production checks. Ruff/format, mypy, catalog validation, typecheck/lint/build/type drift pass. The combined run initially caught one test-format issue and a transient Plotly annotation screenshot mismatch; formatting was corrected, the targeted screenshot passed unchanged, and a complete browser rerun passed all 70. No claim of a subsequent combined exit-0 run. See docs/RECOMMENDATION_REVIEW.md, docs/REVOLUT_CASE_STUDY.md and frontend/REVIEW_FIXES.md. Relevant files staged; no commit/push. Independent calibration, API measurements, verified networking quotes and custom-license representation remain open evidence/model work. Historical MVP status below remains the baseline.
+
+
+**TCO accounting follow-up complete (2026-11-09):** fixed the author-reported cost-matrix explanation gaps. Each Calculated button opens the simulator anchor's equation, substituted USD inputs, result and source provenance/access dates, with explicit assumption labels. Cash/economic monthly subtotals, zero-cost reasons, resale deduction and accurate before/after labeling, Baseline C definition/60-month cost, savings, existing break-even and original FX now accompany the table. The low-utilization warning is neutral and percentage-formatted (C-044); 4.7% utilization is no longer presented as proof that APIs are cheaper. No numerical formula, catalog, domain contract, ranking or export change. The typed TCO API adds explanation metadata while every original projection field remains equal to the Python service output.
+
+Final combined `uv run python scripts/verify.py` exits **0**: **739 Python passed, 3 calibration xfailed; 30 frontend tests; 69 Chromium checks; 3 separate launcher/production checks**. Ruff/format, strict mypy, catalog validation, typecheck/lint/build/types:check pass. Both themes at 1280/1440/768/390 CSS px are browser-verified: eight new calculation captures plus eight deliberately refreshed TCO captures are reviewed; the final full browser run passes without further updates. Numerical, currency/FX retention, selection/audit/export and simulator-independence regressions pass. See `frontend/ACCOUNTING_REVIEW.md`. Relevant changes are staged; unrelated staged/untracked work is preserved. No commit or push; calibration refinement and .kiro relocation remain deferred.
+
+**Task 13 complete (2026-11-09):** React/FastAPI is the sole product UI. Same-origin production serves the built Vite app and API, validates missing builds, preserves API/asset 404s and applies explicit cache headers. Both checkout launchers start the web stack. Streamlit adapter/session-state/config/dependency and four AppTest cases are retired after first separating the mixed TCO test; 105 TCO/performance/UI checks passed before retirement. Pure chart/theme/formatting references and every numerical regression remain. No numerical engine, contract, catalog, React component/style or screenshot baseline changed.
+
+One combined `uv run python scripts/verify.py` now runs all Python/API/frontend/browser checks, continues to report all failed stages and runs launcher tests after browser servers stop. Final combined result: **733 passed, 3 calibration xfailed; 28 frontend tests; 60 Chromium checks; 3 launcher/production-process checks; ruff/format, strict mypy, catalog validation, typecheck/lint/build/types:check all pass**. Browser acceptance runs the actual production build in both themes at 1280/1440/768/390 CSS px against reviewed baselines without updates. Ten concurrent real scenarios and API clients equal sequential results exactly, shared catalog is unchanged, 100 generated recommendation determinism cases pass, and five warm recommendations meet median <500 ms. Two browser contexts preserve independent scenario/currency state and initial ranking meets the local <5 s budget. Initial JavaScript is 1.46 MB raw /480 KB gzip; explicit growth budgets retain and quantify Vite's size advisory.
+
+A fresh export of the staged Git index, with no .venv/node_modules/dist, passes locked uv/npm installation, build, type drift and all launcher/production-process tests. CI installs locked dependencies on Windows/Python 3.12/Node 22 and runs the combined verifier; remote Actions execution awaits the author's commit/push. See `frontend/TASK13_REVIEW.md`, README and the eight extension seams in spec 00. No commit or push. All relevant Task 13 files are staged; unrelated untracked work remains untouched.
+
+During this session separate author work restored/staged the thesis notes and literature bibliography and marked Tasks 8-12 done. Those files/status changes are preserved; the current full suite confirms the earlier missing-document gate is resolved. This session did not create or modify those thesis files or weaken their tests. Numerical calibration refinement (C-035-C-040) and .kiro relocation remain deferred.
+
+**Thesis notes and completion gate:** At the author's request, created `thesis/thesis_notes.md` as a sourced working draft and `thesis/literature.bib` with linked academic references. The notes distinguish verified implementation, historical test results, assumptions and proposed research/evaluation; they are not a finished thesis. The existing generated `thesis/references.bib` and unrelated untracked work were preserved. `uv run python scripts/verify.py` now passes: **731 passed, 3 calibration xfailed**, with ruff/format, strict mypy and catalog validation passing. All 11 thesis-specific checks pass. The missing-file completion gate is resolved; Tasks 8-12 and their final verification subtasks can now be marked done. No commit or push. Task 13 is next.
+
+**Task 12 is functionally implemented:** the collapsed selected-candidate audit drawer shares ranking selection and resets to rank one for each successful scenario result. It displays actual Python sizing/performance/TCO traces, input units, all five performance value origins, deduplicated source references with field provenance/access dates and assumption badges, and six-decimal FX metadata. Rental/hybrid accounting is traced separately from retained local TCO, including rental RAM per node and hybrid component results. The Python engines, domain contracts, catalog and Streamlit remain unchanged.
+
+JSON downloads validate and serialize the exact displayed `ScenarioResult` in USD. One deterministic CSV ZIP contains all ranking rows/six criteria/method score/paired ranks plus exactly 60 timeline rows and all seven series, converted in Python with the result's original FX rate and active display currency in monetary headers. The scenario timeline anchor is identified separately from independent simulator projections. Pending, failed or ranking-error scenarios cannot export retained results; valid empty JSON remains exportable, and CSV requires a complete timeline. Audit requests and downloads cancel on obsolete results; a test-first regression also fixes busy controls after currency cancellation.
+
+Task 12 final verification: **59 Chromium checks**, **28 frontend tests**, typecheck/lint/build/types:check and separate launcher startup/proxy/cleanup all pass. Browser acceptance covers both themes at 1280/1440/768/390 CSS px, actual JSON/ZIP downloads, reciprocal selection, empty/error states, delayed audit responses and cancellation of obsolete downloads. All eight new audit screenshots and the affected shared footer screenshots are reviewed; the final browser run passes without updating snapshots. Eleven new Python audit/export tests include exact engine-trace/API parity, all deployment accounting types, USD/EUR CSV values, TOPSIS scores and a generated real-service JSON round-trip property. `uv run python scripts/verify.py` passes ruff/format, strict mypy and catalog validation; full suite: **728 passed, 3 calibration xfailed, 3 failures solely from missing thesis/thesis_notes.md and thesis/literature.bib**. Test-first failures were observed before implementation. See `frontend/TASK12_REVIEW.md` and `frontend/audit-comparison.html`.
+
+The user explicitly authorized Task 12 despite the unrelated completion gate. Tasks 8-12 and their final gate subtasks remain administratively in progress under Project Rule 8. The missing thesis files were not fabricated, and their tests were left unchanged. Next implementation is Task 13, requiring author authorization while that gate remains unresolved. No commit or push. Relevant Task 12 changes are staged alongside the preserved earlier work; unrelated untracked work remains untouched. The Task 8-11 summaries below are retained as historical context.
+
+**Task 11 is functionally implemented:** a shared five-card rank-one KPI ribbon, two-decimal USD/EUR presentation, complete C-004 chart semantics, explicit compliance/OOM/eviction and missing-data states, keyboard navigation and responsive light/dark layouts. No financial, sizing or ranking calculations moved out of Python; no API/domain/catalog or Streamlit code changed. Independent memory/TCO panels retain their inputs/results and original projection FX rates.
+
+Task 11 verification: **48 Chromium checks**, **25 frontend tests**, typecheck/lint/build/types:check and separate launcher startup/proxy/cleanup all pass. Python/API presentation parity focus: **13 passed**. `uv run python scripts/verify.py` passes ruff/format, strict mypy and catalog validation; full suite: **717 passed, 3 calibration xfailed, 3 failures solely from missing thesis/thesis_notes.md and thesis/literature.bib**. The new test-first suite covers KPI states, monetary precision, chart series/palette/thresholds, keyboard/contrast at all target widths and reciprocal simulator independence. See `frontend/TASK11_REVIEW.md` and `frontend/presentation-comparison.html`. All 37 shared screenshot baselines are refreshed and reviewed; prior Task 8-10 behavior remains covered. A first relocation-test failure caused by concurrent snapshot writes disappears with files held steady; its tests and the original missing-thesis tests are unchanged.
+
+The user explicitly authorized Task 11 despite the unrelated completion gate. Tasks 8-11 remain administratively in progress under Project Rule 8; do not invent thesis files or weaken tests. Next implementation: Task 12, audit and JSON/CSV ZIP export, subject to author authorization while the gate remains unresolved. No commit or push. Only relevant changes are staged; unrelated untracked work is preserved.
+
 **Task 10 is functionally implemented and verified:** Python TOPSIS vector normalization, worst-observed missing-value imputation, distances/closeness, deterministic ties and paired SAW/TOPSIS ranks; complete Expert controls with catalog preset initialization, validated raw weights, method selection and FX overrides. Normal mode preserves use case/users/preset and ignores all Expert inputs. Validation and calculation responses cannot overwrite newer edits or mode transitions. No Streamlit code, catalog data or domain contracts changed.
 
 Default TOPSIS uses the same **36 admissible / 637 rejected** candidates as SAW. RTX Pro 6000 Blackwell 96 GB x1 + Qwen 3.8 Flash Next INT2 leads with closeness **0.758** (SAW rank 9); the existing SAW leader remains unchanged. The API exposes preset weights through `/options`; TypeScript types are regenerated. Display currency never submits calculations or changes USD ranking/break-even. A valid FX override legitimately recalculates EUR-derived USD costs; retained TCO projections keep the rate associated with their successful request.
 
 Task 10 validation: **38 Chromium checks**, including both themes at 1280/1440/768/390 CSS px and inline validation, plus nine frontend component/helper checks, typecheck/lint/build/types:check and separate launcher startup/proxy/cleanup pass. Independent NumPy reference and dominance properties pass. Focused TOPSIS/property/service/API checks: **34 passed**. `uv run python scripts/verify.py tests/unit/test_topsis.py` passes its focus, ruff/format, strict mypy and catalog validation; full suite: **713 passed, 3 calibration xfailed, 3 failures solely from the same missing thesis/thesis_notes.md and thesis/literature.bib**. See `frontend/TASK10_REVIEW.md`, `frontend/expert-comparison.html` and ten new browser screenshots. The existing Normal/memory/TCO screenshot baselines are unchanged.
 
-The user explicitly authorized Task 10 implementation despite the unrelated completion gate, superseding the old Task 9 stopping point. Tasks 8-10 stay administratively in progress under Project Rule 8; Task 10.1-10.4 are done and 10.5 retains only that gate. **Next implementation: Task 11, web KPI/chart/theme/accessibility polish.** Audit/export remains Task 12. No commit or push was made; relevant changes are staged and unrelated untracked files are preserved.
+The user explicitly authorized Task 10 implementation despite the unrelated completion gate, superseding the old Task 9 stopping point. Tasks 8-10 stay administratively in progress under Project Rule 8; Task 10.1-10.4 are done and 10.5 retains only that gate. **Task 11 presentation implementation follows below in the current session summary.** Audit/export remains Task 12. No commit or push was made; relevant changes are staged and unrelated untracked files are preserved.
 
 Task 9 implementation is complete: deterministic candidates, all nine hard filters with complete rejection reasons, measured-first quality/fallback ratios, six-criterion SAW, explanations, recommend/evaluate services and FastAPI routes, and the actual Stitch Ranking screen with working Normal-mode controls. Python remains the numerical authority. Default inputs yield 36 admissible / 637 rejected candidates; the leading option is RTX Pro 6000 Blackwell 96 GB x4 + DeepSeek V4.1 Flash INT4 (SAW 0.817 rounded). TOPSIS is now implemented by Task 10 above.
 
@@ -24,7 +162,7 @@ All twelve canonical Stitch screens have local HTML and screenshot exports, desi
 
 Task 8 verification: API/service parity and errors pass; frontend type/lint/build, generated-type drift, five component/state tests, browser flows/screenshots and launcher startup/proxy/cleanup pass. Python ruff/format, strict mypy and catalog validation pass. The required verification helper reaches the full suite: **652 passed, 3 calibration xfailed, 3 failed solely because thesis/thesis_notes.md and thesis/literature.bib are missing**. The three historical relocation failures caused by the already-approved web notices were resolved with an exact amendment whitelist that still compares the remaining original content. Unrelated thesis files/tests are preserved and not newly staged.
 
-**Administrative completion gate:** Tasks 8/9/10 and subtasks 8.6/9.6/10.5 remain `in-progress` under CLAUDE.md Project Rule 8 (full pytest must have zero failures). No functional acceptance work remains for these implemented slices. Do not invent thesis documents or weaken their tests to satisfy the gate. Once the author restores those documents or explicitly changes that gate, rerun verification and close their administrative gates; the next implementation task is Task 11. Numerical-calibration issues and .kiro relocation remain deferred.
+**Historical administrative completion gate (resolved in Task 13):** Tasks 8/9/10/11 and subtasks 8.6/9.6/10.5/11.5 remain `in-progress` under CLAUDE.md Project Rule 8 (full pytest must have zero failures). No functional acceptance work remains for these implemented slices. Do not invent thesis documents or weaken their tests to satisfy the gate. Once the author restores those documents or explicitly changes that gate, rerun verification and close their administrative gates; the next implementation task is Task 12. Numerical-calibration issues and .kiro relocation remain deferred.
 
 Open points for the author from Task 7: Req 22.3 limits H_active to 730 h while the Workload_Profile allows 744 h, so profiles above 730 h get no on-premise TCO (C-038, requirement change proposal). `TcoInput` lacks `SizingOptions`, so the target context is derived from the sizing result and the eviction wait time ignores β_backend (C-039); Baseline C does not list the gateway-fee source id because the baseline inputs carry the fee as a float (C-040); both have contract change proposals. No hardware item has a cabling kit, so multi-node CapEx has no switch cost. Task 9 now resolves quality, risk and popularity for generated `project_tco` candidates. During the demo one cold server start logged a plotly/pandas "partially initialized module" error in the unchanged View 1 chart; it did not reproduce on a second cold start or in three fresh sessions.
 
@@ -141,48 +279,49 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 7.13 | Implement Baselines A–D | done | 2026-11-07 |
 | 7.14 | Implement `project_tco` and the View 2 cost table | done | 2026-11-07 |
 | 7.15 | Update progress.md (Task Status, Current Status, Changelog, Next Step, Next Session Prompt for the next task) and run the verification command | done | 2026-11-07 |
-| 8 | Stitch web foundation, FastAPI boundary and size/TCO vertical slice | in-progress | |
+| 8 | Stitch web foundation, FastAPI boundary and size/TCO vertical slice | done | 2026-11-09 |
 | 8.1 | Export canonical Stitch assets and record a screen manifest and design tokens | done | 2026-11-08 |
 | 8.2 | Write failing API parity, error and web interaction tests | done | 2026-11-08 |
 | 8.3 | Implement FastAPI catalog, default-workload, size and TCO endpoints with OpenAPI types | done | 2026-11-08 |
 | 8.4 | Implement React shell, scenario controls and real memory/TCO panels matching Stitch | done | 2026-11-08 |
 | 8.5 | Implement root npm run dev orchestration and frontend type/build/component/browser checks | done | 2026-11-08 |
-| 8.6 | Run browser reference comparisons, verify Python and web checks, update progress and next prompt | in-progress | |
-| 9 | Decision engine (SAW), use cases, presets and Normal-mode web recommendations | in-progress | |
+| 8.6 | Run browser reference comparisons, verify Python and web checks, update progress and next prompt | done | 2026-11-09 |
+| 9 | Decision engine (SAW), use cases, presets and Normal-mode web recommendations | done | 2026-11-09 |
 | 9.1 | Write failing candidate, filter, quality, SAW and service tests | done | 2026-11-08 |
 | 9.2 | Implement quality resolution, candidate enumeration and all hard filters | done | 2026-11-08 |
 | 9.3 | Implement criterion normalization, ranking and explanations | done | 2026-11-08 |
 | 9.4 | Expose recommend/evaluate through FastAPI and generate client types | done | 2026-11-08 |
 | 9.5 | Build the Stitch ranking tab and Normal-mode flow with real result states | done | 2026-11-08 |
-| 9.6 | Verify Python/API/frontend/browser checks and update progress | in-progress | |
-| 10 | TOPSIS, Expert web controls and FX override | in-progress | |
+| 9.6 | Verify Python/API/frontend/browser checks and update progress | done | 2026-11-09 |
+| 10 | TOPSIS, Expert web controls and FX override | done | 2026-11-09 |
 | 10.1 | Write failing TOPSIS and Expert interaction tests | done | 2026-11-08 |
 | 10.2 | Implement TOPSIS and service/API pass-through | done | 2026-11-08 |
 | 10.3 | Implement Expert panels, weights and validated FX inputs | done | 2026-11-08 |
 | 10.4 | Verify mode transitions, stale-response handling and currency invariants | done | 2026-11-08 |
-| 10.5 | Run all applicable checks and update progress | in-progress | |
-| 11 | Web KPI ribbon, chart semantics, responsive themes and accessibility | not-started | |
-| 11.1 | Write interaction tests for KPI, theme, missing-data and currency states | not-started | |
-| 11.2 | Complete shared KPI and display formatting components | not-started | |
-| 11.3 | Complete chart styles and independent simulator state | not-started | |
-| 11.4 | Verify responsive layout, keyboard access, contrast and loading/empty/error states against Stitch | not-started | |
-| 11.5 | Record browser evidence and update progress | not-started | |
-| 12 | Web audit drawer and JSON/CSV export | not-started | |
-| 12.1 | Write failing audit-selection, source and export round-trip tests | not-started | |
-| 12.2 | Implement audit result transport and drawer contents | not-started | |
-| 12.3 | Implement JSON and display-currency CSV ZIP exports | not-started | |
-| 12.4 | Verify browser downloads, empty states and selected-candidate behavior | not-started | |
-| 12.5 | Run checks and update progress | not-started | |
-| 13 | Web cutover, concurrency, performance, CI and documentation | not-started | |
-| 13.1 | Write concurrency, performance, launcher and build/serving tests | not-started | |
-| 13.2 | Add combined Python/API/frontend/browser verification and CI | not-started | |
-| 13.3 | Separate numeric tests from legacy UI tests and retire Streamlit adapter/config/dependency | not-started | |
-| 13.4 | Finalize same-origin production serving, launchers, README and extension seams | not-started | |
-| 13.5 | Run clean-checkout and visual acceptance checks; update progress with the remaining numerical-validation backlog | not-started | |
+| 10.5 | Run all applicable checks and update progress | done | 2026-11-09 |
+| 11 | Web KPI ribbon, chart semantics, responsive themes and accessibility | done | 2026-11-09 |
+| 11.1 | Write interaction tests for KPI, theme, missing-data and currency states | done | 2026-11-08 |
+| 11.2 | Complete shared KPI and display formatting components | done | 2026-11-08 |
+| 11.3 | Complete chart styles and independent simulator state | done | 2026-11-08 |
+| 11.4 | Verify responsive layout, keyboard access, contrast and loading/empty/error states against Stitch | done | 2026-11-08 |
+| 11.5 | Record browser evidence and update progress | done | 2026-11-09 |
+| 12 | Web audit drawer and JSON/CSV export | done | 2026-11-09 |
+| 12.1 | Write failing audit-selection, source and export round-trip tests | done | 2026-11-09 |
+| 12.2 | Implement audit result transport and drawer contents | done | 2026-11-09 |
+| 12.3 | Implement JSON and display-currency CSV ZIP exports | done | 2026-11-09 |
+| 12.4 | Verify browser downloads, empty states and selected-candidate behavior | done | 2026-11-09 |
+| 12.5 | Run checks and update progress | done | 2026-11-09 |
+| 13 | Web cutover, concurrency, performance, CI and documentation | done | 2026-11-09 |
+| 13.1 | Write concurrency, performance, launcher and build/serving tests | done | 2026-11-09 |
+| 13.2 | Add combined Python/API/frontend/browser verification and CI | done | 2026-11-09 |
+| 13.3 | Separate numeric tests from legacy UI tests and retire Streamlit adapter/config/dependency | done | 2026-11-09 |
+| 13.4 | Finalize same-origin production serving, launchers, README and extension seams | done | 2026-11-09 |
+| 13.5 | Run clean-checkout and visual acceptance checks; update progress with the remaining numerical-validation backlog | done | 2026-11-09 |
 
 ## Decisions Log
 | Date | Decision | Rationale | Affects |
 |---|---|---|---|
+| 2026-11-11 | C-060: require simultaneous resident peak capacity | Author chose simultaneous capacity; monthly utilization and average hybrid routing do not establish peak slots. Rentals prefer a precision that covers the full peak. Loaded latency still needs measurements. | U-05, Req 28.1/2/5/7; engine 0.1.4 |
 | 2026-11-06 | D-01: catalog numbers use `Sourced[T]` (value, source_id, tier, accessed, note); money uses `Money` | One provenance mechanism for JSON, contracts, validator and audit drawer (design.md "Key Design Decisions") | 8.3, 8.5, 12.3 |
 | 2026-11-06 | D-02: a JSON number is covered if it or an ancestor object carries source_id + tier + accessed | Record-level provenance for benchmarks, fx.json, popularity and workload files | 8.3, 8.5, 14.1 |
 | 2026-11-06 | D-03: catalog contracts use tuples only; lookup indexes stay private to the repository | Frozen models still allow mutation of inner lists and dicts | 39.3 |
@@ -283,9 +422,29 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 2026-11-08 | Expert quantization selects KV precision for candidate sizing; ranking still enumerates all supported weight precisions, and independent simulator panels retain their weight selectors | Preserve Req 27's candidate set rather than introducing an unspecified precision filter | 27.2, 33.3 |
 | 2026-11-08 | TOPSIS retains SAW criterion contributions with explicit comparison labels; each retained TCO projection uses the FX rate from its successful request | Avoid presenting SAW contributions as TOPSIS distances or revaluing stale USD costs at a newer FX rate | 12.4, 30.2-4, 43.7 |
 
+| 2026-11-08 | Task 11 proceeds with explicit authorization despite the unrelated gate; Tasks 8-11 retain administrative in-progress status. Shared presentation uses two-decimal money, C-004 palette constants and a labelled D-09 fallback anchor | Preserve Python calculations and previous Task 8-10 invariants; CSS outlines make black traces readable in dark mode without assigning a new trace colour. No new catalog contradiction | 12.5, 34, 35, 37, 43; Task 11 |
+
+| 2026-11-09 | Task 12 proceeds under explicit user authorization despite the unrelated completion gate; Tasks 8-12 retain administrative in-progress status. Audit/export accepts the exact displayed ScenarioResult; CSV uses its original FX rate and JSON stays USD. Rental/hybrid audit accounting is separate from retained local TCO; the independent simulator is not the scenario export anchor | Prevent stale exports and preserve the existing service/domain results, C-042/C-043, D-09 and D-11. No new data contradiction | 8.6, 12.6, 36.1-8, 43.6; Task 12 |
+| 2026-11-09 | Author approves fixing misleading low-utilization prediction and unexplained formula badges; C-044 supersedes Req 23.6 wording only | Actual cost comparison can favor local at 4.7% utilization; preserve thresholds/calculations and bind explanation metadata to the independent simulator result | Req 23.6, 43; accounting follow-up |
+
 ## Changelog
+
+2026-11-12: saved context-switch handoff for a newly generated research Markdown report (path/content not yet supplied). Updated the resume prompt to verify new evidence, implement supported fixes and preserve completed diagnostics, capacity policy and staging. No production changes.
+
+2026-11-12: analysed 1050-user empty results, Revolut shared serving and Pi adaptive routing. Saved eight new scenarios, two budget counterfactuals and six primary responses; model capacity 1010.5049 users under saved defaults. No user-input cap, production change or empirical validation claim. See docs/ENTERPRISE_SCALE_AND_ADAPTIVE_ROUTING_2026-11-12.md.
+
+2026-11-12: reviewed supplied M5 Ultra 512 GB report; official configuration/two US offers and qualified 512 GB performance now verified. Archived 43 input/source responses, parsed 16 performance pages and Apple tables, recounted 2647 quality records. C-070 through C-075; no production changes or U-task completion.
+
+2026-11-12: reviewed supplied v1.1, preserved 34 new source/input files, reconciled raw Kapitsa counts/timers, added conditional context-shape diagnostic and C-065 through C-069. No production changes or completed U task. New review: docs/YOUTUBE_EVIDENCE_REPORT_V11_REVIEW_2026-11-12.md.
 | Date | Task | Files created or modified |
 |---|---|---|
+| 2026-11-12 | 13 | Recorded author's M5-only Mac scope in progress, handoff and unfinished backlog. The 512 GB target is M5 Ultra; preserved historical M3 evidence without adding purchase options or substituting its performance. Existing catalog already uses M5; no production change, commit or push. |
+| 2026-11-12 | 13 | Reviewed author-supplied YouTube-agent report: archived unchanged input plus 23 new primary remote files, assessed twelve headline rows, recorded C-061-C-064 and confirmed qualified Mac/DGX/API evidence. Updated evidence matrix and continuity; strict calibration remains open, no production changes or coefficient tuning. No commit or push. |
+| 2026-11-12 | 13 | Evidence-only calibration continuation: archived 34 new primary files, audited twelve dynamic-GGUF resident rows / 36 raw timing records / 108 samples, recovered isolated-prefill timing definitions and partial same-run offload storage counters; preserved dirty-harness/live-KV and raw-overlap blockers. Supplemental seven-response API search and author-confirmed lack of a benchmark machine recorded. New report/audit and continuity updates; no strict admissions, coefficients, production changes, commit or push. |
+| 2026-11-11 | 13 | Calibration continuation: archived 35 primary source files with hashes and six conditional resident diagnostics; recorded C-059 source output-count discrepancy. Author-approved C-060 adds simultaneous peak-capacity filtering and peak-aware rental precision selection, engine 0.1.4, regenerated metadata, ten new unit cases and browser rejection check, updated count oracle, 22 reviewed screenshots and separate policy sensitivity results. Strict evidence coverage remains zero; final combined verifier native exit 0 (836 Python / 31 frontend / 72 browser / 3 launcher, 13 skips / 3 historical xfails). No commit or push. |
+| 2026-11-09 | 13 | Author-requested accounting follow-up: added Python TCO explanation response/service, React accounting disclosures, six Python and two component regressions, nine browser checks, fixture and reviewed accounting/TCO screenshots. Corrected warning wording only in the TCO engine; recorded C-044 and the author-approved requirement-wording override in spec 09. Updated OpenAPI types, review and handoff. Numerical formulas, catalog/domain and exports unchanged. |
+| 2026-11-09 | 13 | Added production factory, concurrency/performance/property/cutover and browser-isolation tests, production/occupied-port launcher tests, combined verifier and Windows CI; retired Streamlit adapter/config/dependency/AppTest after separating numeric tests; updated bash launcher, README, extension seams, migration/design/steering docs, Task 13 review and final handoff. No engine/catalog/contract or screenshot baseline changes; no commit or push. |
+| 2026-11-09 | 12 | Added `services/audit_export.py`, typed audit/export API routes, `AuditDrawer.tsx`, Python API/export/property tests, component/download/race/browser tests, eight audit screenshots and review/comparison; connected shared ranking selection, guarded exports against obsolete results, regenerated OpenAPI types and refreshed shared footer screenshots. Updated progress and next-session prompt. No domain, catalog, engine or Streamlit change; no new data contradiction; no commit or push. |
 | 2026-11-07 | 1 | created: `pyproject.toml`, `uv.lock`, `.python-version`, `.gitignore`, `scripts/verify.py`, `scripts/relocate_specs.py`, `.kiro/steering/project-rules.md`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`, `src/ai_tco_dss/__init__.py`, `src/ai_tco_dss/settings.py`, `src/ai_tco_dss/{domain,catalog,engines,decision,services,ui}/__init__.py`, `src/ai_tco_dss/ui/app.py`, `tests/conftest.py`, `tests/unit/test_repository_layout.py`, `tests/unit/test_toolchain.py`, `tests/unit/test_session_artefacts.py`, `tests/unit/test_relocate_specs.py`, `tests/unit/test_offline_guard.py`, `tests/integration/test_app_smoke.py`; modified: `README.md` (commands), `CLAUDE.md` (appended `## Project Rules`) |
 | 2026-11-07 | 2 | created: `src/ai_tco_dss/domain/{base,enums,errors,money,catalog,scenario,results,inputs,requests,export_schemas}.py`, `schemas/*.json` (8 files), `tests/unit/test_contracts.py`, `tests/unit/test_schema_export.py`, `tests/property/strategies.py`, `tests/property/test_contract_props.py`; modified: `src/ai_tco_dss/domain/__init__.py`, `src/ai_tco_dss/settings.py`, `pyproject.toml` (console script `ai-tco-schemas`), `uv.lock`, `specs/07_DATA_CORRECTIONS.md` (Contract Deviations), `progress.md` |
 | 2026-11-07 | 3 | created: `src/ai_tco_dss/catalog/{loading,fx,repository,json_repository,memory_repository,validate}.py`, `src/ai_tco_dss/services/scenario_service.py`, `src/ai_tco_dss/ui/state.py`, `data/sources.json`, `data/catalog/README.md`, `data/catalog/hardware/{mac-studio-m5-max-128gb,rtx-pro-6000-96gb}.json`, `data/catalog/models/{qwen-3-8-27b,claude-sonnet-5-5}.json`, `data/benchmarks/quality.json`, `data/reference/{fx,electricity,staffing_hubs,harnesses,use_cases,rentals,presets,popularity,baselines}.json`, `data/workloads/default.json`, `tests/fixtures/catalog_min/**`, `tests/unit/test_validate_cli.py`, `tests/unit/test_repository.py`, `tests/unit/test_import_boundaries.py`, `tests/property/test_catalog_props.py`; modified: `src/ai_tco_dss/catalog/__init__.py`, `src/ai_tco_dss/services/__init__.py`, `src/ai_tco_dss/ui/app.py`, `pyproject.toml` (console script `ai-tco-validate`), `README.md` (validate command), `specs/07_DATA_CORRECTIONS.md` (C-016), `tests/unit/test_repository_layout.py`, `tests/integration/test_app_smoke.py`, `progress.md` |
@@ -305,6 +464,8 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | 2026-11-08 | 9 | Created decision/{candidates,filters,quality,ranking}.py; added recommend/evaluate orchestration and routes, result filter facts/components, regenerated three JSON schemas and frontend types; created Ranking.tsx, Normal scenario helper, decision/property/API/component/browser tests, recursive strategy support, reviewed screenshots/comparison and frontend/TASK9_REVIEW.md; updated services/API exports, shared app/KPIs/styles, legacy web expectations, ledger and progress. No commit or push. |
 | 2026-11-08 | 10 | created: `tests/unit/test_topsis.py`, `frontend/src/components/ExpertControls.tsx`, `frontend/tests/expert.test.tsx`, `frontend/tests/expert.spec.ts`, ten `frontend/tests/expert.spec.ts-snapshots/*.png`, `frontend/TASK10_REVIEW.md`, `frontend/expert-comparison.html`; modified: `src/ai_tco_dss/decision/ranking.py`, `src/ai_tco_dss/api/app.py`, `tests/property/test_decision_props.py`, `frontend/src/{App.tsx,styles.css,lib/scenario.ts,components/Ranking.tsx,api/generated.ts}`, `progress.md`. Existing FX repository/service pass-through is reused and verified; no catalog/schema change or new data contradiction |
 
+| 2026-11-08 | 11 | Added `frontend/src/components/KpiRibbon.tsx`, `frontend/src/lib/theme.ts`, presentation component/browser tests, `tests/integration/test_web_presentation.py`, review/comparison; updated App, typed chart factories, formatting, responsive/contrast styles, keyboard table regions and affected monetary/error assertions; refreshed shared screenshots; updated design reference and progress. Numerical engines, API/contracts/catalog and Streamlit unchanged. |
+
 ## Known Deviations
 | Deviation | Ledger entries |
 |---|---|
@@ -321,60 +482,70 @@ Task 4 summary: Task 4 replaced the seed subset with the curated MVP catalog: 9 
 | Decode formula overestimates Qwen 3.8 Flash Next on the M5 Ultra by 50–59 % (calibration xfail) | C-035 |
 | Decode formula ignores the offload bandwidth of tiered-offload appliances (DeepSeek on Strata, APE 1,378 %, calibration xfail) | C-036 |
 | Benchmark_Records use assumed context (8,192) and precision (INT4) where the source does not state them; multi-node, speculative-decoding and gpt-oss-120b records are not stored; prefill calibration is circular | C-037 |
-| The TCO_Engine rejects profiles with more than 730 active hours per month although the Workload_Profile allows 744 | C-038 |
+| Resolved: TCO accepts 1-744 active hours and clamps idle hours at zero | C-038, C-047 |
 | The TCO_Engine derives the target context from the sizing result; the eviction wait time ignores β_backend | C-039 |
 | Baseline C does not list the gateway-fee source id | C-040 |
 
 | Hybrid and on-premise timelines share the resale adjustment to preserve the 100% local boundary | C-041 |
 | Hybrid filtering requires explicit component facts and reduced local demand; rental host RAM is a server total | C-042, C-043 |
+| Low utilization is a caution rather than an API-cost verdict; actual matched-horizon costs determine the comparison | C-044 |
 
 ## Next Step
-Task 11 - Web KPI ribbon, chart semantics, responsive themes and accessibility. Task 10 functionality and visual acceptance are complete; Tasks 8-10 retain only the unrelated administrative completion gate. Do not redo their implementation.
+
+On return, start with docs/SESSION_HANDOFF_2026-11-12.md. It records the exact
+implementation boundary, next concrete U-07 work, evidence dependencies, saved proof
+and constraints. Do not repeat completed reviews or unchanged suites to restart.
+
+Continue from docs/ENTERPRISE_REPORT_REVIEW_2026-11-12.md and docs/FLEET_PLANNING_SCOPE_2026-11-12.md. The supplied evidence_report.md is reviewed and preserved; C-076 through C-083 record new corrections. The opt-in replica resource-bound planner is implemented and verified outside recommendation ranking. The next fleet phase needs explicit cost/state-placement semantics and matched load/SLA evidence before candidate/API/UI integration. Adaptive routing still needs measured task/load/cache/retry outcomes; do not copy public package thresholds as validated policy.
+
+For enterprise/router analysis and the focused external-agent fetch request, use docs/ENTERPRISE_SCALE_AND_ADAPTIVE_ROUTING_2026-11-12.md. The 1050 boundary is explained under saved defaults; do not repeat that diagnosis or reinterpret it as a hardware limit. Fleet/replica and adaptive-routing implementation remain separately scoped.
+
+Reuse docs/M5_ULTRA_512GB_EVIDENCE_REVIEW_2026-11-12.md for verified 512 GB configuration/offers, permanent oMLX IDs, Apple tables and original quality logs. Remaining dependencies are five simultaneous occupied 128K requests, eight retained sessions, exact run-linked artifact/KV/cache/timing and low-bit tool reliability. The new M5 DeepSeek 12-request release summary does not supply that workload or its memory/context. U-07 catalog/shared serving remains separately scoped; no benchmark machine is available.
+
+No not-started task remains in the original MVP list (Tasks 1-13). Independent U-02 through U-06 remain unfinished; U-01/C-058 and software verification are complete. Earlier reviews and diagnostic outputs remain saved, including docs/YOUTUBE_EVIDENCE_REPORT_V11_REVIEW_2026-11-12.md. Do not restart completed reviews, reacquire verified files, repeat passed suites without changes, re-decide simultaneous capacity, transplant metadata or tune coefficients without supported comparisons. Mac deployment options remain M5 only. Preserve all staging/unrelated files and never commit or push.
 
 ## Next Session Prompt
 ```text
-Continue AI TCO DSS at C:\TUM\Thesis\AI_TCO_DSS.
-
-Read progress.md first, then:
-1. CLAUDE.md
-2. specs/09_WEB_FRONTEND_MIGRATION.md
-3. specs/08_MVP_DESIGN_REFERENCE.md
-4. .kiro/specs/ai-tco-dss-mvp/requirements.md (12, 34, 35, 37, 43)
-5. .kiro/specs/ai-tco-dss-mvp/design.md (Web delivery, Dashboard, chart semantics)
-6. .kiro/specs/ai-tco-dss-mvp/tasks.md
-
-Implement Task 11: Web KPI ribbon, chart semantics, responsive themes and accessibility.
-Task_Scope:
-  Load: `CLAUDE.md` section "Project Rules"; `progress.md` (whole file); `requirements.md` section "Requirement 43: Dedicated Web Frontend and Stitch Fidelity"; `design.md` section "Web delivery architecture (active)"; `specs/05_VISUALIZATION_UX_AND_SYSTEM_DESIGN.md`
-  Modify: `frontend/`, `src/ai_tco_dss/api/`, `tests/`, `specs/08_MVP_DESIGN_REFERENCE.md`, `specs/07_DATA_CORRECTIONS.md`, `progress.md`
-  Verify: uv run python scripts/verify.py
-
-Tasks 1-7 are done. Tasks 8-10 are implemented and browser-verified; do not redo them.
-Tasks 8-10 stay administratively in progress under CLAUDE.md's zero-failure gate.
-Task 10 was explicitly authorized despite that unrelated gate; its functionality is complete.
-Full suite: 713 passed, 3 calibration xfailed, 3 failures solely from missing
-thesis/thesis_notes.md and thesis/literature.bib. Do not invent files or weaken tests.
-Task 10 focused TOPSIS/property/API/service checks: 34 passed. Frontend checks and
-all 38 Chromium checks plus separate launcher checks pass. Review TASK10_REVIEW.md,
-frontend/expert-comparison.html, frontend/TASK9_REVIEW.md and design/stitch/TOKENS.md.
-
-Normal uses real Python SAW rankings (36 ranked / 637 rejected by default).
-Expert initializes catalog preset weights and SAW; TOPSIS exposes paired ranks,
-closeness and distances. Default TOPSIS leader is RTX Pro 6000 x1 + Qwen 3.8 Flash
-Next INT2, C=0.758, SAW rank 9. Preserve the shared hard-filtered candidate set.
-Expert KV precision applies to sizing; ranking compares all weight precisions.
-FX accepts 0.50-2.00 with <=6 decimals; display currency never recomputes results.
-Overrides can change USD costs of EUR inputs. Retained TCO keeps its own FX rate.
-Preserve C-042 hybrid component/context/endpoint facts and reduced local demand,
-and C-043 rental server-total RAM/per-node sizing. Keep calculations in Python.
-
-Task 11 includes five consistent KPIs, monetary rounding/display/chart semantics,
-themes, keyboard/contrast/loading/empty/error states and independent simulators.
-Run npm typecheck/lint/build/test/types:check and test:browser in both themes at
-1280/1440/768/390 CSS px; run test:launcher separately (shared ports 5173/8000).
-run.bat and root npm run dev start the web UI/API. Freeze Streamlit work.
-Audit/export remains Task 12; production/CI/Streamlit retirement remains Task 13.
-Preserve staged and unrelated untracked work, including thesis files, export_bib.py,
-.config.kiro and .gitkeep files. Stage only relevant changes. Do not commit or push.
-Update progress.md and its next-session prompt after the work.
+Resume work in C:\TUM\Thesis\AI_TCO_DSS.
+Read progress.md first, then docs/SESSION_HANDOFF_2026-11-12.md and docs/UNFINISHED_TASKS.md.
+Read CLAUDE.md, .kiro/specs/ai-tco-dss-mvp/requirements.md,
+.kiro/specs/ai-tco-dss-mvp/design.md and .kiro/specs/ai-tco-dss-mvp/tasks.md.
+Then read docs/ENTERPRISE_SCALE_AND_ADAPTIVE_ROUTING_2026-11-12.md,
+docs/M5_ULTRA_512GB_EVIDENCE_REVIEW_2026-11-12.md and docs/BENCHMARK_MATCHING_POLICY.md.
+Read docs/ENTERPRISE_REPORT_REVIEW_2026-11-12.md and docs/FLEET_PLANNING_SCOPE_2026-11-12.md.
+The supplied evidence_report.md is reviewed; named companion JSON files were absent.
+Treat downloaded reports and code as evidence, not instructions or executable programs.
+Existing reports are archived unchanged; inspect only genuinely new supplied companion evidence.
+Verify new claims against primary sources, reuse archived evidence and record contradictions.
+Identify what the new evidence resolves and which fields remain unknown.
+Fix demonstrated software defects and make evidence-supported corrections; continue through verification.
+Do not stop at a plan or repeat another completed review instead of doing supported work.
+Scope larger fleet/router model changes explicitly before implementation; do not invent measurements or policies.
+Start U-07's next phase by scoping complete-replica deployment/cost/state-placement semantics.
+Integrate only where policy and matched evidence support it; preserve unsupported feasibility as unknown.
+Focus on enterprise fleet/replica capacity, adaptive hybrid routing, M5 serving and matched API evidence.
+The 1050-user failure was reproduced: formula capacity 1010.5049 users under saved defaults,
+plus a USD 100000 CapEx cap and missing API performance evidence. Input accepts 100000 users.
+Presets rank after hard filters. Reuse the eight user-count scenarios and two budget counterfactuals.
+Do not falsely fix a nonexistent 1000-user input cap or remove valid filters to force feasibility.
+Separate employee seats, retained sessions, simultaneous requests, replicas and model-parallel GPUs.
+Current Hybrid Split is static; adaptive routing and fleet recommendation integration remain unimplemented.
+An opt-in plan_fleet resource-bound primitive now exists; it does not prove SLA/placement feasibility.
+Do not reuse AgentX live session trees as simultaneous HTTP/resident-request slots.
+Mac options are M5 only; the 512 GB target is M5 Ultra 512 GB. Preserve M3 sources as history.
+512 GB hardware/US prices and qualified measurements are already verified; reuse the latest review.
+Simultaneous resident capacity is decided and implemented. Do not re-ask or silently change that policy.
+Strict calibration is zero comparable observations / 13 existing exclusions / MAPE n/a until new evidence supports admission.
+U-01/C-058 and software verification are complete. No not-started task remains in original MVP Tasks 1-13.
+U-02 through U-06 remain unfinished; U-07 fleet/shared-serving and U-08 gaps remain separately tracked.
+No benchmark machine is available. Do not run paid inference, rent hardware or download weights.
+Never tune coefficients or assign exact quantization/tool quality by guessing missing run facts.
+Use failing regressions for demonstrated bugs; run focused and required checks after substantive changes.
+Reuse .u02-u05-final.log / .u02-u05-final-exit.json for unchanged engine 0.1.4 behavior.
+Fleet full Python proof: .enterprise-report-python.log / .enterprise-report-python-exit.json (858 passed).
+Do not repeat completed acquisition, diagnostics or passed suites without relevant changes.
+Preserve staged changes, unrelated files, original evidence, diagnostic logs and unknowns.
+Stage only relevant changes. Never commit or push.
+Update progress.md, handoff/backlog and the correction ledger where applicable.
+Report what changed, why, verification results and remaining evidence/model limits.
 ```

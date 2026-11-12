@@ -1,0 +1,220 @@
+{
+  "purpose": "Review user-supplied YouTube-agent evidence; preserve input byte-for-byte and separately verify primary sources.",
+  "files": [
+    {
+      "path": "ai_deployment_benchmark_evidence_report.md",
+      "origin": "user-supplied file",
+      "original_path": "C:\\Users\\supra\\Downloads\\ai_deployment_benchmark_evidence_report.md",
+      "archived_at": "2026-11-12T12:39:08.397232+00:00",
+      "bytes": 52634,
+      "sha256": "0892790c98eedb80f46861ae4be18bb4e3b2ca803c9883b92b91a283612d4c08"
+    },
+    {
+      "path": "fortunato-head.json",
+      "url": "https://api.github.com/repos/devopsfortunato/Qwen3.8-Flash-Next-FP4-Local-DGX-Spark/commits/HEAD",
+      "resolved_url": "https://api.github.com/repos/devopsfortunato/Qwen3.8-Flash-Next-FP4-Local-DGX-Spark/commits/HEAD",
+      "retrieved_at": "2026-11-12T12:39:09.138317+00:00",
+      "status": 200,
+      "bytes": 13220,
+      "sha256": "c060d2fa299396655a068a8927c3462b7286402f5b7790b466c8d552d3ee3c21"
+    },
+    {
+      "path": "tensorfold-head.json",
+      "url": "https://api.github.com/repos/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold/commits/HEAD",
+      "resolved_url": "https://api.github.com/repos/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold/commits/HEAD",
+      "retrieved_at": "2026-11-12T12:39:09.103396+00:00",
+      "status": 200,
+      "bytes": 28589,
+      "sha256": "3aaf8e428d83bbeb3ad7dee473dd7be39ba419dfdd93c2519a3144209ae04225"
+    },
+    {
+      "path": "surogate-head.json",
+      "url": "https://api.github.com/repos/invergent-ai/surogate/commits/HEAD",
+      "resolved_url": "https://api.github.com/repos/invergent-ai/surogate/commits/HEAD",
+      "retrieved_at": "2026-11-12T12:39:09.302769+00:00",
+      "status": 200,
+      "bytes": 43158,
+      "sha256": "7b97cd15d9fa6ba0a9ad2cc5f1c1742f84ca4cfe3249e2d9029f0f53e777cbf4"
+    },
+    {
+      "path": "smartypants-api.json",
+      "url": "https://huggingface.co/api/datasets/smartypantsnet/mac-benchmarks",
+      "resolved_url": "https://huggingface.co/api/datasets/smartypantsnet/mac-benchmarks",
+      "retrieved_at": "2026-11-12T12:39:08.861915+00:00",
+      "status": 200,
+      "bytes": 1484,
+      "sha256": "9f9b8eb758f678989675f1af2b7c4c41265677b5336224c1dbb77829c01fb323"
+    },
+    {
+      "path": "strata/docs/MAC.md",
+      "url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/docs/MAC.md",
+      "resolved_url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/docs/MAC.md",
+      "retrieved_at": "2026-11-12T12:39:08.879562+00:00",
+      "status": 200,
+      "bytes": 24312,
+      "sha256": "61a4ccb20d51c9e868c18aca2f38b88efdc25ec5cb0376562865f968c8fb755b"
+    },
+    {
+      "path": "strata/docs/QUANTS.md",
+      "url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/docs/QUANTS.md",
+      "resolved_url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/docs/QUANTS.md",
+      "retrieved_at": "2026-11-12T12:39:09.243211+00:00",
+      "status": 200,
+      "bytes": 13932,
+      "sha256": "20dc0152c47b43ec5462ecd5847cb84e726b5f9a83052a42d5b053f51aecf3c1"
+    },
+    {
+      "path": "strata/docs/DEEPSEEK_MAC.md",
+      "url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/docs/DEEPSEEK_MAC.md",
+      "resolved_url": "https://raw.githubusercontent.com/Niko1221/Strata/c1ff07f1a1817594811c960039571c6e268fe89a/docs/DEEPSEEK_MAC.md",
+      "retrieved_at": "2026-11-12T12:39:09.289730+00:00",
+      "status": 200,
+      "bytes": 6831,
+      "sha256": "c1198644beb9291931b6ec9861eb23bbdd77bf44e4ec5922de5513e90d0c0edc"
+    },
+    {
+      "path": "fortunato-tree.json",
+      "url": "https://api.github.com/repos/devopsfortunato/Qwen3.8-Flash-Next-FP4-Local-DGX-Spark/git/trees/6aab1a5589dfd0cd93cb0ffc8d50392cfaffa9b6?recursive=1",
+      "resolved_url": "https://api.github.com/repos/devopsfortunato/Qwen3.8-Flash-Next-FP4-Local-DGX-Spark/git/trees/6aab1a5589dfd0cd93cb0ffc8d50392cfaffa9b6?recursive=1",
+      "retrieved_at": "2026-11-12T12:39:29.961805+00:00",
+      "status": 200,
+      "bytes": 15611,
+      "sha256": "1a29b6006693a2231cc01dfde1a45089e1c654065d69a9a395868f14241c1d53"
+    },
+    {
+      "path": "fortunato/README.md",
+      "url": "https://raw.githubusercontent.com/devopsfortunato/Qwen3.8-Flash-Next-FP4-Local-DGX-Spark/6aab1a5589dfd0cd93cb0ffc8d50392cfaffa9b6/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/devopsfortunato/Qwen3.8-Flash-Next-FP4-Local-DGX-Spark/6aab1a5589dfd0cd93cb0ffc8d50392cfaffa9b6/README.md",
+      "retrieved_at": "2026-11-12T12:39:29.749567+00:00",
+      "status": 200,
+      "bytes": 54885,
+      "sha256": "b8ed20a423937f0e673a194d06cb34fa0a499fdc737ece08287a0d620888c341"
+    },
+    {
+      "path": "tensorfold-tree.json",
+      "url": "https://api.github.com/repos/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold/git/trees/20e15e41f2f514a0d287710f4665ee1b5009ba41?recursive=1",
+      "resolved_url": "https://api.github.com/repos/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold/git/trees/20e15e41f2f514a0d287710f4665ee1b5009ba41?recursive=1",
+      "retrieved_at": "2026-11-12T12:39:29.927371+00:00",
+      "status": 200,
+      "bytes": 16952,
+      "sha256": "debbd849eae11830c0ed65011e3662d91c131b4f25bf538a1f5259053e00fe08"
+    },
+    {
+      "path": "tensorfold/README.md",
+      "url": "https://raw.githubusercontent.com/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold/20e15e41f2f514a0d287710f4665ee1b5009ba41/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold/20e15e41f2f514a0d287710f4665ee1b5009ba41/README.md",
+      "retrieved_at": "2026-11-12T12:39:29.708833+00:00",
+      "status": 200,
+      "bytes": 45383,
+      "sha256": "540349bb84bac4551e693a8ae667247f6a334605fd7c8f49a1694ee0484da55a"
+    },
+    {
+      "path": "surogate-tree.json",
+      "url": "https://api.github.com/repos/invergent-ai/surogate/git/trees/c7df4bafb41129da88ab5ba82fa84037be7b5ee7?recursive=1",
+      "resolved_url": "https://api.github.com/repos/invergent-ai/surogate/git/trees/c7df4bafb41129da88ab5ba82fa84037be7b5ee7?recursive=1",
+      "retrieved_at": "2026-11-12T12:39:30.408843+00:00",
+      "status": 200,
+      "bytes": 1009060,
+      "sha256": "70e9abd91c19e7a343f29e4c65985de714d067348bbac3e6e1866e224ed2fec2"
+    },
+    {
+      "path": "surogate/README.md",
+      "url": "https://raw.githubusercontent.com/invergent-ai/surogate/c7df4bafb41129da88ab5ba82fa84037be7b5ee7/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/invergent-ai/surogate/c7df4bafb41129da88ab5ba82fa84037be7b5ee7/README.md",
+      "retrieved_at": "2026-11-12T12:39:30.115382+00:00",
+      "status": 200,
+      "bytes": 29871,
+      "sha256": "38dea01f3a2f270eb27ef13dbffb884cca34d4d9b8ccf6b13df373cfa1fdcca6"
+    },
+    {
+      "path": "surogate/BENCHMARKS.md",
+      "url": "https://raw.githubusercontent.com/invergent-ai/surogate/c7df4bafb41129da88ab5ba82fa84037be7b5ee7/surogate/serve/BENCHMARKS.md",
+      "resolved_url": "https://raw.githubusercontent.com/invergent-ai/surogate/c7df4bafb41129da88ab5ba82fa84037be7b5ee7/surogate/serve/BENCHMARKS.md",
+      "retrieved_at": "2026-11-12T12:39:30.173116+00:00",
+      "status": 200,
+      "bytes": 101797,
+      "sha256": "5fb034b5c6780516c66d96e0f445064788a0ba8aa5d1daa1a64e1a250af941cd"
+    },
+    {
+      "path": "smartypants/README.md",
+      "url": "https://huggingface.co/datasets/smartypantsnet/mac-benchmarks/resolve/7f03fc28d323f5043a0b40e07d69d43833e56372/README.md",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/smartypantsnet/mac-benchmarks/7f03fc28d323f5043a0b40e07d69d43833e56372/README.md?%2Fdatasets%2Fsmartypantsnet%2Fmac-benchmarks%2Fresolve%2F7f03fc28d323f5043a0b40e07d69d43833e56372%2FREADME.md=&etag=%222d7aac8166cca2dedab4cfd063956604f3cb6470%22",
+      "retrieved_at": "2026-11-12T12:39:30.652334+00:00",
+      "status": 200,
+      "bytes": 19759,
+      "sha256": "1304269da710d975edbcad49f90d0cefd5bfac710462f51fa0ee06f1301619d2"
+    },
+    {
+      "path": "smartypants/results.json",
+      "url": "https://huggingface.co/datasets/smartypantsnet/mac-benchmarks/resolve/7f03fc28d323f5043a0b40e07d69d43833e56372/results.json",
+      "resolved_url": "https://huggingface.co/api/resolve-cache/datasets/smartypantsnet/mac-benchmarks/7f03fc28d323f5043a0b40e07d69d43833e56372/results.json?%2Fdatasets%2Fsmartypantsnet%2Fmac-benchmarks%2Fresolve%2F7f03fc28d323f5043a0b40e07d69d43833e56372%2Fresults.json=&etag=%22fa989ee4c43094221cc0595f8812f7366f38d0da%22",
+      "retrieved_at": "2026-11-12T12:39:30.747767+00:00",
+      "status": 200,
+      "bytes": 25717,
+      "sha256": "c95e0492d6fe2fe63af18720d8be96c2d002ea3519f730dd58a00a62bc09e1f6"
+    },
+    {
+      "path": "tensorfold/tools/bench_streams.py.txt",
+      "url": "https://raw.githubusercontent.com/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold/20e15e41f2f514a0d287710f4665ee1b5009ba41/tools/bench_streams.py",
+      "resolved_url": "https://raw.githubusercontent.com/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold/20e15e41f2f514a0d287710f4665ee1b5009ba41/tools/bench_streams.py",
+      "retrieved_at": "2026-11-12T12:41:42.052935+00:00",
+      "status": 200,
+      "bytes": 3493,
+      "sha256": "5d86924126daa0828c0f96f79be229bd07c67fdee3b0d3b17fb6896b68ff57ca"
+    },
+    {
+      "path": "tensorfold/tools/client.py.txt",
+      "url": "https://raw.githubusercontent.com/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold/20e15e41f2f514a0d287710f4665ee1b5009ba41/tools/client.py",
+      "resolved_url": "https://raw.githubusercontent.com/MiaAI-Lab/Qwen3.8-Flash-Next-Single-DGX-Spark-TensorFold/20e15e41f2f514a0d287710f4665ee1b5009ba41/tools/client.py",
+      "retrieved_at": "2026-11-12T12:41:42.132879+00:00",
+      "status": 200,
+      "bytes": 16796,
+      "sha256": "8795e0fec8dc79818281ea3a7525cec87a270153f0c6683b54fc05ef0dde5099"
+    },
+    {
+      "path": "surogate/surogate/serve/tools/bench/agentic_long_bench.py.txt",
+      "url": "https://raw.githubusercontent.com/invergent-ai/surogate/c7df4bafb41129da88ab5ba82fa84037be7b5ee7/surogate/serve/tools/bench/agentic_long_bench.py",
+      "resolved_url": "https://raw.githubusercontent.com/invergent-ai/surogate/c7df4bafb41129da88ab5ba82fa84037be7b5ee7/surogate/serve/tools/bench/agentic_long_bench.py",
+      "retrieved_at": "2026-11-12T12:41:45.465088+00:00",
+      "status": 200,
+      "bytes": 15491,
+      "sha256": "308fa1575a1e8ec2330950a6d379495d4502a99a36c21472455765aa589e9c49"
+    },
+    {
+      "path": "fortunato/.env.example",
+      "url": "https://raw.githubusercontent.com/devopsfortunato/Qwen3.8-Flash-Next-FP4-Local-DGX-Spark/6aab1a5589dfd0cd93cb0ffc8d50392cfaffa9b6/.env.example",
+      "resolved_url": "https://raw.githubusercontent.com/devopsfortunato/Qwen3.8-Flash-Next-FP4-Local-DGX-Spark/6aab1a5589dfd0cd93cb0ffc8d50392cfaffa9b6/.env.example",
+      "retrieved_at": "2026-11-12T12:41:42.087341+00:00",
+      "status": 200,
+      "bytes": 1246,
+      "sha256": "d924a3afa6a434ea51a9e747b5e4d5ba92e3c219ab1a0ff6636887326b58391c"
+    },
+    {
+      "path": "macstories-response.html",
+      "url": "https://www.macstories.net/stories/m5-ultra-mac-studio-review-the-dream-mac-for-local-ai-agents/",
+      "resolved_url": "https://www.macstories.net/stories/m5-ultra-mac-studio-review-the-dream-mac-for-local-ai-agents/",
+      "retrieved_at": "2026-11-12T12:41:42.111700+00:00",
+      "status": 200,
+      "bytes": 302160,
+      "sha256": "2bd1ec8b3d9b6cca6e7fb0feb61d2201904342f58db93b3fa3661727661ef4fa"
+    },
+    {
+      "path": "kubesimplify-response.html",
+      "url": "https://blog.kubesimplify.com/qwen3-8-27b-on-dgx-spark",
+      "resolved_url": "https://blog.kubesimplify.com/qwen3-8-27b-on-dgx-spark",
+      "retrieved_at": "2026-11-12T12:41:43.227043+00:00",
+      "status": 200,
+      "bytes": 224242,
+      "sha256": "4972859bdd8577d4fa5c8f833b9955a1582b24af370c3ea9d4310466a780b723"
+    },
+    {
+      "path": "requesty-response.html",
+      "url": "https://www.requesty.ai/blog/gpt-vs-claude-vs-gemini-api-price-latency",
+      "resolved_url": "https://www.requesty.ai/blog/gpt-vs-claude-vs-gemini-api-price-latency",
+      "retrieved_at": "2026-11-12T12:41:42.396371+00:00",
+      "status": 200,
+      "bytes": 142668,
+      "sha256": "f92525f74bd3a8d0fd8a4fd5812234affde995485b788ead5e112617acd89283"
+    }
+  ]
+}

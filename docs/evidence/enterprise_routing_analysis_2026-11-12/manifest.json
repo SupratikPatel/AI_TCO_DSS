@@ -1,0 +1,59 @@
+{
+  "purpose": "Primary material for enterprise-size and hybrid-routing analysis; no inference.",
+  "files": [
+    {
+      "path": "revolut-linkedin.html",
+      "url": "https://www.linkedin.com/posts/andevo_revolut-rents-56-nvidia-b200-gpus-164k-share-7524084235712925696-YJ6v/",
+      "resolved_url": "https://www.linkedin.com/posts/andevo_revolut-rents-56-nvidia-b200-gpus-164k-share-7524084235712925696-YJ6v/",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:36:04.407995+00:00",
+      "bytes": 173615,
+      "sha256": "2a60d0c9860d20eebdfddf81824e41f2eb6cc26e1d83d83474f51faa406f5d47"
+    },
+    {
+      "path": "pi-linkedin.html",
+      "url": "https://www.linkedin.com/posts/julienchaumond_one-of-the-coolest-recent-features-in-pi-share-7525932966305267712-mb0k/",
+      "resolved_url": "https://www.linkedin.com/posts/julienchaumond_one-of-the-coolest-recent-features-in-pi-share-7525932966305267712-mb0k/",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:36:04.328994+00:00",
+      "bytes": 188978,
+      "sha256": "c05f041ac611a3c1ddeb1099435be8a83e444167a98793d2a378420af11dab03"
+    },
+    {
+      "path": "revolut-talk.html",
+      "url": "https://ai.engineer/nyc/2026/talks/revolut",
+      "resolved_url": "https://ai.engineer/nyc/2026/talks/revolut",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:36:04.353727+00:00",
+      "bytes": 145392,
+      "sha256": "60357687a50d89ae2ef442b64988d14c54b57aba4aa35d3163dc0cdb6d493a77"
+    },
+    {
+      "path": "pi-virtual-models.html",
+      "url": "https://pi.dev/docs/latest/virtual-models",
+      "resolved_url": "https://pi.dev/docs/latest/virtual-models",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:36:04.548661+00:00",
+      "bytes": 70536,
+      "sha256": "b5dab4649851488388657afbf546925dc3fe7d886d0ccee688fc15c13c04210b"
+    },
+    {
+      "path": "pi-head.json",
+      "url": "https://api.github.com/repos/earendil-works/pi/commits/main",
+      "resolved_url": "https://api.github.com/repos/earendil-works/pi/commits/main",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:36:03.923736+00:00",
+      "bytes": 20713,
+      "sha256": "ee931cf0cd4996c32d26f3db94c88c393e0ee05ae2b88d40dcb423b83bde2dd7"
+    },
+    {
+      "path": "pi-virtual-models.md",
+      "url": "https://raw.githubusercontent.com/earendil-works/pi/841dc6050b5f0014733ee40436f8ad7cf80c93fe/packages/coding-agent/docs/virtual-models.md",
+      "resolved_url": "https://raw.githubusercontent.com/earendil-works/pi/841dc6050b5f0014733ee40436f8ad7cf80c93fe/packages/coding-agent/docs/virtual-models.md",
+      "status": 200,
+      "retrieved_at": "2026-11-12T17:36:05.049889+00:00",
+      "bytes": 8177,
+      "sha256": "5ab04dee3b3712b317522bb0784e28a3fef2e6b7fe1aeb1c1ca27778685a38f7"
+    }
+  ]
+}

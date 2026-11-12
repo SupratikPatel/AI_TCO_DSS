@@ -36,6 +36,15 @@ tokens, real-browser evidence and normalized side-by-side comparisons.
 
 ## Required visual structure
 
+Task 11 presentation evidence is recorded in `frontend/TASK11_REVIEW.md` and
+`frontend/presentation-comparison.html`. Shared rank-one KPIs, two-decimal monetary
+displays, C-004 chart styles, explicit missing/compliance/OOM states and keyboard
+access are checked in both themes at 1280/1440/768/390 CSS px. Control borders are
+stronger than the canonical export for contrast; tablet chart/accounting panels
+stack. Dark black traces retain the C-004 colour with a CSS contrast outline.
+The Task 11 screenshots refresh the shared presentation in the earlier baselines;
+Tasks 8-10 behavior is preserved. Audit/export is implemented; see frontend/TASK12_REVIEW.md.
+
 - Compact full-height left scenario sidebar, product identity, Normal/Expert switch,
   scenario controls and currency selection. Expert parameters are hidden in Normal.
 - Slim project header and five aligned KPI cards with consistent meanings: recommended

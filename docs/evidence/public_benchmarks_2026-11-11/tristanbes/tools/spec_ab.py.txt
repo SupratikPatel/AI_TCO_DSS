@@ -1,0 +1,72 @@
+"""Speculative decoding A/B on llama-server: decode tok/s with and without a draft model, same prompts.
+
+Start llama-server yourself (once without the draft, once with it), then run this against it with a --label.
+Reads the server's own timings (predicted_per_second, draft_n, draft_n_accepted), so client overhead is excluded.
+
+    python3 -I tools/spec_ab.py --url http://127.0.0.1:8080 --label baseline --temps 0,1 >> results_spec.jsonl
+    python3 -I tools/spec_ab.py --url http://127.0.0.1:8080 --label dspark-n3 --temps 0,1 >> results_spec.jsonl
+
+Realistic prompts (code, prose, structured output): draft acceptance depends on the text, unlike a filler prompt.
+Each request generates exactly --tokens tokens (ignore_eos), after one warm-up request per temperature.
+"""
+import argparse, datetime, json, statistics, sys, urllib.request
+
+PROMPTS = {
+    "code": "Write a Python module implementing an LRU cache with TTL expiry, thread safety and type hints. "
+            "Include docstrings and a pytest test suite.",
+    "prose": "Explain to a new backend engineer how TLS 1.3 establishes a session, step by step, "
+             "and what changes compared with TLS 1.2.",
+    "json": "Return a JSON array of 15 fictional employees, each with id, name, team, role, start_date, "
+            "skills (list) and manager_id. Output only the JSON.",
+}
+
+
+def post(url, body):
+    req = urllib.request.Request(url, json.dumps(body).encode(), {"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=1800) as r:
+        return json.load(r)
+
+
+def run(a, temp, name, prompt, seed):
+    body = {"messages": [{"role": "user", "content": prompt}], "max_tokens": a.tokens, "ignore_eos": True,
+            "temperature": temp, "seed": seed, "cache_prompt": False,
+            "chat_template_kwargs": {"reasoning_effort": a.reasoning_effort}}
+    t = post(a.url + "/v1/chat/completions", body)["timings"]
+    return {"decode_tps": t["predicted_per_second"], "prefill_tps": t.get("prompt_per_second"),
+            "n_gen": t["predicted_n"], "n_prompt": t.get("prompt_n"),
+            "draft_n": t.get("draft_n"), "draft_accepted": t.get("draft_n_accepted")}
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--url", default="http://127.0.0.1:8080")
+    ap.add_argument("--label", required=True, help="e.g. baseline, dspark-n3")
+    ap.add_argument("--model", default="Mistral-Large-4-1T-A52B UD-IQ1_S")
+    ap.add_argument("--runtime-version", default="")
+    ap.add_argument("--temps", default="0,1")
+    ap.add_argument("--tokens", type=int, default=512)
+    ap.add_argument("--trials", type=int, default=3)
+    ap.add_argument("--reasoning-effort", default="low")
+    a = ap.parse_args()
+    for temp in [float(x) for x in a.temps.split(",")]:
+        run(a, temp, "warmup", PROMPTS["prose"], 0)
+        for name, prompt in PROMPTS.items():
+            trials = [run(a, temp, name, prompt, 1000 + i) for i in range(a.trials)]
+            dec = [t["decode_tps"] for t in trials]
+            dn = sum(t["draft_n"] or 0 for t in trials)
+            row = {"schema": "spec-ab-1", "date": datetime.date.today().isoformat(), "model": a.model,
+                   "runtime": "llama-server", "runtime_version": a.runtime_version, "label": a.label,
+                   "prompt": name, "temperature": temp, "reasoning_effort": a.reasoning_effort,
+                   "gen_tokens": a.tokens, "trials": a.trials,
+                   "decode_tps": round(statistics.mean(dec), 2),
+                   "decode_tps_std": round(statistics.stdev(dec), 2) if len(dec) > 1 else None,
+                   "samples_decode": [round(x, 2) for x in dec],
+                   "draft_acceptance": round(sum(t["draft_accepted"] or 0 for t in trials) / dn, 3) if dn else None,
+                   "trials_raw": trials}
+            print(json.dumps(row), flush=True)
+            print(f"{a.label} T={temp} {name}: {row['decode_tps']} tok/s, acceptance {row['draft_acceptance']}",
+                  file=sys.stderr, flush=True)
+
+
+if __name__ == "__main__":
+    main()

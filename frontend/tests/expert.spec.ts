@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 async function expert(page: import('@playwright/test').Page) {
   await page.goto('/');
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
   await expect(page.getByTestId('ranking-result')).toBeVisible();
   await page.getByRole('button', { name: 'Expert', exact: true }).click();
 }
@@ -105,7 +106,7 @@ test('Task 10 active FX display, USD ranking/break-even invariants and delayed m
   let calls = 0;
   page.on('request', r => { if (r.url().endsWith('/evaluate')) calls++; });
   await page.getByRole('button', { name: 'EUR', exact: true }).click();
-  await expect(page.locator('.ranking-table tbody tr').first()).toContainText(new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(first.evaluation.cost_60m / 1.2));
+  await expect(page.locator('.ranking-table tbody tr').first()).toContainText(new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(first.evaluation.cost_60m / 1.2));
   await expect(page.locator('.kpi').nth(1)).toHaveText(breakEven!);
   await page.getByRole('button', { name: 'USD', exact: true }).click();
   await expect(page.locator('.ranking-table')).toHaveText(usdTable!);

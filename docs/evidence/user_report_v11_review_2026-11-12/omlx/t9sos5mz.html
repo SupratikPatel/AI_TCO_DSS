@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qwen3.8-Flash-Next-oQ2.5e-mtp on M5 Max (40c) — oMLX Benchmark</title>
+  <meta name="description" content="2,175 PP tok/s, 117.1 TG tok/s — Qwen3.8-Flash-Next-oQ2.5e-mtp (2bit) on M5 Max (40c) 128GB" />
+  <meta property="og:title" content="Qwen3.8-Flash-Next-oQ2.5e-mtp on M5 Max (40c) — oMLX Benchmark" />
+  <meta property="og:description" content="2,175 PP tok/s, 117.1 TG tok/s — Qwen3.8-Flash-Next-oQ2.5e-mtp (2bit) on M5 Max (40c) 128GB" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://omlx.ai/images/omlx_dashboard_light.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D67LN9CZ28"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D67LN9CZ28');
+  </script>
+  <link rel="icon" href="/images/icon-rounded-dark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f7f6f3;
+      --gray-100: #f0eeea;
+      --gray-200: #e2dfd8;
+      --gray-400: #9e9b94;
+      --gray-600: #5a5750;
+      --gray-800: #2a2825;
+      --black: #141312;
+      --accent: #1a1a1a;
+      --green: #1d7a4a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--gray-600);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--black); font-weight: 500; }
+
+    /* Desktop-only hover submenu under Community Benchmarks. The hover-only
+       ::after strip bridges the gap between the trigger and the panel so the
+       menu survives the pointer travelling down; it stays display:none when
+       closed so it never intercepts clicks on page content. */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after {
+      content: ' \25BE';
+      font-size: 9px;
+      color: var(--gray-400);
+    }
+    .nav-dropdown::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      height: 14px;
+      display: none;
+    }
+    .nav-submenu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 150px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 6px;
+      list-style: none;
+      box-shadow: 0 8px 24px rgba(20, 19, 18, 0.1);
+      z-index: 200;
+    }
+    .nav-links .nav-submenu a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .nav-submenu a:hover { background: #f7f6f3; }
+    .nav-dropdown:hover .nav-submenu,
+    .nav-dropdown:focus-within .nav-submenu,
+    .nav-dropdown:hover::before,
+    .nav-dropdown:focus-within::before { display: block; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: var(--black);
+    }
+
+    .nav-star {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600) !important;
+      transition: all 0.15s;
+    }
+    .nav-star:hover { border-color: var(--black); color: var(--black) !important; }
+    .nav-star svg { flex-shrink: 0; }
+
+    .nav-links a.nav-cta {
+      background: var(--black);
+      color: var(--white);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.8; }
+
+    .page-content {
+      padding-top: 60px;
+    }
+
+    footer {
+      border-top: 1px solid var(--gray-200);
+      /* Pages whose content is wider than the default set --page-width so the
+         footer rule lines up with their content edge instead of stopping short.
+         Horizontal padding matches the page containers, so equal max-widths
+         put the edges in the same place. */
+      max-width: var(--page-width, 900px);
+      margin: 0 auto;
+      padding: 40px 40px 32px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--gray-400);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--gray-400);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--black); }
+
+    /* Shared hover tooltip. Host element must not clip its own overflow —
+       put .tip on the wrapper and any overflow:hidden on an inner child. */
+    .tip {
+      position: relative;
+      cursor: default;
+    }
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 4px;
+      padding: 4px 8px;
+      background: var(--gray-800);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      line-height: 1.4;
+      white-space: nowrap;
+      border-radius: 4px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.1s;
+      z-index: 10;
+    }
+    .tip:hover::after { opacity: 1; }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0; right: 0;
+        flex-direction: column;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--gray-200);
+        padding: 16px 20px;
+        gap: 16px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li[style*="margin-right"] { margin-right: 0 !important; }
+      /* No hover on touch: inside the hamburger menu the submenu is simply
+         laid out inline, indented under Community Benchmarks. */
+      .nav-dropdown::before { display: none !important; }
+      .nav-dropdown > a::after { content: none; }
+      .nav-submenu {
+        display: block;
+        position: static;
+        transform: none;
+        min-width: 0;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 14px 0 0;
+        text-align: center;
+      }
+      .nav-links .nav-submenu a { padding: 0; border-radius: 0; }
+      .nav-submenu a:hover { background: none; }
+      .nav-submenu li + li { margin-top: 14px; }
+      footer { padding: 32px 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="/images/icon-rounded-dark.svg" alt="oMLX" width="34" height="34" style="vertical-align:middle; margin-right:8px; display:inline-block;" />oMLX
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/#get-started">Get Started</a></li>
+      <li class="nav-dropdown">
+        <a href="/benchmarks/performance" class="active">Community Benchmarks</a>
+        <ul class="nav-submenu">
+          <li><a href="/benchmarks/performance">Performance</a></li>
+          <li><a href="/benchmarks/intelligence">Intelligence</a></li>
+        </ul>
+      </li>
+      <li style="margin-right:-16px"><a href="https://github.com/jundot/omlx" target="_blank" rel="noopener" class="nav-star" id="star-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 1.5l1.85 3.75 4.15.6-3 2.93.71 4.12L8 10.87l-3.71 1.95.71-4.12-3-2.93 4.15-.6L8 1.5z"/></svg>Star</a></li>
+      <li><a href="https://github.com/jundot/omlx/releases" target="_blank" rel="noopener" class="nav-cta">Download</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-content">
+    
+  <style>
+    .detail-header {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 40px 24px;
+    }
+    .detail-back {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #9e9b94;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 24px;
+      transition: color 0.15s;
+    }
+    .detail-back:hover { color: #141312; }
+    .detail-header h1 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: clamp(24px, 4vw, 36px);
+      letter-spacing: -0.03em;
+      color: #141312;
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+    .detail-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #9e9b94;
+      margin-bottom: 12px;
+    }
+    .detail-grid {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 40px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .detail-card {
+      border: 1px solid #e2dfd8;
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .detail-card.full { grid-column: 1 / -1; }
+    .detail-card-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9e9b94;
+      margin-bottom: 20px;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0eeea;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-label {
+      font-size: 13px;
+      color: #5a5750;
+    }
+    .detail-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: #141312;
+    }
+    .perf-highlight {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 24px;
+    }
+    .perf-stat {
+      flex: 1;
+    }
+    .perf-number {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+      color: #141312;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .perf-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9e9b94;
+    }
+    .batch-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .batch-table thead th {
+      text-align: left;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9e9b94;
+      padding: 0 0 12px;
+      border-bottom: 1px solid #e2dfd8;
+    }
+    .batch-table tbody tr { border-bottom: 1px solid #f0eeea; }
+    .batch-table tbody tr:last-child { border-bottom: none; }
+    .batch-table tbody td {
+      padding: 12px 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: #2a2825;
+    }
+    .flag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .flag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 4px;
+      background: #eaf5ee;
+      color: #1d7a4a;
+    }
+    .flag-detail {
+      color: #5a9d78;
+      font-size: 10px;
+    }
+    .raw-json {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #5a5750;
+      background: #f7f6f3;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 12px;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .detail-card details summary {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9e9b94;
+      cursor: pointer;
+      margin-top: 12px;
+      list-style: none;
+    }
+    .detail-card details summary::-webkit-details-marker { display: none; }
+    .detail-card details summary::before { content: '\25B8 '; }
+    .detail-card details[open] summary::before { content: '\25BE '; }
+    .detail-comment {
+      margin-top: 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #5a5750;
+      line-height: 1.5;
+    }
+    .detail-comment-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9e9b94;
+      margin-bottom: 4px;
+    }
+    .share-box {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f7f6f3;
+      border: 1px solid #e2dfd8;
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .share-box + .share-box { margin-top: 8px; }
+    .share-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9e9b94;
+      width: 52px;
+      flex-shrink: 0;
+    }
+    .share-hint {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9e9b94;
+      margin-top: 6px;
+    }
+    .share-box input {
+      flex: 1;
+      min-width: 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #5a5750;
+      background: none;
+      border: none;
+      outline: none;
+    }
+    .share-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 6px 12px;
+      border: 1px solid #e2dfd8;
+      border-radius: 4px;
+      background: #fff;
+      color: #5a5750;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .share-copy:hover { border-color: #9e9b94; color: #141312; }
+    @media (max-width: 640px) {
+      .detail-header { padding: 32px 20px 24px; }
+      .detail-grid { padding: 0 20px 32px; grid-template-columns: 1fr; }
+      .detail-card.full { grid-column: auto; }
+      .perf-highlight { flex-direction: column; gap: 16px; }
+    }
+  </style>
+
+  <div class="detail-header">
+    <a href="/benchmarks/performance" class="detail-back">&larr; Back to community benchmarks</a>
+    <h1>Qwen3.8-Flash-Next-oQ2.5e-mtp</h1>
+    <div class="detail-meta">M5 Max (40c) &middot; 128 GB &middot; 2bit &middot; <span class="tip" data-tip="2026-11-04 16:54:08 (GMT)">2026-11-04</span></div>
+    <div class="share-box">
+      <span class="share-label">URL</span>
+      <input type="text" value="https://omlx.ai/benchmarks/performance/t9sos5mz" readonly id="share-input" />
+      <button class="share-copy" onclick="navigator.clipboard.writeText(document.getElementById('share-input').value).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)})">Copy</button>
+    </div>
+    <div class="share-box">
+      <span class="share-label">Recipe</span>
+      <input type="text" value="omlx-recipe:1:eJyNk-tugzAMhd8lv1HVG1PHy1iGGIjIrYnTdpr27hNsa6GFrv8i5_OJz4n8KfAAPlCttAayWGqSoqhRR8rGV0ZZYNeRjaLYbA-ZkLXG2D601C5UBBGN18o213KTlCQJTUBjMDx0GUdAF0-BwdW1dihfQQJFJcky1AErVs6KYr3a5pkw7G_9HBJl4ngmu8sBLV0tVT6BdGc7bl8E78dZwMaTbHb5ItfI156NLQYanLoUKvrHDbeBUEZRHGYRmVD3hScqL9isUyQ5BPeMaqR98syd_dV8UD1l8AIaPyhEUeznbY2Rt_0sEumYyFYEmmzDrSi26wWx38Bvw21mMUalwaOUyjaT3VhnInqqlvJkMp4Ccgo0SHOrbNdrlEk2xI-889D14_4cfR_We54JTqF0x4SWoTtBqbiP5778IDa5jVVLhkQxKosJEzvlQWPkv488aQOT1Rp0v74B2-GRoA" readonly id="recipe-input" />
+      <button class="share-copy" onclick="navigator.clipboard.writeText(document.getElementById('recipe-input').value).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)})">Copy</button>
+    </div>
+    <div class="share-hint">Paste the recipe into oMLX &rarr; Model Settings &rarr; Apply custom recipe to reproduce these settings.</div>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card full">
+      <div class="detail-card-title">Performance</div>
+      <div class="perf-highlight">
+        <div class="perf-stat">
+          <div class="perf-number">16k</div>
+          <div class="perf-label">tokens</div>
+        </div>
+        <div class="perf-stat">
+          <div class="perf-number">2,175</div>
+          <div class="perf-label">PP tok/s</div>
+        </div>
+        <div class="perf-stat">
+          <div class="perf-number">117.1</div>
+          <div class="perf-label">TG tok/s</div>
+        </div>
+        
+        <div class="perf-stat">
+          <div class="perf-number">7534</div>
+          <div class="perf-label">TTFT (ms)</div>
+        </div>
+        
+        <div class="perf-stat">
+          <div class="perf-number">83.2</div>
+          <div class="perf-label">Peak mem (GB)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-card-title">Hardware</div>
+      <div class="detail-row">
+        <span class="detail-label">Chip</span>
+        <span class="detail-value">M5 Max (40c)</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Memory</span>
+        <span class="detail-value">128 GB</span>
+      </div>
+      
+      <div class="detail-row">
+        <span class="detail-label">GPU Cores</span>
+        <span class="detail-value">40</span>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-card-title">Software</div>
+      <div class="detail-row">
+        <span class="detail-label">oMLX</span>
+        <span class="detail-value">v0.7.3</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">macOS</span>
+        <span class="detail-value">macOS 27.0.1</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Context</span>
+        <span class="detail-value">16,384</span>
+      </div>
+    </div>
+
+    
+    <div class="detail-card full">
+      <div class="detail-card-title">Performance by Context Length</div>
+      <p style="font-size:12px;color:#9e9b94;margin-bottom:12px">Up to 16 results from this session are shown, including the current result.</p>
+      <table class="batch-table">
+        <thead>
+          <tr>
+            <th>Context</th>
+            <th>PP tok/s</th>
+            <th>TG tok/s</th>
+            <th>Peak Mem</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>1k</td>
+            <td>1,540</td>
+            <td>91.6</td>
+            <td>80.4 GB</td>
+            <td><a href="/benchmarks/performance/gwh98qpa" style="color:#9e9b94;font-size:11px;text-decoration:none">view</a></td>
+          </tr>
+          <tr>
+            <td>4k</td>
+            <td>2,542</td>
+            <td>92.7</td>
+            <td>81.0 GB</td>
+            <td><a href="/benchmarks/performance/66vf29xf" style="color:#9e9b94;font-size:11px;text-decoration:none">view</a></td>
+          </tr>
+          <tr>
+            <td>8k</td>
+            <td>2,315</td>
+            <td>80.2</td>
+            <td>82.2 GB</td>
+            <td><a href="/benchmarks/performance/s4uq5r1h" style="color:#9e9b94;font-size:11px;text-decoration:none">view</a></td>
+          </tr>
+          <tr style="font-weight:600">
+            <td>16k</td>
+            <td>2,175</td>
+            <td>117.1</td>
+            <td>83.2 GB</td>
+            <td><span style="color:#9e9b94;font-size:11px">current</span></td>
+          </tr>
+          <tr>
+            <td>32k</td>
+            <td>2,094</td>
+            <td>75.9</td>
+            <td>83.8 GB</td>
+            <td><a href="/benchmarks/performance/hn6zqz25" style="color:#9e9b94;font-size:11px;text-decoration:none">view</a></td>
+          </tr>
+          <tr>
+            <td>64k</td>
+            <td>2,051</td>
+            <td>79.1</td>
+            <td>84.9 GB</td>
+            <td><a href="/benchmarks/performance/r6ctepn5" style="color:#9e9b94;font-size:11px;text-decoration:none">view</a></td>
+          </tr>
+          <tr>
+            <td>128k</td>
+            <td>1,980</td>
+            <td>73.4</td>
+            <td>87.2 GB</td>
+            <td><a href="/benchmarks/performance/4a0t0794" style="color:#9e9b94;font-size:11px;text-decoration:none">view</a></td>
+          </tr>
+          <tr>
+            <td>195k</td>
+            <td>1,935</td>
+            <td>59.6</td>
+            <td>90.0 GB</td>
+            <td><a href="/benchmarks/performance/s0q77mrq" style="color:#9e9b94;font-size:11px;text-decoration:none">view</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+    <div class="detail-card full">
+      <div class="detail-card-title">Batching Results</div>
+      <table class="batch-table">
+        <thead>
+          <tr>
+            <th>Batch Size</th>
+            <th>TG tok/s</th>
+            <th>Speedup</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>1×</td>
+            <td>91.6</td>
+            <td>1.00×</td>
+          </tr>
+          <tr>
+            <td>2×</td>
+            <td>166.2</td>
+            <td>1.81×</td>
+          </tr>
+          <tr>
+            <td>4×</td>
+            <td>365.4</td>
+            <td>3.99×</td>
+          </tr>
+          <tr>
+            <td>8×</td>
+            <td>655.6</td>
+            <td>7.16×</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+    <div class="detail-card full">
+      <div class="detail-card-title">Acceleration</div>
+      <div class="flag-list">
+        <span class="flag-pill">Context: Code (Python)</span>
+        <span class="flag-pill">Lightning MTP</span>
+      </div>
+    </div>
+
+    
+    <div class="detail-card full">
+      <div class="detail-card-title">Model Settings</div>
+      <details><summary>Show all 35 settings</summary><div class="detail-row"><span class="detail-label">benchmark_context</span><span class="detail-value">Code (Python)</span></div><div class="detail-row"><span class="detail-label">temperature</span><span class="detail-value">1</span></div><div class="detail-row"><span class="detail-label">top_p</span><span class="detail-value">0.95</span></div><div class="detail-row"><span class="detail-label">top_k</span><span class="detail-value">20</span></div><div class="detail-row"><span class="detail-label">force_sampling</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">thinking_budget_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">guided_grammar_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">turboquant_kv_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">turboquant_kv_scheme</span><span class="detail-value">turboquant</span></div><div class="detail-row"><span class="detail-label">turboquant_kv_bits</span><span class="detail-value">4</span></div><div class="detail-row"><span class="detail-label">turboquant_skip_last</span><span class="detail-value">true</span></div><div class="detail-row"><span class="detail-label">a8_prefill_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">a8_prefill_min_tokens</span><span class="detail-value">128</span></div><div class="detail-row"><span class="detail-label">moe_expert_offload_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">moe_expert_offload_resident_fraction</span><span class="detail-value">0.25</span></div><div class="detail-row"><span class="detail-label">specprefill_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">dflash_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">mtp_enabled</span><span class="detail-value">true</span></div><div class="detail-row"><span class="detail-label">vlm_mtp_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_sequence_length</span><span class="detail-value">2048</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_tail_padding_min_tokens</span><span class="detail-value">0</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_shared_fraction</span><span class="detail-value">1</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_fused_down</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_max_layers</span><span class="detail-value">64</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_dual_ane</span><span class="detail-value">true</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_gdn</span><span class="detail-value">true</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_gdn_fraction</span><span class="detail-value">0.5</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_gdn_max_layers</span><span class="detail-value">48</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_fraction</span><span class="detail-value">0.135</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_down_fraction</span><span class="detail-value">0</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_gdn_fraction</span><span class="detail-value">0</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_threads</span><span class="detail-value">8</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_shared_resource</span><span class="detail-value">true</span></div></details>
+      <details><summary>Raw JSON</summary><pre class="raw-json">{
+  &quot;benchmark_context&quot;: &quot;Code (Python)&quot;,
+  &quot;temperature&quot;: 1,
+  &quot;top_p&quot;: 0.95,
+  &quot;top_k&quot;: 20,
+  &quot;force_sampling&quot;: false,
+  &quot;thinking_budget_enabled&quot;: false,
+  &quot;guided_grammar_enabled&quot;: false,
+  &quot;turboquant_kv_enabled&quot;: false,
+  &quot;turboquant_kv_scheme&quot;: &quot;turboquant&quot;,
+  &quot;turboquant_kv_bits&quot;: 4,
+  &quot;turboquant_skip_last&quot;: true,
+  &quot;a8_prefill_enabled&quot;: false,
+  &quot;a8_prefill_min_tokens&quot;: 128,
+  &quot;moe_expert_offload_enabled&quot;: false,
+  &quot;moe_expert_offload_resident_fraction&quot;: 0.25,
+  &quot;specprefill_enabled&quot;: false,
+  &quot;dflash_enabled&quot;: false,
+  &quot;mtp_enabled&quot;: true,
+  &quot;vlm_mtp_enabled&quot;: false,
+  &quot;qwen35_ane_prefill_enabled&quot;: false,
+  &quot;qwen35_ane_prefill_sequence_length&quot;: 2048,
+  &quot;qwen35_ane_prefill_tail_padding_min_tokens&quot;: 0,
+  &quot;qwen35_ane_prefill_shared_fraction&quot;: 1,
+  &quot;qwen35_ane_prefill_fused_down&quot;: false,
+  &quot;qwen35_ane_prefill_max_layers&quot;: 64,
+  &quot;qwen35_ane_prefill_dual_ane&quot;: true,
+  &quot;qwen35_ane_prefill_gdn&quot;: true,
+  &quot;qwen35_ane_prefill_gdn_fraction&quot;: 0.5,
+  &quot;qwen35_ane_prefill_gdn_max_layers&quot;: 48,
+  &quot;qwen35_ane_prefill_cpu_enabled&quot;: false,
+  &quot;qwen35_ane_prefill_cpu_fraction&quot;: 0.135,
+  &quot;qwen35_ane_prefill_cpu_down_fraction&quot;: 0,
+  &quot;qwen35_ane_prefill_cpu_gdn_fraction&quot;: 0,
+  &quot;qwen35_ane_prefill_cpu_threads&quot;: 8,
+  &quot;qwen35_ane_prefill_cpu_shared_resource&quot;: true
+}</pre></details>
+    </div>
+
+    
+    <div class="detail-card">
+      <div class="detail-card-title">Resource Usage</div>
+      <div class="detail-row"><span class="detail-label">Peak footprint</span><span class="detail-value">94.04 GB</span></div>
+      <div class="detail-row"><span class="detail-label">MLX active peak</span><span class="detail-value">82.76 GB</span></div>
+      <div class="detail-row"><span class="detail-label">MLX cache peak</span><span class="detail-value">3.22 GB</span></div>
+      <div class="detail-row"><span class="detail-label">System used peak</span><span class="detail-value">105.19 GB</span></div>
+      <div class="detail-row"><span class="detail-label">System wired peak</span><span class="detail-value">89.69 GB</span></div>
+      <div class="detail-row"><span class="detail-label">Total RAM</span><span class="detail-value">128.00 GB</span></div>
+    </div>
+
+    
+    <div class="detail-card">
+      <div class="detail-card-title">System Load</div>
+      <div class="detail-row"><span class="detail-label">CPU avg</span><span class="detail-value">12.7%</span></div>
+      <div class="detail-row"><span class="detail-label">CPU max</span><span class="detail-value">19.3%</span></div>
+      <div class="detail-row"><span class="detail-label">P-core avg</span><span class="detail-value">8.9%</span></div>
+      <div class="detail-row"><span class="detail-label">E-core avg</span><span class="detail-value">14.6%</span></div>
+      <div class="detail-row"><span class="detail-label">GPU avg</span><span class="detail-value">99.0%</span></div>
+      <div class="detail-row"><span class="detail-label">GPU max</span><span class="detail-value">100.0%</span></div>
+      <div class="detail-row"><span class="detail-label">Thermal</span><span class="detail-value">Nominal</span></div>
+      <div class="detail-comment">34 samples · every 0.25s</div>
+    </div>
+  </div>
+
+  
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; oMLX &middot; Apache 2.0</span>
+      <ul class="footer-links">
+        <li><a href="https://github.com/jundot/omlx">GitHub</a></li>
+        <li><a href="https://github.com/jundot/omlx/releases">Releases</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+    });
+    (function(){
+      var CACHE_KEY = 'omlx_stars';
+      var CACHE_TTL = 30 * 60 * 1000;
+      function updateBtn(count) {
+        var btn = document.getElementById('star-btn');
+        if (btn && count != null) btn.innerHTML = btn.querySelector('svg').outerHTML + 'Star <span style="margin-left:4px;padding:1px 6px;background:var(--gray-100);border-radius:4px;font-size:11px;">' + Number(count).toLocaleString() + '</span>';
+      }
+      try {
+        var cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+        if (cached && Date.now() - cached.ts < CACHE_TTL) { updateBtn(cached.count); return; }
+      } catch(e) {}
+      fetch('https://api.github.com/repos/jundot/omlx')
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if (d.stargazers_count != null) {
+            try { localStorage.setItem(CACHE_KEY, JSON.stringify({ count: d.stargazers_count, ts: Date.now() })); } catch(e) {}
+            updateBtn(d.stargazers_count);
+          }
+        }).catch(function(){});
+    })();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a595ce371d8ca65d',t:'MTc5NDQ4OTMyNw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a595ce371d8ca65d',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

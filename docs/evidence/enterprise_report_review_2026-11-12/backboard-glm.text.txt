@@ -1,0 +1,155 @@
+GLM-5.3: 4.94× Higher Throughput Than vLLM | Backboard
+BlogMenuInferenceQuantizationCoding AgentsMemoryInference EngineStateful APIStudio
+←Home
+Rob Imbeault
+·
+Nov 4, 2026
+More Output When It Counts: 4.94× Higher Sustained Throughput Than vLLM On GLM-5.3
+On eight NVIDIA B200 GPUs, Backboard's inference engine substantially outperforms vLLM 0.32 on GLM-5.3 Full, delivering nearly five times the sustained output throughput, significantly faster time to first token, and stronger performance when requests arrive in bursts.
+A powerful GPU system is only as useful as the inference engine running on it.
+As AI applications move toward more complex workflows, longer reasoning tasks, and increasingly concurrent agent sessions, the ability to keep GPUs productive under sustained demand becomes critical. Serving a single request quickly is one challenge. Maintaining responsiveness while processing a continuous stream of requests is another.
+We tested Backboard against vLLM 0.32 using GLM-5.3 Full on a server equipped with eight NVIDIA B200 GPUs. The results show decisive advantages in both sustained and burst workloads.
+The standout: Backboard reported 370.0 aggregate output tokens per second, compared to just 74.9 for vLLM, in a sustained-load test at 32 concurrent requests. That's a resounding 4.94× throughput advantage.
+Nearly 5× the sustained output throughput
+Sustained performance is particularly important for production inference. Short bursts can demonstrate peak capability, but production systems need to keep processing work as requests continue arriving.
+In our GLM-5.3 comparison, we ran a separate 30-minute sustained-admission test with a concurrency of 32.
+Metric
+Backboard
+vLLM 0.32
+Backboard advantage
+Aggregate output throughput
+370.0 tok/s
+74.9 tok/s
+4.94×
+Workflows admitted
+462
+116
+3.98×
+Workflows completed
+461
+96
+—
+Backboard delivered nearly five times the aggregate output throughput while admitting substantially more work.
+This distinction matters. Both engines received the same first 116 workflows and request bodies. Backboard then admitted additional workflows as capacity became available, while vLLM admitted 116 in total.
+This is a measure of serving capacity under a sustained admission policy, rather than a race to finish an identical fixed batch. The ability to keep accepting and processing more work is precisely what makes this result interesting for teams operating inference infrastructure under continuous demand.
+For an AI application serving multiple customers, or an agent system processing many concurrent tasks, additional sustained capacity can mean more work handled by the same GPU batch.
+A dramatic improvement in time to first token
+Throughput is only part of the experience. Users also care about how long they wait before a response begins.
+Time to first token (TTFT) measures that initial wait. It becomes especially important when serving complex requests that involve long inputs, reasoning, or multi-step workflows.
+In the sustained GLM-5.3 test, Backboard also reported substantially lower TTFT:
+TTFT measurement
+Backboard
+vLLM 0.32
+Reported speed advantage
+Median (p50)
+3.24 s
+357.50 s
+110.34×
+90th percentile (p90)
+61.20 s
+504.90 s
+8.25×
+The median result is striking: 3.24 seconds versus almost six minutes.
+Importantly, these latency percentiles describe each engine's own completed API calls. The sustained test admitted different numbers of workflows to each system, so the 110.34× ratio is specific to this test's queueing and admission conditions. It shouldn’t be interpreted as a universal, paired-request latency advantage.
+Even so, the measurements reinforce the capacity result: Backboard maintained dramatically more output throughput while reporting much shorter initial waits. In some cases, that’s the difference between a useful, timely response and giving up entirely.
+That’s not all: per-request generation speed improved at the same time. Backboard recorded median generation throughput of 15.8 tokens per second per request, compared with 7.7 for vLLM. That’s a 2.05× advantage.
+This is an important complementary result. Aggregate throughput tells us how much output the whole system produces, but per-request generation speed makes sure users receive tokens quickly once generation begins.
+Stronger results when requests arrive in bursts
+Sustained and burst traffic strain inference systems in their own ways. A sustained test shows how an engine keeps processing ongoing work streams, but a burst test is vital to show what happens when requests arrive in groups.
+It’s key to discuss these scenarios separately.
+For the GLM-5.3 burst test, both engines received the same 96 workflows and request bodies at 32 concurrent workflows.
+Metric
+Backboard
+vLLM 0.32
+Backboard advantage
+Aggregate output throughput
+165.5 tok/s
+63.5 tok/s
+2.61×
+Median per-request generation speed
+22.38 tok/s
+7.45 tok/s
+3.00×
+Median TTFT
+1.63 s
+16.40 s
+10.06×
+90th-percentile TTFT
+58.30 s
+481.00 s
+8.25×
+Workflows completed
+95/96
+82/96
+—
+Backboard delivered 2.61 times the aggregate output throughput and three times the median per-request generation speed.
+The latency measurements are even more encouraging. Median TTFT was approximately ten times faster, while the 90th-percentile result showed a sizeable 8.25× advantage.
+There’s also an important completion distinction: Backboard completed 95 of the 96 workflows, compared with 82 for vLLM. The causes of the incomplete workflows have not yet been established, so we don't treat these results as proof of equivalent task quality or reliability. The completion counts are included as they’re part of the benchmark outcome.
+The practical takeaway: Backboard's advantage isn't limited to one traffic pattern. It fares well in endurance runs as well as all-out sprints.
+What this means for inference infrastructure
+These measurements aren’t just for show. They matter when the economics and experience of AI applications are strongly influenced by how efficiently inference infrastructure handles demand.
+More sustained output throughput lets you serve more requests with a given GPU allocation. Faster TTFT shrinks the initial wait experienced by users and agents. Better per-request generation speeds make streaming interactions more responsive.
+Together, these improvements create opportunities in several areas:
+More capacity from existing GPUs. Higher sustained throughput means more generated output from the same eight-GPU system. For infrastructure operators, this offers an alternative to adding more accelerators every time workloads grow.
+More responsive agent workflows. Agent systems often execute sequences of model calls, tool operations and follow-up reasoning. Reducing the time spent waiting for generation to begin can improve the responsiveness of those workflows.
+Better handling of demand spikes. Burst performance matters for applications where many users or agents launch into work at the same time. Backboard's 2.61× output-throughput advantage demonstrates that the benefits extend beyond steady traffic.
+A better balance between capacity and user experience. Optimizing aggregate throughput is not enough if individual requests bog down. The per-request generation and TTFT results show that Backboard can improve on both fronts.
+This is an important way to think about inference optimization. The objective isn't simply to maximize a benchmark's tokens-per-second figure. It's to increase the amount of useful work a system can serve while keeping the experience fluid.
+How we tested GLM-5.3
+We compared Backboard's inference engine against vLLM using GLM-5.3 Full, with the following reported configuration:
+Test parameter
+Configuration
+Model
+GLM-5.3 Full
+Model precision
+BF16
+GPU hardware
+8 NVIDIA B200 GPUs
+Baseline
+vLLM 0.32
+Context limit
+32K tokens
+Concurrency
+32 workflows
+Workload source
+Workflows from the GLM-5.3 benchmark report
+The comparison used the same underlying model weights, precision, GPU count, and hardware, as described in our benchmark report. The tests measured aggregate output throughput, per-request generation speed, and time to first token.
+We conducted two separate traffic scenarios:
+1. Burst workload
+We submitted the same 96 workflows and request bodies to both engines, with 32 concurrent workflows. This provides a fixed offered workload for comparing performance under a sudden influx of requests. We recorded aggregate output throughput, median per-request generation speed, TTFT percentiles, and completed workflow counts.
+2. Sustained workload
+We admitted workflows over a 30-minute window, maintaining a concurrency target of 32, and then allowed admitted work to finish. Both engines received the same first 116 workflows and request bodies. Each engine admitted additional work according to the available capacity.
+The resulting admission counts were 462 for Backboard and 116 for vLLM. We report the resulting throughput as a capacity measurement under this admission policy, not as a fixed-workload completion-time comparison.
+We distinguish between three important measurements:
+Aggregate output throughput: The total number of generated output tokens per second across the system.
+Per-request generation speed: Output tokens generated per second by an individual request after its first token.
+Time to first token: The time between request initiation and the first generated token, reported at the median and 90th percentile.
+Burst and sustained results are kept separate because they represent different traffic patterns and admission conditions.
+These are preliminary internal benchmark results, not an independent third-party validation. The published summary doesn’t yet provide the complete prompt manifest, token-length distribution, repeat-run variance or all serving configuration details. We intend to make the methodology increasingly reproducible as we extend these comparisons.
+The inference engine matters
+The GLM-5.3 results demonstrate why inference performance deserves as much attention as model performance.
+A capable model needs an inference engine that can serve it efficiently under real workloads. Improving the model alone doesn't address every real-world constraint. How requests share compute, how execution is scheduled, and how the system manages concurrent work all influence what customers ultimately experience.
+On eight B200 GPUs, Backboard reported nearly five times the sustained aggregate output throughput of vLLM 0.32 in our GLM-5.3 test. The accompanying TTFT and burst results show that the advantage extends to other important dimensions of serving performance.
+Our goal is to make existing GPU infrastructure do more useful work. These results are another step toward that goal, and we're continuing to investigate how far inference software can push performance without requiring changes to the underlying model.
+We think the best way to evaluate progress is to measure the things that matter in deployment: how much work gets done, how quickly responses begin, how fast users receive tokens, and how consistently the system handles demand.
+← Back to home
+‹ More From a Single GPU: Backboard Delivers Up to 95% Higher Qwen3.6 Throughput Than vLLM
+The Era of Static Software Is Ending ›
+Ottawa, Canada
+Burlingame, California
+Trust
+Trust Center
+Security
+Privacy
+Terms
+Status
+Company
+Careers
+Contact
+News
+Blog
+Connect
+GitHub
+X
+LinkedIn
+Backboard © 2026

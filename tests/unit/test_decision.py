@@ -48,15 +48,8 @@ def test_req_27_enumeration_order_and_determinism(setup):
     assert len([c for c in result.candidates if c.kind == CandidateKind.HYBRID]) == 4
     assert any(c.sizing and not c.sizing.is_feasible for c in result.candidates)
     assert generate_candidates(CandidateInput(catalog=catalog, scenario=scenario), params) == result
-    local = min(
-        (c for c in result.candidates if c.kind == CandidateKind.ONPREM and c.sizing.is_feasible),
-        key=lambda c: (c.cost_60m, c.hardware_id, c.nodes, c.model_id, c.precision),
-    )
-    assert all(
-        c.local_candidate_id == local.candidate_id
-        for c in result.candidates
-        if c.kind == CandidateKind.HYBRID
-    )
+    hybrids = [c for c in result.candidates if c.kind == CandidateKind.HYBRID]
+    assert all(c.components[0].quality.value >= 55 for c in hybrids)
 
 
 def test_req_27_no_feasible_local_no_hybrids(setup):
@@ -379,8 +372,15 @@ def test_rental_highest_bit_feasible_and_smallest_footprint_fallback(setup):
             for p in precisions(hw, model)
         ]
         feasible = [s for s in choices if s.is_feasible]
+        peak_feasible = [
+            s
+            for s in feasible
+            if s.max_concurrent_users >= scenario.workload.peak_concurrent_requests
+        ]
         if feasible:
-            assert dict(BITS)[c.precision] == max(dict(BITS)[s.precision] for s in feasible)
+            assert dict(BITS)[c.precision] == max(
+                dict(BITS)[s.precision] for s in (peak_feasible or feasible)
+            )
         else:
             assert c.sizing.weights.value == min(s.weights.value for s in choices)
 

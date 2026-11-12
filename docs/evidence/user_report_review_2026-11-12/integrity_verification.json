@@ -1,0 +1,13 @@
+{
+  "verified_at": "2026-11-12T12:47:55.094644+00:00",
+  "archived_files_size_sha256_verified": 24,
+  "remote_http_200": 23,
+  "original_download_input_unchanged": true,
+  "report_rows_assessed": 12,
+  "primary_text_checks_passed": 11,
+  "dataset_condition_values_checked": 3,
+  "local_review_links_exist": true,
+  "session_continuity_checks_passed": 33,
+  "production_changes": false,
+  "app_browser_tests_rerun": false
+}

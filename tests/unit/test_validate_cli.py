@@ -259,7 +259,7 @@ def test_req_9_1_valid_decode_record_passes(root: Path, capsys: pytest.CaptureFi
 
 
 @pytest.mark.parametrize("context_tokens", [None, 0])
-def test_req_9_2_9_8_context_tokens_required(
+def test_req_9_2_9_8_unknown_context_preserved_but_invalid_context_rejected(
     root: Path, capsys: pytest.CaptureFixture[str], context_tokens: int | None
 ) -> None:
     record = _decode_record()
@@ -269,8 +269,11 @@ def test_req_9_2_9_8_context_tokens_required(
         record["context_tokens"] = context_tokens
     _save(root, "benchmarks/decode.json", {"records": [record]})
     code, lines = _run(root, capsys)
-    assert code == 1
-    _assert_error(lines, "benchmarks/decode.json", "records[0].context_tokens", "")
+    if context_tokens is None:
+        assert code == 0, lines  # evidence eligibility, not ingestion, rejects unknown prompt
+    else:
+        assert code == 1
+        _assert_error(lines, "benchmarks/decode.json", "records[0].context_tokens", "")
 
 
 @pytest.mark.parametrize(

@@ -5,6 +5,7 @@ from typing import Any
 
 import pytest
 from pydantic import BaseModel
+from tests.benchmark_fixtures import conditions
 
 from ai_tco_dss.catalog import JsonCatalogRepository, get_default_repository
 from ai_tco_dss.domain import (
@@ -35,7 +36,7 @@ from ai_tco_dss.engines.sizing import size_deployment
 from ai_tco_dss.engines.workload import compute_workload
 from ai_tco_dss.services import size
 from ai_tco_dss.settings import load_engine_parameters
-from ai_tco_dss.ui.cards import performance_rows
+from ai_tco_dss.ui.formatting import performance_rows
 
 PARAMS = load_engine_parameters()
 MINI = "mac-mini-m5-pro-64gb"
@@ -86,6 +87,8 @@ def _rec(
             "hardware_id": hardware_id,
             "precision": precision,
             "context_tokens": context_tokens,
+            "prompt_tokens": context_tokens,
+            "conditions": conditions(),
             "source_id": source_id,
             "tier": tier,
             "accessed": accessed,
@@ -107,7 +110,12 @@ def _inp(
     hardware = hardware or _hw(repo)
     model = model or _model(repo)
     profile = profile or WorkloadProfile()
-    options = SizingOptions(weight_precision=precision, **{"target_context_length": 8_192, **opts})
+    options = SizingOptions(
+        weight_precision=precision,
+        benchmark_conditions=conditions(),
+        performance_prompt_tokens=opts.get("target_context_length", 8192),
+        **{"target_context_length": 8_192, **opts},
+    )
     harnesses = repo.catalog().harnesses
     workload = compute_workload(
         WorkloadInput(profile=profile, model=model, harnesses=harnesses), PARAMS
@@ -209,6 +217,7 @@ def test_req_9_6_use_measured_false_ignores_matching_records(
 
 def _query(records: tuple[BenchmarkRecord, ...], **changes: Any) -> BenchmarkQuery:
     data: dict[str, Any] = {
+        "conditions": conditions(),
         "records": BenchmarkSet(records=records),
         "metric": DECODE,
         "model_id": QWEN_27B,
@@ -379,7 +388,7 @@ def test_req_21_1_measured_prefill_record_is_used(repo: JsonCatalogRepository) -
     assert result.prefill_tps.value == 999.0
     assert result.prefill_tps.origin.origin == "measured"
     assert result.ttft_s is not None
-    assert result.ttft_s.origin.origin == "measured"
+    assert result.ttft_s.origin.origin == "formula"
     assert result.ttft_s.origin.source_ids == ("PF-1",)
 
 
@@ -491,7 +500,12 @@ def test_req_21_9_r_cache_range_ends_accepted(repo: JsonCatalogRepository) -> No
 
 
 def test_req_9_4_measured_ttft_record_is_used(repo: JsonCatalogRepository) -> None:
-    record = _rec(BenchmarkMetric.TTFT_S, 4.2, source_id="TT-1")
+    record = _rec(
+        BenchmarkMetric.TTFT_S,
+        4.2,
+        context_tokens=round(_inp(repo).workload.t_in_hat),
+        source_id="TT-1",
+    )
     result = _perf(_inp(repo, records=(record,)))
     assert result.ttft_s is not None
     assert result.ttft_s.value == 4.2
@@ -523,7 +537,9 @@ def _request(hardware_id: str, model_id: str, **sizing: Any) -> SizeRequest:
     )
 
 
-def test_req_9_4_size_uses_the_catalog_decode_record(repo: JsonCatalogRepository) -> None:
+def test_req_9_4_size_excludes_incomplete_catalog_decode_record(
+    repo: JsonCatalogRepository,
+) -> None:
     """Task 6 demo: Mac mini M5 Pro + Qwen 3.8-27B INT4 at 8 192 tokens."""
     records = [
         r
@@ -537,9 +553,9 @@ def test_req_9_4_size_uses_the_catalog_decode_record(repo: JsonCatalogRepository
     assert result.performance is not None
     decode = result.performance.decode_tps
     assert decode is not None
-    assert decode.value == record.value
-    assert decode.origin.origin == "measured"
-    assert decode.origin.source_ids == (record.source_id,)
+    assert decode.value != record.value
+    assert decode.origin.origin == "formula"
+    assert any(record.source_id in w and "excluded" in w for w in result.performance.warnings)
     for metric in (result.performance.ttft_s, result.performance.effective_tps):
         assert metric is not None
         assert metric.origin.origin == "formula"
@@ -594,7 +610,7 @@ def test_req_21_1_view_1_performance_rows_show_values_and_origins(
         "Effective TPS",
         "1M-token prefill",
     ]
-    assert rows["Value"][0] == "14.7 tok/s"
-    assert rows["Origin"][0] == "measured (YT-18)"
+    assert rows["Value"][0] == "15.2 tok/s"
+    assert rows["Origin"][0].startswith("formula (")
     assert rows["Origin"][2].startswith("formula (")
     assert rows["Origin"][3].startswith("formula (")

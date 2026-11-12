@@ -1,0 +1,126 @@
+"""Measure MLX and llama.cpp speed for each model in models.json on this Mac.
+
+Uses the runtimes' own benchmark tools so the numbers compare with what others publish:
+mlx_lm.benchmark and llama-bench, at a 512- and 4096-token prompt, 128 generated tokens, 3 trials.
+Results are appended to results.jsonl, one row per model x runtime x prompt length.
+
+    uv run bench.py                    # every model not yet in results.jsonl
+    uv run bench.py --only "gpt-oss"   # models whose name contains this text
+    uv run bench.py --cleanup          # delete each model's files once it is measured
+"""
+import argparse, datetime, json, os, platform, re, shutil, subprocess, time, urllib.request
+from pathlib import Path
+
+ROOT = Path(__file__).parent
+STORE = Path.home() / "hf-bench"
+HF = "https://huggingface.co"
+PROMPTS = (512, 4096)
+GEN, TRIALS = 128, 3
+MLX_LM = "mlx-lm>=0.32"
+
+
+def sh(*cmd, **kw):
+    return subprocess.run(cmd, check=True, text=True, capture_output=True, **kw).stdout
+
+
+def machine():
+    hw = sh("system_profiler", "SPHardwareDataType", "SPDisplaysDataType")
+    gpu = re.search(r"Chipset Model:.*?Total Number of Cores: (\d+)", hw, re.S)
+    return {
+        "chip": re.search(r"Chip: (.+)", hw).group(1).strip(),
+        "gpu_cores": int(gpu.group(1)) if gpu else None,
+        "memory_gb": int(re.search(r"Memory: (\d+) GB", hw).group(1)),
+        "macos": platform.mac_ver()[0],
+    }
+
+
+def download(url, dest, size):
+    # curl -C - resumes; a connection idle for 2 minutes is dropped and retried.
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    while not dest.exists() or dest.stat().st_size < size:
+        if subprocess.run(["curl", "-sfL", "-C", "-", "--speed-limit", "20000", "--speed-time", "120",
+                           "-o", str(dest), url]).returncode:
+            time.sleep(5)
+
+
+def files(repo, rev):
+    info = json.load(urllib.request.urlopen(f"{HF}/api/models/{repo}/revision/{rev}?blobs=true"))
+    return [(s["rfilename"], s.get("size") or 0) for s in info["siblings"]]
+
+
+def fetch_mlx(spec):
+    if "path" in spec:
+        return Path(spec["path"]).expanduser()
+    out = STORE / "mlx" / spec["repo"].replace("/", "--")
+    for name, size in files(spec["repo"], spec["rev"]):
+        if not name.endswith((".md", ".gitattributes")) and not name.startswith("."):
+            download(f"{HF}/{spec['repo']}/resolve/{spec['rev']}/{name}", out / name, size)
+    return out
+
+
+def fetch_gguf(spec):
+    if "path" in spec:
+        return Path(spec["path"]).expanduser()
+    size = dict(files(spec["repo"], spec["rev"]))[spec["file"]]
+    out = STORE / "gguf" / spec["file"]
+    download(f"{HF}/{spec['repo']}/resolve/{spec['rev']}/{spec['file']}", out, size)
+    return out
+
+
+def bench_mlx(path):
+    version = sh("uvx", "--from", MLX_LM, "python", "-c", "import mlx_lm, mlx.core as mx; print(mlx_lm.__version__, mx.__version__)").split()
+    rows = []
+    for p in PROMPTS:
+        out = sh("caffeinate", "-i", "uvx", "--from", MLX_LM, "mlx_lm.benchmark", "--model", str(path),
+                 "-p", str(p), "-g", str(GEN), "-n", str(TRIALS))
+        avg = re.search(r"Averages: prompt_tps=([\d.]+), generation_tps=([\d.]+), peak_memory=([\d.]+)", out)
+        rows.append({"runtime": "mlx", "runtime_version": f"mlx-lm {version[0]}, mlx {version[1]}",
+                     "prompt_tokens": p, "prefill_tps": float(avg.group(1)), "decode_tps": float(avg.group(2)),
+                     "peak_memory_gb": float(avg.group(3))})
+    return rows
+
+
+def bench_llama(path):
+    out = json.loads(sh("caffeinate", "-i", "llama-bench", "-m", str(path), "-ngl", "99", "-fa", "1",
+                        "-p", ",".join(map(str, PROMPTS)), "-n", str(GEN), "-r", str(TRIALS), "-o", "json"))
+    tg = next(r for r in out if r["n_gen"] == GEN)
+    version = f"llama.cpp {out[0]['build_commit']} (b{out[0]['build_number']})"
+    # llama-bench measures generation once (after an empty prompt); repeat it on both prompt-length rows.
+    return [{"runtime": "llama.cpp", "runtime_version": version, "prompt_tokens": r["n_prompt"],
+             "prefill_tps": r["avg_ts"], "decode_tps": tg["avg_ts"], "peak_memory_gb": None}
+            for r in out if r["n_prompt"] in PROMPTS]
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--only")
+    ap.add_argument("--cleanup", action="store_true")
+    a = ap.parse_args()
+
+    results = ROOT / "results.jsonl"
+    done = {(r["model"], r["runtime"]) for r in map(json.loads, results.open())} if results.exists() else set()
+    mac = machine()
+    for m in json.load((ROOT / "models.json").open()):
+        if a.only and a.only.lower() not in m["name"].lower():
+            continue
+        for runtime, fetch, bench in (("mlx", fetch_mlx, bench_mlx), ("llama.cpp", fetch_gguf, bench_llama)):
+            if (m["name"], runtime) in done:
+                continue
+            spec = m["mlx" if runtime == "mlx" else "gguf"]
+            print(f"{time.strftime('%T')} {m['name']} / {runtime}: fetching", flush=True)
+            path = fetch(spec)
+            print(f"{time.strftime('%T')} {m['name']} / {runtime}: measuring", flush=True)
+            day = datetime.date.today().isoformat()
+            with results.open("a") as f:
+                for row in bench(path):
+                    row = {"model": m["name"], "weights": spec.get("repo"), "revision": spec.get("rev"),
+                           "file": spec.get("file"), "quant": spec["label"], **row,
+                           "generated_tokens": GEN, "trials": TRIALS, "date": day, **mac}
+                    f.write(json.dumps(row) + "\n")
+                    print(f"  p{row['prompt_tokens']}: prefill {row['prefill_tps']:.0f} tok/s, decode {row['decode_tps']:.1f} tok/s", flush=True)
+            if a.cleanup and "path" not in spec:
+                shutil.rmtree(path) if path.is_dir() else path.unlink()
+
+
+if __name__ == "__main__":
+    main()

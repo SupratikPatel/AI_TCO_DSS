@@ -1,0 +1,587 @@
+{
+  "schema": "sp-benchmarks-v1",
+  "boards": [
+    {
+      "id": "factory-qwen35-4b-apple-m5-pro-mac-mini",
+      "kind": "factory",
+      "recipe": "qwen35-4b",
+      "order": 10,
+      "model": "Qwen3.5-4B (Smarty)",
+      "upstream": "Qwen/Qwen3.5-4B",
+      "mac": "Apple M5 Pro (Mac mini)",
+      "measured": "2026-10-22",
+      "quality_name": "Quality (top-1 match vs 8-bit)",
+      "test": "Speed: output tokens per second on a short chat (median of 3 after a warm-up). Memory: peak during a 4,096-token prompt. Quality: how often the version picks the same next word as a near-lossless 8-bit copy (top-1 match), plus 10 short questions with one right answer.",
+      "source_note": "Entered from the factory report as posted on the day; the full result files are on the Mac mini. Rows marked 'about' will be exact after the next run.",
+      "takeaway": "the standard 4-bit build is still the best tradeoff. Speed tracks how many bits each weight uses, and below 4 bits quality drops sharply. Next to try: DWQ 3-bit.",
+      "rows": [
+        {
+          "id": "q4-served",
+          "label": "Standard 4-bit (what we serve)",
+          "role": "base",
+          "tps": 99.7,
+          "peak_gb": 4.13,
+          "quality": 0.865,
+          "perplexity": 14.6,
+          "checks": "10/10"
+        },
+        {
+          "id": "mxfp4",
+          "label": "MXFP4 (4-bit float)",
+          "role": "version",
+          "tps": null,
+          "speed_text": "about 104",
+          "delta_text": "+4%",
+          "perplexity_text": "about 15.2",
+          "quality": null,
+          "verdict": "no gain",
+          "why": "4% faster but 4% worse quality"
+        },
+        {
+          "id": "q4-g32",
+          "label": "4-bit, finer groups (g32)",
+          "role": "version",
+          "tps": null,
+          "speed_text": "about 91",
+          "delta_text": "-9%",
+          "perplexity": 14.54,
+          "quality": null,
+          "verdict": "slower",
+          "why": "slightly better quality, 9% slower"
+        },
+        {
+          "id": "mixed-3-6",
+          "label": "Mixed 3/6-bit",
+          "role": "version",
+          "speed_text": "13-20% faster",
+          "memory_text": "9-13% less",
+          "perplexity_text": "+31-36%",
+          "verdict": "worse",
+          "why": "too lossy"
+        },
+        {
+          "id": "q3-g64",
+          "label": "3-bit",
+          "role": "version",
+          "speed_text": "13-20% faster",
+          "memory_text": "9-13% less",
+          "perplexity_text": "+31-36%",
+          "checks": "9/10",
+          "verdict": "worse",
+          "why": "too lossy, 1 wrong answer"
+        },
+        {
+          "id": "q4-served-kv8",
+          "label": "Standard 4-bit + 8-bit attention memory",
+          "role": "version",
+          "speed_text": "same",
+          "verdict": "no gain",
+          "why": "no difference on short chats"
+        },
+        {
+          "id": "q8-reference",
+          "label": "8-bit copy (quality yardstick, not served)",
+          "role": "reference",
+          "tps": 57.0,
+          "quality": 1.0,
+          "verdict": "reference",
+          "why": "more bits, slower"
+        }
+      ]
+    },
+    {
+      "id": "task-qwen35-4b-gsm8k-apple-m5-pro-mac-mini",
+      "kind": "task",
+      "order": 15,
+      "model": "Qwen3.5-4B (Smarty), GSM8K math",
+      "upstream": "Qwen/Qwen3.5-4B",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-05",
+      "quality_name": "Quality (GSM8K, 500 problems right)",
+      "test": "500 GSM8K grade-school math problems (openai/gsm8k test, seed 0), the same for every version, served the way Smarty Pants serves Smarty: thinking off, greedy, up to 1,024 tokens. DWQ builds: mlx-lm DWQ, 1,024 samples, group size 64. A version is better only with more right answers at McNemar p < 0.05; faster counts only if the 95% interval of the accuracy change stays above -2 points. Script: scripts/model-factory/benchcheck.py.",
+      "takeaway": "neither DWQ build beats the one we serve. 3-bit DWQ is about 20% faster and 13% smaller but gets about 5 points fewer right; 4-bit DWQ is no different. The served build stays. We keep negative results on the page.",
+      "rows": [
+        {
+          "id": "q4-served",
+          "label": "Standard 4-bit (what we serve)",
+          "role": "base",
+          "tps": 99.7,
+          "peak_gb": 4.13,
+          "quality": 0.89
+        },
+        {
+          "id": "dwq-3-g64",
+          "label": "DWQ 3-bit (tuned to copy the full model)",
+          "role": "version",
+          "tps": 120.1,
+          "peak_gb": 3.62,
+          "quality": 0.836,
+          "paired": "+14 / -41 (p < 0.001)",
+          "verdict": "worse",
+          "why": "faster and smaller, but 2.5 to 8.3 points fewer right"
+        },
+        {
+          "id": "dwq-4-g64",
+          "label": "DWQ 4-bit (tuned to copy the full model)",
+          "role": "version",
+          "tps": 100.4,
+          "peak_gb": 4.13,
+          "quality": 0.884,
+          "paired": "+20 / -23 (p = 0.76)",
+          "verdict": "no gain",
+          "why": "same speed, no real difference in right answers"
+        }
+      ]
+    },
+    {
+      "id": "task-qwen35-4b-draft-ahead-apple-m5-pro-64-gb-mac-mini",
+      "kind": "task",
+      "order": 16,
+      "model": "Qwen3.5-4B (Smarty), draft-ahead decoding",
+      "upstream": "Qwen/Qwen3.5-4B",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-05",
+      "quality_name": "Quality (GSM8K, 500 problems right)",
+      "test": "draft-ahead (speculative) decoding: a small guesser model, mlx-community/Qwen3.5-0.8B-MLX-4bit, proposes 2 or 4 words and Smarty checks them in one pass. Same 500 GSM8K problems and served settings as above (thinking off, greedy, up to 1,024 tokens); the standard build was timed again in the same sitting. Guesses accepted: 85% (2 at a time), 76% (4 at a time).",
+      "takeaway": "no win yet. Guessing 4 ahead is 10% faster with the same right answers, but it needs 18% more memory, and our rule allows at most 5% more. Guessing 2 ahead is slower.",
+      "rows": [
+        {
+          "id": "q4-served",
+          "label": "Standard 4-bit (what we serve)",
+          "role": "base",
+          "tps": 95.9,
+          "peak_gb": 2.9,
+          "quality": 0.89
+        },
+        {
+          "id": "q4-served-draft4",
+          "label": "Standard 4-bit + guess 4 words ahead",
+          "role": "version",
+          "tps": 105.2,
+          "peak_gb": 3.43,
+          "quality": 0.888,
+          "paired": "+4 / -5 (p = 1.0)",
+          "verdict": "no gain",
+          "why": "10% faster, same right answers, but 18% more memory"
+        },
+        {
+          "id": "q4-served-draft2",
+          "label": "Standard 4-bit + guess 2 words ahead",
+          "role": "version",
+          "tps": 93.2,
+          "peak_gb": 3.43,
+          "quality": 0.882,
+          "paired": "+4 / -8 (p = 0.39)",
+          "verdict": "slower",
+          "why": "3% slower and 18% more memory"
+        }
+      ]
+    },
+    {
+      "id": "factory-qwen38-27b-apple-m5-pro-mac-mini",
+      "kind": "factory",
+      "recipe": "qwen38-27b",
+      "order": 20,
+      "model": "Qwen 3.8 27B",
+      "upstream": "Qwen/Qwen3.8-27B",
+      "mac": "Apple M5 Pro (Mac mini)",
+      "measured": "2026-11-02",
+      "quality_name": "Quality (top-1 match vs 8-bit)",
+      "test": "Speed: output tokens per second on a short chat (median of 3 after a warm-up). Memory: peak during a 4,096-token prompt. Quality: how often the version picks the same next word as a near-lossless 8-bit copy (top-1 match), plus 10 short questions with one right answer. mlx 0.32.4.",
+      "source_note": "Entered from the factory report as posted on the day; the full result files are on the Mac mini. Rows marked 'about' will be exact after the next run.",
+      "takeaway": "the standard 4-bit build runs well on a 32 GB+ Mac; neither tested change helped.",
+      "rows": [
+        {
+          "id": "q4-served",
+          "label": "Standard 4-bit (mlx-community)",
+          "role": "base",
+          "tps": 35.7,
+          "peak_gb": 18.26,
+          "disk_gb": 16.05,
+          "quality": 0.909,
+          "perplexity": 7.949,
+          "checks": "10/10"
+        },
+        {
+          "id": "mixed-3-6",
+          "label": "Mixed 3/6-bit",
+          "role": "version",
+          "speed_text": "slower",
+          "verdict": "worse",
+          "why": "slower and lower quality"
+        },
+        {
+          "id": "q4-served-kv8",
+          "label": "Standard 4-bit + 8-bit attention memory",
+          "role": "version",
+          "speed_text": "same",
+          "verdict": "no gain",
+          "why": "no difference on short chats"
+        },
+        {
+          "id": "q8-reference",
+          "label": "8-bit copy (quality yardstick, not served)",
+          "role": "reference",
+          "quality": 1.0,
+          "perplexity": 7.669,
+          "verdict": "reference",
+          "why": "quality yardstick"
+        }
+      ]
+    },
+    {
+      "id": "task-qwen38-27b-draft-ahead-apple-m5-pro-64-gb-mac-mini",
+      "kind": "task",
+      "order": 21,
+      "model": "Qwen 3.8 27B, draft-ahead decoding",
+      "upstream": "Qwen/Qwen3.8-27B",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-06",
+      "quality_name": "Quality (GSM8K, 200 problems right)",
+      "test": "draft-ahead (speculative) decoding: the small mlx-community/Qwen3.5-0.8B-MLX-4bit guesses 4 words at a time and Qwen 3.8 27B checks them in one pass; 76% of guesses were kept. 200 GSM8K problems, the same for both, measured with mlx-lm in Python, greedy, thinking off, up to 1,024 tokens. The standard build was timed again in the same sitting, with serving paused (this sitting's standard speed is lower than the 35.7 tok/s chat test above, which used a different prompt and length).",
+      "takeaway": "draft-ahead made Qwen 3.8 27B 81% faster with the same right answers and only 3% more memory, the first speed-up to beat a standard build on this page.",
+      "caution": "Important: this gain was measured greedy with thinking off. When our Mac app served it live at its default settings (temperature 0.6, thinking on), we did not see the speed-up, so the app has draft-ahead turned off again while we find out why. Do not expect this speed from Smarty Pants today.",
+      "rows": [
+        {
+          "id": "q4-served",
+          "label": "Standard 4-bit (mlx-community)",
+          "role": "base",
+          "tps": 17.8,
+          "peak_gb": 15.8,
+          "quality": 0.915
+        },
+        {
+          "id": "q4-served-draft4",
+          "label": "Standard 4-bit + guess 4 words ahead (test only, off in the app)",
+          "role": "version",
+          "tps": 32.2,
+          "peak_gb": 16.31,
+          "quality": 0.915,
+          "paired": "+1 / -1 (p = 1.0)",
+          "verdict": "faster",
+          "why": "81% faster, same right answers, 3% more memory (in this test setup; not yet in the live app)"
+        }
+      ]
+    },
+    {
+      "id": "task-qwen38-27b-gsm8k-full-apple-m5-pro-64-gb-mac-mini",
+      "kind": "task",
+      "order": 22,
+      "model": "Qwen 3.8 27B, smaller tuned build",
+      "upstream": "Qwen/Qwen3.8-27B",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-08",
+      "quality_name": "Quality (GSM8K, all 1,319 problems right)",
+      "test": "the full GSM8K test (1,319 problems), the same for both, served the way Smarty Pants serves it: thinking off, greedy, up to 1,024 tokens. Better needs answers as good (95% interval of the accuracy change above -2 points) plus at least 10% faster or 10% less memory. In the Mac app's own code, at temperature 0.6 with thinking on, the smaller build also ran faster: 20.3 vs 17.6 tok/s.",
+      "takeaway": "the smaller tuned build gives the same answers (94.6% vs 94.8%, no real difference) while running 15% faster on 15% less memory, so it fits more Macs.",
+      "credit": "the 3.80-bits-per-weight DWQ build is by AtomicChat ([AtomicChat/Qwen3.8-27B-MLX-AD-3.80bpw-DWQ-13.7GB](https://huggingface.co/AtomicChat/Qwen3.8-27B-MLX-AD-3.80bpw-DWQ-13.7GB), revision 9fa7ab0); we tested it.",
+      "rows": [
+        {
+          "id": "q4",
+          "label": "Standard 4-bit (mlx-community, revision 10c35ca)",
+          "role": "base",
+          "tps": 17.7,
+          "peak_gb": 15.88,
+          "quality": 0.948
+        },
+        {
+          "id": "dwq38",
+          "label": "AtomicChat 3.80-bit DWQ (tuned to copy the full model)",
+          "role": "version",
+          "tps": 20.4,
+          "peak_gb": 13.52,
+          "quality": 0.946,
+          "paired": "+22 / -25 (p = 0.77)",
+          "verdict": "faster",
+          "why": "15% faster and 15% less memory, answers as good (-1.2 to +0.8 points)"
+        }
+      ]
+    },
+    {
+      "id": "factory-arete-27b-apple-m5-pro-64-gb-mac-mini",
+      "kind": "factory",
+      "recipe": "arete-27b",
+      "order": 23,
+      "model": "Arete 27B (NousResearch)",
+      "upstream": "NousResearch/Arete-27B",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-09",
+      "quality_name": "Quality (top-1 match vs 8-bit)",
+      "test": "Speed: output tokens per second on a short chat (median of 3 after a warm-up). Memory: peak during a 4,096-token prompt. Quality: how often the version picks the same next word as a near-lossless 8-bit copy (top-1 match), plus 10 short questions with one right answer. The yardstick is a community 8-bit copy (pjain001/arete-27b-8bit-mlx); bf16 did not fit the Mac's free disk. Also checked on 300 GSM8K math problems (thinking off, greedy, up to 1,024 tokens): the 4-bit build got 94.3% right.",
+      "takeaway": "the 4-bit build passes: 10/10 checks, 94.3% on GSM8K (in line with Qwen 3.8 27B, which it is fine-tuned from), 35.5 tok/s and an 18.3 GB peak. That fits 32 GB+ Macs comfortably and 24 GB Macs only tightly.",
+      "credit": "Arete 27B is by NousResearch (Apache-2.0); the 4-bit MLX build is by Duckets ([Duckets/Arete-27B-MLX-4bit](https://huggingface.co/Duckets/Arete-27B-MLX-4bit), revision bd3f716).",
+      "rows": [
+        {
+          "id": "q4-duckets",
+          "label": "4-bit (Duckets MLX build)",
+          "role": "base",
+          "tps": 35.5,
+          "peak_gb": 18.26,
+          "quality": 0.899,
+          "perplexity": 8.34,
+          "checks": "10/10"
+        },
+        {
+          "id": "q8-reference",
+          "label": "8-bit copy (quality yardstick, not served)",
+          "role": "reference",
+          "tps": 11.6,
+          "peak_gb": 30.87,
+          "quality": 1.0,
+          "perplexity": 8.059,
+          "checks": "9/10",
+          "verdict": "reference",
+          "why": "quality yardstick"
+        }
+      ]
+    },
+    {
+      "id": "factory-qwen36-35b-a3b-apple-m5-pro-64-gb-mac-mini",
+      "kind": "factory",
+      "recipe": "qwen36-35b-a3b",
+      "order": 25,
+      "model": "Qwen3.6-35B-A3B",
+      "upstream": "Qwen/Qwen3.6-35B-A3B",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-07",
+      "quality_name": "Quality (top-1 match vs 6-bit)",
+      "test": "Speed: output tokens per second on a short chat (median of 3 after a warm-up). Memory: peak during a 4,096-token prompt. Quality: how often the version picks the same next word as a 6-bit copy (the quality yardstick here) (top-1 match), plus 10 short questions with one right answer. mlx 0.32.4, mlx-lm 0.32.2.",
+      "takeaway": "the standard 4-bit build passes all 10 checks at about 158 tok/s and 21.5 GB, so it fits Macs with 48 GB or more. Mixed 3/4-bit saves memory but loses too much quality.",
+      "caution": "Our own 4-bit build timed 34% faster than the community build, but that is unconfirmed: it has the same bits and memory, and the community build was timed right after a long download. We will rerun it before relying on it.",
+      "rows": [
+        {
+          "id": "q4-mlx-community",
+          "label": "Standard 4-bit (mlx-community)",
+          "role": "base",
+          "tps": 157.8,
+          "peak_gb": 21.49,
+          "disk_gb": 20.4,
+          "quality": 0.863,
+          "perplexity": 11.827,
+          "checks": "10/10"
+        },
+        {
+          "id": "q4-ours",
+          "label": "4-bit, our own build",
+          "role": "version",
+          "tps": 210.7,
+          "peak_gb": 21.49,
+          "disk_gb": 19.51,
+          "quality": 0.862,
+          "perplexity": 11.8,
+          "checks": "10/10",
+          "verdict": "unconfirmed",
+          "why": "timed 34% faster with the same quality; needs a repeat run"
+        },
+        {
+          "id": "mixed-3-4",
+          "label": "Mixed 3/4-bit",
+          "role": "version",
+          "tps": 118.0,
+          "peak_gb": 17.89,
+          "disk_gb": 15.9,
+          "quality": 0.762,
+          "perplexity": 13.43,
+          "checks": "10/10",
+          "verdict": "worse",
+          "why": "17% less memory, but 25% slower and perplexity +13.5%"
+        },
+        {
+          "id": "q6-reference",
+          "label": "6-bit copy (quality yardstick, not served)",
+          "role": "reference",
+          "tps": 119.6,
+          "peak_gb": 30.15,
+          "disk_gb": 28.17,
+          "quality": 1.0,
+          "perplexity": 11.139,
+          "checks": "10/10",
+          "verdict": "reference",
+          "why": "quality yardstick"
+        }
+      ]
+    },
+    {
+      "id": "task-axion-1-0-35b-apple-m5-pro-64-gb-mac-mini",
+      "kind": "task",
+      "order": 26,
+      "model": "Axion 1.0 35B",
+      "upstream": "Axion1-0/Axion-1.0-35B",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-11",
+      "quality_name": "Quality (GSM8K, 300 problems right)",
+      "test": "300 GSM8K math problems, thinking off, greedy, up to 2,048 tokens. Single build tested (no yardstick copy).",
+      "takeaway": "passes: 92.3% right at 74.7 tok/s and a 21.1 GB peak, so it fits Macs with 32 GB or more. For comparison on the same test: Qwen 3.8 27B 94.6% (all 1,319 problems), Arete 27B 94.3% at 35.5 tok/s.",
+      "credit": "Axion 1.0 35B is by Axion1-0 (Apache-2.0); the UD 4-bit MLX build is by NapYang ([NapYang/Axion-1.0-35B-UD-MLX-4bit-fp16](https://huggingface.co/NapYang/Axion-1.0-35B-UD-MLX-4bit-fp16), revision be0c767).",
+      "rows": [
+        {
+          "id": "ud4",
+          "label": "UD 4-bit (NapYang MLX build)",
+          "role": "base",
+          "tps": 74.7,
+          "peak_gb": 21.09,
+          "quality": 0.923
+        }
+      ]
+    },
+    {
+      "id": "factory-gpt-oss-20b-apple-m5-pro-64-gb-mac-mini",
+      "kind": "factory",
+      "recipe": "gpt-oss-20b",
+      "order": 27,
+      "model": "gpt-oss-20b",
+      "upstream": "openai/gpt-oss-20b",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-08",
+      "quality_name": "Quality (top-1 match vs yardstick)",
+      "test": "Speed: output tokens per second on a short chat (median of 3 after a warm-up). Memory: peak during a 4,096-token prompt. Quality: how often the version picks the same next word as our yardstick copy (top-1 match), plus 10 short questions with one right answer. mlx 0.32.4, mlx-lm 0.32.2.",
+      "caution": "The yardstick is not a true 8-bit copy: the converter kept OpenAI's own 4-bit expert weights, so it came out at 4.6 bits per weight. Quality here means closeness to a near-original copy, not to a higher-precision one.",
+      "takeaway": "both community 4-bit builds run at about 100 tok/s and peak at 12-13 GB, so they fit 24 GB Macs. OptiQ is a trade-off rather than a win: much closer to the original (top-1 85.8% vs 66.6%, 9/10 checks vs 7/10) for 6% less speed. A math accuracy test comes next.",
+      "rows": [
+        {
+          "id": "mxfp4-q4",
+          "label": "MXFP4-Q4 (mlx-community)",
+          "role": "base",
+          "tps": 106.1,
+          "peak_gb": 12.12,
+          "disk_gb": 11.18,
+          "quality": 0.666,
+          "perplexity": 30.92,
+          "checks": "7/10"
+        },
+        {
+          "id": "optiq-4bit",
+          "label": "OptiQ 4-bit (mlx-community)",
+          "role": "version",
+          "tps": 99.3,
+          "peak_gb": 12.57,
+          "disk_gb": 11.62,
+          "quality": 0.858,
+          "perplexity": 28.68,
+          "checks": "9/10",
+          "verdict": "trade-off",
+          "why": "much closer to the original and 2 more checks right, 6% slower, 0.45 GB more"
+        },
+        {
+          "id": "yardstick",
+          "label": "Our convert (yardstick, 4.6 bits/weight, not served)",
+          "role": "reference",
+          "tps": 85.7,
+          "peak_gb": 12.99,
+          "disk_gb": 12.08,
+          "quality": 1.0,
+          "perplexity": 28.1,
+          "checks": "8/10",
+          "verdict": "reference",
+          "why": "quality yardstick"
+        }
+      ]
+    },
+    {
+      "id": "speed-qwen3-6-35b-a3b-apple-m3-max-36-gb",
+      "kind": "factory",
+      "order": 30,
+      "model": "Qwen3.6-35B-A3B",
+      "upstream": "mlx-community/Qwen3.6-35B-A3B-4bit",
+      "mac": "Apple M3 Max, 36 GB (MacBook Pro)",
+      "measured": "2026-09-08",
+      "quality_name": "Quality",
+      "test": "speed only: one request at a time, 500 to 4,096-token prompts, 128 tokens out, mlx-vlm 0.7.0. With 8 requests at once the Mac produced 193 tok/s in total. No quality test yet.",
+      "rows": [
+        {
+          "id": "q4",
+          "label": "Standard 4-bit (mlx-community)",
+          "role": "base",
+          "tps": 61.4,
+          "peak_gb": 21.52,
+          "checks": null
+        }
+      ]
+    },
+    {
+      "id": "task-qwen3-reranker-0-6b-apple-m5-pro-64-gb-mac-mini",
+      "kind": "task",
+      "order": 40,
+      "model": "Qwen3 Reranker 0.6B",
+      "upstream": "Qwen/Qwen3-Reranker-0.6B",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-09",
+      "speed_name": "Speed (pairs/s, batch 8)",
+      "quality_name": "Quality (NDCG@10 / MRR@10)",
+      "extra_name": "Same top pick as bf16",
+      "test": "reranking 150 queries (3,000 query-document pairs) from mteb/askubuntudupquestions-reranking; score = probability of \"yes\" after Qwen's reranker prompt. Speed is pairs per second at batch size 8 over a short window, so treat it as rough (batch 1: bf16 68.8, mxfp8 51.9, ours 48.4; batch 32: 138.2, 95.1, 93.6).",
+      "takeaway": "a trade-off, not a win. On a 0.6B model the 8-bit builds save only about 0.6 GB and are not faster overall; ranking quality differences are within noise. The bf16 build is the one we serve. Our 8-bit build agrees with bf16 on the top pick far more often than the mxfp8 build (96% vs 85%).",
+      "rows": [
+        {
+          "id": "bf16",
+          "label": "bf16 (official Qwen release)",
+          "role": "base",
+          "tps": 135.4,
+          "peak_gb": 3.075,
+          "quality_text": "0.682 / 0.748"
+        },
+        {
+          "id": "mxfp8",
+          "label": "mxfp8 (mlx-community)",
+          "role": "version",
+          "tps": 151.8,
+          "peak_gb": 2.498,
+          "quality_text": "0.677 / 0.745",
+          "paired": "84.7%",
+          "verdict": "trade-off",
+          "why": "0.6 GB less memory; faster at batch 8 but slower at batch 1 and 32"
+        },
+        {
+          "id": "q8-affine",
+          "label": "8-bit, our own build (group 64, not released)",
+          "role": "version",
+          "tps": 84.3,
+          "peak_gb": 2.517,
+          "quality_text": "0.684 / 0.753",
+          "paired": "96.0%",
+          "verdict": "trade-off",
+          "why": "0.6 GB less memory, closest to bf16, but slower"
+        }
+      ],
+      "speed_unit": "pairs/s"
+    },
+    {
+      "id": "edit-qwen3-5-0-8b-apple-m5-pro-mac-mini",
+      "kind": "edit",
+      "model": "Qwen3.5-0.8B",
+      "upstream": "Qwen/Qwen3.5-0.8B",
+      "mac": "Apple M5 Pro (Mac mini)",
+      "measured": "2026-11-04",
+      "quality_name": "Quality (MATH-500, 30 problems)",
+      "test": "30 MATH-500 math problems (seeded random pick), thinking on, up to 32,768 tokens, MIT's sampling settings, 1 answer per problem, graded with math-verify 0.9.0 by MIT's rule. Runs on MLX in bfloat16 rather than vLLM, so single answers are not comparable one to one with MIT's.",
+      "caution": null,
+      "rows": [
+        {
+          "id": "original",
+          "label": "Qwen3.5-0.8B, original",
+          "role": "base",
+          "tps": 120.0,
+          "peak_gb": 2.216,
+          "quality": 0.07,
+          "finished": 0.07,
+          "loop": 0.87
+        },
+        {
+          "id": "edited",
+          "label": "Qwen3.5-0.8B + MIT CSAIL's p50c weight edit (reproduced)",
+          "role": "version",
+          "tps": 120.0,
+          "peak_gb": 2.188,
+          "quality": 0.33,
+          "finished": 0.6,
+          "loop": 0.03,
+          "verdict": "better",
+          "why": "finished 60% of answers (was 7%), ended in a loop 3% (was 87%)"
+        }
+      ],
+      "order": 40,
+      "takeaway": "the edit changes 0.016% of the weights. On our Mac it cut loops from 87% to 3% and raised correct answers from 7% to 33%, with no change in speed or memory. Problem by problem, the edited model got 8 right that the original missed and lost none (sign test p ≈ 0.008). MIT reports 7.9% to 48.1% on all 500 problems with 4 answers each.",
+      "credit": "this is a reproduction of MIT CSAIL's published edit (Takehi, Teoh, Zhang and Khattab, [weight-space programming](https://rikiyat.github.io/blog/weight-space-programming), edit and evaluation code from [RikiyaT/lm_understand-logs](https://github.com/RikiyaT/lm_understand-logs)). Smarty Pants did not make this edit; we rebuilt it bit for bit, hash-checked it and measured it on a Mac."
+    }
+  ]
+}

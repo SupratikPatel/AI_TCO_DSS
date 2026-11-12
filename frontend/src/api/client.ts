@@ -1,8 +1,11 @@
 import type { components } from './generated';
-export type Schema = components['schemas'];
+export type Schema = components['schemas'] & {
+  ScenarioResult: components['schemas']['ScenarioResult-Output'];
+  Recommendation: components['schemas']['Recommendation-Output'];
+};
 export type Scenario = Schema['Scenario'];
 export type SizeResult = Schema['SizeResult'];
-export type TcoProjection = Schema['TcoProjection'];
+export type TcoProjection = Schema['TcoResponse'];
 
 export class ApiFailure extends Error {
   constructor(public code: string, message: string, public fields: string[] = []) { super(message); }

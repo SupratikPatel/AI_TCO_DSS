@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('Task 9 Normal controls, Python ranking, rejection reasons and currency', async ({ page }) => {
   await page.goto('/');
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
   await expect(page.getByRole('tab', { name: 'Ranking', exact: true })).toHaveAttribute('aria-selected', 'true');
   await expect(page.getByTestId('ranking-result')).toBeVisible();
   await expect(page.locator('.recommendation-card')).toContainText('ranks first');
@@ -36,6 +37,7 @@ for (const width of [1280, 1440, 768, 390]) for (const theme of ['light', 'dark'
   test(`Task 9 ranking reference ${theme} ${width}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1100 });
     await page.goto('/');
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
     await page.getByRole('tab', { name: 'Ranking', exact: true }).click();
     await expect(page.getByTestId('ranking-result')).toBeVisible();
     if (theme === 'dark') await page.getByRole('button', { name: 'Dark theme' }).click();
@@ -47,13 +49,14 @@ for (const width of [1280, 1440, 768, 390]) for (const theme of ['light', 'dark'
 
 test('Task 9 loading, server error, empty and stale results are distinct', async ({ page }) => {
   await page.goto('/');
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
   await page.getByRole('tab', { name: 'Ranking', exact: true }).click();
   await expect(page.getByTestId('ranking-result')).toBeVisible();
   await page.route('**/api/v1/evaluate', async route => {
     await route.fulfill({ status: 500, json: { code: 'server_error', message: 'Ranking calculation failed', fields: [] } });
   });
   await page.getByRole('button', { name: 'popular', exact: true }).click();
-  await expect(page.getByRole('alert')).toContainText('Ranking calculation failed');
+  await expect(page.locator('.ranking-body').getByRole('alert')).toContainText('Ranking calculation failed');
   await expect(page.getByTestId('ranking-result')).not.toBeVisible();
   await expect(page.locator('.kpi').first()).toContainText('Unavailable');
   await page.unroute('**/api/v1/evaluate');
@@ -71,6 +74,7 @@ test('Task 9 loading, server error, empty and stale results are distinct', async
 
 test('Task 9 slow superseded recommendations and independent memory inputs', async ({ page }) => {
   await page.goto('/');
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
   await page.getByRole('tab', { name: 'Ranking', exact: true }).click();
   await expect(page.getByTestId('ranking-result')).toBeVisible();
   let release!: () => void;

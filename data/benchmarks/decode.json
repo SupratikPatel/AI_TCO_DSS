@@ -1,10 +1,260 @@
 {
   "records": [
-    {"metric": "decode_tps", "value": 14.7, "model_id": "qwen-3-8-27b", "hardware_id": "mac-mini-m5-pro-64gb", "precision": "INT4", "context_tokens": 8192, "source_id": "YT-18", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
-    {"metric": "decode_tps", "value": 78.8, "model_id": "qwen-3-6-35b-a3b", "hardware_id": "mac-mini-m5-pro-64gb", "precision": "INT4", "context_tokens": 8192, "source_id": "YT-18", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
-    {"metric": "decode_tps", "value": 108.0, "model_id": "qwen-3-8-flash-next", "hardware_id": "mac-studio-m5-ultra-256gb", "precision": "INT4", "context_tokens": 8192, "source_id": "YT-21", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
-    {"metric": "decode_tps", "value": 61.0, "model_id": "qwen-3-8-flash-next", "hardware_id": "mac-studio-m5-ultra-256gb", "precision": "INT4", "context_tokens": 131072, "source_id": "YT-21", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
-    {"metric": "decode_tps", "value": 4.6, "model_id": "deepseek-v4-1-flash", "hardware_id": "rtx-5070-strata-64gb", "precision": "INT2", "context_tokens": 8192, "source_id": "YT-07", "tier": "community", "accessed": "2026-11-07", "note": "single-source"},
-    {"metric": "decode_tps", "value": 11.6, "model_id": "qwen-3-8-27b", "hardware_id": "dgx-spark-128gb", "precision": "INT4", "context_tokens": 8192, "source_id": "YT-16", "tier": "community", "accessed": "2026-11-07", "note": "single-source"}
+    {
+      "metric": "decode_tps",
+      "value": 14.7,
+      "model_id": "qwen-3-8-27b",
+      "hardware_id": "mac-mini-m5-pro-64gb",
+      "precision": "INT4",
+      "context_tokens": 8192,
+      "source_id": "YT-18",
+      "tier": "community",
+      "accessed": "2026-11-07",
+      "note": "single-source",
+      "uncertainty_reasons": [
+        "Legacy context/precision assumptions (C-037); prompt and execution protocol not independently established"
+      ]
+    },
+    {
+      "metric": "decode_tps",
+      "value": 78.8,
+      "model_id": "qwen-3-6-35b-a3b",
+      "hardware_id": "mac-mini-m5-pro-64gb",
+      "precision": "INT4",
+      "context_tokens": 8192,
+      "source_id": "YT-18",
+      "tier": "community",
+      "accessed": "2026-11-07",
+      "note": "single-source",
+      "uncertainty_reasons": [
+        "Legacy context/precision assumptions (C-037); prompt and execution protocol not independently established"
+      ]
+    },
+    {
+      "metric": "decode_tps",
+      "value": 108.0,
+      "model_id": "qwen-3-8-flash-next",
+      "hardware_id": "mac-studio-m5-ultra-256gb",
+      "precision": "INT4",
+      "context_tokens": 8192,
+      "source_id": "YT-21",
+      "tier": "community",
+      "accessed": "2026-11-07",
+      "note": "single-source",
+      "uncertainty_reasons": [
+        "Legacy context/precision assumptions (C-037); prompt and execution protocol not independently established",
+        "Historical rounded/summary observation; primary MacStories series stored separately (C-051/C-052)."
+      ]
+    },
+    {
+      "metric": "decode_tps",
+      "value": 61.0,
+      "model_id": "qwen-3-8-flash-next",
+      "hardware_id": "mac-studio-m5-ultra-256gb",
+      "precision": "INT4",
+      "context_tokens": 131072,
+      "source_id": "YT-21",
+      "tier": "community",
+      "accessed": "2026-11-07",
+      "note": "single-source",
+      "uncertainty_reasons": [
+        "Legacy context/precision assumptions (C-037); prompt and execution protocol not independently established",
+        "Historical rounded/summary observation; primary MacStories series stored separately (C-051/C-052)."
+      ]
+    },
+    {
+      "metric": "decode_tps",
+      "value": 4.6,
+      "model_id": "deepseek-v4-1-flash",
+      "hardware_id": "rtx-5070-strata-64gb",
+      "precision": "INT2",
+      "context_tokens": 8192,
+      "source_id": "YT-07",
+      "tier": "community",
+      "accessed": "2026-11-07",
+      "note": "single-source",
+      "uncertainty_reasons": [
+        "Legacy context/precision assumptions (C-037); prompt and execution protocol not independently established",
+        "Historical 4.3-4.9 range midpoint, not the separate maintainer typical 4.7 TPS; decode prompt unknown."
+      ]
+    },
+    {
+      "metric": "decode_tps",
+      "value": 11.6,
+      "model_id": "qwen-3-8-27b",
+      "hardware_id": "dgx-spark-128gb",
+      "precision": "INT4",
+      "context_tokens": 8192,
+      "source_id": "YT-16",
+      "tier": "community",
+      "accessed": "2026-11-07",
+      "note": "single-source",
+      "uncertainty_reasons": [
+        "Legacy context/precision assumptions (C-037); prompt and execution protocol not independently established"
+      ]
+    },
+    {
+      "metric": "decode_tps",
+      "value": 90.7,
+      "model_id": "qwen-3-8-flash-next",
+      "hardware_id": "mac-studio-m5-ultra-256gb",
+      "precision": "INT4",
+      "prompt_tokens": 3578,
+      "conditions": {
+        "nodes": 1,
+        "accelerator_memory_gb": 256,
+        "system_ram_gb": 0,
+        "runtime": "oMLX",
+        "runtime_version": "0.7.0.dev2",
+        "quantization": "Qwen3.8-Flash-Next-oQ4e-mtp",
+        "speculative_mode": "built-in-mtp",
+        "speculative_config": "depth=3; thinking=off; temperature=0; seed=42",
+        "concurrency": 1,
+        "protocol": "client-stream-single-run",
+        "cache_state": "cold-no-reuse",
+        "residency": "resident",
+        "output_tokens": 512,
+        "model_revision": "2615fc0e976e65c2f3b55daca3a948f1cdc5b9f8",
+        "prompt_cache_hit_rate": 0
+      },
+      "source_id": "MACSTORIES-M5-2026",
+      "tier": "third_party",
+      "accessed": "2026-11-10",
+      "note": "Single run per prompt, nominal INT4 bucket; exact mixed quantization identified in conditions. Separate from 108 TPS summary."
+    },
+    {
+      "metric": "decode_tps",
+      "value": 87.8,
+      "model_id": "qwen-3-8-flash-next",
+      "hardware_id": "mac-studio-m5-ultra-256gb",
+      "precision": "INT4",
+      "prompt_tokens": 15867,
+      "conditions": {
+        "nodes": 1,
+        "accelerator_memory_gb": 256,
+        "system_ram_gb": 0,
+        "runtime": "oMLX",
+        "runtime_version": "0.7.0.dev2",
+        "quantization": "Qwen3.8-Flash-Next-oQ4e-mtp",
+        "speculative_mode": "built-in-mtp",
+        "speculative_config": "depth=3; thinking=off; temperature=0; seed=42",
+        "concurrency": 1,
+        "protocol": "client-stream-single-run",
+        "cache_state": "cold-no-reuse",
+        "residency": "resident",
+        "output_tokens": 512,
+        "model_revision": "2615fc0e976e65c2f3b55daca3a948f1cdc5b9f8",
+        "prompt_cache_hit_rate": 0
+      },
+      "source_id": "MACSTORIES-M5-2026",
+      "tier": "third_party",
+      "accessed": "2026-11-10",
+      "note": "Single run per prompt, nominal INT4 bucket; exact mixed quantization identified in conditions. Separate from 108 TPS summary."
+    },
+    {
+      "metric": "decode_tps",
+      "value": 83.8,
+      "model_id": "qwen-3-8-flash-next",
+      "hardware_id": "mac-studio-m5-ultra-256gb",
+      "precision": "INT4",
+      "prompt_tokens": 65005,
+      "conditions": {
+        "nodes": 1,
+        "accelerator_memory_gb": 256,
+        "system_ram_gb": 0,
+        "runtime": "oMLX",
+        "runtime_version": "0.7.0.dev2",
+        "quantization": "Qwen3.8-Flash-Next-oQ4e-mtp",
+        "speculative_mode": "built-in-mtp",
+        "speculative_config": "depth=3; thinking=off; temperature=0; seed=42",
+        "concurrency": 1,
+        "protocol": "client-stream-single-run",
+        "cache_state": "cold-no-reuse",
+        "residency": "resident",
+        "output_tokens": 512,
+        "model_revision": "2615fc0e976e65c2f3b55daca3a948f1cdc5b9f8",
+        "prompt_cache_hit_rate": 0
+      },
+      "source_id": "MACSTORIES-M5-2026",
+      "tier": "third_party",
+      "accessed": "2026-11-10",
+      "note": "Single run per prompt, nominal INT4 bucket; exact mixed quantization identified in conditions. Separate from 108 TPS summary."
+    },
+    {
+      "metric": "decode_tps",
+      "value": 60.6,
+      "model_id": "qwen-3-8-flash-next",
+      "hardware_id": "mac-studio-m5-ultra-256gb",
+      "precision": "INT4",
+      "prompt_tokens": 130522,
+      "conditions": {
+        "nodes": 1,
+        "accelerator_memory_gb": 256,
+        "system_ram_gb": 0,
+        "runtime": "oMLX",
+        "runtime_version": "0.7.0.dev2",
+        "quantization": "Qwen3.8-Flash-Next-oQ4e-mtp",
+        "speculative_mode": "built-in-mtp",
+        "speculative_config": "depth=3; thinking=off; temperature=0; seed=42",
+        "concurrency": 1,
+        "protocol": "client-stream-single-run",
+        "cache_state": "cold-no-reuse",
+        "residency": "resident",
+        "output_tokens": 512,
+        "model_revision": "2615fc0e976e65c2f3b55daca3a948f1cdc5b9f8",
+        "prompt_cache_hit_rate": 0
+      },
+      "source_id": "MACSTORIES-M5-2026",
+      "tier": "third_party",
+      "accessed": "2026-11-10",
+      "note": "Single run per prompt, nominal INT4 bucket; exact mixed quantization identified in conditions. Separate from 108 TPS summary."
+    },
+    {
+      "metric": "decode_tps",
+      "value": 74.7,
+      "model_id": "qwen-3-8-flash-next",
+      "hardware_id": "mac-studio-m5-ultra-256gb",
+      "precision": "INT4",
+      "prompt_tokens": 261597,
+      "conditions": {
+        "nodes": 1,
+        "accelerator_memory_gb": 256,
+        "system_ram_gb": 0,
+        "runtime": "oMLX",
+        "runtime_version": "0.7.0.dev2",
+        "quantization": "Qwen3.8-Flash-Next-oQ4e-mtp",
+        "speculative_mode": "built-in-mtp",
+        "speculative_config": "depth=3; thinking=off; temperature=0; seed=42",
+        "concurrency": 1,
+        "protocol": "client-stream-single-run",
+        "cache_state": "cold-no-reuse",
+        "residency": "resident",
+        "output_tokens": 512,
+        "model_revision": "2615fc0e976e65c2f3b55daca3a948f1cdc5b9f8",
+        "prompt_cache_hit_rate": 0
+      },
+      "source_id": "MACSTORIES-M5-2026",
+      "tier": "third_party",
+      "accessed": "2026-11-10",
+      "note": "Single run per prompt, nominal INT4 bucket; exact mixed quantization identified in conditions. Separate from 108 TPS summary."
+    },
+    {
+      "metric": "decode_tps",
+      "value": 4.7,
+      "model_id": "deepseek-v4-1-flash",
+      "hardware_id": "rtx-5070-strata-64gb",
+      "precision": "INT2",
+      "conditions": {
+        "nodes": 1,
+        "accelerator_memory_gb": 12,
+        "system_ram_gb": 64,
+        "runtime": "strata-dsv41",
+        "residency": "offload"
+      },
+      "source_id": "STRATA-DEEPSEEK41",
+      "tier": "community",
+      "accessed": "2026-11-10",
+      "note": "Maintainer typical decode observation; prompt, exact quantization and speculative settings not tied to this row. 257 GB download includes Engram and drafter."
+    }
   ]
 }

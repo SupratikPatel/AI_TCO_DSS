@@ -4,7 +4,7 @@ import logging
 
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from pydantic import ValidationError
 
 from ai_tco_dss import services
@@ -22,7 +22,6 @@ from ai_tco_dss.domain import (
     SizeRequest,
     SizeResult,
     SizingOptions,
-    TcoProjection,
     TcoRequest,
     WorkloadProfile,
 )
@@ -34,6 +33,14 @@ from ai_tco_dss.domain.errors import (
     UnknownIdentifierError,
     WorkloadFileError,
 )
+from ai_tco_dss.services.audit_export import (
+    AuditRequest,
+    AuditResult,
+    ExportRequest,
+    candidate_audit,
+    csv_zip,
+)
+from ai_tco_dss.services.tco_accounting import TcoResponse, explain_tco
 
 logger = logging.getLogger(__name__)
 
@@ -144,9 +151,9 @@ def validate_scenario(scenario: Scenario) -> Scenario:
     return scenario
 
 
-@app.post("/api/v1/tco", response_model=TcoProjection)
-def tco(request: TcoRequest) -> TcoProjection:
-    return services.project_tco(request)
+@app.post("/api/v1/tco", response_model=TcoResponse)
+def tco(request: TcoRequest) -> TcoResponse:
+    return explain_tco(request, services.project_tco(request))
 
 
 @app.post("/api/v1/recommend", response_model=Recommendation)
@@ -157,3 +164,26 @@ def recommend(request: RecommendRequest) -> Recommendation:
 @app.post("/api/v1/evaluate", response_model=ScenarioResult)
 def evaluate(request: ScenarioRequest) -> ScenarioResult:
     return services.evaluate_scenario(request)
+
+
+@app.post("/api/v1/audit", response_model=AuditResult)
+def audit(request: AuditRequest) -> AuditResult:
+    return candidate_audit(request)
+
+
+@app.post("/api/v1/export/json", response_class=Response)
+def export_json(request: ExportRequest) -> Response:
+    return Response(
+        request.result.model_dump_json(indent=2),
+        media_type="application/json",
+        headers={"Content-Disposition": 'attachment; filename="scenario_USD.json"'},
+    )
+
+
+@app.post("/api/v1/export/csv", response_class=Response)
+def export_csv(request: ExportRequest) -> Response:
+    return Response(
+        csv_zip(request),
+        media_type="application/zip",
+        headers={"Content-Disposition": f'attachment; filename="scenario_{request.currency}.zip"'},
+    )

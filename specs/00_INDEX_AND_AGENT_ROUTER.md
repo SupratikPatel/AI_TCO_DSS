@@ -74,3 +74,15 @@ enterprise-ai-dss/
 ├── pyproject.toml
 └── README.md
 ```
+## Extension Seams (post-MVP)
+
+| Feature | Existing interface | Package directory | Existing modules requiring changes |
+|---|---|---|---|
+| FastAPI adapter (implemented in MVP) | size, project_tco, recommend, evaluate_scenario | src/ai_tco_dss/api/ | none; adapter already calls services |
+| MCP adapter | size, project_tco, recommend, evaluate_scenario | src/ai_tco_dss/mcp/ | none |
+| Benchmark scraper | BenchmarkRecord | src/ai_tco_dss/ingestion/ | none; writes validated catalog JSON |
+| Workload importer | WorkloadProfile | src/ai_tco_dss/ingestion/ | none; produces the existing load_workload file format |
+| Database repository | CatalogRepository | src/ai_tco_dss/catalog/ | none; inject repo into services |
+| Catalog entry form | BenchmarkRecord, CatalogRepository | src/ai_tco_dss/api/ | api/app.py; add validated write endpoints; React form in frontend/ |
+| Views 3–5 | size, project_tco, evaluate_scenario | src/ai_tco_dss/api/ | api/app.py only if extra transport needed; charts in frontend/ |
+| Agentic chatbot | size, project_tco, recommend, evaluate_scenario | src/ai_tco_dss/agent/ | none; tool wrappers keep arithmetic in Python |

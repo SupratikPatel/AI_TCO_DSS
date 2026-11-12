@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qwen3.8-Flash-Next-GSQ-RCO-Q2_0 — GSM8K 93.9% — oMLX Benchmark</title>
+  <meta name="description" content="93.9% on GSM8K (1238/1319) — Qwen3.8-Flash-Next-GSQ-RCO-Q2_0 (unknown) on M5 Max (40c) 64GB" />
+  <meta property="og:title" content="Qwen3.8-Flash-Next-GSQ-RCO-Q2_0 — GSM8K 93.9% — oMLX Benchmark" />
+  <meta property="og:description" content="93.9% on GSM8K (1238/1319) — Qwen3.8-Flash-Next-GSQ-RCO-Q2_0 (unknown) on M5 Max (40c) 64GB" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://omlx.ai/images/omlx_dashboard_light.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-D67LN9CZ28"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-D67LN9CZ28');
+  </script>
+  <link rel="icon" href="/images/icon-rounded-dark.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off-white: #f7f6f3;
+      --gray-100: #f0eeea;
+      --gray-200: #e2dfd8;
+      --gray-400: #9e9b94;
+      --gray-600: #5a5750;
+      --gray-800: #2a2825;
+      --black: #141312;
+      --accent: #1a1a1a;
+      --green: #1d7a4a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--gray-600);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a.active { color: var(--black); font-weight: 500; }
+
+    /* Desktop-only hover submenu under Community Benchmarks. The hover-only
+       ::after strip bridges the gap between the trigger and the panel so the
+       menu survives the pointer travelling down; it stays display:none when
+       closed so it never intercepts clicks on page content. */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a::after {
+      content: ' \25BE';
+      font-size: 9px;
+      color: var(--gray-400);
+    }
+    .nav-dropdown::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      height: 14px;
+      display: none;
+    }
+    .nav-submenu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 150px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 6px;
+      list-style: none;
+      box-shadow: 0 8px 24px rgba(20, 19, 18, 0.1);
+      z-index: 200;
+    }
+    .nav-links .nav-submenu a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .nav-submenu a:hover { background: #f7f6f3; }
+    .nav-dropdown:hover .nav-submenu,
+    .nav-dropdown:focus-within .nav-submenu,
+    .nav-dropdown:hover::before,
+    .nav-dropdown:focus-within::before { display: block; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: var(--black);
+    }
+
+    .nav-star {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600) !important;
+      transition: all 0.15s;
+    }
+    .nav-star:hover { border-color: var(--black); color: var(--black) !important; }
+    .nav-star svg { flex-shrink: 0; }
+
+    .nav-links a.nav-cta {
+      background: var(--black);
+      color: var(--white);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: opacity 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.8; }
+
+    .page-content {
+      padding-top: 60px;
+    }
+
+    footer {
+      border-top: 1px solid var(--gray-200);
+      /* Pages whose content is wider than the default set --page-width so the
+         footer rule lines up with their content edge instead of stopping short.
+         Horizontal padding matches the page containers, so equal max-widths
+         put the edges in the same place. */
+      max-width: var(--page-width, 900px);
+      margin: 0 auto;
+      padding: 40px 40px 32px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--gray-400);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--gray-400);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--black); }
+
+    /* Shared hover tooltip. Host element must not clip its own overflow —
+       put .tip on the wrapper and any overflow:hidden on an inner child. */
+    .tip {
+      position: relative;
+      cursor: default;
+    }
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 4px;
+      padding: 4px 8px;
+      background: var(--gray-800);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      line-height: 1.4;
+      white-space: nowrap;
+      border-radius: 4px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.1s;
+      z-index: 10;
+    }
+    .tip:hover::after { opacity: 1; }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0; right: 0;
+        flex-direction: column;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--gray-200);
+        padding: 16px 20px;
+        gap: 16px;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li[style*="margin-right"] { margin-right: 0 !important; }
+      /* No hover on touch: inside the hamburger menu the submenu is simply
+         laid out inline, indented under Community Benchmarks. */
+      .nav-dropdown::before { display: none !important; }
+      .nav-dropdown > a::after { content: none; }
+      .nav-submenu {
+        display: block;
+        position: static;
+        transform: none;
+        min-width: 0;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 14px 0 0;
+        text-align: center;
+      }
+      .nav-links .nav-submenu a { padding: 0; border-radius: 0; }
+      .nav-submenu a:hover { background: none; }
+      .nav-submenu li + li { margin-top: 14px; }
+      footer { padding: 32px 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="/images/icon-rounded-dark.svg" alt="oMLX" width="34" height="34" style="vertical-align:middle; margin-right:8px; display:inline-block;" />oMLX
+    </a>
+    <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/#get-started">Get Started</a></li>
+      <li class="nav-dropdown">
+        <a href="/benchmarks/performance" class="active">Community Benchmarks</a>
+        <ul class="nav-submenu">
+          <li><a href="/benchmarks/performance">Performance</a></li>
+          <li><a href="/benchmarks/intelligence">Intelligence</a></li>
+        </ul>
+      </li>
+      <li style="margin-right:-16px"><a href="https://github.com/jundot/omlx" target="_blank" rel="noopener" class="nav-star" id="star-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 1.5l1.85 3.75 4.15.6-3 2.93.71 4.12L8 10.87l-3.71 1.95.71-4.12-3-2.93 4.15-.6L8 1.5z"/></svg>Star</a></li>
+      <li><a href="https://github.com/jundot/omlx/releases" target="_blank" rel="noopener" class="nav-cta">Download</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-content">
+    
+  <style>
+    .detail-header {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 40px 24px;
+    }
+    .detail-back {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #9e9b94;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 24px;
+      transition: color 0.15s;
+    }
+    .detail-back:hover { color: #141312; }
+    .detail-header h1 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: clamp(24px, 4vw, 36px);
+      letter-spacing: -0.03em;
+      color: #141312;
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+    .detail-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #9e9b94;
+      margin-bottom: 12px;
+    }
+    .detail-grid {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 40px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .detail-card {
+      border: 1px solid #e2dfd8;
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .detail-card.full { grid-column: 1 / -1; }
+    .detail-card-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9e9b94;
+      margin-bottom: 20px;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0eeea;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-label {
+      font-size: 13px;
+      color: #5a5750;
+    }
+    .detail-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: #141312;
+    }
+    .perf-highlight {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 8px;
+    }
+    .perf-stat { flex: 1; }
+    .perf-number {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+      color: #141312;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .perf-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9e9b94;
+    }
+    .flag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .flag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 5px 12px;
+      border-radius: 4px;
+      background: #eaf5ee;
+      color: #1d7a4a;
+    }
+    .flag-detail {
+      color: #5a9d78;
+      font-size: 10px;
+    }
+    .raw-json {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #5a5750;
+      background: #f7f6f3;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 12px;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .detail-card details summary {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9e9b94;
+      cursor: pointer;
+      margin-top: 12px;
+      list-style: none;
+    }
+    .detail-card details summary::-webkit-details-marker { display: none; }
+    .detail-card details summary::before { content: '\25B8 '; }
+    .detail-card details[open] summary::before { content: '\25BE '; }
+    .share-box {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f7f6f3;
+      border: 1px solid #e2dfd8;
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .share-box input {
+      flex: 1;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #5a5750;
+      background: none;
+      border: none;
+      outline: none;
+    }
+    .share-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 6px 12px;
+      border: 1px solid #e2dfd8;
+      border-radius: 4px;
+      background: #fff;
+      color: #5a5750;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .share-copy:hover { border-color: #9e9b94; color: #141312; }
+    .cat-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 0;
+    }
+    .cat-name {
+      flex: 0 0 240px;
+      font-size: 12px;
+      color: #5a5750;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .cat-bar-wrap {
+      flex: 1;
+      height: 8px;
+      background: #f0eeea;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .cat-bar {
+      height: 100%;
+      background: #1d7a4a;
+      border-radius: 4px;
+    }
+    .cat-count {
+      flex: 0 0 64px;
+      text-align: right;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9e9b94;
+    }
+    .cat-score {
+      flex: 0 0 52px;
+      text-align: right;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #141312;
+    }
+    .qr-button {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 8px 16px;
+      border: 1px solid #e2dfd8;
+      border-radius: 6px;
+      background: #fff;
+      color: #5a5750;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .qr-button:hover:not(:disabled) { border-color: #141312; color: #141312; }
+    .qr-button:disabled { opacity: 0.5; cursor: default; }
+    .qr-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .qr-filters {
+      display: inline-flex;
+      gap: 4px;
+      background: #f0eeea;
+      border-radius: 6px;
+      padding: 3px;
+    }
+    .qr-filters button {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 5px 12px;
+      border: none;
+      border-radius: 4px;
+      background: none;
+      color: #5a5750;
+      cursor: pointer;
+    }
+    .qr-filters button.qr-active {
+      background: #fff;
+      color: #141312;
+      font-weight: 500;
+      box-shadow: 0 1px 2px rgba(20, 19, 18, 0.08);
+    }
+    .qr-download {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9e9b94;
+      text-decoration: none;
+    }
+    .qr-download:hover { color: #141312; }
+    .qr-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      table-layout: fixed;
+    }
+    .qr-table thead th {
+      text-align: left;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9e9b94;
+      padding: 0 8px 10px;
+      border-bottom: 1px solid #e2dfd8;
+      white-space: nowrap;
+    }
+    .qr-table tbody td {
+      padding: 9px 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #2a2825;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .qr-table tbody tr.qr-row { border-bottom: 1px solid #f0eeea; cursor: pointer; }
+    .qr-table tbody tr.qr-row:hover { background: #f7f6f3; }
+    .qr-ok { color: #1d7a4a; font-weight: 500; }
+    .qr-bad { color: #c14a3d; font-weight: 500; }
+    .qr-expand td {
+      white-space: normal;
+      padding: 0 8px 12px;
+    }
+    .qr-expand pre {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #5a5750;
+      background: #f7f6f3;
+      border-radius: 8px;
+      padding: 12px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 320px;
+      overflow-y: auto;
+      margin: 0;
+    }
+    .qr-pager {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: #9e9b94;
+    }
+    .qr-pager button {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 5px 12px;
+      border: 1px solid #e2dfd8;
+      border-radius: 6px;
+      background: #fff;
+      color: #5a5750;
+      cursor: pointer;
+    }
+    .qr-pager button:disabled { opacity: 0.4; cursor: default; }
+    .qr-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: #9e9b94;
+      margin-top: 10px;
+    }
+    @media (max-width: 640px) {
+      .detail-header { padding: 32px 20px 24px; }
+      .detail-grid { padding: 0 20px 32px; grid-template-columns: 1fr; }
+      .detail-card.full { grid-column: auto; }
+      .perf-highlight { flex-direction: column; gap: 16px; }
+      .cat-name { flex-basis: 130px; }
+    }
+  </style>
+
+  <div class="detail-header">
+    <a href="/benchmarks/intelligence" class="detail-back">&larr; Back to intelligence benchmarks</a>
+    <h1>Qwen3.8-Flash-Next-GSQ-RCO-Q2_0</h1>
+    <div class="detail-meta">GSM8K &middot; M5 Max (40c) &middot; 64 GB &middot; unknown &middot; <span class="tip" data-tip="2026-10-22 17:58:49 (GMT)">2026-10-22</span></div>
+    <div class="share-box">
+      <input type="text" value="https://omlx.ai/benchmarks/intelligence/ybmeme01" readonly id="share-input" />
+      <button class="share-copy" onclick="navigator.clipboard.writeText(document.getElementById('share-input').value).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)})">Copy</button>
+    </div>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card full">
+      <div class="detail-card-title">Score</div>
+      <div class="perf-highlight">
+        <div class="perf-stat">
+          <div class="perf-number">93.9%</div>
+          <div class="perf-label">GSM8K accuracy</div>
+        </div>
+        <div class="perf-stat">
+          <div class="perf-number">1,238/1,319</div>
+          <div class="perf-label">correct</div>
+        </div>
+        <div class="perf-stat">
+          <div class="perf-number">Full</div>
+          <div class="perf-label">dataset</div>
+        </div>
+        
+        <div class="perf-stat">
+          <div class="perf-number">12.1m</div>
+          <div class="perf-label">run time</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-card-title">Hardware</div>
+      <div class="detail-row">
+        <span class="detail-label">Chip</span>
+        <span class="detail-value">M5 Max (40c)</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Memory</span>
+        <span class="detail-value">64 GB</span>
+      </div>
+      
+      <div class="detail-row">
+        <span class="detail-label">GPU Cores</span>
+        <span class="detail-value">40</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">oMLX</span>
+        <span class="detail-value">v0.7.2</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">macOS</span>
+        <span class="detail-value">macOS 27.0.1</span>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-card-title">Evaluation</div>
+      
+      <div class="detail-row">
+        <span class="detail-label">Repository</span>
+        <span class="detail-value">ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Q2_0</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Benchmark</span>
+        <span class="detail-value">GSM8K</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Sample</span>
+        <span class="detail-value">1,319 (full)</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Sampling</span>
+        <span class="detail-value">Deterministic</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Thinking</span>
+        <span class="detail-value">No</span>
+      </div>
+      
+      
+      <div class="detail-row">
+        <span class="detail-label">Batch size</span>
+        <span class="detail-value">4</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Question sampling</span>
+        <span class="detail-value">seed 42 &middot; stratified</span>
+      </div>
+    </div>
+
+    
+
+    
+
+    
+    <div class="detail-card full">
+      <div class="detail-card-title">Model Settings</div>
+      <details><summary>Show all 35 settings</summary><div class="detail-row"><span class="detail-label">temperature</span><span class="detail-value">1</span></div><div class="detail-row"><span class="detail-label">top_p</span><span class="detail-value">0.95</span></div><div class="detail-row"><span class="detail-label">top_k</span><span class="detail-value">20</span></div><div class="detail-row"><span class="detail-label">force_sampling</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">thinking_budget_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">reasoning_parser</span><span class="detail-value">qwen_3_5</span></div><div class="detail-row"><span class="detail-label">guided_grammar_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">turboquant_kv_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">turboquant_kv_scheme</span><span class="detail-value">turboquant</span></div><div class="detail-row"><span class="detail-label">turboquant_kv_bits</span><span class="detail-value">4</span></div><div class="detail-row"><span class="detail-label">turboquant_skip_last</span><span class="detail-value">true</span></div><div class="detail-row"><span class="detail-label">qwen35_oq_a8_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">qwen35_oq_a8_min_tokens</span><span class="detail-value">128</span></div><div class="detail-row"><span class="detail-label">moe_expert_offload_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">moe_expert_offload_resident_fraction</span><span class="detail-value">0.25</span></div><div class="detail-row"><span class="detail-label">specprefill_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">dflash_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">mtp_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">vlm_mtp_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_sequence_length</span><span class="detail-value">2048</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_tail_padding_min_tokens</span><span class="detail-value">0</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_shared_fraction</span><span class="detail-value">1</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_fused_down</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_max_layers</span><span class="detail-value">64</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_dual_ane</span><span class="detail-value">true</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_gdn</span><span class="detail-value">true</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_gdn_fraction</span><span class="detail-value">0.5</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_gdn_max_layers</span><span class="detail-value">48</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_enabled</span><span class="detail-value">false</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_fraction</span><span class="detail-value">0.135</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_down_fraction</span><span class="detail-value">0</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_gdn_fraction</span><span class="detail-value">0</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_threads</span><span class="detail-value">8</span></div><div class="detail-row"><span class="detail-label">qwen35_ane_prefill_cpu_shared_resource</span><span class="detail-value">true</span></div></details>
+      <details><summary>Raw JSON</summary><pre class="raw-json">{
+  &quot;temperature&quot;: 1,
+  &quot;top_p&quot;: 0.95,
+  &quot;top_k&quot;: 20,
+  &quot;force_sampling&quot;: false,
+  &quot;thinking_budget_enabled&quot;: false,
+  &quot;reasoning_parser&quot;: &quot;qwen_3_5&quot;,
+  &quot;guided_grammar_enabled&quot;: false,
+  &quot;turboquant_kv_enabled&quot;: false,
+  &quot;turboquant_kv_scheme&quot;: &quot;turboquant&quot;,
+  &quot;turboquant_kv_bits&quot;: 4,
+  &quot;turboquant_skip_last&quot;: true,
+  &quot;qwen35_oq_a8_enabled&quot;: false,
+  &quot;qwen35_oq_a8_min_tokens&quot;: 128,
+  &quot;moe_expert_offload_enabled&quot;: false,
+  &quot;moe_expert_offload_resident_fraction&quot;: 0.25,
+  &quot;specprefill_enabled&quot;: false,
+  &quot;dflash_enabled&quot;: false,
+  &quot;mtp_enabled&quot;: false,
+  &quot;vlm_mtp_enabled&quot;: false,
+  &quot;qwen35_ane_prefill_enabled&quot;: false,
+  &quot;qwen35_ane_prefill_sequence_length&quot;: 2048,
+  &quot;qwen35_ane_prefill_tail_padding_min_tokens&quot;: 0,
+  &quot;qwen35_ane_prefill_shared_fraction&quot;: 1,
+  &quot;qwen35_ane_prefill_fused_down&quot;: false,
+  &quot;qwen35_ane_prefill_max_layers&quot;: 64,
+  &quot;qwen35_ane_prefill_dual_ane&quot;: true,
+  &quot;qwen35_ane_prefill_gdn&quot;: true,
+  &quot;qwen35_ane_prefill_gdn_fraction&quot;: 0.5,
+  &quot;qwen35_ane_prefill_gdn_max_layers&quot;: 48,
+  &quot;qwen35_ane_prefill_cpu_enabled&quot;: false,
+  &quot;qwen35_ane_prefill_cpu_fraction&quot;: 0.135,
+  &quot;qwen35_ane_prefill_cpu_down_fraction&quot;: 0,
+  &quot;qwen35_ane_prefill_cpu_gdn_fraction&quot;: 0,
+  &quot;qwen35_ane_prefill_cpu_threads&quot;: 8,
+  &quot;qwen35_ane_prefill_cpu_shared_resource&quot;: true
+}</pre></details>
+    </div>
+
+    
+    <div class="detail-card full">
+      <div class="detail-card-title">Question Results</div>
+      <div class="qr-controls" id="qr-controls" style="display:none">
+        <div class="qr-filters">
+          <button type="button" data-qr-filter="all" class="qr-active">All</button>
+          <button type="button" data-qr-filter="correct">Correct</button>
+          <button type="button" data-qr-filter="incorrect">Incorrect</button>
+        </div>
+        <a class="qr-download" href="/api/benchmarks/intelligence/ybmeme01/raw?download=1">Download raw (.json.gz)</a>
+      </div>
+      <button type="button" class="qr-button" id="qr-load">Load question results (250 KB gzip)</button>
+      <div id="qr-body"></div>
+      
+      <div class="qr-note">Question text is not uploaded. Datasets ship with oMLX and sampling is seeded, so each question id maps to the same question locally.</div>
+    </div>
+    <script>
+    (function(){
+      var DATA = null, page = 0, filter = 'all', PAGE = 50;
+      var loadBtn = document.getElementById('qr-load');
+      var bodyEl = document.getElementById('qr-body');
+      var controls = document.getElementById('qr-controls');
+      loadBtn.addEventListener('click', function(){
+        loadBtn.disabled = true;
+        loadBtn.textContent = 'Loading...';
+        fetch('/api/benchmarks/intelligence/ybmeme01/raw')
+          .then(function(res){ if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+          .then(function(json){
+            DATA = Array.isArray(json) ? json : [];
+            loadBtn.style.display = 'none';
+            controls.style.display = '';
+            render();
+          })
+          .catch(function(){
+            loadBtn.disabled = false;
+            loadBtn.textContent = 'Load failed — tap to retry';
+          });
+      });
+      controls.querySelectorAll('[data-qr-filter]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          filter = btn.getAttribute('data-qr-filter');
+          page = 0;
+          controls.querySelectorAll('[data-qr-filter]').forEach(function(b){ b.classList.toggle('qr-active', b === btn); });
+          render();
+        });
+      });
+      function rows(){
+        if (filter === 'correct') return DATA.filter(function(q){ return q && q.correct; });
+        if (filter === 'incorrect') return DATA.filter(function(q){ return q && !q.correct; });
+        return DATA;
+      }
+      // All untrusted values land via textContent — never innerHTML.
+      function cell(tr, text, cls){
+        var td = document.createElement('td');
+        td.textContent = text == null ? '' : String(text);
+        if (cls) td.className = cls;
+        tr.appendChild(td);
+        return td;
+      }
+      function render(){
+        var list = rows();
+        var pages = Math.max(1, Math.ceil(list.length / PAGE));
+        if (page >= pages) page = pages - 1;
+        var slice = list.slice(page * PAGE, (page + 1) * PAGE);
+        bodyEl.textContent = '';
+        var table = document.createElement('table');
+        table.className = 'qr-table';
+        var colWidths = ['34px','','','','','40px','60px'];
+        var thead = document.createElement('thead');
+        var hr = document.createElement('tr');
+        ['#','ID','Category','Expected','Predicted','OK','Time'].forEach(function(h, i){
+          var th = document.createElement('th');
+          th.textContent = h;
+          if (colWidths[i]) th.style.width = colWidths[i];
+          hr.appendChild(th);
+        });
+        thead.appendChild(hr);
+        table.appendChild(thead);
+        var tbody = document.createElement('tbody');
+        slice.forEach(function(q, i){
+          if (!q) return;
+          var tr = document.createElement('tr');
+          tr.className = 'qr-row';
+          cell(tr, page * PAGE + i + 1);
+          cell(tr, q.id);
+          cell(tr, q.category || '');
+          cell(tr, q.expected);
+          cell(tr, q.predicted);
+          cell(tr, q.correct ? '\u2713' : '\u2717', q.correct ? 'qr-ok' : 'qr-bad');
+          cell(tr, typeof q.time_s === 'number' ? q.time_s.toFixed(1) + 's' : '');
+          tbody.appendChild(tr);
+          var detail = null;
+          tr.addEventListener('click', function(){
+            if (detail) { detail.remove(); detail = null; return; }
+            detail = document.createElement('tr');
+            detail.className = 'qr-expand';
+            var td = document.createElement('td');
+            td.colSpan = 7;
+            var pre = document.createElement('pre');
+            pre.textContent = q.raw_response
+              ? q.raw_response
+              : '(no response text stored)';
+            td.appendChild(pre);
+            detail.appendChild(td);
+            tr.after(detail);
+          });
+        });
+        table.appendChild(tbody);
+        bodyEl.appendChild(table);
+        var pager = document.createElement('div');
+        pager.className = 'qr-pager';
+        var prev = document.createElement('button');
+        prev.textContent = '\u2190';
+        prev.disabled = page === 0;
+        prev.addEventListener('click', function(){ page--; render(); });
+        var info = document.createElement('span');
+        info.textContent = list.length.toLocaleString() + ' questions \u00b7 page ' + (page + 1) + ' of ' + pages;
+        var next = document.createElement('button');
+        next.textContent = '\u2192';
+        next.disabled = page >= pages - 1;
+        next.addEventListener('click', function(){ page++; render(); });
+        pager.appendChild(prev);
+        pager.appendChild(info);
+        pager.appendChild(next);
+        bodyEl.appendChild(pager);
+      }
+    })();
+    </script>
+  </div>
+  
+  </div>
+
+  <footer>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; oMLX &middot; Apache 2.0</span>
+      <ul class="footer-links">
+        <li><a href="https://github.com/jundot/omlx">GitHub</a></li>
+        <li><a href="https://github.com/jundot/omlx/releases">Releases</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+    });
+    (function(){
+      var CACHE_KEY = 'omlx_stars';
+      var CACHE_TTL = 30 * 60 * 1000;
+      function updateBtn(count) {
+        var btn = document.getElementById('star-btn');
+        if (btn && count != null) btn.innerHTML = btn.querySelector('svg').outerHTML + 'Star <span style="margin-left:4px;padding:1px 6px;background:var(--gray-100);border-radius:4px;font-size:11px;">' + Number(count).toLocaleString() + '</span>';
+      }
+      try {
+        var cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+        if (cached && Date.now() - cached.ts < CACHE_TTL) { updateBtn(cached.count); return; }
+      } catch(e) {}
+      fetch('https://api.github.com/repos/jundot/omlx')
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          if (d.stargazers_count != null) {
+            try { localStorage.setItem(CACHE_KEY, JSON.stringify({ count: d.stargazers_count, ts: Date.now() })); } catch(e) {}
+            updateBtn(d.stargazers_count);
+          }
+        }).catch(function(){});
+    })();
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a59722c6ac5aa60b',t:'MTc5NDUwMzI3Ng=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a59722c6ac5aa60b',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

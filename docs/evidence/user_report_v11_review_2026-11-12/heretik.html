@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Running Qwen3.8-Flash-Next at Full 262K Context on a 128GB MacBook</title>
+
+  <link rel="icon" type="image/png" href="">
+  <link rel="stylesheet" type="text/css" href="/assets/css/screen.css?v=9d56b0c248">
+
+  <meta name="description" content="Benchmarks for Qwen&#x27;s new hybrid-attention MoE at its native 262K context on a 128GB M5 Max: the architecture that makes it fit, the day-0 recipe, and a depth sweep from 0 to 262K tokens.">
+    <link rel="canonical" href="https://heretik.io/qwen38-flash-next-262k-macbook/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="Heretik">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Running Qwen3.8-Flash-Next at Full 262K Context on a 128GB MacBook">
+    <meta property="og:description" content="Benchmarks for Qwen&#x27;s new hybrid-attention MoE at its native 262K context on a 128GB M5 Max: the architecture that makes it fit, the day-0 recipe, and a depth sweep from 0 to 262K tokens.">
+    <meta property="og:url" content="https://heretik.io/qwen38-flash-next-262k-macbook/">
+    <meta property="og:image" content="https://heretik.io/content/images/size/w1200/2026/08/hero-qwen38-2.webp">
+    <meta property="article:published_time" content="2026-08-28T02:12:28.000Z">
+    <meta property="article:modified_time" content="2026-10-04T13:50:54.000Z">
+    <meta property="article:tag" content="Fringe Tech">
+    <meta property="article:tag" content="LLMs">
+    <meta property="article:tag" content="Self-Hosting">
+    <meta property="article:tag" content="Apple Silicon">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/ghost">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Running Qwen3.8-Flash-Next at Full 262K Context on a 128GB MacBook">
+    <meta name="twitter:description" content="Benchmarks for Qwen&#x27;s new hybrid-attention MoE at its native 262K context on a 128GB M5 Max: the architecture that makes it fit, the day-0 recipe, and a depth sweep from 0 to 262K tokens.">
+    <meta name="twitter:url" content="https://heretik.io/qwen38-flash-next-262k-macbook/">
+    <meta name="twitter:image" content="https://heretik.io/content/images/size/w1200/2026/08/hero-qwen38-2.webp">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Heretik">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Fringe Tech, LLMs, Self-Hosting, Apple Silicon">
+    <meta name="twitter:site" content="@ghost">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Heretik",
+        "url": "https://heretik.io/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://heretik.io/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Heretik",
+        "url": "https://heretik.io/author/heretik/",
+        "sameAs": []
+    },
+    "headline": "Running Qwen3.8-Flash-Next at Full 262K Context on a 128GB MacBook",
+    "url": "https://heretik.io/qwen38-flash-next-262k-macbook/",
+    "datePublished": "2026-08-28T02:12:28.000Z",
+    "dateModified": "2026-10-04T13:50:54.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://heretik.io/content/images/size/w1200/2026/08/hero-qwen38-2.webp",
+        "width": 1200,
+        "height": 675
+    },
+    "keywords": "Fringe Tech, LLMs, Self-Hosting, Apple Silicon",
+    "description": "Benchmarks for Qwen&#x27;s new hybrid-attention MoE at its native 262K context on a 128GB M5 Max: the architecture that makes it fit, the day-0 recipe, and a depth sweep from 0 to 262K tokens.",
+    "mainEntityOfPage": "https://heretik.io/qwen38-flash-next-262k-macbook/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 6.39">
+    <link rel="alternate" type="application/rss+xml" title="Heretik" href="https://heretik.io/rss/">
+    <script defer src="https://cdn.jsdelivr.net/ghost/portal@~2.68/umd/portal.min.js" data-i18n="true" data-ghost="https://heretik.io/" data-key="0e541e4db2c158b8cdd945d5ae" data-api="https://heretik.io/ghost/api/content/" data-locale="en" crossorigin="anonymous"></script><style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style><script async src="https://js.stripe.com/v3/"></script>
+    <script defer src="https://cdn.jsdelivr.net/ghost/sodo-search@~1.8/umd/sodo-search.min.js" data-key="0e541e4db2c158b8cdd945d5ae" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.8/umd/main.css" data-sodo-search="https://heretik.io/" data-locale="en" crossorigin="anonymous"></script>
+    
+    <link href="https://heretik.io/webmentions/receive/" rel="webmention">
+    <script defer src="/public/cards.min.js?v=9d56b0c248"></script>
+    <link rel="stylesheet" type="text/css" href="/public/cards.min.css?v=9d56b0c248">
+    <script defer src="/public/comment-counts.min.js?v=9d56b0c248" data-ghost-comments-counts-api="https://heretik.io/members/api/comments/counts/"></script>
+    <script defer src="/public/member-attribution.min.js?v=9d56b0c248"></script><style>:root {--ghost-accent-color: #FF1A75;}</style>
+</head>
+<body class="post-template tag-tech tag-llms tag-self-hosting tag-apple-silicon accent-tech">
+
+  <nav class="site-nav">
+    <a class="wordmark" href="https://heretik.io/">Heretik</a>
+    <div class="nav-right">
+      <span class="site-tagline">Take nothing on authority.</span>
+      <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/#/portal/signup">Subscribe</a></li>
+</ul>
+
+    </div>
+  </nav>
+
+  <article class="article-wrap">
+  <div class="listen-bar" id="listen-bar" data-member="0" hidden>
+  <button type="button" class="listen-play" id="listen-play" aria-pressed="false">
+    <span class="listen-icon" aria-hidden="true">&#9654;</span><span class="listen-label">Read this to me</span>
+  </button>
+  <button type="button" class="listen-speed" id="listen-speed" aria-label="Reading speed">1&times;</button>
+  <span class="listen-note">device voice</span>
+  <a class="listen-gate" href="#/portal/signup" data-portal="signup" hidden>Keep listening with a free account</a>
+</div>
+<script src="/assets/js/listen.js?v=9d56b0c248" defer></script>
+    <figure class="post-feature-image">
+      <img src="/content/images/size/w2000/2026/08/hero-qwen38-2.webp" alt="A laptop glowing on a small desk in a dark archive hall lined with towering shelves" />
+      
+    </figure>
+  <header class="post-header">
+    <div class="post-meta">
+      <span class="post-category">Fringe Tech</span>
+      <span class="post-date">28 Aug 2026</span>
+      <span class="post-date">7 min read</span>
+    </div>
+    <h1 class="post-title-hero">Running Qwen3.8-Flash-Next at Full 262K Context on a 128GB MacBook</h1>
+      <p class="post-subtitle">Benchmarks for Qwen&#x27;s new hybrid-attention MoE at its native 262K context on a 128GB M5 Max: the architecture that makes it fit, the day-0 recipe, and a depth sweep from 0 to 262K tokens.</p>
+  </header>
+
+  <div class="post-body">
+    <p>Qwen released Qwen3.8-Flash-Next on August 26. By that evening it was running on a 128GB M5 Max MacBook, and the next day it completed a full benchmark sweep with the entire native 262,144-token context window allocated: a 4-bit quant of a model that is 176B parameters on disk, generating at 33 tokens per second on a fresh context and 11 tokens per second with a quarter-million tokens loaded, with no offload tricks.</p><h2 id="what-qwen-shipped">What Qwen shipped</h2><p>Qwen3.8-Flash-Next is an open-weight preview of the Qwen4 architecture (<a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next?ref=heretik.io">model card</a>, <a href="https://github.com/QwenLM/Qwen3.8-Flash-Next?ref=heretik.io">README</a>). The parameter accounting, stated once because the headline numbers confuse everyone: a 125B mixture-of-experts main model plus a 51B n-gram embedding table makes the quoted 176B, and a 4B multi-token-prediction head for speculative decoding rides along. The MoE runs 512 experts with 10 routed plus 1 shared active per token, about 6B active parameters. It is multimodal, with a vision tower included. Context is 262K native, extensible to 1M with YaRN.</p><p>Qwen's README claims it trains at about 1/9 the cost of Qwen3.7-Plus while outperforming it, and the model card shows the 6B-active model beating much larger models on agentic benchmarks like CoWorkBench and JobBench. Vendor-curated numbers, but the announced pricing tells the same story: the hosted version is priced at $0.16 per million input tokens and $0.47 per million output. This model exists to be cheap to run, which is what makes it interesting to run at home.</p><h2 id="why-262k-tokens-fit-in-a-laptop">Why 262K tokens fit in a laptop</h2><p>Long context normally dies on the KV cache. A dense 70B model stores about 320 KiB of cache per token; at 262K tokens that is roughly 86 GB before you load a single weight.</p><figure class="kg-card kg-image-card kg-width-wide"><img src="https://heretik.io/content/images/2026/08/arch-fibers-1.webp" class="kg-image" alt="A dense burst of glowing blue and amber fibers converging into a bright luminous core against black" loading="lazy" width="1200" height="800" srcset="https://heretik.io/content/images/size/w600/2026/08/arch-fibers-1.webp 600w, https://heretik.io/content/images/size/w1000/2026/08/arch-fibers-1.webp 1000w, https://heretik.io/content/images/2026/08/arch-fibers-1.webp 1200w" sizes="(min-width: 1200px) 1200px"></figure><p>Flash-Next attacks this with a hybrid layer stack. Of its 48 layers, only 12 are real attention layers. The other 36 are Gated DeltaNet layers: linear-attention layers that keep one fixed-size "fast weight" state per head instead of an ever-growing token cache. Per token, a DeltaNet layer reads what its memory currently predicts for the incoming key, then writes back only the correction, with learned gates deciding how fast to forget. The state never grows, so cost per layer is the same at 4K tokens and at 262K.</p><p>That state is a lossy summary of history, which is why every fourth layer is still genuine attention with full recall. Those 12 layers use 2 KV heads at head dimension 256, so the entire growing cache costs 24 KiB per token:</p><ul><li>262,144 tokens (native): 6.4 GB</li><li>1,000,000 tokens (YaRN): ~25 GB</li></ul><p>The attention layers are themselves sparse. Qwen Sparse Attention keeps the full KV around but attends selectively: a small indexer compresses the key cache 4:1 into micro-block summaries, scores every block against the current query, and runs real softmax attention over only the top 512 blocks, about 2,048 tokens, no matter how deep the context is. Below that budget it is identical to dense attention.</p><p>With the cache solved, the limiting factor is the weights: 93.7 GB on disk at 4-bit, which fits in 128 GB of unified memory with room left for the full-context KV cache.</p><h2 id="the-51b-n-gram-table">The 51B n-gram table</h2><p>The n-gram embedding table is 51B parameters that work as lookup rows rather than compute weights. For each token, the model hashes the previous two and three tokens into 16 lookups against a table of 320 million rows, concatenates the results, and injects them into the second decoder block. Qwen's stated reasoning: embeddings scale capacity with almost no compute, and unlike MoE experts the lookup depends only on token identities, so it can be prefetched or offloaded cheaply.</p><p>At inference the access pattern is radically sparse, exactly 16 rows touched per token out of 320 million, so llama.cpp simply memory-maps the table: cold pages never load and hot n-grams live in page cache.</p><p>The table dominated the release-day discussion. The top comment on the <a href="https://news.ycombinator.com/item?id=49448210&ref=heretik.io">Hacker News thread</a> doubted a usable sub-100GB quant could exist at all. In the <a href="https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/discussions/11?ref=heretik.io">Hugging Face discussions</a> someone did the napkin math on streaming the table from SSD, concluded it meant random reads on every token and maybe 7 tokens per second, and called it impractical. About 16 hours later another developer posted a working Metal I/O implementation streaming the table from disk with no measurable decode loss, and the original skeptic ported it to CUDA.</p><h2 id="the-recipe">The recipe</h2><p>Nothing was merged anywhere when I set this up on release night. The steps, which got easier within a day:</p><p><strong>1. llama.cpp with qwen4exp support.</strong> Unsloth opened <a href="https://github.com/ggml-org/llama.cpp/pull/27742?ref=heretik.io">PR #27742</a> on release day; it merged into mainline about 24 hours later, complete with the delta-net layers, the sparse attention, the memory-mapped n-gram table, and vision. I built the PR branch; you can now just build master:</p><pre><code class="language-text">git clone https://github.com/ggml-org/llama.cpp.git
+cd llama.cpp
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j</code></pre><p><strong>2. The unsloth 4-bit GGUF</strong> (three shards, 93.7 GB), from <a href="https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF?ref=heretik.io">unsloth/Qwen3.8-Flash-Next-GGUF</a>:</p><pre><code class="language-text">hf download unsloth/Qwen3.8-Flash-Next-GGUF --include "UD-IQ4_XS/*" --local-dir ./qwen38</code></pre><p><strong>3. Raise the GPU wired-memory limit.</strong> macOS caps GPU-wired memory around 75% of RAM by default, about 96 GB on a 128GB machine. Weights plus full-context KV need ~105 GB resident:</p><pre><code class="language-text">sudo sysctl iogpu.wired_limit_mb=118784</code></pre><p>That grants the GPU 116 GB and leaves 12 GB for the OS. It resets on reboot.</p><p><strong>4. Serve at full native context.</strong> Point llama-server at the first shard; it finds the rest:</p><pre><code class="language-text">llama-server -m qwen38/UD-IQ4_XS/Qwen3.8-Flash-Next-UD-IQ4_XS-00001-of-00003.gguf \
+  -c 262144 --host 127.0.0.1 --port 8089</code></pre><p>One trap for scripted use: the current llama-cli drops into an interactive chat prompt after answering. Pass <code>-st</code> (single turn) or a background invocation will sit at that prompt forever. Mine did, overnight.</p><h2 id="the-benchmarks">The benchmarks</h2><p>llama-bench at build 213df585b (the PR branch as merged, Metal backend), pp512 and tg128 at increasing KV depths, single run per depth because the deep fills are expensive:</p><pre><code class="language-text">llama-bench -m &lt;shard1&gt; -p 512 -n 128 -d 0,4096,16384,32768,65536,131072,262144 -r 1</code></pre><figure class="kg-card kg-image-card kg-width-wide"><img src="https://heretik.io/content/images/2026/08/chart-sweep-2.webp" class="kg-image" alt="Two line charts: prefill throughput falling from 966 to 80 tokens per second as KV depth grows from 0 to 262K, and generation throughput falling from 33 to 10.9 tokens per second over the same range" loading="lazy" width="1200" height="1056" srcset="https://heretik.io/content/images/size/w600/2026/08/chart-sweep-2.webp 600w, https://heretik.io/content/images/size/w1000/2026/08/chart-sweep-2.webp 1000w, https://heretik.io/content/images/2026/08/chart-sweep-2.webp 1200w" sizes="(min-width: 1200px) 1200px"></figure>
+<!--kg-card-begin: html-->
+<table><thead><tr><th>KV depth</th><th>Prefill pp512 (t/s)</th><th>Generation tg128 (t/s)</th></tr></thead><tbody><tr><td>0</td><td>966</td><td>33.0</td></tr><tr><td>4,096</td><td>776</td><td>30.7</td></tr><tr><td>16,384</td><td>456</td><td>27.9</td></tr><tr><td>32,768</td><td>324</td><td>24.8</td></tr><tr><td>65,536</td><td>241</td><td>23.0</td></tr><tr><td>131,072</td><td>154</td><td>17.0</td></tr><tr><td>262,144</td><td>80</td><td>10.9</td></tr></tbody></table>
+<!--kg-card-end: html-->
+<p>The 262K row is the point of the exercise: the full native window allocates, fills, and generates on one machine. Memory at depth peaked at 106 GB wired out of the 116 GB allowance, about 126 GB total in use. macOS compressed roughly 10 GB of inactive memory and stayed responsive for the whole sweep. Tight, but stable.</p><p>Against the other 128GB machines in the day-0 reports (numbers from unsloth's <a href="https://huggingface.co/unsloth/Qwen3.8-Flash-Next-GGUF/discussions/3?ref=heretik.io">speed thread</a> and the HN thread; quants and harnesses differ, as labeled):</p><figure class="kg-card kg-image-card kg-width-wide"><img src="https://heretik.io/content/images/2026/08/chart-compare-2.webp" class="kg-image" alt="Bar chart of generation speed at about 4K context: M5 Max MacBook at 30.7 tokens per second on a 4-bit quant, Strix Halo with R9700 at 23.3 on 4-bit, M1 Ultra at 20.0 on 1-bit" loading="lazy" width="1200" height="492" srcset="https://heretik.io/content/images/size/w600/2026/08/chart-compare-2.webp 600w, https://heretik.io/content/images/size/w1000/2026/08/chart-compare-2.webp 1000w, https://heretik.io/content/images/2026/08/chart-compare-2.webp 1200w" sizes="(min-width: 1200px) 1200px"></figure><p>On the same 4-bit quant, the M5 Max leads the Strix Halo box on both generation (30.7 vs 23.3) and prefill (966 vs 533 at pp512). The M1 Ultra report used the 1-bit quant, so treat that bar as its owner's setup rather than the machine's ceiling. Corroborating long-context reports from the same threads: another 128GB M5 Max holding 180K context at around 100 GB resident, and a DGX Spark paging the n-gram table from NVMe at about 80 GB resident.</p><p>The real price of full context is prefill. Integrating the measured curve, filling all 262K tokens one-shot takes about 28 minutes. With prompt caching that is a once-per-corpus cost rather than per-message, but it reframes what the window is for: load a codebase or a book once, then interrogate it.</p><h2 id="caveats">Caveats</h2><ul><li>The architecture support is a day old. The merge itself shook out a graph-reuse bug and three quantizer fixes during review, MTP speculative decoding is deferred to a follow-up (meaning decode speed has real headroom), a Vulkan flash-attention incompatibility surfaced post-merge, and a vision bug slipped through. Expect churn for a couple of weeks.</li><li>Quantized KV cache has open issues with this architecture. That is what keeps the 1M YaRN mode out of reach here: fp16 KV at 1M is ~25 GB and the total lands at the very edge of 128 GB. Native 262K is comfortable today; 1M wants either the KV fix or more memory.</li><li>I benchmarked speed, not quality. The 4-bit quant answered a brief generation check sanely; I have not tested retrieval quality at depth, and nobody has rigorous numbers yet on what IQ4_XS costs against the FP8 reference on this architecture.</li><li>Nobody has reported completing a real million-token workload locally yet. The deepest day-0 reports are 180K on a Mac and a DGX Spark run at 256K with SSD offload.</li></ul><h2 id="verdict">Verdict</h2><p>64K context is where the interactive experience holds, which is why I call that the daily-driver line rather than the full window: a cold 64K fill costs about three minutes and generation runs at 23 tokens per second, comfortably faster than reading. Past 64K both rates slide, and by 262K a session opens with 28 minutes of prefill and answers arrive at 11 tokens per second, slower than most people read. The full native window is still a working tool, but for jobs that justify that entry cost, not for conversation. The larger point is architectural: a hybrid stack where only a quarter of the layers pay for recall, plus a sparse attention budget, means the KV cache for a quarter-million tokens now costs less than the operating system running it. The next unlock is concrete: when quantized KV lands for this architecture, the 1M window comes into range on the same 128GB machine.</p>
+  </div>
+
+    <div class="post-tags">
+        <a class="tag-chip" href="/tag/tech/">Fringe Tech</a>
+        <a class="tag-chip" href="/tag/llms/">LLMs</a>
+        <a class="tag-chip" href="/tag/self-hosting/">Self-Hosting</a>
+        <a class="tag-chip" href="/tag/apple-silicon/">Apple Silicon</a>
+    </div>
+</article>
+
+
+<section class="comments-section">
+  <div class="comments-header">
+    <h2 class="comments-title">Comments</h2>
+  </div>
+  <p class="comments-notice">// Comments are reviewed before appearing. No spam. No noise.</p>
+  
+        <script defer src="https://cdn.jsdelivr.net/ghost/comments-ui@~1.4/umd/comments-ui.min.js" data-locale="en" data-ghost-comments="https://heretik.io/" data-api="https://heretik.io/ghost/api/content/" data-admin="https://heretik.io/ghost/" data-key="0e541e4db2c158b8cdd945d5ae" data-title="" data-count="true" data-post-id="6a90edc7ad3a0e00015c60b7" data-color-scheme="auto" data-avatar-saturation="60" data-accent-color="#FF1A75" data-comments-enabled="all" data-publication="Heretik" crossorigin="anonymous"></script>
+    
+</section>
+
+
+  <!--narration:start--><script type="application/json" id="heretik-narration">{"v": 1, "voice": "kokoro am_onyx 0.9", "duration": 676.8, "items": [{"k": "runningqwen38flashnextatfull262kcontextona128gbm", "s": 0.0, "e": 7.83}, {"k": "benchmarksforqwensnewhybridattentionmoeatitsnati", "s": 8.62, "e": 25.35}, {"k": "qwenreleasedqwen38flashnextonaugust26bythateveni", "s": 26.15, "e": 61.12}, {"k": "whatqwenshipped", "s": 61.58, "e": 63.35}, {"k": "qwen38flashnextisanopenweightpreviewoftheqwen4ar", "s": 64.05, "e": 104.3}, {"k": "qwensreadmeclaimsittrainsatabout19thecostofqwen3", "s": 104.75, "e": 135.4}, {"k": "why262ktokensfitinalaptop", "s": 135.85, "e": 140.35}, {"k": "longcontextnormallydiesonthekvcacheadense70bmode", "s": 141.05, "e": 156.05}, {"k": "flashnextattacksthiswithahybridlayerstackofits48", "s": 156.5, "e": 188.9}, {"k": "thatstateisalossysummaryofhistorywhichiswhyevery", "s": 189.35, "e": 205.62}, {"k": "262144tokensnative64gb", "s": 206.07, "e": 212.52}, {"k": "1000000tokensyarn25gb", "s": 212.82, "e": 217.5}, {"k": "theattentionlayersarethemselvessparseqwensparsea", "s": 217.8, "e": 242.77}, {"k": "withthecachesolvedthelimitingfactoristheweights9", "s": 243.22, "e": 256.47}, {"k": "the51bngramtable", "s": 256.92, "e": 260.1}, {"k": "thengramembeddingtableis51bparametersthatworkasl", "s": 260.8, "e": 292.4}, {"k": "atinferencetheaccesspatternisradicallysparseexac", "s": 292.85, "e": 307.65}, {"k": "thetabledominatedthereleasedaydiscussionthetopco", "s": 308.1, "e": 341.77}, {"k": "therecipe", "s": 342.22, "e": 343.5}, {"k": "nothingwasmergedanywherewhenisetthisuponreleasen", "s": 344.2, "e": 351.2}, {"k": "1llamacppwithqwen4expsupportunslothopenedpr27742", "s": 351.65, "e": 371.7}, {"k": "2theunsloth4bitggufthreeshards937gbfromunslothqw", "s": 372.15, "e": 381.77}, {"k": "3raisethegpuwiredmemorylimitmacoscapsgpuwiredmem", "s": 382.22, "e": 399.62}, {"k": "thatgrantsthegpu116gbandleaves12gbfortheositrese", "s": 400.07, "e": 408.0}, {"k": "4serveatfullnativecontextpointllamaserveratthefi", "s": 408.45, "e": 414.77}, {"k": "onetrapforscriptedusethecurrentllamaclidropsinto", "s": 415.22, "e": 428.27}, {"k": "thebenchmarks", "s": 428.72, "e": 430.1}, {"k": "llamabenchatbuild213df585btheprbranchasmergedmet", "s": 430.8, "e": 447.1}, {"k": "", "s": 447.55, "e": 450.45}, {"k": "the262krowisthepointoftheexercisethefullnativewi", "s": 450.9, "e": 473.35}, {"k": "againsttheother128gbmachinesintheday0reportsnumb", "s": 473.8, "e": 484.95}, {"k": "onthesame4bitquantthem5maxleadsthestrixhaloboxon", "s": 485.4, "e": 523.72}, {"k": "therealpriceoffullcontextisprefillintegratingthe", "s": 524.17, "e": 542.72}, {"k": "caveats", "s": 543.17, "e": 544.2}, {"k": "thearchitecturesupportisadayoldthemergeitselfsho", "s": 544.9, "e": 565.55}, {"k": "quantizedkvcachehasopenissueswiththisarchitectur", "s": 565.85, "e": 586.25}, {"k": "ibenchmarkedspeednotqualitythe4bitquantanswereda", "s": 586.55, "e": 602.6}, {"k": "nobodyhasreportedcompletingarealmilliontokenwork", "s": 602.9, "e": 616.95}, {"k": "verdict", "s": 617.25, "e": 618.32}, {"k": "64kcontextiswheretheinteractiveexperienceholdswh", "s": 619.02, "e": 676.32}], "audio": "https://heretik.io/content/media/2026/10/qwen38-flash-next-262k-macbook-narration.m4a"}</script><!--narration:end-->
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"9521f9251b5642d7a344895f3ae92821","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>

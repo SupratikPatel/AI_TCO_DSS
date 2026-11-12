@@ -1,0 +1,68 @@
+{
+  "purpose": "U-06 public API performance evidence search; unsuccessful responses retained, no inference calls.",
+  "files": [
+    {
+      "path": "sonnet.html",
+      "url": "https://www.llmverifications.com/models/claude-sonnet-5-5",
+      "resolved_url": "https://www.llmverifications.com/models/claude-sonnet-5-5",
+      "retrieved_at": "2026-11-12T11:24:46.112520+00:00",
+      "status": 404,
+      "bytes": 107,
+      "sha256": "f047504d27115a65dfc6e7996adfeb34a5019c688b461d14836b3a625ca06ff5"
+    },
+    {
+      "path": "gemini.html",
+      "url": "https://www.llmverifications.com/models/gemini-3-1-pro-preview",
+      "resolved_url": "https://www.llmverifications.com/models/gemini-3-1-pro-preview",
+      "retrieved_at": "2026-11-12T11:24:46.073635+00:00",
+      "status": 404,
+      "bytes": 107,
+      "sha256": "33e7c8a7ba60aa6a1d1dddfb8619bedc0c0d1eb36003b29fa205e88b80497c7c"
+    },
+    {
+      "path": "methodology-response.html",
+      "url": "https://www.llmverifications.com/methodology",
+      "resolved_url": "https://www.llmverifications.com/methodology",
+      "retrieved_at": "2026-11-12T11:24:46.041118+00:00",
+      "status": 404,
+      "bytes": 107,
+      "sha256": "0ca9ded60a316d9c50d4fa507806fb7c0ded210d7b7cc46474d09a32c5a40a99"
+    },
+    {
+      "path": "downloads-response.html",
+      "url": "https://www.llmverifications.com/downloads",
+      "resolved_url": "https://www.llmverifications.com/downloads",
+      "retrieved_at": "2026-11-12T11:24:46.070040+00:00",
+      "status": 404,
+      "bytes": 107,
+      "sha256": "7838cd1fcf32cb772cc28066692d56dfa07d99638f4c94cdeb26ea4867f8bb06"
+    },
+    {
+      "path": "gpt-sol-response.html",
+      "url": "https://www.llmverifications.com/models/gpt-6-1-sol",
+      "resolved_url": "https://www.llmverifications.com/models/gpt-6-1-sol",
+      "retrieved_at": "2026-11-12T11:24:46.248104+00:00",
+      "status": 404,
+      "bytes": 107,
+      "sha256": "c1d850f985114e517a0927b45608e772030d47e64333b8a50e4509227e44ff36"
+    },
+    {
+      "path": "opus-response.html",
+      "url": "https://www.llmverifications.com/models/claude-opus-5-5",
+      "resolved_url": "https://www.llmverifications.com/models/claude-opus-5-5",
+      "retrieved_at": "2026-11-12T11:24:46.229370+00:00",
+      "status": 404,
+      "bytes": 107,
+      "sha256": "a9f22f1beca3f01101ea9486f0e8e5b5d025d9bd79220e556e4fc4c84a894bc5"
+    },
+    {
+      "path": "holmes-20261021.html",
+      "url": "https://holmesgpt.dev/latest/development/evaluations/history/results_20261021_072130/",
+      "resolved_url": "https://holmesgpt.dev/latest/development/evaluations/history/results_20261021_072130/",
+      "retrieved_at": "2026-11-12T11:24:46.711775+00:00",
+      "status": 200,
+      "bytes": 314789,
+      "sha256": "d3f112a8623aba213300f0cf6098d34aaf40cee43474207c20e334f8602315e9"
+    }
+  ]
+}

@@ -40,7 +40,10 @@ def test_req_43_size_tco_parity_determinism_and_26_timeline():
     response = client.post("/api/v1/tco", json=tco)
     assert response.status_code == 200
     result = response.json()
-    assert result == project_tco(TcoRequest.model_validate(tco)).model_dump(mode="json")
+    assert {k: v for k, v in result.items() if k != "accounting"} == project_tco(
+        TcoRequest.model_validate(tco)
+    ).model_dump(mode="json")
+    assert result["accounting"]["candidate_id"] == tco["candidate_id"]
     assert result == client.post("/api/v1/tco", json=tco).json()
     assert result["baselines"]["currency"] == "USD"
     assert len(result["timeline"]["points"]) == 60

@@ -1,0 +1,19 @@
+{
+  "original_report_matches": true,
+  "report_sha256": "2e82d5087bbb2b14d08c58d079a1f32da9db7368a439c9b7c7ec5115dfa46361",
+  "verified_local_links": 10,
+  "new_source_input_excerpt_member_hashes": 24,
+  "reused_source_hashes": 10,
+  "full_python": {
+    "exit_code": 0,
+    "elapsed_s": 253.47332191467285
+  },
+  "full_python_summary": "858 passed, 13 skipped, 3 xfailed",
+  "focused_fleet_purity_passes": 30,
+  "continuity_passes": 33,
+  "scoped_lint_and_format": "pass",
+  "full_source_mypy": "47 source files, pass",
+  "root_lint": "41 pre-existing findings in preserved older evidence scripts",
+  "staged_new_evidence_blobs_verified": 24,
+  "scoped_cached_diff_check": "pass; preserved evidence-source whitespace excluded"
+}

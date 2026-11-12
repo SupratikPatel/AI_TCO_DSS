@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('43.4/43.7 real size/TCO controls, display currency and validation', async ({ page }) => {
   await page.goto('/');
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
   await page.getByRole('tab', { name: /60-month TCO/ }).click();
   await expect(page.getByTestId('tco-result')).toBeVisible();
   await expect(page.locator('.kpi').first()).not.toContainText('Calculating');
@@ -29,6 +30,7 @@ test('43.7 catalog error, retry, loading and server error retain distinct states
   await expect(page).toHaveScreenshot('catalog-error.png');
   await page.unroute('**/api/v1/catalog');
   await page.getByRole('button', { name: 'Retry catalog' }).click();
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
   await page.getByRole('tab', { name: /60-month TCO/ }).click();
   await expect(page.getByTestId('tco-result')).toBeVisible();
   await expect(page.locator('.kpi').first()).not.toContainText('Calculating');
@@ -41,11 +43,13 @@ test('43.7 catalog error, retry, loading and server error retain distinct states
   await page.getByLabel('Include resale value').check();
   await page.getByRole('button', { name: 'Run cost projection' }).click();
   await expect(page.getByRole('status')).toContainText('Calculating TCO');
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
   await page.getByRole('tab', { name: /60-month TCO/ }).click();
   await expect(page.getByTestId('tco-result')).toBeVisible();
   await expect(page.locator('.kpi').first()).not.toContainText('Calculating');
   release();
   await expect(page.getByRole('alert')).toContainText('Calculation failed');
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
   await page.getByRole('tab', { name: /60-month TCO/ }).click();
   await expect(page.getByTestId('tco-result')).toBeVisible();
   await expect(page.locator('.kpi').first()).not.toContainText('Calculating');
@@ -60,6 +64,7 @@ test('43.7 initial loading keeps the reference shell and no invented results', a
   await expect(page.getByRole('status')).toContainText('Loading catalog');
   await expect(page).toHaveScreenshot('catalog-loading.png');
   release();
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
   await page.getByRole('tab', { name: /60-month TCO/ }).click();
   await expect(page.getByTestId('tco-result')).toBeVisible();
   await expect(page.locator('.kpi').first()).not.toContainText('Calculating');
@@ -67,6 +72,7 @@ test('43.7 initial loading keeps the reference shell and no invented results', a
 
 test('43.7 infeasible memory is a result, keyboard tabs and expert disclosure work', async ({ page }) => {
   await page.goto('/');
+  await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
   await page.getByRole('tab', { name: /60-month TCO/ }).click();
   await expect(page.getByTestId('tco-result')).toBeVisible();
   await expect(page.locator('.kpi').first()).not.toContainText('Calculating');
@@ -92,7 +98,8 @@ for (const width of [1280, 1440, 768, 390]) {
     test(`43.3/43.4 ${theme} reference at ${width}`, async ({ page }) => {
       await page.setViewportSize({ width, height: 1100 });
       await page.goto('/');
-      await page.getByRole('tab', { name: /60-month TCO/ }).click();
+      await page.getByRole('button', { name: 'Apply scenario', exact: true }).click();
+  await page.getByRole('tab', { name: /60-month TCO/ }).click();
   await expect(page.getByTestId('tco-result')).toBeVisible();
   await expect(page.locator('.kpi').first()).not.toContainText('Calculating');
       if (theme === 'dark') await page.getByRole('button', { name: 'Dark theme' }).click();

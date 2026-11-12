@@ -1,0 +1,816 @@
+"""Measure MLX and llama.cpp speed for each model in models.json on this Mac.
+
+Uses the runtimes' own benchmark tools so the numbers compare with what others publish:
+mlx_lm.benchmark and llama-bench, 128 generated tokens, 3 trials, mean of the trials.
+
+v2 (long context):
+  * profile "quick" = prompts 512 and 4096, written to results.jsonl (a quick run with other --prompts or
+    --ubatch is written to results_custom.jsonl instead). llama.cpp settings matched to mlx_lm.benchmark:
+      A. prefill : -p 512,4096 -n 0 -b 2048 -ub 2048  (mlx_lm.benchmark's default --prefill-step-size is 2048)
+      B. decode  : -p 0 -n 128 -d 0,512,4096          (decode at depth == prompt length, as MLX decodes right
+                   after the N-token prompt; depth 0 is kept as decode_tps_depth0)
+    v1 (2026-10-23) used llama-bench's defaults instead (-ub 512, decode after an empty prompt).
+  * profile "long"  = 512, 4k, 16k, 32k, 64k, 128k, -ub 2048 (written to results_long.jsonl).
+    llama.cpp: two llama-bench passes per context length
+      A. cold prefill   : -p N -n 0            -> prefill tok/s and TTFT estimate (N / prefill)
+      B. work at depth  : -p 2048 -n 128 -d N  -> decode tok/s *at depth N* and prefill at depth
+    for each KV cache type (-ctk/-ctv f16, q8_0), flash attention on, every -ub in --ubatch.
+    One llama-bench process per context length, so peak memory is per length and an
+    out-of-memory at 128k does not lose the shorter lengths.
+  * MLX: mlx_lm.benchmark (decode follows the N-token prompt, i.e. decode at depth N);
+    tools/mlx_depth.py for a quantized KV cache and a measured TTFT.
+  * "depth" and "decode_depth" (v2 rows) are the same number: tokens already in the KV cache when the measured
+    decode starts. "size_gb" is the weight bytes on disk / 1e9 (GGUF file(s), or the MLX *.safetensors) and
+    "size_x_decode_gbps" = size_gb * decode_tps (a weight-bandwidth proxy for dense models only).
+  * Rows with a "setting" field were measured with non-default, non-matched settings (kept for the record):
+    they never count as measured for the resume, and publish.py leaves them out of the main table.
+  * Every row records thermal state, swap before/after, wired limit, versions, sampled
+    peak RSS / wired memory and (with --powermetrics, needs sudo) GPU power.
+  * Rows are appended as soon as their pass ends. A failed run is written with an "error" field (swap growth:
+    "warning"); such rows do not count as measured, so the next run retries them. A point counts as measured
+    per (model, runtime, quant, KV type, ubatch, prompt length); --force measures it again.
+  * Models may list several variants (gguf_variants / mlx_variants) and split GGUFs (files).
+  * oMLX and DwarfStar have no CLI benchmark here: --runtime omlx|ds4 prints the steps
+    (see COMMANDS.md and tools/stream_bench.py).
+
+    uv run bench.py                                            # v1 behaviour, every tier-0 point not yet measured
+    uv run bench.py --profile long --tier 1 --only "MiniMax"   # long-context protocol; --only filters within the tier
+    uv run bench.py --profile long --tier 1 --runtime llama.cpp --dry-run
+    uv run bench.py --cleanup        # delete a variant's weight files once it is measured without error
+
+  * Weights live in $HF_BENCH_STORE (default ~/hf-bench). Existing GGUFs are reused from gguf/<owner--repo>/<path>,
+    gguf/<path> (`hf download --local-dir`) or the flat gguf/<file>; --dry-run says which file each run would use.
+    A real run only reuses a copy whose sizes match HF's, and checks the free disk space before downloading.
+  * An entry may carry "mlx_lm" (pip requirement, e.g. a pinned git commit) when the release on PyPI
+    cannot load it, and "min_llama_build" for llama.cpp; $MLX_LM overrides the mlx-lm of every model.
+"""
+import argparse, datetime, json, os, platform, re, shutil, signal, statistics, subprocess, threading, time
+import urllib.error, urllib.request
+from pathlib import Path
+
+ROOT = Path(__file__).parent
+STORE = Path(os.environ.get("HF_BENCH_STORE", Path.home() / "hf-bench"))
+HF = "https://huggingface.co"
+PROFILES = {"quick": (512, 4096), "long": (512, 4096, 16384, 32768, 65536, 131072)}
+UBATCH = {"quick": "2048", "long": "2048"}  # = mlx_lm.benchmark's default prefill step (v1 used llama-bench's 512)
+PROMPTS = PROFILES["quick"]
+GEN, TRIALS = 128, 3
+DEPTH_PROMPT = 2048                      # prompt measured on top of an N-token context in pass B
+MLX_KV_GROUP = 64
+DISK_MARGIN = 10e9                       # bytes left free after a download
+MLX_LM_DEFAULT = "mlx-lm==0.32.2"
+MLX_LM_ENV = os.environ.get("MLX_LM")   # set it to force one mlx-lm for every model
+MLX_LM = MLX_LM_ENV or MLX_LM_DEFAULT
+LLAMA_BENCH = os.environ.get("LLAMA_BENCH", "llama-bench")
+SCHEMA = 2
+DRY = False
+
+
+class Skip(Exception):
+    """This variant cannot run now (disk space, file missing on HF...); the run goes on with the next one."""
+
+
+def sh(*cmd, **kw):
+    return subprocess.run(cmd, check=True, text=True, capture_output=True, **kw).stdout
+
+
+def try_sh(*cmd):
+    try:
+        return sh(*cmd).strip()
+    except Exception as e:  # metadata only: never fail a run because of it
+        return f"n/a ({type(e).__name__})"
+
+
+def machine():
+    hw = sh("system_profiler", "SPHardwareDataType", "SPDisplaysDataType")
+    gpu = re.search(r"Chipset Model:.*?Total Number of Cores: (\d+)", hw, re.S)
+    return {
+        "chip": re.search(r"Chip: (.+)", hw).group(1).strip(),
+        "gpu_cores": int(gpu.group(1)) if gpu else None,
+        "memory_gb": int(re.search(r"Memory: (\d+) GB", hw).group(1)),
+        "macos": platform.mac_ver()[0],
+        "macos_build": try_sh("sw_vers", "-buildVersion"),
+        "model_id": try_sh("sysctl", "-n", "hw.model"),
+        "wired_limit_mb": try_sh("sysctl", "-n", "iogpu.wired_limit_mb"),
+        "low_power_mode": (re.search(r"lowpowermode\s+(\d)", try_sh("pmset", "-g")) or [None, None])[1],
+        "bench_commit": try_sh("git", "-C", str(ROOT), "describe", "--always", "--dirty"),
+    }
+
+
+# ---------- system state (thermal, swap, memory sampling, power) ----------
+
+def swap_used_mb():
+    m = re.search(r"used = ([\d.]+)M", try_sh("sysctl", "-n", "vm.swapusage"))
+    return float(m.group(1)) if m else None
+
+
+def thermal():
+    """pmset is sudo-free; it prints a warning level only when macOS throttles."""
+    t = try_sh("pmset", "-g", "therm")
+    lines = [l.strip() for l in t.splitlines() if l.strip() and not l.startswith("Note")]
+    return "; ".join(lines) or "no thermal warning recorded"
+
+
+def wired_gb():
+    vm = try_sh("vm_stat")
+    page = re.search(r"page size of (\d+) bytes", vm)
+    wired = re.search(r"Pages wired down:\s+(\d+)", vm)
+    return int(page.group(1)) * int(wired.group(1)) / 1e9 if page and wired else None
+
+
+class Sampler:
+    """Polls RSS of the benchmark process tree and system wired memory once a second.
+    With mmap'd GGUFs RSS includes file-backed pages; wired memory is what Metal pins."""
+
+    def __init__(self, proc, powermetrics=False):
+        self.proc, self.stop, self.rss, self.wired = proc, threading.Event(), 0.0, 0.0
+        self.wired0 = wired_gb() or 0.0
+        self.pm_file, self.pm = None, None
+        if powermetrics:
+            self.pm_file = Path(f"/tmp/pm-{os.getpid()}-{time.time_ns()}.plist")
+            self.pm = subprocess.Popen(["sudo", "-n", "powermetrics", "--samplers", "cpu_power,gpu_power,thermal",
+                                        "-i", "1000", "-f", "plist", "-o", str(self.pm_file)],
+                                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        self.t = threading.Thread(target=self.loop, daemon=True)
+        self.t.start()
+
+    def loop(self):
+        while not self.stop.is_set():
+            try:  # whole process group: caffeinate + the benchmark tool
+                pids = subprocess.run(["pgrep", "-g", str(os.getpgid(self.proc.pid))],
+                                      text=True, capture_output=True).stdout.split()
+                out = subprocess.run(["ps", "-o", "rss=", "-p", ",".join(pids)],
+                                     text=True, capture_output=True).stdout if pids else ""
+            except (ProcessLookupError, OSError):
+                out = ""
+            rss = sum(int(x) for x in out.split() if x.isdigit()) * 1024 / 1e9
+            self.rss = max(self.rss, rss)
+            self.wired = max(self.wired, wired_gb() or 0.0)
+            self.stop.wait(1.0)
+
+    def finish(self):
+        self.stop.set()
+        self.t.join()
+        res = {"peak_rss_gb": round(self.rss, 1), "peak_wired_gb": round(self.wired, 1),
+               "wired_before_gb": round(self.wired0, 1)}
+        if self.pm:
+            self.pm.terminate()
+            self.pm.wait()
+            res.update(parse_powermetrics(self.pm_file))
+        return res
+
+
+def remove_root_file(path):
+    """sudo powermetrics creates the file as root in the sticky /tmp, so the user usually cannot unlink it."""
+    try:
+        path.unlink(missing_ok=True)
+    except OSError:
+        subprocess.run(["sudo", "-n", "rm", "-f", str(path)], capture_output=True)
+
+
+def parse_powermetrics(path):
+    """One plist per sample, NUL-separated. Each sample is parsed on its own, so the one cut short when
+    powermetrics is stopped is the only one lost."""
+    import plistlib
+    gpu, combined, pressure, bad = [], [], set(), 0
+    try:
+        data = path.read_bytes()
+    except OSError as e:
+        return {"power_error": f"{type(e).__name__}: {e}"}
+    finally:
+        remove_root_file(path)
+    for chunk in data.split(b"\x00"):
+        if not chunk.strip():
+            continue
+        try:
+            d = plistlib.loads(chunk.strip())
+        except Exception:
+            bad += 1
+            continue
+        p = d.get("processor", {})
+        if "gpu_power" in p:
+            gpu.append(p["gpu_power"] / 1000)
+        if "combined_power" in p:
+            combined.append(p["combined_power"] / 1000)
+        if "thermal_pressure" in d:
+            pressure.add(d["thermal_pressure"])
+    f = lambda xs: (round(statistics.mean(xs), 1), round(max(xs), 1)) if xs else (None, None)
+    res = {"gpu_power_w_mean_max": f(gpu), "soc_power_w_mean_max": f(combined),
+           "thermal_pressure_seen": sorted(pressure)}
+    if bad:
+        res["power_samples_unreadable"] = bad
+    return res
+
+
+def kill_group(proc):
+    """Stop the tool's whole session (caffeinate + llama-bench or python): SIGTERM, then SIGKILL after 10 s."""
+    for sig in (signal.SIGTERM, signal.SIGKILL):
+        try:
+            os.killpg(proc.pid, sig)
+        except ProcessLookupError:
+            return
+        deadline = time.time() + 10
+        while time.time() < deadline:
+            proc.poll()  # reap caffeinate; the group is gone once the tool has exited too
+            try:
+                os.killpg(proc.pid, 0)
+            except ProcessLookupError:
+                return
+            time.sleep(0.2)
+
+
+def run(cmd, powermetrics=False, timeout=None):
+    """Run a benchmark command under caffeinate, sampling memory. Returns (stdout, state)."""
+    cmd = ["caffeinate", "-i", *map(str, cmd)]
+    print("  $ " + " ".join(cmd), flush=True)
+    if DRY:
+        return None, {}
+    state = {"thermal_before": thermal(), "swap_before_mb": swap_used_mb()}
+    t0 = time.time()
+    proc = subprocess.Popen(cmd, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, start_new_session=True)
+    s = Sampler(proc, powermetrics)
+    try:
+        out, err = proc.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        kill_group(proc)
+        out, err = proc.communicate()
+        state["error"] = f"timeout after {timeout}s"
+    except BaseException:
+        # Ctrl-C: the tool runs in its own session, so it would keep running (and holding memory) without this.
+        kill_group(proc)
+        s.finish()
+        raise
+    state.update(s.finish())
+    state.update({"wall_s": round(time.time() - t0, 1), "thermal_after": thermal(), "swap_after_mb": swap_used_mb()})
+    if proc.returncode and "error" not in state:
+        state["error"] = f"exit {proc.returncode}: " + err.strip().splitlines()[-1][:300] if err.strip() else f"exit {proc.returncode}"
+    if state.get("swap_after_mb") and state.get("swap_before_mb") is not None and state["swap_after_mb"] > state["swap_before_mb"] + 64:
+        state["warning"] = "swap grew during the run: numbers are not valid"
+    return out, state
+
+
+def json_lines(out):
+    """JSON objects printed one per line; a line cut short by a crash or an out-of-memory kill is ignored."""
+    rows = []
+    for line in (out or "").splitlines():
+        if line.startswith("{"):
+            try:
+                rows.append(json.loads(line))
+            except json.JSONDecodeError:
+                pass
+    return rows
+
+
+def cooldown(seconds):
+    if seconds and not DRY:
+        print(f"  cooldown {seconds}s ({thermal()})", flush=True)
+        time.sleep(seconds)
+
+
+# ---------- downloads ----------
+
+def size_on_disk(p):
+    return p.stat().st_size if p.is_file() else 0
+
+
+def free_bytes():
+    p = STORE
+    while not p.exists():
+        p = p.parent
+    return shutil.disk_usage(p).free
+
+
+def check_disk(need, what):
+    free = free_bytes()
+    if need + DISK_MARGIN > free:
+        raise Skip(f"{what}: {gb(need)} left to download, {gb(free)} free on disk ({gb(DISK_MARGIN)} kept spare)")
+
+
+def missing_note(spec):
+    """Dry-run text for weights that a real run would download."""
+    need, free = spec.get("size_gb"), free_bytes()
+    s = f"MISSING: a real run downloads {spec['repo']}@{spec.get('rev', '?')[:10]}" + (f", ~{need} GB" if need else "")
+    s += f"; {gb(free)} free"
+    if need and need * 1e9 + DISK_MARGIN > free:
+        s += ", NOT ENOUGH DISK: a real run skips it"
+    return s
+
+
+def download(url, dest, size):
+    """curl -C - resumes; a connection idle for 2 minutes is dropped and retried. Gives up on an HTTP 4xx
+    (wrong file name, gated repo) and after 10 attempts in a row that add no byte."""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    stalled = 0
+    while True:
+        have = dest.stat().st_size if dest.exists() else -1
+        if have >= 0 and (have == size or not size):
+            return
+        if size and have > size:
+            raise Skip(f"{dest} is {have:,} bytes, HF says {size:,}: not this file, move it away by hand")
+        if stalled >= 10:
+            raise Skip(f"{url}: 10 attempts in a row without progress")
+        r = subprocess.run(["curl", "-sSfL", "-C", "-", "--speed-limit", "20000", "--speed-time", "120",
+                            "-w", "%{http_code}", "-o", str(dest), url], text=True, capture_output=True)
+        code = r.stdout.strip()[-3:]
+        if r.returncode and code.startswith("4") and code not in ("408", "429"):
+            raise Skip(f"{url}: HTTP {code} (wrong file name, or a gated repo)")
+        stalled = 0 if (dest.stat().st_size if dest.exists() else -1) > have else stalled + 1
+        if r.returncode:
+            time.sleep(5)
+
+
+def files(repo, rev):
+    try:
+        info = json.load(urllib.request.urlopen(f"{HF}/api/models/{repo}/revision/{rev}?blobs=true"))
+    except urllib.error.HTTPError as e:
+        if 400 <= e.code < 500:
+            raise Skip(f"{repo}@{rev[:10]}: HTTP {e.code} from the HF API (gated repo, or wrong name or revision)")
+        raise
+    return [(s["rfilename"], s.get("size") or 0) for s in info["siblings"]]
+
+
+def gb(n):
+    return f"{n / 1e9:.1f} GB"
+
+
+def fetch_mlx(spec):
+    """Returns (model folder, files --cleanup may delete)."""
+    if "path" in spec:
+        out = Path(spec["path"]).expanduser()
+        if DRY:
+            print(f"  weights: {out} ({'present' if (out / 'config.json').exists() else 'MISSING: local path, nothing to download'})")
+        return out, []
+    out = STORE / "mlx" / spec["repo"].replace("/", "--")
+    if DRY:
+        print(f"  weights: {out} " + ("(present)" if (out / "config.json").exists() else f"({missing_note(spec)})"))
+        return out, []
+    wanted = [(name, size) for name, size in files(spec["repo"], spec["rev"])
+              if not name.endswith((".md", ".gitattributes")) and not name.startswith(".")]
+    check_disk(sum(max(0, size - size_on_disk(out / name)) for name, size in wanted), spec["repo"])
+    for name, size in wanted:
+        download(f"{HF}/{spec['repo']}/resolve/{spec['rev']}/{name}", out / name, size)
+    return out, [out / name for name, _ in wanted]
+
+
+def gguf_layouts(spec, names):
+    """Where a copy of the GGUF(s) may already be: <store>/gguf/<owner--repo>/<path> (v2 downloads, and where
+    new downloads go), <store>/gguf/<path> (`hf download --local-dir ~/hf-bench/gguf` keeps folders such as
+    UD-Q2_K_XL/) and the flat <store>/gguf/<file name> used by v1."""
+    base = STORE / "gguf" / spec["repo"].replace("/", "--")
+    layouts = []
+    for paths in ([base / n for n in names], [STORE / "gguf" / n for n in names],
+                  [STORE / "gguf" / Path(n).name for n in names]):
+        if paths not in layouts:
+            layouts.append(paths)
+    return layouts
+
+
+def locate_gguf(layouts, names, sizes=None):
+    """First layout holding every shard; with HF sizes, every shard must have exactly that size."""
+    for paths in layouts:
+        if all(p.is_file() and (sizes is None or p.stat().st_size == sizes[n]) for p, n in zip(paths, names)):
+            return paths
+    return None
+
+
+def weights_gb(runtime, path, owned):
+    """Weight bytes on disk / 1e9: every *.safetensors of the MLX folder, or the GGUF file(s)."""
+    paths = Path(path).glob("*.safetensors") if runtime == "mlx" else (owned or [Path(path)])
+    sizes = [p.stat().st_size for p in paths if p.is_file()]
+    return round(sum(sizes) / 1e9, 3) if sizes else None
+
+
+def fetch_gguf(spec):
+    """Single file ("file") or split GGUF ("files"). Returns (first shard, files --cleanup may delete);
+    llama.cpp loads the other shards itself. Reuses an existing copy whose sizes match HF's, resumes an
+    incomplete one."""
+    if "path" in spec:
+        out = Path(spec["path"]).expanduser()
+        if DRY:
+            print(f"  weights: {out} ({'present, ' + gb(out.stat().st_size) if out.exists() else 'MISSING: local path, nothing to download'})")
+        return out, []
+    names = spec.get("files") or [spec["file"]]
+    layouts = gguf_layouts(spec, names)
+    found = locate_gguf(layouts, names)
+    if DRY:
+        if found:
+            print(f"  weights: {found[0]}" + (f" (+{len(found) - 1} shards)" if len(found) > 1 else "")
+                  + f" (present, {gb(sum(p.stat().st_size for p in found))}; a real run checks the sizes against HF)")
+        else:
+            print(f"  weights: {layouts[0][0]} ({missing_note(spec)})")
+        return (found or layouts[0])[0], []
+    try:
+        sizes = dict(files(spec["repo"], spec["rev"]))
+    except Exception as e:
+        if found:  # offline: trust the local copy
+            print(f"  could not check sizes on HF ({type(e).__name__}); using {found[0]} as is", flush=True)
+            return found[0], found
+        raise
+    if missing := [n for n in names if n not in sizes]:
+        raise Skip(f"{spec['repo']}@{spec['rev'][:10]} has no {missing[0]}")
+    sizes = {n: sizes[n] for n in names}
+    if found := locate_gguf(layouts, names, sizes):
+        return found[0], found
+    # resume a copy where every shard exists and none is larger than on HF, else download into the v2 layout
+    targets = next((ps for ps in layouts if all(p.is_file() and p.stat().st_size <= sizes[n] for p, n in zip(ps, names))),
+                   layouts[0])
+    check_disk(sum(max(0, sizes[n] - size_on_disk(p)) for p, n in zip(targets, names)), spec["repo"])
+    for n, dest in zip(names, targets):
+        download(f"{HF}/{spec['repo']}/resolve/{spec['rev']}/{n}", dest, sizes[n])
+    return targets[0], targets
+
+
+# ---------- MLX ----------
+
+def mlx_pkg(spec):
+    """mlx-lm requirement for this model: $MLX_LM if set, else the entry's "mlx_lm", else the default."""
+    return MLX_LM_ENV or spec.get("mlx_lm") or MLX_LM_DEFAULT
+
+
+def mlx_version(pkg):
+    if DRY:
+        return "dry-run"
+    v = sh("uvx", "--from", pkg, "python", "-c", "import mlx_lm, mlx.core as mx; print(mlx_lm.__version__, mx.__version__)").split()
+    return f"mlx-lm {v[0]}, mlx {v[1]}"
+
+
+def mlx_kv(bits):
+    return f"mlx q{bits} g{MLX_KV_GROUP}"  # the kv_type tools/mlx_depth.py writes
+
+
+def summary(samples):
+    """(mean, median, stdev). The mean is what v1 (mlx_lm.benchmark's Averages line), llama-bench (avg_ts)
+    and the README report."""
+    if not samples:
+        return None, None, None
+    return (round(statistics.mean(samples), 2), round(statistics.median(samples), 2),
+            round(statistics.stdev(samples), 2) if len(samples) > 1 else None)
+
+
+def bench_mlx(path, prompts, o, spec, todo, emit):
+    pkg = mlx_pkg(spec)
+    if pkg != MLX_LM_DEFAULT:
+        print(f"  mlx-lm: {pkg}" + (" (from $MLX_LM)" if MLX_LM_ENV else f" (required by this model: {spec.get('mlx_lm_note', '')})"), flush=True)
+    version = mlx_version(pkg)
+    for p in prompts:
+        if ("f16", None, p) in todo:
+            # f16 KV: the stock tool, comparable with what others post. Decode runs after the p-token prompt.
+            out, st = run(["uvx", "--from", pkg, "mlx_lm.benchmark", "--model", path, "-p", p, "-g", GEN,
+                           "-n", o.trials, "--delay", o.delay], o.powermetrics, o.timeout)
+            if out is not None:
+                trials = re.findall(r"Trial \d+:\s+prompt_tps=([\d.]+), generation_tps=([\d.]+), peak_memory=([\d.]+)", out)
+                if not trials and "error" not in st:
+                    st["error"] = "no 'Trial N:' line in the mlx_lm.benchmark output"
+                pp, tg, mem = ([float(t[i]) for t in trials] for i in range(3))
+                (pre, pre_med, pre_sd), (dec, dec_med, dec_sd) = summary(pp), summary(tg)
+                emit({"runtime": "mlx", "runtime_version": version, "prompt_tokens": p, "depth": p, "decode_depth": p,
+                      "kv_type": "f16",
+                      "prefill_tps": pre, "prefill_tps_median": pre_med, "prefill_tps_std": pre_sd,
+                      "decode_tps": dec, "decode_tps_median": dec_med, "decode_tps_std": dec_sd,
+                      "ttft_s": round(p / pre, 2) if pre else None, "ttft_method": "estimate p/prefill_tps",
+                      "peak_memory_gb": max(mem) if mem else None, "samples_prefill": pp, "samples_decode": tg, **st})
+            cooldown(o.cooldown)
+        for bits in o.mlx_kv_bits:
+            if (mlx_kv(bits), None, p) not in todo:
+                continue
+            out, st = run(["uvx", "--from", pkg, "python", ROOT / "tools" / "mlx_depth.py", "--model", path,
+                           "-p", p, "-g", GEN, "-n", o.trials, "--kv-bits", bits, "--kv-group-size", MLX_KV_GROUP,
+                           "--delay", o.delay], o.powermetrics, o.timeout)
+            if out is not None:
+                found = json_lines(out)
+                if not found and "error" not in st:
+                    st["error"] = "no JSON line in the tools/mlx_depth.py output"
+                for r in found or [{"prompt_tokens": p, "depth": p, "kv_type": mlx_kv(bits)}]:
+                    emit({"runtime": "mlx", "runtime_version": version, "decode_depth": r.get("depth", p), **r, **st})
+            cooldown(o.cooldown)
+
+
+# ---------- llama.cpp ----------
+
+def llama_bench(path, extra, kv, ubs, o, **pass_args):
+    cmd = [LLAMA_BENCH, "-m", path, "-ngl", 99, "-fa", "on", "-ctk", kv, "-ctv", kv,
+           "-b", max(2048, *ubs), "-ub", ",".join(map(str, ubs)), "-r", o.trials, "-o", "jsonl", *extra]
+    for k, v in pass_args.items():
+        cmd += [f"-{k}", v]
+    if o.llama_delay:
+        cmd += ["--delay", o.llama_delay]
+    out, st = run(cmd, o.powermetrics, o.timeout)
+    if out:
+        # keep llama-bench's raw JSONL (per-trial samples, build info); publish.py scrubs home paths before upload
+        now = datetime.datetime.now()
+        raw = ROOT / "runs" / now.strftime("%Y-%m-%d") / f"{Path(path).stem}-{now:%H%M%S}-{'prefill' if pass_args.get('n') == 0 else 'decode'}.jsonl"
+        raw.parent.mkdir(parents=True, exist_ok=True)
+        raw.write_text(out)
+        st["raw_output"] = str(raw.relative_to(ROOT))
+    return json_lines(out), st
+
+
+def llama_row(n, ub, kv, a, sa, b, sb, extra):
+    """One row per prompt length n: prefill of n tokens from pass A, decode at depth n from pass B (quick: also
+    decode at depth 0; long: also a 2048-token prefill on top of the n-token context)."""
+    pick = lambda rows, **want: next((r for r in rows if r.get("n_ubatch") == ub
+                                      and all(r.get(k) == v for k, v in want.items())), {})
+    ra = pick(a, n_prompt=n, n_gen=0)
+    tg = pick(b, n_prompt=0, n_gen=GEN, n_depth=n)
+    tg0 = pick(b, n_prompt=0, n_gen=GEN, n_depth=0)
+    pd = pick(b, n_prompt=DEPTH_PROMPT, n_gen=0, n_depth=n)
+    ref = ra or tg
+    error = (sa.get("error") or sb.get("error")
+             or (None if ra.get("avg_ts") else "pass A gave no prefill result")
+             or (None if tg.get("avg_ts") else "pass B gave no decode result"))
+    warning = sa.get("warning") or sb.get("warning")
+    return {
+        "runtime": "llama.cpp",
+        "runtime_version": f"llama.cpp {ref.get('build_commit')} (b{ref.get('build_number')})",
+        "prompt_tokens": n, "depth": n, "decode_depth": n,
+        "kv_type": kv, "flash_attn": ref.get("flash_attn"), "n_ubatch": ub, "n_batch": ref.get("n_batch"),
+        "prefill_tps": ra.get("avg_ts"), "prefill_tps_std": ra.get("stddev_ts"),
+        "ttft_s": round(n / ra["avg_ts"], 2) if ra.get("avg_ts") else None,
+        "ttft_method": "estimate n_prompt/prefill_tps (excludes load, tokenisation, sampling)",
+        "decode_tps": tg.get("avg_ts"), "decode_tps_std": tg.get("stddev_ts"),
+        "decode_tps_depth0": tg0.get("avg_ts"), "decode_tps_depth0_std": tg0.get("stddev_ts"),
+        "prefill_at_depth_tps": pd.get("avg_ts"),
+        "samples_prefill": ra.get("samples_ts"), "samples_decode": tg.get("samples_ts"),
+        "model_size_gb": round(ref["model_size"] / 1e9, 1) if ref.get("model_size") else None,
+        "extra_args": extra,
+        # peak of the two passes; pass B holds the n-token KV cache
+        "peak_memory_gb": max(sa.get("peak_rss_gb") or 0, sb.get("peak_rss_gb") or 0) or None,
+        "peak_memory_method": "sampled RSS of llama-bench, 1 s (mmap pages included)",
+        **({"error": error} if error else {}), **({"warning": warning} if warning else {}),
+        "pass_a": sa, "pass_b": sb}
+
+
+def bench_llama(path, prompts, o, spec, todo, emit):
+    extra = spec.get("extra_args", [])
+    for kv in o.kv:
+        if o.profile == "long":
+            for n in prompts:
+                ubs = [ub for ub in o.ubatch if (kv, ub, n) in todo]
+                if not ubs:
+                    continue
+                # Pass A: cold prefill of n tokens (what a user waits for on a fresh 128k prompt).
+                a, sa = llama_bench(path, extra, kv, ubs, o, p=n, n=0)
+                cooldown(o.cooldown)
+                # Pass B: on top of an n-token context, 2048-token prefill + 128-token decode.
+                b, sb = llama_bench(path, extra, kv, ubs, o, p=DEPTH_PROMPT, n=GEN, d=n)
+                cooldown(o.cooldown)
+                for ub in ubs if not DRY else []:
+                    emit(llama_row(n, ub, kv, a, sa, b, sb, extra))
+            continue
+        # Quick profile: one process per pass for every prompt length (small contexts), matched to mlx_lm.benchmark.
+        ns = [n for n in prompts if any((kv, ub, n) in todo for ub in o.ubatch)]
+        ubs = [ub for ub in o.ubatch if any((kv, ub, n) in todo for n in ns)]
+        if not ns:
+            continue
+        # Pass A: prefill of each prompt length, -ub = MLX's prefill step.
+        a, sa = llama_bench(path, extra, kv, ubs, o, p=",".join(map(str, ns)), n=0)
+        cooldown(o.cooldown)
+        # Pass B: 128-token decode with n tokens already in the KV cache (MLX decodes right after its n-token
+        # prompt), plus depth 0 for comparison with llama-bench's usual tg128.
+        b, sb = llama_bench(path, extra, kv, ubs, o, p=0, n=GEN, d=",".join(map(str, [0, *ns])))
+        cooldown(o.cooldown)
+        for n in ns if not DRY else []:
+            for ub in ubs:
+                if (kv, ub, n) in todo:
+                    emit(llama_row(n, ub, kv, a, sa, b, sb, extra))
+
+
+_LLAMA_BUILD = []
+
+
+def llama_build():
+    """Build number of the installed llama-bench (no model is loaded), None if unknown."""
+    if not _LLAMA_BUILD:
+        try:
+            r = subprocess.run([LLAMA_BENCH, "--version"], text=True, capture_output=True, timeout=60)
+            m = re.search(r"\(build (\d+)", r.stdout + r.stderr) or re.search(r"version: b?(\d+)", r.stdout + r.stderr)
+            _LLAMA_BUILD.append(int(m.group(1)) if m else None)
+        except Exception:
+            _LLAMA_BUILD.append(None)
+    return _LLAMA_BUILD[0]
+
+
+def llama_too_old(spec):
+    need = spec.get("min_llama_build")
+    if not need:
+        return None
+    if DRY:
+        print(f"  requires llama.cpp >= b{need} (checked with `{LLAMA_BENCH} --version` on a real run)")
+        return None
+    have = llama_build()
+    if not have:  # unknown format, or 0 from a build made outside git
+        print(f"  warning: no build number in `{LLAMA_BENCH} --version`, cannot check >= b{need}; running anyway", flush=True)
+        return None
+    if have < need:
+        return f"needs llama.cpp >= b{need}, installed b{have}: skipped (build llama.cpp from source, see README, and set LLAMA_BENCH=/path/to/llama.cpp/build/bin/llama-bench)"
+    return None
+
+
+# ---------- results ----------
+
+def load_rows(path):
+    """Rows of a results file; a line cut short by a crash is reported and left out."""
+    rows = []
+    if path.exists():
+        for i, line in enumerate(path.open(), 1):
+            if not line.strip():
+                continue
+            try:
+                rows.append(json.loads(line))
+            except json.JSONDecodeError:
+                print(f"{path.name}:{i}: unreadable line ignored (cut short by a crash?)", flush=True)
+    return rows
+
+
+def append_row(path, row):
+    """Written and closed at once, so a later abort or Ctrl-C loses nothing already measured."""
+    with path.open("ab+") as f:
+        if f.seek(0, os.SEEK_END):
+            f.seek(-1, os.SEEK_END)
+            if f.read(1) != b"\n":
+                f.write(b"\n")  # the previous run died mid-line: keep that line apart
+        f.write((json.dumps(row) + "\n").encode())
+
+
+def valid(r):
+    return not r.get("error") and not r.get("warning")
+
+
+def point(r):
+    """What a row measured. v1 rows have no kv_type / n_ubatch: they ran with an f16 KV cache and
+    llama-bench's default ubatch, 512."""
+    llama = r.get("runtime") == "llama.cpp"
+    return (r.get("model"), r.get("runtime"), r.get("quant"), r.get("kv_type") or "f16",
+            (r.get("n_ubatch") or 512) if llama else None, r.get("prompt_tokens"))
+
+
+def plan(runtime, o, prompts):
+    """(kv_type, ubatch, prompt) points a variant is measured at."""
+    if runtime == "mlx":
+        return [(kv, None, p) for p in prompts for kv in ("f16", *map(mlx_kv, o.mlx_kv_bits))]
+    return [(kv, ub, n) for kv in o.kv for n in prompts if n <= o.max_ctx for ub in o.ubatch]
+
+
+def local_paths(models):
+    """Files that "path" entries point to: --cleanup never deletes them."""
+    out = set()
+    for m in models:
+        for key in ("mlx", "gguf"):
+            for v in (m.get(f"{key}_variants") or []) + ([m[key]] if key in m else []):
+                if "path" in v:
+                    out.add(Path(v["path"]).expanduser().resolve())
+    return out
+
+
+def cleanup(owned, rows, protected):
+    """Delete exactly the weight files this run located or downloaded for the variant, never a folder, and only
+    when every row it wrote is valid (a failed variant keeps its files for the rerun)."""
+    if not rows or not all(map(valid, rows)):
+        print("  cleanup skipped: a row has an error or a warning, files kept for the rerun", flush=True)
+        return
+    store = STORE.resolve()
+    for p in owned:
+        q = p.resolve()
+        if q in protected or not q.is_relative_to(store) or p.is_symlink() or not p.is_file():
+            print(f"  cleanup: kept {p}", flush=True)
+            continue
+        size = p.stat().st_size
+        p.unlink()
+        print(f"  cleanup: deleted {p} ({gb(size)})", flush=True)
+
+
+# ---------- driver ----------
+
+MANUAL = {
+    "omlx": "oMLX: no CLI benchmark. Admin UI http://127.0.0.1:<port>/admin -> Benchmark, prompts "
+            "1024/4096/16384/32768/65536/131072, then export, or tools/stream_bench.py against the OpenAI endpoint. "
+            "See COMMANDS.md section oMLX.",
+    "ds4": "DwarfStar (antirez/ds4): start its server, then tools/stream_bench.py. See COMMANDS.md section DwarfStar.",
+}
+
+
+def variants(m, runtime):
+    key = {"mlx": "mlx", "llama.cpp": "gguf"}[runtime]
+    vs = m.get(f"{key}_variants") or ([m[key]] if key in m else [])
+    return [v for v in vs if runtime != "mlx" or v.get("runtime", "mlx-lm") == "mlx-lm"], \
+           [v for v in vs if runtime == "mlx" and v.get("runtime", "mlx-lm") != "mlx-lm"]
+
+
+def show(row):
+    what = " ".join(x for x in (row.get("kv_type"), f"ub{row['n_ubatch']}" if row.get("n_ubatch") else "",
+                                f"p{row.get('prompt_tokens')}") if x)
+    msg = f"  {what}: prefill {row.get('prefill_tps') or 0:.0f} tok/s, decode {row.get('decode_tps') or 0:.1f} tok/s"
+    if row.get("error"):
+        msg += f"  ERROR: {row['error']}"
+    elif row.get("warning"):
+        msg += f"  WARNING: {row['warning']}"
+    print(msg, flush=True)
+
+
+def main():
+    global DRY
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--only", help="models whose name contains this text (within the tier)")
+    ap.add_argument("--tier", type=int, help="models of this tier in models.json (default 0, the small v1 set)")
+    ap.add_argument("--profile", choices=PROFILES, default="quick")
+    ap.add_argument("--prompts", help="override, e.g. 512,32768 (quick profile: written to results_custom.jsonl)")
+    ap.add_argument("--runtime", choices=["mlx", "llama.cpp", "omlx", "ds4"], action="append")
+    ap.add_argument("--variant", help="only variants whose label contains this text")
+    ap.add_argument("--kv", default="f16,q8_0", help="llama.cpp KV cache types (long profile)")
+    ap.add_argument("--ubatch", help="llama.cpp -ub values, comma list, e.g. 512,2048 (default 2048 = MLX prefill step; anything else in the quick profile goes to results_custom.jsonl)")
+    ap.add_argument("--mlx-kv-bits", default="8", help="extra MLX runs with a quantized KV cache; '' for none")
+    ap.add_argument("--max-ctx", type=int, default=131072)
+    ap.add_argument("--trials", type=int, default=TRIALS)
+    ap.add_argument("--delay", type=int, default=0, help="seconds between MLX trials")
+    ap.add_argument("--llama-delay", type=int, default=0, help="llama-bench --delay (recent builds)")
+    ap.add_argument("--cooldown", type=int, default=0, help="seconds of idle between runs (long profile: 60)")
+    ap.add_argument("--timeout", type=int, default=4 * 3600)
+    ap.add_argument("--powermetrics", action="store_true", help="sample GPU power and thermal pressure (sudo -n)")
+    ap.add_argument("--force", action="store_true", help="measure again points the results file already has")
+    ap.add_argument("--dry-run", action="store_true", help="print the commands, download and run nothing")
+    ap.add_argument("--cleanup", action="store_true",
+                    help="once a variant is measured without error, delete the weight files it used (never a folder or a \"path\" entry)")
+    a = ap.parse_args()
+    DRY = a.dry_run
+    long = a.profile == "long"
+    prompts = tuple(map(int, a.prompts.split(","))) if a.prompts else PROFILES[a.profile]
+    a.kv = a.kv.split(",") if long else ["f16"]
+    a.ubatch = [int(u) for u in (a.ubatch or UBATCH[a.profile]).split(",")]
+    a.mlx_kv_bits = [b for b in a.mlx_kv_bits.split(",") if b] if long else []
+    if long and not a.cooldown:
+        a.cooldown = 60
+    runtimes = a.runtime or ["mlx", "llama.cpp"]
+    tier_given = a.tier is not None
+    if not tier_given:
+        # v1 semantics: a bare run measures the small tier-0 set only. The big models (tiers 1-3, up to ~335 GB
+        # each) are only fetched with --tier; --only filters within the tier, so --only gpt-oss stays on 20B.
+        a.tier = 0
+        print("no --tier: tier 0 only (pass --tier 1, 2 or 3 for the big models)", flush=True)
+
+    if long:
+        results = ROOT / "results_long.jsonl"
+    elif prompts != PROFILES["quick"] or a.ubatch != [int(UBATCH["quick"])]:
+        results = ROOT / "results_custom.jsonl"  # results.jsonl (and the README table) keep the matched protocol
+    else:
+        results = ROOT / "results.jsonl"
+    print(f"results file: {results.name}", flush=True)
+    done = {point(r) for r in load_rows(results) if valid(r) and not r.get("setting")}
+    models = json.load((ROOT / "models.json").open())
+    protected = local_paths(models)
+    mac = {"chip": "dry-run"} if DRY else machine()
+    for m in models:
+        if a.only and a.only.lower() not in m["name"].lower():
+            continue
+        if m.get("tier") != a.tier:
+            if a.only and not tier_given:
+                print(f"{m['name']}: tier {m.get('tier')}, skipped (add --tier {m.get('tier')})", flush=True)
+            continue
+        for runtime in runtimes:
+            if runtime in MANUAL:
+                print(f"{m['name']} / {runtime}: {MANUAL[runtime]}")
+                continue
+            auto, manual = variants(m, runtime)
+            for spec in manual:
+                print(f"{m['name']} / {spec['repo']}: needs {spec['runtime']} (not loadable by {MLX_LM}). {MANUAL.get(spec['runtime'], '')}")
+            for spec in auto:
+                if a.variant and a.variant.lower() not in spec["label"].lower():
+                    continue
+                todo = {k for k in plan(runtime, a, prompts) if a.force or (m["name"], runtime, spec["label"], *k) not in done}
+                if not todo:
+                    print(f"{m['name']} / {runtime} / {spec['label']}: already measured (--force to rerun)", flush=True)
+                    continue
+                fetch, bench = (fetch_mlx, bench_mlx) if runtime == "mlx" else (fetch_gguf, bench_llama)
+                print(f"{time.strftime('%T')} {m['name']} / {runtime} / {spec['label']}: fetching", flush=True)
+                if runtime == "llama.cpp" and (why := llama_too_old(spec)):
+                    print(f"  {why}", flush=True)
+                    continue
+                try:
+                    path, owned = fetch(spec)
+                except Skip as e:
+                    print(f"  skipped: {e}", flush=True)
+                    continue
+                print(f"{time.strftime('%T')} {m['name']} / {runtime}: measuring {prompts}", flush=True)
+                head = {"schema": SCHEMA, "model": m["name"], "weights": spec.get("repo"), "revision": spec.get("rev"),
+                        "file": spec.get("file"), "quant": spec["label"], "size_gb": weights_gb(runtime, path, owned)}
+                rows = []
+
+                def emit(row):
+                    size, dec = head["size_gb"], row.get("decode_tps")
+                    row = {**head, **row, "size_x_decode_gbps": round(size * dec, 1) if size and dec else None,
+                           "generated_tokens": GEN, "trials": a.trials,
+                           "date": datetime.date.today().isoformat(), **mac}
+                    append_row(results, row)
+                    rows.append(row)
+                    show(row)
+
+                bench(path, prompts, a, spec, todo, emit)
+                if a.cleanup and not DRY:
+                    cleanup(owned, rows, protected)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\ninterrupted: every pass that finished is already in the results file", flush=True)
+        raise SystemExit(130)

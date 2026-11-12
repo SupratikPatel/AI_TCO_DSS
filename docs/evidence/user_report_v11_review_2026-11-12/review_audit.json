@@ -1,0 +1,1046 @@
+{
+  "review_date": "2026-11-12",
+  "source_file_count": 34,
+  "remote_source_count": 33,
+  "review_scope": "Delta from first report; previous twelve-row audit retained, no repeated acquisition.",
+  "kapitsa": [
+    {
+      "date": "2026-11-04-m5-max-flash-next",
+      "runs": [
+        {
+          "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082044.json",
+          "harness": {
+            "git_head": "af7d79580a176ffef45d1aaa72cc0b888f214453",
+            "dirty": false
+          },
+          "phases": {
+            "decode": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 112.98610710378135,
+              "reported_median_window_tps": 112.99,
+              "rate_methods": {
+                "chars": 5
+              },
+              "reported_median_full_decode_tps": 111.24
+            },
+            "decode_greedy": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 115.0835395620138,
+              "reported_median_window_tps": 115.08,
+              "rate_methods": {
+                "chars": 5
+              },
+              "reported_median_full_decode_tps": 113.78
+            }
+          },
+          "cold_prefill": [
+            {
+              "target": 4000,
+              "prompt_tokens": 4134,
+              "ttft_s": 2.6544676250000023,
+              "prefill_tps": 1557.3744283281649,
+              "cold_cached_tokens": 0,
+              "timings": null
+            },
+            {
+              "target": 16000,
+              "prompt_tokens": 16284,
+              "ttft_s": 10.741368583000003,
+              "prefill_tps": 1516.0079345728932,
+              "cold_cached_tokens": 0,
+              "timings": null
+            }
+          ],
+          "sweep_request_count": 12,
+          "sweep_actual_output_counts": {
+            "192": 12
+          },
+          "sweep_actual_prompt_range": [
+            1105,
+            31552
+          ],
+          "source_flags": [],
+          "source_invalid": [],
+          "weight_file_manifest": {
+            "model_path": "{models}/qwen3.8-flash-next-4bit",
+            "safetensors_bytes": 105834937496,
+            "safetensors_files": [
+              "model-00001-of-00050.safetensors",
+              "model-00002-of-00050.safetensors",
+              "model-00003-of-00050.safetensors",
+              "model-00004-of-00050.safetensors",
+              "model-00005-of-00050.safetensors",
+              "model-00006-of-00050.safetensors",
+              "model-00007-of-00050.safetensors",
+              "model-00008-of-00050.safetensors",
+              "model-00009-of-00050.safetensors",
+              "model-00010-of-00050.safetensors",
+              "model-00011-of-00050.safetensors",
+              "model-00012-of-00050.safetensors",
+              "model-00013-of-00050.safetensors",
+              "model-00014-of-00050.safetensors",
+              "model-00015-of-00050.safetensors",
+              "model-00016-of-00050.safetensors",
+              "model-00017-of-00050.safetensors",
+              "model-00018-of-00050.safetensors",
+              "model-00019-of-00050.safetensors",
+              "model-00020-of-00050.safetensors",
+              "model-00021-of-00050.safetensors",
+              "model-00022-of-00050.safetensors",
+              "model-00023-of-00050.safetensors",
+              "model-00024-of-00050.safetensors",
+              "model-00025-of-00050.safetensors",
+              "model-00026-of-00050.safetensors",
+              "model-00027-of-00050.safetensors",
+              "model-00028-of-00050.safetensors",
+              "model-00029-of-00050.safetensors",
+              "model-00030-of-00050.safetensors",
+              "model-00031-of-00050.safetensors",
+              "model-00032-of-00050.safetensors",
+              "model-00033-of-00050.safetensors",
+              "model-00034-of-00050.safetensors",
+              "model-00035-of-00050.safetensors",
+              "model-00036-of-00050.safetensors",
+              "model-00037-of-00050.safetensors",
+              "model-00038-of-00050.safetensors",
+              "model-00039-of-00050.safetensors",
+              "model-00040-of-00050.safetensors",
+              "model-00041-of-00050.safetensors",
+              "model-00042-of-00050.safetensors",
+              "model-00043-of-00050.safetensors",
+              "model-00044-of-00050.safetensors",
+              "model-00045-of-00050.safetensors",
+              "model-00046-of-00050.safetensors",
+              "model-00047-of-00050.safetensors",
+              "model-00048-of-00050.safetensors",
+              "model-00049-of-00050.safetensors",
+              "model-00050-of-00050.safetensors",
+              "mtp.safetensors",
+              "ple.safetensors"
+            ]
+          }
+        },
+        {
+          "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082454.json",
+          "harness": {
+            "git_head": "af7d79580a176ffef45d1aaa72cc0b888f214453",
+            "dirty": false
+          },
+          "phases": {
+            "decode": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 105.6922113319926,
+              "reported_median_window_tps": 105.69,
+              "rate_methods": {
+                "chars": 5
+              },
+              "reported_median_full_decode_tps": 105.18
+            },
+            "decode_greedy": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 113.93617224657326,
+              "reported_median_window_tps": 113.94,
+              "rate_methods": {
+                "chars": 5
+              },
+              "reported_median_full_decode_tps": 111.79
+            }
+          },
+          "cold_prefill": [
+            {
+              "target": 4000,
+              "prompt_tokens": 4134,
+              "ttft_s": 2.395635249999998,
+              "prefill_tps": 1725.6383249495111,
+              "cold_cached_tokens": 0,
+              "timings": null
+            },
+            {
+              "target": 16000,
+              "prompt_tokens": 16286,
+              "ttft_s": 9.728410500000003,
+              "prefill_tps": 1674.0658712952127,
+              "cold_cached_tokens": 0,
+              "timings": null
+            }
+          ],
+          "sweep_request_count": 12,
+          "sweep_actual_output_counts": {
+            "192": 12
+          },
+          "sweep_actual_prompt_range": [
+            1103,
+            31548
+          ],
+          "source_flags": [],
+          "source_invalid": [],
+          "weight_file_manifest": {
+            "model_path": "{models}/qwen3.8-flash-next-4bit",
+            "safetensors_bytes": 105834937496,
+            "safetensors_files": [
+              "model-00001-of-00050.safetensors",
+              "model-00002-of-00050.safetensors",
+              "model-00003-of-00050.safetensors",
+              "model-00004-of-00050.safetensors",
+              "model-00005-of-00050.safetensors",
+              "model-00006-of-00050.safetensors",
+              "model-00007-of-00050.safetensors",
+              "model-00008-of-00050.safetensors",
+              "model-00009-of-00050.safetensors",
+              "model-00010-of-00050.safetensors",
+              "model-00011-of-00050.safetensors",
+              "model-00012-of-00050.safetensors",
+              "model-00013-of-00050.safetensors",
+              "model-00014-of-00050.safetensors",
+              "model-00015-of-00050.safetensors",
+              "model-00016-of-00050.safetensors",
+              "model-00017-of-00050.safetensors",
+              "model-00018-of-00050.safetensors",
+              "model-00019-of-00050.safetensors",
+              "model-00020-of-00050.safetensors",
+              "model-00021-of-00050.safetensors",
+              "model-00022-of-00050.safetensors",
+              "model-00023-of-00050.safetensors",
+              "model-00024-of-00050.safetensors",
+              "model-00025-of-00050.safetensors",
+              "model-00026-of-00050.safetensors",
+              "model-00027-of-00050.safetensors",
+              "model-00028-of-00050.safetensors",
+              "model-00029-of-00050.safetensors",
+              "model-00030-of-00050.safetensors",
+              "model-00031-of-00050.safetensors",
+              "model-00032-of-00050.safetensors",
+              "model-00033-of-00050.safetensors",
+              "model-00034-of-00050.safetensors",
+              "model-00035-of-00050.safetensors",
+              "model-00036-of-00050.safetensors",
+              "model-00037-of-00050.safetensors",
+              "model-00038-of-00050.safetensors",
+              "model-00039-of-00050.safetensors",
+              "model-00040-of-00050.safetensors",
+              "model-00041-of-00050.safetensors",
+              "model-00042-of-00050.safetensors",
+              "model-00043-of-00050.safetensors",
+              "model-00044-of-00050.safetensors",
+              "model-00045-of-00050.safetensors",
+              "model-00046-of-00050.safetensors",
+              "model-00047-of-00050.safetensors",
+              "model-00048-of-00050.safetensors",
+              "model-00049-of-00050.safetensors",
+              "model-00050-of-00050.safetensors",
+              "mtp.safetensors",
+              "ple.safetensors"
+            ]
+          }
+        },
+        {
+          "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082845.json",
+          "harness": {
+            "git_head": "af7d79580a176ffef45d1aaa72cc0b888f214453",
+            "dirty": false
+          },
+          "phases": {
+            "decode": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 108.46596256464072,
+              "reported_median_window_tps": 108.47,
+              "rate_methods": {
+                "chars": 5
+              },
+              "reported_median_full_decode_tps": 106.88
+            },
+            "decode_greedy": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 111.56869991307006,
+              "reported_median_window_tps": 111.57,
+              "rate_methods": {
+                "chars": 5
+              },
+              "reported_median_full_decode_tps": 109.65
+            }
+          },
+          "cold_prefill": [
+            {
+              "target": 4000,
+              "prompt_tokens": 4135,
+              "ttft_s": 2.3785998330000027,
+              "prefill_tps": 1738.4176785990699,
+              "cold_cached_tokens": 0,
+              "timings": null
+            },
+            {
+              "target": 16000,
+              "prompt_tokens": 16287,
+              "ttft_s": 10.128982166,
+              "prefill_tps": 1607.9601812974502,
+              "cold_cached_tokens": 0,
+              "timings": null
+            }
+          ],
+          "sweep_request_count": 12,
+          "sweep_actual_output_counts": {
+            "192": 12
+          },
+          "sweep_actual_prompt_range": [
+            1102,
+            31552
+          ],
+          "source_flags": [],
+          "source_invalid": [],
+          "weight_file_manifest": {
+            "model_path": "{models}/qwen3.8-flash-next-4bit",
+            "safetensors_bytes": 105834937496,
+            "safetensors_files": [
+              "model-00001-of-00050.safetensors",
+              "model-00002-of-00050.safetensors",
+              "model-00003-of-00050.safetensors",
+              "model-00004-of-00050.safetensors",
+              "model-00005-of-00050.safetensors",
+              "model-00006-of-00050.safetensors",
+              "model-00007-of-00050.safetensors",
+              "model-00008-of-00050.safetensors",
+              "model-00009-of-00050.safetensors",
+              "model-00010-of-00050.safetensors",
+              "model-00011-of-00050.safetensors",
+              "model-00012-of-00050.safetensors",
+              "model-00013-of-00050.safetensors",
+              "model-00014-of-00050.safetensors",
+              "model-00015-of-00050.safetensors",
+              "model-00016-of-00050.safetensors",
+              "model-00017-of-00050.safetensors",
+              "model-00018-of-00050.safetensors",
+              "model-00019-of-00050.safetensors",
+              "model-00020-of-00050.safetensors",
+              "model-00021-of-00050.safetensors",
+              "model-00022-of-00050.safetensors",
+              "model-00023-of-00050.safetensors",
+              "model-00024-of-00050.safetensors",
+              "model-00025-of-00050.safetensors",
+              "model-00026-of-00050.safetensors",
+              "model-00027-of-00050.safetensors",
+              "model-00028-of-00050.safetensors",
+              "model-00029-of-00050.safetensors",
+              "model-00030-of-00050.safetensors",
+              "model-00031-of-00050.safetensors",
+              "model-00032-of-00050.safetensors",
+              "model-00033-of-00050.safetensors",
+              "model-00034-of-00050.safetensors",
+              "model-00035-of-00050.safetensors",
+              "model-00036-of-00050.safetensors",
+              "model-00037-of-00050.safetensors",
+              "model-00038-of-00050.safetensors",
+              "model-00039-of-00050.safetensors",
+              "model-00040-of-00050.safetensors",
+              "model-00041-of-00050.safetensors",
+              "model-00042-of-00050.safetensors",
+              "model-00043-of-00050.safetensors",
+              "model-00044-of-00050.safetensors",
+              "model-00045-of-00050.safetensors",
+              "model-00046-of-00050.safetensors",
+              "model-00047-of-00050.safetensors",
+              "model-00048-of-00050.safetensors",
+              "model-00049-of-00050.safetensors",
+              "model-00050-of-00050.safetensors",
+              "mtp.safetensors",
+              "ple.safetensors"
+            ]
+          }
+        }
+      ],
+      "median_of_reported_run_medians": {
+        "decode": 108.47,
+        "decode_greedy": 113.94
+      },
+      "prefill_metric": "client prompt_tokens / TTFT; not isolated input-processing timing",
+      "decode_metric": "middle window; chars approximation when stream events do not equal tokens",
+      "strict_admission": false
+    },
+    {
+      "date": "2026-10-25-m5-max",
+      "runs": [
+        {
+          "path": "kapitsa/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-053106.json",
+          "harness": {
+            "git_head": "cd20dcc690ac499a3433c60b1c7c0662e550ca6a",
+            "dirty": true
+          },
+          "phases": {
+            "decode": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 29.27088399545644,
+              "reported_median_window_tps": 29.27,
+              "rate_methods": {
+                "events": 3,
+                "chars": 2
+              },
+              "reported_median_full_decode_tps": 29.28
+            },
+            "decode_greedy": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 27.729600818325142,
+              "reported_median_window_tps": 27.73,
+              "rate_methods": {
+                "events": 5
+              },
+              "reported_median_full_decode_tps": 27.75
+            }
+          },
+          "cold_prefill": [
+            {
+              "target": 4000,
+              "prompt_tokens": 4133,
+              "ttft_s": 7.205722499999979,
+              "prefill_tps": 573.5719076053806,
+              "cold_cached_tokens": 0,
+              "timings": null
+            },
+            {
+              "target": 16000,
+              "prompt_tokens": 16285,
+              "ttft_s": 28.216448750000012,
+              "prefill_tps": 577.1456268039398,
+              "cold_cached_tokens": 0,
+              "timings": null
+            }
+          ],
+          "sweep_request_count": 0,
+          "sweep_actual_output_counts": {},
+          "sweep_actual_prompt_range": null,
+          "source_flags": [],
+          "source_invalid": [],
+          "weight_file_manifest": {
+            "model_path": "{models}/qwen3.8-27b-4bit-mtp",
+            "safetensors_bytes": 16293475848,
+            "safetensors_files": [
+              "model-00001-of-00003.safetensors",
+              "model-00002-of-00003.safetensors",
+              "model-00003-of-00003.safetensors",
+              "mtp.safetensors"
+            ]
+          }
+        },
+        {
+          "path": "kapitsa/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-082746.json",
+          "harness": {
+            "git_head": "cd20dcc690ac499a3433c60b1c7c0662e550ca6a",
+            "dirty": true
+          },
+          "phases": {
+            "decode": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 30.95792744728393,
+              "reported_median_window_tps": 30.96,
+              "rate_methods": {
+                "chars": 3,
+                "events": 2
+              },
+              "reported_median_full_decode_tps": 30.87
+            },
+            "decode_greedy": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 29.691067609774468,
+              "reported_median_window_tps": 29.69,
+              "rate_methods": {
+                "events": 5
+              },
+              "reported_median_full_decode_tps": 29.7
+            }
+          },
+          "cold_prefill": [
+            {
+              "target": 4000,
+              "prompt_tokens": 4134,
+              "ttft_s": 6.42799149999999,
+              "prefill_tps": 643.1246836589635,
+              "cold_cached_tokens": 0,
+              "timings": null
+            },
+            {
+              "target": 16000,
+              "prompt_tokens": 16287,
+              "ttft_s": 24.14191995799999,
+              "prefill_tps": 674.6356556700837,
+              "cold_cached_tokens": 0,
+              "timings": null
+            }
+          ],
+          "sweep_request_count": 0,
+          "sweep_actual_output_counts": {},
+          "sweep_actual_prompt_range": null,
+          "source_flags": [
+            "CONTENTION: sustained foreign GPU load > 5% in ['prefill_4000', 'prefill_16000'] (mean 2.61%, top ['Claude Helper'])"
+          ],
+          "source_invalid": [],
+          "weight_file_manifest": {
+            "model_path": "{models}/qwen3.8-27b-4bit-mtp",
+            "safetensors_bytes": 16293475848,
+            "safetensors_files": [
+              "model-00001-of-00003.safetensors",
+              "model-00002-of-00003.safetensors",
+              "model-00003-of-00003.safetensors",
+              "mtp.safetensors"
+            ]
+          }
+        },
+        {
+          "path": "kapitsa/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-211754.json",
+          "harness": {
+            "git_head": "cd20dcc690ac499a3433c60b1c7c0662e550ca6a",
+            "dirty": true
+          },
+          "phases": {
+            "decode": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 31.018710698382385,
+              "reported_median_window_tps": 31.02,
+              "rate_methods": {
+                "chars": 3,
+                "events": 2
+              },
+              "reported_median_full_decode_tps": 31.02
+            },
+            "decode_greedy": {
+              "samples": 5,
+              "actual_output_tokens": 512,
+              "median_window_tps_unrounded": 31.46881199812286,
+              "reported_median_window_tps": 31.47,
+              "rate_methods": {
+                "events": 5
+              },
+              "reported_median_full_decode_tps": 31.48
+            }
+          },
+          "cold_prefill": [
+            {
+              "target": 4000,
+              "prompt_tokens": 4130,
+              "ttft_s": 4.922876291999984,
+              "prefill_tps": 838.940439497035,
+              "cold_cached_tokens": 0,
+              "timings": null
+            },
+            {
+              "target": 16000,
+              "prompt_tokens": 16285,
+              "ttft_s": 19.834329749999995,
+              "prefill_tps": 821.0511877770916,
+              "cold_cached_tokens": 0,
+              "timings": null
+            }
+          ],
+          "sweep_request_count": 0,
+          "sweep_actual_output_counts": {},
+          "sweep_actual_prompt_range": null,
+          "source_flags": [],
+          "source_invalid": [],
+          "weight_file_manifest": {
+            "model_path": "{models}/qwen3.8-27b-4bit-mtp",
+            "safetensors_bytes": 16293475848,
+            "safetensors_files": [
+              "model-00001-of-00003.safetensors",
+              "model-00002-of-00003.safetensors",
+              "model-00003-of-00003.safetensors",
+              "mtp.safetensors"
+            ]
+          }
+        }
+      ],
+      "median_of_reported_run_medians": {
+        "decode": 30.96,
+        "decode_greedy": 29.69
+      },
+      "prefill_metric": "client prompt_tokens / TTFT; not isolated input-processing timing",
+      "decode_metric": "middle window; chars approximation when stream events do not equal tokens",
+      "strict_admission": false
+    }
+  ],
+  "omlx": [
+    {
+      "path": "omlx/2kf4wz4v.html",
+      "raw_model_settings": {
+        "benchmark_context": "Code (Python)",
+        "max_context_window": 131202,
+        "max_tokens": 16384,
+        "temperature": 0.2,
+        "top_p": 1,
+        "repetition_penalty": 1,
+        "presence_penalty": 1,
+        "force_sampling": true,
+        "enable_thinking": true,
+        "thinking_budget_enabled": true,
+        "thinking_budget_tokens": 16384,
+        "guided_grammar_enabled": false,
+        "turboquant_kv_enabled": false,
+        "turboquant_kv_bits": 4,
+        "turboquant_skip_last": true,
+        "qwen35_oq_a8_enabled": false,
+        "qwen35_oq_a8_min_tokens": 128,
+        "moe_expert_offload_enabled": false,
+        "moe_expert_offload_resident_fraction": 0.25,
+        "specprefill_enabled": false,
+        "dflash_enabled": false,
+        "dflash_draft_quant_enabled": false,
+        "dflash_in_memory_cache": true,
+        "dflash_in_memory_cache_max_entries": 4,
+        "dflash_in_memory_cache_max_bytes": 8589934592,
+        "dflash_ssd_cache": false,
+        "dflash_ssd_cache_max_bytes": 21474836480,
+        "dflash_draft_sink_size": 0,
+        "mtp_enabled": true,
+        "mtp_adaptive_max_depth": 3,
+        "vlm_mtp_enabled": false,
+        "qwen35_ane_prefill_enabled": false,
+        "qwen35_ane_prefill_sequence_length": 2048,
+        "qwen35_ane_prefill_tail_padding_min_tokens": 0,
+        "qwen35_ane_prefill_fraction": 0.53,
+        "qwen35_ane_prefill_shared_fraction": 1,
+        "qwen35_ane_prefill_fused_down": false,
+        "qwen35_ane_prefill_max_layers": 64,
+        "qwen35_ane_prefill_dual_ane": true,
+        "qwen35_ane_prefill_gdn": true,
+        "qwen35_ane_prefill_gdn_fraction": 0.5,
+        "qwen35_ane_prefill_gdn_max_layers": 48,
+        "qwen35_ane_prefill_cpu_enabled": false,
+        "qwen35_ane_prefill_cpu_fraction": 0.135,
+        "qwen35_ane_prefill_cpu_down_fraction": 0,
+        "qwen35_ane_prefill_cpu_gdn_fraction": 0,
+        "qwen35_ane_prefill_cpu_threads": 8,
+        "qwen35_ane_prefill_cpu_shared_resource": true
+      },
+      "raw_request_event_log": false,
+      "actual_output_tokens": null,
+      "live_kv_dtype": null,
+      "interpretation": "Settings/caps are not actual token counts. Disabled TurboQuant does not establish FP16.",
+      "strict_admission": false
+    },
+    {
+      "path": "omlx/6ll10w10.html",
+      "raw_model_settings": {
+        "benchmark_context": "Code (Python)",
+        "max_context_window": 262114,
+        "max_tokens": 262114,
+        "temperature": 1,
+        "top_p": 0.95,
+        "top_k": 42,
+        "min_p": 0,
+        "repetition_penalty": 1,
+        "presence_penalty": 1,
+        "force_sampling": true,
+        "enable_thinking": true,
+        "thinking_budget_enabled": true,
+        "thinking_budget_tokens": 262114,
+        "guided_grammar_enabled": false,
+        "turboquant_kv_enabled": true,
+        "turboquant_kv_scheme": "turboquant",
+        "turboquant_kv_bits": 4,
+        "turboquant_skip_last": true,
+        "a8_prefill_enabled": false,
+        "a8_prefill_min_tokens": 128,
+        "moe_expert_offload_enabled": false,
+        "moe_expert_offload_resident_fraction": 0.25,
+        "specprefill_enabled": false,
+        "dflash_enabled": false,
+        "dflash_draft_quant_enabled": false,
+        "mtp_enabled": true,
+        "mtp_adaptive_max_depth": 6,
+        "vlm_mtp_enabled": false,
+        "qwen35_ane_prefill_enabled": false,
+        "qwen35_ane_prefill_sequence_length": 2048,
+        "qwen35_ane_prefill_tail_padding_min_tokens": 0,
+        "qwen35_ane_prefill_fraction": 0.53,
+        "qwen35_ane_prefill_shared_fraction": 1,
+        "qwen35_ane_prefill_fused_down": false,
+        "qwen35_ane_prefill_max_layers": 64,
+        "qwen35_ane_prefill_dual_ane": true,
+        "qwen35_ane_prefill_gdn": true,
+        "qwen35_ane_prefill_gdn_fraction": 0.5,
+        "qwen35_ane_prefill_gdn_max_layers": 48,
+        "qwen35_ane_prefill_cpu_enabled": false,
+        "qwen35_ane_prefill_cpu_fraction": 0.135,
+        "qwen35_ane_prefill_cpu_down_fraction": 0,
+        "qwen35_ane_prefill_cpu_gdn_fraction": 0,
+        "qwen35_ane_prefill_cpu_threads": 8,
+        "qwen35_ane_prefill_cpu_shared_resource": true
+      },
+      "raw_request_event_log": false,
+      "actual_output_tokens": null,
+      "live_kv_dtype": null,
+      "interpretation": "Settings/caps are not actual token counts. Disabled TurboQuant does not establish FP16.",
+      "strict_admission": false
+    },
+    {
+      "path": "omlx/b0zessb6.html",
+      "raw_model_settings": {
+        "benchmark_context": "Code (Python)",
+        "temperature": 0.3,
+        "top_p": 0.95,
+        "top_k": 20,
+        "force_sampling": false,
+        "thinking_budget_enabled": false,
+        "guided_grammar_enabled": false,
+        "turboquant_kv_enabled": false,
+        "turboquant_kv_scheme": "turboquant",
+        "turboquant_kv_bits": 4,
+        "turboquant_skip_last": true,
+        "a8_prefill_enabled": false,
+        "a8_prefill_min_tokens": 128,
+        "activation_fp16_enabled": false,
+        "qwen4_ple_ssd_offload": false,
+        "qwen4_gdn_decode_wide_proj": false,
+        "moe_expert_offload_enabled": false,
+        "moe_expert_offload_resident_fraction": 0.25,
+        "specprefill_enabled": false,
+        "dflash_enabled": false,
+        "mtp_enabled": true,
+        "vlm_mtp_enabled": false,
+        "qwen35_ane_prefill_enabled": false,
+        "qwen35_ane_prefill_sequence_length": 2048,
+        "qwen35_ane_prefill_tail_padding_min_tokens": 0,
+        "qwen35_ane_prefill_shared_fraction": 1,
+        "qwen35_ane_prefill_fused_down": false,
+        "qwen35_ane_prefill_max_layers": 64,
+        "qwen35_ane_prefill_dual_ane": true,
+        "qwen35_ane_prefill_gdn": true,
+        "qwen35_ane_prefill_gdn_fraction": 0.5,
+        "qwen35_ane_prefill_gdn_max_layers": 48,
+        "qwen35_ane_prefill_cpu_enabled": false,
+        "qwen35_ane_prefill_cpu_fraction": 0.135,
+        "qwen35_ane_prefill_cpu_down_fraction": 0,
+        "qwen35_ane_prefill_cpu_gdn_fraction": 0,
+        "qwen35_ane_prefill_cpu_threads": 8,
+        "qwen35_ane_prefill_cpu_shared_resource": true
+      },
+      "raw_request_event_log": false,
+      "actual_output_tokens": null,
+      "live_kv_dtype": null,
+      "interpretation": "Settings/caps are not actual token counts. Disabled TurboQuant does not establish FP16.",
+      "strict_admission": false
+    },
+    {
+      "path": "omlx/t9sos5mz.html",
+      "raw_model_settings": {
+        "benchmark_context": "Code (Python)",
+        "temperature": 1,
+        "top_p": 0.95,
+        "top_k": 20,
+        "force_sampling": false,
+        "thinking_budget_enabled": false,
+        "guided_grammar_enabled": false,
+        "turboquant_kv_enabled": false,
+        "turboquant_kv_scheme": "turboquant",
+        "turboquant_kv_bits": 4,
+        "turboquant_skip_last": true,
+        "a8_prefill_enabled": false,
+        "a8_prefill_min_tokens": 128,
+        "moe_expert_offload_enabled": false,
+        "moe_expert_offload_resident_fraction": 0.25,
+        "specprefill_enabled": false,
+        "dflash_enabled": false,
+        "mtp_enabled": true,
+        "vlm_mtp_enabled": false,
+        "qwen35_ane_prefill_enabled": false,
+        "qwen35_ane_prefill_sequence_length": 2048,
+        "qwen35_ane_prefill_tail_padding_min_tokens": 0,
+        "qwen35_ane_prefill_shared_fraction": 1,
+        "qwen35_ane_prefill_fused_down": false,
+        "qwen35_ane_prefill_max_layers": 64,
+        "qwen35_ane_prefill_dual_ane": true,
+        "qwen35_ane_prefill_gdn": true,
+        "qwen35_ane_prefill_gdn_fraction": 0.5,
+        "qwen35_ane_prefill_gdn_max_layers": 48,
+        "qwen35_ane_prefill_cpu_enabled": false,
+        "qwen35_ane_prefill_cpu_fraction": 0.135,
+        "qwen35_ane_prefill_cpu_down_fraction": 0,
+        "qwen35_ane_prefill_cpu_gdn_fraction": 0,
+        "qwen35_ane_prefill_cpu_threads": 8,
+        "qwen35_ane_prefill_cpu_shared_resource": true
+      },
+      "raw_request_event_log": false,
+      "actual_output_tokens": null,
+      "live_kv_dtype": null,
+      "interpretation": "Settings/caps are not actual token counts. Disabled TurboQuant does not establish FP16.",
+      "strict_admission": false
+    }
+  ],
+  "heretik_context_shape": {
+    "source": "heretik.html",
+    "engine_parameters": {
+      "context_match_tolerance": 0.25,
+      "eta_dense": 0.7,
+      "eta_moe": 0.425,
+      "gamma_spec": [
+        [
+          "none",
+          1.0
+        ],
+        [
+          "apple-mtp-dflash",
+          1.425
+        ],
+        [
+          "built-in-mtp",
+          1.8
+        ],
+        [
+          "external-draft",
+          2.75
+        ]
+      ],
+      "delta_ctx_breakpoints": [
+        [
+          8192,
+          1.0
+        ],
+        [
+          32768,
+          0.89
+        ],
+        [
+          131072,
+          0.6
+        ],
+        [
+          262144,
+          0.5
+        ],
+        [
+          1048576,
+          0.4
+        ]
+      ],
+      "alpha_scaling": [
+        [
+          "NVLink",
+          0.9
+        ],
+        [
+          "PCIe-Gen5",
+          0.75
+        ],
+        [
+          "DGX-Ring-Cable",
+          0.72
+        ],
+        [
+          "Thunderbolt-5-RDMA",
+          0.65
+        ],
+        [
+          "RoCE-200Gbps",
+          0.8
+        ],
+        [
+          "PCIe-Gen4",
+          0.7
+        ],
+        [
+          "PCIe-Gen3",
+          0.6
+        ],
+        [
+          "WiFi-7-Virtual-GPU",
+          0.3
+        ],
+        [
+          "Unified-Single",
+          1.0
+        ]
+      ],
+      "weight_overhead_factor": 1.05,
+      "mla_kv_bytes_per_token": 890.0,
+      "phi_format": [
+        [
+          "gguf",
+          1.0
+        ],
+        [
+          "vllm",
+          1.0
+        ],
+        [
+          "mlx",
+          1.08
+        ]
+      ],
+      "mcp_prune_ratio": 0.75,
+      "thinking_multipliers": [
+        [
+          "none",
+          1.0
+        ],
+        [
+          "low",
+          1.5
+        ],
+        [
+          "medium",
+          2.5
+        ],
+        [
+          "extra-high",
+          4.94
+        ]
+      ],
+      "claude_tokenizer_inflation": 1.3,
+      "mega_session_slope": 2.8,
+      "batch_streams_cap_per_node": 64,
+      "batching_contention": 0.03,
+      "hours_per_month": 730.0,
+      "utilization_threshold": 0.7,
+      "idle_warning_threshold": 0.55,
+      "risk_weight_support": 0.5,
+      "risk_weight_fidelity": 0.5,
+      "risk_support_years_cap": 5.0,
+      "risk_rental_lifecycle": 0.2,
+      "risk_api_lockin": 0.4,
+      "risk_missing_agreement": 0.95,
+      "aa_ratio_default": 2.0,
+      "calibration_tolerance_pct": [
+        [
+          "decode_tps",
+          30.0
+        ],
+        [
+          "prefill_tps",
+          50.0
+        ]
+      ],
+      "eviction_events_per_month": 30.0,
+      "eviction_compute_price_per_1m_usd": 0.3
+    },
+    "engine_helper": "src/ai_tco_dss/engines/performance.py:delta_ctx",
+    "rows": [
+      {
+        "occupied_depth": 0,
+        "source_tg128_tps": 33.0,
+        "source_incremental_pp512_tps": 966,
+        "observed_normalized_rate": 1.0,
+        "engine_normalized_factor": 1.0,
+        "baseline_anchored_tps": 33.0,
+        "anchored_overprediction_percent": 0.0
+      },
+      {
+        "occupied_depth": 4096,
+        "source_tg128_tps": 30.7,
+        "source_incremental_pp512_tps": 776,
+        "observed_normalized_rate": 0.9303030303030303,
+        "engine_normalized_factor": 1.0,
+        "baseline_anchored_tps": 33.0,
+        "anchored_overprediction_percent": 7.491856677524433
+      },
+      {
+        "occupied_depth": 16384,
+        "source_tg128_tps": 27.9,
+        "source_incremental_pp512_tps": 456,
+        "observed_normalized_rate": 0.8454545454545455,
+        "engine_normalized_factor": 0.9450000000000001,
+        "baseline_anchored_tps": 31.185000000000002,
+        "anchored_overprediction_percent": 11.774193548387114
+      },
+      {
+        "occupied_depth": 32768,
+        "source_tg128_tps": 24.8,
+        "source_incremental_pp512_tps": 324,
+        "observed_normalized_rate": 0.7515151515151516,
+        "engine_normalized_factor": 0.89,
+        "baseline_anchored_tps": 29.37,
+        "anchored_overprediction_percent": 18.427419354838715
+      },
+      {
+        "occupied_depth": 65536,
+        "source_tg128_tps": 23.0,
+        "source_incremental_pp512_tps": 241,
+        "observed_normalized_rate": 0.696969696969697,
+        "engine_normalized_factor": 0.745,
+        "baseline_anchored_tps": 24.585,
+        "anchored_overprediction_percent": 6.891304347826099
+      },
+      {
+        "occupied_depth": 131072,
+        "source_tg128_tps": 17.0,
+        "source_incremental_pp512_tps": 154,
+        "observed_normalized_rate": 0.5151515151515151,
+        "engine_normalized_factor": 0.6,
+        "baseline_anchored_tps": 19.8,
+        "anchored_overprediction_percent": 16.470588235294127
+      },
+      {
+        "occupied_depth": 262144,
+        "source_tg128_tps": 10.9,
+        "source_incremental_pp512_tps": 80,
+        "observed_normalized_rate": 0.3303030303030303,
+        "engine_normalized_factor": 0.5,
+        "baseline_anchored_tps": 16.5,
+        "anchored_overprediction_percent": 51.37614678899083
+      }
+    ],
+    "strict_admission": false,
+    "coefficient_fitting": false,
+    "limitations": [
+      "Post-inspection conditional shape diagnostic, not blind validation or full-formula prediction.",
+      "Observed 33 tok/s at depth zero is the normalization anchor; amplitude is not predicted.",
+      "One run per depth; mixed GGUF quantization and n-gram mmap differ from resident uniform-bit formula.",
+      "Only delta_ctx shape is compared. No strict MAPE and no causal attribution of the discrepancy.",
+      "pp512 is incremental at occupied depth; 28-minute full-fill figure is integrated estimate."
+    ]
+  },
+  "macstories_corrections": {
+    "source": "../user_report_review_2026-11-12/macstories-response.html",
+    "quant_order": [
+      "oQ4e",
+      "oQ5e",
+      "oQ6e",
+      "oQ8e"
+    ],
+    "misattributed_m3_ultra_code_tps": [
+      103.9,
+      97.3,
+      96.6,
+      89.1
+    ],
+    "correct_m5_ultra_prose_tps": [
+      111.6,
+      100.0,
+      95.2,
+      86.8
+    ],
+    "correct_m5_ultra_code_tps": [
+      142.9,
+      132.6,
+      122.8,
+      119.0
+    ],
+    "m5_loading_peak_gb": [
+      134,
+      153,
+      101,
+      130
+    ],
+    "m5_answering_peak_gb": [
+      155,
+      179,
+      156,
+      187
+    ],
+    "qualification": "Q4 prose retest nine runs, code three; Q6/Q8 embedding tables on SSD. Memory is sampled process footprint."
+  },
+  "remaining": {
+    "m5_ultra_512gb_measurements": null,
+    "m5_max_five_128k_request_logs": null,
+    "strict_comparable_observations": 0,
+    "existing_excluded_observations": 13,
+    "strict_mape": null,
+    "production_changes": false
+  }
+}

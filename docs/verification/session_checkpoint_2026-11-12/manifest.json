@@ -1,0 +1,63 @@
+{
+  "saved_date": "2026-11-12",
+  "purpose": "Byte-preserved verification proof for restart after the author requested a week break; no tests rerun to create copies.",
+  "files": [
+    {
+      "path": "enterprise-report-python.log",
+      "original_path": ".enterprise-report-python.log",
+      "bytes": 1585,
+      "sha256": "acb51c8cee39d61ed47542e9dbe7854b3fe087e1afc429e34212a84e87c7e09f"
+    },
+    {
+      "path": "enterprise-report-python-exit.json",
+      "original_path": ".enterprise-report-python-exit.json",
+      "bytes": 60,
+      "sha256": "ef240a762c859027ab4ca800e82c96ee253c71fa5e47fa370591d545370ffd40"
+    },
+    {
+      "path": "enterprise-fleet-before.log",
+      "original_path": ".enterprise-fleet-before.log",
+      "bytes": 1976,
+      "sha256": "1879bd6f10900c4939abda1a011b74ba29e4204728b99dd93b5d80b560081671"
+    },
+    {
+      "path": "enterprise-fleet-numeric-before.log",
+      "original_path": ".enterprise-fleet-numeric-before.log",
+      "bytes": 5224,
+      "sha256": "125267c458c3820aa8da24e07cff4d275b727fc5b685c5332373f9181f331159"
+    },
+    {
+      "path": "enterprise-report-root-lint-final.log",
+      "original_path": ".enterprise-report-root-lint-final.log",
+      "bytes": 9086,
+      "sha256": "33dfa3949c11ff0ce4b581fa5dc337a3c21a876f0d6d2653d249da4b207e07fd"
+    },
+    {
+      "path": "u02-u05-final.log",
+      "original_path": ".u02-u05-final.log",
+      "bytes": 19322,
+      "sha256": "9901d6794075a2b99134dd7d506ad2b6ae483a96e2cd51b6859b863a5585e067"
+    },
+    {
+      "path": "u02-u05-final-exit.json",
+      "original_path": ".u02-u05-final-exit.json",
+      "bytes": 221,
+      "sha256": "281150795a1566ad424e5d7f5f8cd35490969485028ff0e3fd6ef5831444bd6c"
+    }
+  ],
+  "current_python": {
+    "passed": 858,
+    "skipped": 13,
+    "historical_xfails": 3,
+    "native_exit": 0
+  },
+  "prior_combined_snapshot": {
+    "engine": "0.1.4",
+    "python_passed": 836,
+    "frontend_tests": 31,
+    "browser_checks": 72,
+    "launcher_checks": 3,
+    "native_exit": 0
+  },
+  "root_lint_limitation": "41 pre-existing findings in preserved older evidence scripts; current scoped source/tests/scripts pass."
+}

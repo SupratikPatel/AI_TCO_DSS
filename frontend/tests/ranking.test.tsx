@@ -13,15 +13,17 @@ const fixture = {
 } as unknown as Schema['Recommendation'];
 
 describe('Normal scenario and ranking states (33.1/2/7, 43.6/7)', () => {
-  it('uses only three Normal inputs and ignores Expert values', () => {
+  it('preserves Normal cost assumptions and ignores Expert values', () => {
     const defaults = { workload: { active_users: 25, min_acceptable_tps: 20 }, financials: { cooling_pue: 1.2 }, sizing: { target_context_length: 128000 }, decision: { method: 'saw', preset: 'best-fit', use_case: 'agentic-coding' }, fx_override: null } as Scenario;
-    const draft = { ...defaults, workload: { ...defaults.workload, active_users: 70, min_acceptable_tps: 99 }, decision: { ...defaults.decision, preset: 'cheapest', method: 'topsis' }, fx_override: 1.5 } as Scenario;
+    const draft = { ...defaults, financials: { ...defaults.financials, cost_model: 'self-managed', devops_fte_allocation: 9 }, workload: { ...defaults.workload, active_users: 70, min_acceptable_tps: 99 }, decision: { ...defaults.decision, preset: 'cheapest', method: 'topsis' }, fx_override: 1.5 } as Scenario;
     const normal = normalScenario(defaults, draft);
     expect(normal.workload.active_users).toBe(70);
     expect(normal.workload.min_acceptable_tps).toBe(20);
     expect(normal.decision.method).toBe('saw');
     expect(normal.decision.weights).toBeNull();
     expect(normal.fx_override).toBeNull();
+    expect(normal.financials.cost_model).toBe('self-managed');
+    expect(normal.financials.devops_fte_allocation).toBeUndefined();
     for (const value of [0, 100001, 1.5, NaN]) expect(validUsers(value)).toBe(false);
     expect(validUsers(100000)).toBe(true);
   });

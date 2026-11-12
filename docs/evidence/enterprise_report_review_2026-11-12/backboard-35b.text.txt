@@ -1,0 +1,180 @@
+Qwen3.6: Up to 95% More Throughput Than vLLM | Backboard
+BlogMenuInferenceQuantizationCoding AgentsMemoryInference EngineStateful APIStudio
+←Home
+Rob Imbeault
+·
+Nov 5, 2026
+More From a Single GPU: Backboard Delivers Up to 95% Higher Qwen3.6 Throughput Than vLLM
+On a single NVIDIA RTX PRO 6000 Blackwell Server Edition GPU, Backboard consistently outperforms vLLM across concurrency levels from 8 to 256 requests, with up to 1.95× the aggregate output throughput and 5.75× faster median time to first token.
+High-performance AI inference doesn't have to start with a giant GPU cluster.
+As models become more powerful, the infrastructure needed to serve them efficiently becomes increasingly important. But adding GPUs isn't the only way to increase serving capacity — that’s simply too costly in some cases. The inference engine itself plays a major role in determining how much useful work a given piece of hardware can perform.
+Our latest comparison, using Qwen3.6-35B-A3B on a single NVIDIA RTX PRO 6000 Blackwell Server Edition GPU, shows what's possible through software-level inference optimization.
+Against vLLM 0.33.0, Backboard delivered between 1.57× and 1.95× the aggregate output throughput across every tested concurrency level, from 8 to 256 simultaneous requests.
+Crucially, those throughput gains came alongside consistent improvements in per-user generation speed and time to first token.
+More output at every concurrency level
+The sheer consistency of the throughput improvement is notable by itself.
+We tested six concurrency levels, from relatively light workloads to 256 simultaneous requests. Backboard produced more aggregate output at every single level.
+Concurrent requests
+Backboard throughput advantage
+8
+1.63× (+63%)
+16
+1.57× (+57%)
+32
+1.62× (+62%)
+64
+1.65× (+65%)
+128
+1.87× (+87%)
+256
+1.95× (+95%)
+The advantage is even stronger at higher concurrency. At concurrency 128, Backboard produces 87% more output throughput than vLLM. At concurrency 256, that advantage grows to 95%. The harder the engine works, the more you’ll notice the difference.
+Scaling concurrency can expose limitations in how inference engines schedule work, share compute, and manage memory. Backboard maintains a throughput advantage throughout the entire test, rather than delivering a benefit only under light workloads.
+For infrastructure operators, that consistency matters. You might not have to upgrade past that single GPU as your workload grows.
+Faster responses, not just more tokens
+Aggregate throughput is valuable for gauging serving capacity, but it doesn't tell the whole story.
+An inference system can generate a large volume of tokens while still making individual users wait too long for responses to begin. That's why we also measure time to first token (TTFT), the time between request initiation and the first generated token.
+Backboard improves median TTFT at every tested concurrency level:
+Concurrent requests
+Median TTFT advantage
+90th-percentile TTFT advantage
+8
+1.70×
+1.72×
+16
+1.87×
+1.71×
+32
+2.03×
+1.70×
+64
+3.39×
+3.57×
+128
+5.75×
+3.22×
+256
+2.09×
+2.65×
+The most conspicuous median improvement occurs at concurrency 128, where Backboard's reported TTFT is 5.75 times faster than vLLM's.
+At concurrency 64, the advantage is still huge: 3.39× faster median TTFT and 3.57× faster 90th-percentile TTFT.
+Even at concurrency 256, Backboard maintains a greater than 2× advantage across both latency measurements.
+These speed-ups are relevant for applications where you interact with models in real time. Conversations can feel more responsive, and you’ll see shorter waits in multi-step agent workflows.
+The improvements extend to generation after the first token. Backboard delivers between 1.35× and 1.61× the median per-request generation throughput across the six concurrency levels.
+In other words, we're improving both the time users wait for generation to begin and the speed at which they receive the rest of the response.
+Performance holds up under burst traffic
+Steady traffic is certainly important in most production scenarios, but not every application receives requests at a constant rate.
+Bursts are common: multiple users start conversations at the same time, agent workflows launch simultaneously, and applications process some requests in large batches.
+We tested a separate burst scenario, submitting all the prompts for a concurrency level at once and repeating the test three times at each level.
+Backboard maintained its aggregate output throughput advantage throughout:
+Concurrent requests
+Backboard throughput advantage
+8
+1.59× (+59%)
+16
+1.57× (+57%)
+32
+1.66× (+66%)
+64
+1.64× (+64%)
+128
+1.71× (+71%)
+256
+1.78× (+78%)
+Median TTFT improvements were especially pronounced:
+Concurrency 32: 4.55× faster
+Concurrency 64: 4.82× faster
+Concurrency 128: 8.56× faster
+Concurrency 256: 5.66× faster
+At concurrency 128, Backboard's median TTFT advantage reaches 8.56×, even as aggregate output throughput remains 71% higher.
+The per-user generation rate also improves across all six burst conditions, ranging from 1.28× to 1.59× the vLLM result.
+This gives us another indication that Backboard's performance advantage isn't dependent on one particular traffic pattern.
+Why single-GPU performance matters
+One of the most interesting aspects of this comparison is the hardware configuration.
+We're not comparing two large inference clusters or relying on an eight-GPU server. This test uses a single server-optimized card.
+That makes the results highly relevant if your organization wants to deploy capable AI models without immediately committing to an expensive multi-GPU infrastructure.
+The practical implications are worth considering.
+More serving capacity from a smaller hardware footprint.
+When an inference engine delivers up to 95% more aggregate output throughput on the same GPU, you can serve more concurrent work without proportionally increasing your accelerator allocation.
+A better experience for applications with many simultaneous users.
+Higher aggregate throughput is useful, but faster TTFT and per-user generation speeds are equally important. Your applications can serve more people while remaining responsive.
+More accessible agent deployments.
+Agent systems frequently involve multiple model calls, tool interactions, and follow-up reasoning. In these environments, inference performance skews the responsiveness of the entire workflow. Better throughput and lower initial latency can make increasingly complex tasks practical on modest hardware configurations.
+More flexibility when scaling infrastructure.
+Additional GPUs will always have a role as workloads grow. But software improvements can change when additional hardware becomes necessary. Getting more out of one GPU gives your team more flexibility in how it deploys and expands infrastructure.
+We don't claim that these benchmark results translate directly into reduced production costs. Actual economics depend on workload characteristics, infrastructure pricing, and deployment requirements. But improving the amount of output delivered by the same hardware creates an important opportunity to bolster infrastructure efficiency.
+How we tested Qwen3.6
+We designed this comparison to examine aggregate serving capacity and individual request performance under both steady and burst traffic.
+The configuration was:
+Parameter
+Configuration
+Model
+Qwen3.6-35B-A3B
+Model precision
+BF16
+GPU
+1× NVIDIA RTX PRO 6000 Blackwell Server Edition
+Infrastructure
+Google Cloud
+Baseline
+vLLM 0.33.0
+GPU memory utilization
+95% for vLLM
+Context limit
+32K tokens
+Decoding
+Greedy
+MTP draft tokens
+3 on both engines
+Concurrency levels
+8, 16, 32, 64, 128 and 256
+We used BF16 weights in both engines and configured both with the same 32K context limit, greedy decoding, and three MTP draft tokens.
+For the vLLM comparison, we tested different GPU memory utilization settings and selected 95%, which produced the best results among the settings we tried. We wanted to compare Backboard against a tuned baseline rather than an unnecessarily weak competitor configuration.
+Workload composition
+The Qwen3.6 prompt set draws from:
+Dolly
+OpenAssistant
+LongBench
+QuALITY
+MATH
+GSM8K
+MBPP
+HumanEval
+Glaive
+The broader benchmark coverage includes conversational requests, long-document questions, mathematics, coding, and tool use.
+This provides a more representative range of inference tasks than relying exclusively on short conversational prompts.
+Two traffic patterns
+We evaluated each engine under two distinct conditions.
+Steady traffic: We kept as many requests in flight as the concurrency level, measuring performance at each of the six levels. This tests how effectively the inference engine serves an ongoing stream of work.
+Burst traffic: We submitted as many prompts as the concurrency level all at once, repeating the test three times at each level. This examines how the engines handle sudden increases in demand.
+We recorded aggregate output throughput, median per-request generation speed, and TTFT at the 50th and 90th percentiles.
+Aggregate output throughput measures the total output tokens generated per second across the system. Per-request TPS measures the output generation rate for an individual user after the first token. TTFT measures the initial wait before generation begins.
+All figures in this article represent Backboard's reported internal benchmark results. The comparison brief provides relative performance ratios rather than the underlying absolute token rates and latency values for this Qwen3.6 test. The results have not been independently reproduced.
+Better inference doesn't have to mean more hardware
+The broader lesson from this comparison: inference software is an important part of the hardware equation.
+On a single RTX PRO 6000 GPU, Backboard consistently delivered more aggregate output throughput than vLLM across six concurrency levels. It also improved median TTFT by as much as 5.75× under steady traffic and 8.56× under burst traffic.
+These are complementary enhancements. We aren't interested in maximizing aggregate throughput if it comes at the expense of individual users, nor are we interested in optimizing latency while leaving substantial hardware capacity unused.
+Our objective is to improve both.
+We believe that extracting more performance from existing GPUs is one of the most practical ways to make powerful AI inference more accessible. Your organization should have more options than simply adding accelerators whenever you need additional capacity.
+Better inference software means more useful work from the GPUs we already have. That's what we're building Backboard to deliver.
+← Back to home
+‹ Qwen3.8-27B: Outperforming SGLang and vLLM Across the Board
+More Output When It Counts: 4.94× Higher Sustained Throughput Than vLLM On GLM-5.3 ›
+Ottawa, Canada
+Burlingame, California
+Trust
+Trust Center
+Security
+Privacy
+Terms
+Status
+Company
+Careers
+Contact
+News
+Blog
+Connect
+GitHub
+X
+LinkedIn
+Backboard © 2026

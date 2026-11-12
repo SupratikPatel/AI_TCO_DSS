@@ -247,6 +247,8 @@ class Recommendation(Contract):
 
 
 class ScenarioResult(Contract):
+    catalog_fingerprint: str | None = None
+    engine_version: str = "0.1.4"
     scenario: Scenario
     recommendation: Recommendation
     baselines: BaselineResult

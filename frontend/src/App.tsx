@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
-import { Activity, ArrowDownToLine, ChartNoAxesCombined, CircleHelp, Cpu, Gauge, ListOrdered, MemoryStick, Moon, ShieldCheck, Sun, TrendingDown, TriangleAlert } from 'lucide-react';
+import { ChartNoAxesCombined, CircleHelp, Cpu, ListOrdered, MemoryStick, Moon, ShieldCheck, Sun, TriangleAlert } from 'lucide-react';
 import { ApiFailure, request, type Schema, type Scenario, type SizeResult, type TcoProjection } from './api/client';
 import { Button } from './components/ui/button';
 import { Input } from './components/ui/input';
 import { Ranking } from './components/Ranking';
+import { KpiRibbon } from './components/KpiRibbon';
 import { ExpertControls } from './components/ExpertControls';
+import { TcoAccounting } from './components/TcoAccounting';
+import { AuditDrawer } from './components/AuditDrawer';
 import { expertScenario, normalScenario, validFx, validUsers, validWeights } from './lib/scenario';
 import { Plot } from './components/Plot';
 import { useCalculation } from './hooks/useCalculation';
-import { availableSeries, memoryChart, tcoChart } from './lib/charts';
+import { availableSeries, memoryChart, seriesNote, seriesStatus, tcoChart } from './lib/charts';
 import { money, number, type Currency } from './lib/format';
 
 type Boot = { catalog: Schema['CatalogOverview']; scenario: Scenario; options: Schema['SimulationOptions'] };
@@ -59,6 +62,7 @@ function Startup({ error, retry }: { error?: Error; retry: () => void }) {
 }
 
 function Dashboard({ boot }: { boot: Boot }) {
+  const [submitted, setSubmitted] = useState(false);
   const [scenario, setScenario] = useState(boot.scenario);
   const [draft, saveDraft] = useState(boot.scenario);
   const [fxText, saveFxText] = useState('');
@@ -84,7 +88,11 @@ function Dashboard({ boot }: { boot: Boot }) {
   const [ratio, setRatio] = useState(0.7);
   const memoryScenario = { ...scenario, sizing: { ...scenario.sizing, target_context_length: memoryPair.context, apply_mac_wired_memory_override: memoryPair.override } };
   const tcoScenario = { ...scenario, sizing: { ...scenario.sizing, target_context_length: tcoPair.context }, financials: { ...scenario.financials, include_resale_value: resale, local_offload_ratio: ratio } };
-  const evaluation = useCalculation<Schema['ScenarioResult']>('/evaluate', { scenario });
+  const evaluation = useCalculation<Schema['ScenarioResult']>('/evaluate', { scenario }, submitted);
+  const [selection, setSelection] = useState<{ result: Schema['ScenarioResult']; id: string }>();
+  const currentResult = !evaluation.loading && !evaluation.error && evaluation.key === JSON.stringify({ scenario }) && !evaluation.data?.recommendation.ranking_error ? evaluation.data : undefined;
+  const selected = selection?.result === currentResult ? selection?.id : currentResult?.recommendation.ranked[0]?.evaluation.candidate_id;
+  const selectCandidate = (id: string) => { if (currentResult) setSelection({ result: currentResult, id }); };
   const memory = useCalculation<SizeResult>('/size', { scenario: memoryScenario, hardware_id: memoryPair.hardware_id, model_id: memoryPair.model_id, precision: memoryPair.precision, nodes: memoryPair.nodes });
   const tco = useCalculation<TcoProjection>('/tco', { scenario: tcoScenario, candidate_id: `onprem:${tcoPair.hardware_id}:${tcoPair.nodes}x:${tcoPair.model_id}:${tcoPair.precision}` });
   useEffect(() => { document.documentElement.dataset.theme = dark ? 'dark' : 'light'; }, [dark]);
@@ -93,12 +101,7 @@ function Dashboard({ boot }: { boot: Boot }) {
   const tcoFx = completedTco?.scenario.fx_override ?? boot.catalog.fx.rate;
   const tcoCash = (value: number | null | undefined) => money(value, currency, tcoFx);
   const completedMemory = memory.key ? JSON.parse(memory.key) as Schema['SizeRequest'] : undefined;
-  const cash = (value: number | null | undefined) => money(value, currency, fx);
-  const candidate = !evaluation.error && !evaluation.loading ? evaluation.data?.recommendation.ranked[0]?.evaluation : undefined;
-  const rankCost = candidate?.tco;
   const cost = tco.data?.candidate.tco;
-  const perf = candidate?.performance;
-  const month = evaluation.data?.timeline?.break_even_months.find(([key]) => key === 'baseline_c_eu_sovereign_api_cumulative')?.[1];
   const applyScenario = async (event: FormEvent) => {
     event.preventDefault(); setScenarioError(undefined);
     if (!validUsers(draft.workload.active_users)) { setUsersError('Active users must be an integer from 1 to 100,000 (active_users).'); return; }
@@ -108,7 +111,7 @@ function Dashboard({ boot }: { boot: Boot }) {
     try {
       const next = expert ? { ...draft, fx_override: fxText.trim() === '' ? null : Number(fxText) } : normalScenario(boot.scenario, draft);
       const valid = await request<Scenario>('/scenario/validate', next, controller.signal);
-      if (!controller.signal.aborted) setScenario(valid);
+      if (!controller.signal.aborted) { setScenario(valid); setSubmitted(true); }
     } catch (error) { if (!controller.signal.aborted) setScenarioError(error as Error); }
     finally { if (!controller.signal.aborted) setApplying(false); }
   };
@@ -119,7 +122,7 @@ function Dashboard({ boot }: { boot: Boot }) {
     setDraft(next);
     if (validUsers(next.workload.active_users)) {
       setUsersError(undefined);
-      if (!expert) setScenario(normalScenario(boot.scenario, next));
+      if (!expert && submitted) setScenario(normalScenario(boot.scenario, next));
     } else setUsersError('Active users must be an integer from 1 to 100,000 (active_users).');
   };
   const switchMode = (next: boolean) => {
@@ -130,20 +133,28 @@ function Dashboard({ boot }: { boot: Boot }) {
     setDraft(next ? expertScenario(normal, boot.options.preset_weights) : normal);
     if (!next) setScenario(normal);
   };
-  const unavailable = evaluation.error ? 'Unavailable' : evaluation.loading ? 'Calculating...' : 'No feasible option';
   const pairingName = (pair: Pair) => `${boot.catalog.hardware.find(h => h.id === pair.hardware_id)?.label} × ${pair.nodes} + ${boot.catalog.models.find(m => m.id === pair.model_id)?.label} ${pair.precision}`;
+  const reviewRejected = () => {
+    setTab('ranking');
+    requestAnimationFrame(() => {
+      const details = document.getElementById('rejected-candidates');
+      if (details instanceof HTMLDetailsElement) { details.open = true; details.querySelector('summary')?.focus(); }
+    });
+  };
   return <div className="app-shell">
+    <a className="skip-link" href={`#${tab}-tab`} onClick={e => { e.preventDefault(); document.getElementById(`${tab}-tab`)?.focus(); }}>Skip to analysis</a>
     <aside className="sidebar">
       <div className="brand"><div className="brand-icon"><Cpu size={22} /></div><div><strong>AI TCO DSS</strong><small>Sovereign AI Cost Advisor</small></div></div>
       <div className="segmented mode"><Button aria-pressed={!expert} onClick={() => switchMode(false)}>Normal</Button><Button aria-pressed={expert} onClick={() => switchMode(true)}>Expert</Button></div>
       <form noValidate onSubmit={applyScenario} className="scenario-form">
         <Field name="Use case"><select aria-label="Use case" value={draft.decision.use_case} onChange={e => updateNormal({ ...draft, decision: { ...draft.decision, use_case: e.target.value as Scenario['decision']['use_case'] } })}>{boot.catalog.use_cases.map(u => <option key={u.id} value={u.id}>{u.label}</option>)}</select></Field>
         <Field name="Active users"><Input aria-label="Active users" aria-invalid={!!usersError} aria-describedby={usersError ? "users-error" : undefined} type="number" value={draft.workload.active_users} onChange={e => updateNormal({ ...draft, workload: { ...draft.workload, active_users: Number(e.target.value) } })} />{usersError && <small id="users-error" role="alert">{usersError}</small>}</Field>
+        <Field name="Cost assumptions"><select aria-label="Cost assumptions" value={draft.financials.cost_model ?? 'enterprise'} onChange={e => updateNormal({ ...draft, financials: { ...draft.financials, cost_model: e.target.value as Scenario['financials']['cost_model'] } })}><option value="self-managed">Self-managed</option><option value="enterprise">Enterprise</option></select><small className="muted">{draft.financials.cost_model === 'self-managed' ? 'Purchase once + electricity. No paid operations staff, NIM, resale credit or priced waiting time. Capacity and quality requirements still apply.' : `Includes ${draft.financials.devops_fte_allocation} operations FTE over five years, even for one user. Expert mode adjusts staffing and workload.`}</small></Field>
         <Field name="Preset"><div className="preset-grid">{boot.catalog.presets.map(p => <Button key={p.id} aria-pressed={draft.decision.preset === p.id} onClick={() => updateNormal({ ...draft, decision: { ...draft.decision, preset: p.id as Scenario['decision']['preset'] } })}>{label(p.label)}</Button>)}</div></Field>
         <Field name="Display currency"><div className="segmented">{(['USD', 'EUR'] as const).map(c => <Button key={c} aria-pressed={currency === c} onClick={() => setCurrency(c)}>{c}</Button>)}</div></Field>
         {expert && <ExpertControls draft={draft} update={setDraft} catalog={boot.catalog} fxText={fxText} setFxText={setFxText} />}
         <Button type="submit" variant="default" disabled={applying}>{applying ? 'Validating…' : 'Apply scenario'}</Button><Message error={scenarioError} />
-        <p className="muted helper">Normal mode uses Python defaults and SAW preset weights. Simulators use independent pairings below.</p>
+        <p className="muted helper">Cheapest uses cost only; Expert weights can override it. Quality and capacity filters still apply. Other presets balance six criteria. Popular weights OpenRouter model usage (40%). Coding quality cutoffs are 40 and 55. Apply your first scenario to begin. Normal controls then update results; Expert edits require Apply.</p>
       </form>
       <div className="sidebar-nav"><span><ChartNoAxesCombined size={17} />Cost Decision Matrix</span></div>
       <footer className="catalog-meta"><span className="status-dot" />Python calculation engine<div>Catalog: {boot.catalog.counts.filter(([key]) => ['hardware', 'models', 'rentals'].includes(key)).map(([key, count]) => `${count} ${key}`).join(', ')}</div><div>FX {fx} USD/EUR{evaluation.data?.fx_is_override && ' (Expert override)'} · {boot.catalog.fx.source_id}<br />{boot.catalog.fx.rate_date}</div></footer>
@@ -151,13 +162,8 @@ function Dashboard({ boot }: { boot: Boot }) {
     <div className="workspace">
       <header className="project-header"><div><ShieldCheck size={20} /><strong>Project: Sovereign Inference</strong><span className="header-divider" /><small>{tco.loading ? 'Calculating…' : tco.error ? 'Check calculation' : 'Calculated by Python'}</small></div><div className="segmented themes"><Button aria-label="Light theme" aria-pressed={!dark} onClick={() => setDark(false)}><Sun size={17} /></Button><Button aria-label="Dark theme" aria-pressed={dark} onClick={() => setDark(true)}><Moon size={17} /></Button></div></header>
       <main>
-        <section className="kpi-grid" aria-label="Executive metrics">
-          <article className="kpi"><div className="kpi-label">Recommended architecture<Cpu size={17} /></div><h3>{candidate?.label ?? unavailable}</h3><p>{candidate ? `${candidate.kind} | ${evaluation.data?.recommendation.method.toUpperCase()} rank 1` : 'Recommendation engine'}</p><small>Hard filters applied before ranking</small></article>
-          <article className="kpi"><div className="kpi-label">Break-even horizon<ChartNoAxesCombined size={17} /></div><strong className="metric">{!candidate ? 'Not available' : month == null ? 'No break-even' : `Month ${month}`}</strong><p>vs Baseline C (EU-pinned API)</p><small>Within 60-month horizon</small></article>
-          <article className="kpi"><div className="kpi-label">Monthly savings<TrendingDown size={17} /></div><strong className="metric compact">{cash(rankCost?.munich_vs_romania_personnel_savings_monthly)}</strong><p>Munich vs Romania staffing</p><small>EU API premium: {cash(candidate ? evaluation.data?.baselines.compliance_tax_delta_monthly : null)}</small></article>
-          <article className="kpi"><div className="kpi-label">Performance<Gauge size={17} /></div><strong className="metric compact">{number(perf?.effective_tps?.value)} <em>tok/s</em></strong><p>TTFT: <b>{number(perf?.ttft_s?.value)} s</b></p><small>Decode: {number(perf?.decode_tps?.value)} tok/s</small></article>
-          <article className="kpi"><div className="kpi-label">Cluster utilization<Activity size={17} /></div><strong className="metric">{!candidate ? 'Not available' : candidate.utilization == null ? 'Not applicable' : `${number(candidate.utilization * 100)}%`}</strong><p className="badge warning">{candidate?.utilization == null ? 'Not applicable' : candidate.utilization > 1 ? 'Capacity insufficient' : candidate.utilization >= 0.7 ? 'Utilization viable' : candidate.utilization < 0.55 ? 'Idle capacity warning' : 'Below threshold'}</p><small>Demand / aggregate capacity</small></article>
-        </section>
+        {!submitted && <section className="notice"><div><h2>Set up your comparison</h2><p>Choose your use case, users and preferences, then Apply scenario. Recommendations reflect the workload and available evidence. Open Expert to set requests per day, token sizes, performance targets and a total budget.</p></div></section>}
+        {submitted && <KpiRibbon data={evaluation.data} loading={evaluation.loading} error={evaluation.error} currency={currency} fx={fx} onRejected={reviewRejected} />}
         <section className="analysis-panel">
           <div className="tabbar" role="tablist" aria-label="Analysis views">{[['ranking', 'Ranking', ListOrdered], ['memory', 'View 1: Memory fit', MemoryStick], ['tco', 'View 2: 60-month TCO', ChartNoAxesCombined]].map(([id, title, Icon]) => <button key={id as string} id={`${id}-tab`} role="tab" aria-selected={tab === id} aria-controls={`${id}-panel`} tabIndex={tab === id ? 0 : -1} onKeyDown={e => {
             const ids = ['ranking', 'memory', 'tco']; const index = ids.indexOf(tab);
@@ -171,16 +177,16 @@ function Dashboard({ boot }: { boot: Boot }) {
             </form>
             {tco.loading && <p className="loading" role="status">Calculating TCO… {tco.data && 'Showing last valid projection.'}</p>}<Message error={tco.error} />
             {tco.error && tco.data && <p className="loading">Showing the previous valid projection.</p>}
-            {tco.data && <div data-testid="tco-result"><div className="anchor-label"><strong>Selected anchor</strong><span>{tco.data.candidate.label}</span></div><div className="tco-columns">
+            {tco.data && <div data-testid="tco-result"><div className="anchor-label"><strong>Selected anchor</strong><span>{tco.data.candidate.label}</span><span className="badge">{seriesStatus(tco.data, 'on_prem_cumulative')}</span></div><div className="tco-columns">
               <section className="chart-column"><div className="panel-heading"><div><h2>Cumulative Cost Trajectory (60 Months)</h2><p>CapEx, facility power, staffing and optional resale</p></div><small>Currency: <b>{currency}</b></small></div>
                 <div className="chart-frame"><Plot {...tcoChart(tco.data, currency, tcoFx, dark)} label="60-month cumulative costs. Detailed values are available in the timeline table below." /></div>
-                <div className="chart-legend">{availableSeries(tco.data).map(([key, name, color, dash]) => <span key={key}><i style={{ borderColor: dark && color === '#000000' ? '#bdc8d1' : color, borderStyle: dash === 'solid' ? 'solid' : dash === 'dash' ? 'dashed' : 'dotted' }} />{name}</span>)}</div>
-                <details className="data-table"><summary>Accessible timeline data · 60 months</summary><div className="table-scroll"><table><thead><tr><th>Month</th>{availableSeries(tco.data).map(([key, name]) => <th key={key}>{name}</th>)}</tr></thead><tbody>{tco.data.timeline?.points.map(p => <tr key={p.month}><th>{p.month}</th>{availableSeries(tco.data).map(([key]) => <td key={key}>{tcoCash(p[key])}</td>)}</tr>)}</tbody></table></div></details>
+                <ul className="chart-legend" aria-label="Timeline series and compliance">{availableSeries(tco.data).map(([key, name, color, dash]) => <li key={key}><svg className="legend-swatch" width="24" height="12" aria-hidden="true"><path d="M1 6H23" stroke={color} strokeWidth="3" strokeDasharray={dash === 'solid' ? undefined : dash === 'dash' ? '7 3' : dash === 'dashdot' ? '7 3 2 3' : '2 3'} /></svg><div>{name}<small>{seriesStatus(tco.data!, key)}</small><small>{seriesNote(tco.data!, key)}</small></div></li>)}</ul>
+                <details className="data-table"><summary>Accessible timeline data · 60 months</summary><div className="table-scroll" role="region" tabIndex={0} aria-label="Scrollable timeline data"><table><caption>Monthly cumulative costs ({currency})</caption><thead><tr><th>Month</th>{availableSeries(tco.data).map(([key, name]) => <th key={key}>{name}<small>{seriesStatus(tco.data!, key)}</small></th>)}</tr></thead><tbody>{tco.data.timeline?.points.map(p => <tr key={p.month}><th>{p.month}</th>{availableSeries(tco.data).map(([key]) => <td key={key}>{tcoCash(p[key])}</td>)}</tr>)}</tbody></table></div></details>
               </section>
-              <section className="accounting"><h2>60-Month Cost Accounting Matrix</h2><div className="table-scroll"><table><thead><tr><th>Item</th><th>Value ({currency})</th><th>Origin / ref</th></tr></thead><tbody><tr><td>CapEx (hardware)</td><td>{tcoCash(cost?.capex.value)}</td><td><Origin metric={cost?.capex} /></td></tr>{cost?.monthly_opex.map(([key, value]) => <tr key={key}><td>{label(key)}<small>monthly</small></td><td>{tcoCash(value)}</td><td><span className="origin">formula</span></td></tr>)}<tr className="total"><td>Monthly OpEx</td><td>{tcoCash(cost?.monthly_opex_total)}</td><td>formula</td></tr><tr className="total"><td>60-month TCO<small>before resale</small></td><td>{tcoCash(cost?.cost_60m)}</td><td>formula</td></tr><tr><td>Baseline C<small>monthly</small></td><td>{tcoCash(tco.data.baselines.c_monthly.value)}</td><td><Origin metric={tco.data.baselines.c_monthly} /></td></tr></tbody></table></div>
-                <div className="notice warning"><TriangleAlert size={20} /><div><strong>{cost?.capacity_insufficient ? 'CAPACITY DEFICIT' : cost?.meets_70_percent_utilization_threshold ? 'UTILIZATION THRESHOLD MET' : 'UTILIZATION BELOW 70%'}</strong><p>{cost?.warnings.join(' ') || 'Compare total cost and capacity before choosing a deployment.'}</p></div></div>
-                <p className="muted">Rental: {tco.data.timeline?.rental_id}. Baseline D is output market value, not a deployment offer. A is a blocked consumer reference.</p>
-              </section>
+              <div>
+                {tco.data.accounting ? <TcoAccounting data={tco.data.accounting} currency={currency} warnings={cost?.warnings ?? []} insufficient={cost?.capacity_insufficient ?? false} meetsThreshold={cost?.meets_70_percent_utilization_threshold ?? false} /> : <p>Detailed local accounting is unavailable for this deployment.</p>}
+                <p className="muted">Rental: {tco.data.timeline?.rental_id}. Baseline D is output market value, not a deployment offer. Baseline A: {tco.data.baselines.baseline_a_eligible ? 'Compliant' : 'Non-compliant / BLOCKED'}.</p>
+              </div>
             </div></div>}
           </div>
           <div id="memory-panel" role="tabpanel" aria-labelledby="memory-tab" hidden={tab !== 'memory'}>
@@ -188,14 +194,14 @@ function Dashboard({ boot }: { boot: Boot }) {
             <form className="toolbar" onSubmit={e => { e.preventDefault(); setMemoryPair(memoryDraft); }}><div className="pair-grid"><PairControls boot={boot} pair={memoryDraft} setPair={setMemoryDraft} prefix="Memory" /></div><div className="toolbar-extra"><Field name="Memory context (tokens)"><Input aria-label="Memory context (tokens)" type="number" value={memoryDraft.context} onChange={e => setMemoryDraft({ ...memoryDraft, context: Number(e.target.value) })} /></Field><label className="checkbox"><input type="checkbox" checked={memoryDraft.override} onChange={e => setMemoryDraft({ ...memoryDraft, override: e.target.checked })} />Mac wired-memory override</label><Button type="submit" variant="default">Run memory simulation</Button></div></form>
             {memory.loading && <p className="loading" role="status">Calculating memory… {memory.data && 'Showing last valid simulation.'}</p>}<Message error={memory.error} />
             {memory.error && memory.data && <p className="loading">Showing the previous valid simulation.</p>}
-            {memory.data && <div className="memory-body" data-testid="memory-result"><div className="panel-heading"><div><h2>Memory Allocation vs. Usable Capacity</h2><p>{pairingName({ ...memoryPair, hardware_id: memory.data.sizing.hardware_id, model_id: memory.data.sizing.model_id, precision: memory.data.sizing.precision, nodes: memory.data.sizing.requested_nodes })}</p><p>Context: <b>{number(completedMemory?.scenario.sizing.target_context_length, 0)} tokens</b> · Cluster totals</p></div><span className={`badge ${memory.data.sizing.is_feasible ? 'success' : 'warning'}`}>{memory.data.sizing.is_feasible ? 'Fits in memory' : 'OOM · Does not fit'}</span></div><div className="chart-frame memory-chart"><Plot {...memoryChart(memory.data, dark)} label="Stacked memory breakdown with usable-memory threshold. Exact segment values follow." /></div>
-              <div className="memory-details"><article><h3>Memory breakdown</h3><dl>{memory.data.sizing.memory_breakdown.map(([key, value]) => <div key={key}><dt>{label(key)}</dt><dd>{number(value, 2)} GB</dd></div>)}<div><dt>Usable capacity</dt><dd>{number(memory.data.sizing.usable_memory_gb)} GB</dd></div></dl><p className="muted">Parked agent state and OS reservation are separate pools; the total bar is not a feasibility test. The Python engine determines fit.</p></article><article><h3>Pairing performance & capacity</h3><dl><div><dt>Concurrent users (U_max)</dt><dd>{number(memory.data.sizing.max_concurrent_users, 0)}</dd></div><div><dt>Decode</dt><dd>{number(memory.data.performance?.decode_tps?.value)} tok/s</dd></div><div><dt>Effective speed</dt><dd>{number(memory.data.performance?.effective_tps?.value)} tok/s</dd></div><div><dt>TTFT</dt><dd>{number(memory.data.performance?.ttft_s?.value)} s</dd></div><div><dt>AA v5 quality</dt><dd>{number(memory.data.aa_index_v5?.value)}</dd></div></dl><Origin metric={memory.data.performance?.decode_tps} /><p className="badge warning">{memory.data.sizing.context_eviction_risk ? 'Context eviction risk' : 'No context eviction risk detected'}</p></article></div>
+            {memory.data && <div className="memory-body" data-testid="memory-result"><div className="panel-heading"><div><h2>Memory Allocation vs. Usable Capacity</h2><p>{pairingName({ ...memoryPair, hardware_id: memory.data.sizing.hardware_id, model_id: memory.data.sizing.model_id, precision: memory.data.sizing.precision, nodes: memory.data.sizing.requested_nodes })}</p><p>Context: <b>{number(completedMemory?.scenario.sizing.target_context_length, 0)} tokens</b> · Cluster totals</p></div><span className={`badge ${memory.data.sizing.is_feasible ? 'success' : 'warning'}`}>{memory.data.sizing.is_feasible ? 'Fits in memory' : 'OOM · Does not fit'}</span></div><div className="memory-status"><span className="badge">{memory.data.sizing.eu_commercial_license_valid ? 'Compliant - EU commercial license' : 'Non-compliant - EU commercial license'}</span><span className="badge">{memory.data.sizing.context_eviction_risk ? 'EVICTION RISK' : 'No context eviction risk detected'}</span></div><div className="chart-frame memory-chart"><Plot {...memoryChart(memory.data, dark)} label="Stacked memory breakdown with usable-memory threshold. Exact segment values follow." /></div>
+              <div className="memory-details"><article><h3>Memory breakdown</h3><dl>{memory.data.sizing.memory_breakdown.map(([key, value]) => <div key={key}><dt>{label(key)}</dt><dd>{number(value, 2)} GB</dd></div>)}<div><dt>Usable memory</dt><dd>{number(memory.data.sizing.usable_memory_gb)} GB</dd></div>{memory.data.sizing.usable_system_ram_gb != null && <div><dt>System RAM</dt><dd>{number(memory.data.sizing.usable_system_ram_gb)} GB</dd></div>}</dl><p className="muted">Parked agent state and OS reservation are separate pools; the total bar is not a feasibility test. The Python engine determines fit.</p></article><article><h3>Pairing performance & capacity</h3><dl><div><dt>Concurrent users (U_max)</dt><dd>{number(memory.data.sizing.max_concurrent_users, 0)}</dd></div><div><dt>Decode</dt><dd>{number(memory.data.performance?.decode_tps?.value)} tok/s</dd></div><div><dt>Effective speed</dt><dd>{number(memory.data.performance?.effective_tps?.value)} tok/s</dd></div><div><dt>TTFT</dt><dd>{number(memory.data.performance?.ttft_s?.value)} s</dd></div><div><dt>Token agreement</dt><dd>{memory.data.sizing.token_agreement_rate == null ? 'n/a' : `${(memory.data.sizing.token_agreement_rate * 100).toFixed(1)}%`}</dd></div><div><dt>AA v5 quality</dt><dd>{number(memory.data.aa_index_v5?.value)}</dd></div></dl><Origin metric={memory.data.performance?.decode_tps} /><p className="badge warning">{memory.data.sizing.context_eviction_risk ? 'Context eviction risk' : 'No context eviction risk detected'}</p></article></div>
               {!memory.data.sizing.is_feasible && <div className="notice warning"><TriangleAlert size={19} /><div><strong>No feasible memory fit</strong><p>{memory.data.sizing.oom_reason}</p><p>Performance is unavailable for this pairing.</p></div></div>}{memory.data.sizing.warnings.map(w => <p className="notice warning" key={w}>{w}</p>)}
             </div>}
           </div>
-          <div id="ranking-panel" role="tabpanel" aria-labelledby="ranking-tab" hidden={tab !== 'ranking'}><Ranking key={evaluation.key} data={evaluation.data?.recommendation} loading={evaluation.loading} error={evaluation.error} currency={currency} fx={fx} context={`${label(scenario.decision.use_case)} | ${scenario.workload.active_users} users | ${label(scenario.decision.preset)}`} /></div>
+          <div id="ranking-panel" role="tabpanel" aria-labelledby="ranking-tab" hidden={tab !== 'ranking'}><Ranking key={evaluation.key} data={evaluation.data?.recommendation} loading={evaluation.loading} error={evaluation.error} currency={currency} fx={fx} selectedId={selected} onSelect={selectCandidate} context={`${label(scenario.decision.use_case)} | ${scenario.workload.active_users} users | ${label(scenario.decision.preset)}`} /></div>
         </section>
-        <section className="audit-footer"><ShieldCheck size={28} /><div><h3>Audit & Export</h3><p>Provenance travels with each result. Full audit drawer and downloads arrive in Task 12.</p></div><Button disabled title="Available in Task 12"><ArrowDownToLine size={16} />Export JSON</Button><Button disabled title="Available in Task 12">Export CSV (zip)</Button></section>
+        <AuditDrawer result={currentResult} selected={selected} onSelect={selectCandidate} currency={currency} unavailable={!submitted ? 'Apply a scenario to enable downloads.' : currentResult ? undefined : evaluation.error || evaluation.data?.recommendation.ranking_error ? 'Current scenario calculation failed.' : 'Calculating current scenario.'} />
         <p className="page-note"><CircleHelp size={14} />Estimates use the current catalog and engine assumptions. Calibration limitations remain recorded in the corrections ledger.</p>
       </main>
     </div>

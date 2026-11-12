@@ -13,6 +13,7 @@ from typing import Any
 
 from hypothesis import given
 from hypothesis import strategies as st
+from tests.benchmark_fixtures import conditions
 
 from ai_tco_dss.catalog import get_default_repository
 from ai_tco_dss.domain import (
@@ -51,7 +52,11 @@ def _base_input() -> PerformanceInput:
     hardware = next(h for h in catalog.hardware if h.id == HW_ID)
     model = next(m for m in catalog.models if m.id == MODEL_ID)
     profile = WorkloadProfile()
-    options = SizingOptions(target_context_length=8_192)
+    options = SizingOptions(
+        target_context_length=8_192,
+        performance_prompt_tokens=8192,
+        benchmark_conditions=conditions(),
+    )
     workload = compute_workload(
         WorkloadInput(profile=profile, model=model, harnesses=catalog.harnesses), PARAMS
     )
@@ -173,6 +178,7 @@ DATES = [date(2026, 1, 1), date(2026, 10, 1), date(2026, 11, 7)]
 
 @st.composite
 def records(draw: st.DrawFn) -> BenchmarkRecord:
+    prompt = draw(st.sampled_from(CONTEXTS))
     return BenchmarkRecord(
         metric=draw(
             st.sampled_from(
@@ -187,7 +193,9 @@ def records(draw: st.DrawFn) -> BenchmarkRecord:
         model_id=draw(st.sampled_from([MODEL_ID, "other-model"])),
         hardware_id=draw(st.sampled_from([HW_ID, "other-hw", None])),
         precision=draw(st.sampled_from([PrecisionFormat.INT4, PrecisionFormat.INT8, None])),
-        context_tokens=draw(st.sampled_from(CONTEXTS)),
+        context_tokens=prompt,
+        prompt_tokens=prompt,
+        conditions=conditions(),
         source_id=draw(st.sampled_from(["A", "B", "C"])),
         tier=draw(st.sampled_from([SourceTier(t) for t in TIER_ORDER])),
         accessed=draw(st.sampled_from(DATES)),
@@ -239,6 +247,7 @@ def test_property_4_resolver_matches_the_selection_oracle(
     record_set = BenchmarkSet(records=tuple(recs))
     for metric in (BenchmarkMetric.DECODE_TPS, BenchmarkMetric.PREFILL_TPS):
         query = BenchmarkQuery(
+            conditions=conditions(),
             records=record_set,
             metric=metric,
             model_id=MODEL_ID,
@@ -266,7 +275,9 @@ def test_property_4_resolver_matches_the_selection_oracle(
     inp = BASE.model_copy(
         update={
             "benchmarks": record_set,
-            "options": BASE.options.model_copy(update={"target_context_length": target}),
+            "options": BASE.options.model_copy(
+                update={"target_context_length": target, "performance_prompt_tokens": target}
+            ),
         }
     )
     decode = compute_performance(inp, params).decode_tps

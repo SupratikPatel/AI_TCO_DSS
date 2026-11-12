@@ -1,6 +1,7 @@
 """Service_Layer orchestration: `catalog_overview`, `load_workload`, `size` and
 `project_tco`."""
 
+import hashlib
 import re
 from pathlib import Path
 
@@ -321,6 +322,7 @@ def _project_onprem(request: TcoRequest, *, repo: CatalogRepository | None = Non
             tariffs=catalog.tariffs,
             hubs=catalog.hubs,
             benchmarks=_pair_benchmarks(catalog, hardware.id, model.id),
+            options=scenario.sizing,
             cloud_ttft_s=ref_model.api_ttft_s.value if ref_model.api_ttft_s else None,
         ),
         params,
@@ -383,7 +385,7 @@ def _project_onprem(request: TcoRequest, *, repo: CatalogRepository | None = Non
         TimelineInput(
             anchor_candidate_id=candidate.candidate_id,
             onprem=tco,
-            include_resale=scenario.financials.include_resale_value,
+            include_resale=scenario.financials.effective_costs().include_resale_value,
             baselines=baselines,
             baseline_d=baseline_d,
             rental=rental_cost,
@@ -422,6 +424,12 @@ def _recommend(catalog: Catalog, scenario: Scenario, params: EngineParameters) -
     ranking = rank_candidates(
         RankingInput(
             feasible=filtered.feasible,
+            tps_target=None
+            if scenario.decision.reward_excess_performance
+            else scenario.workload.min_acceptable_tps,
+            ttft_target=None
+            if scenario.decision.reward_excess_performance
+            else scenario.workload.max_acceptable_ttft_seconds,
             weights=scenario.decision.weights or preset.weights,
             method=scenario.decision.method,
         ),
@@ -435,7 +443,25 @@ def _recommend(catalog: Catalog, scenario: Scenario, params: EngineParameters) -
         rejected=filtered.rejected,
         explanation=ranking.explanation,
         ranking_error=ranking.ranking_error,
-        warnings=candidates.warnings,
+        warnings=candidates.warnings + _coverage_warnings(filtered.rejected),
+    )
+
+
+def _coverage_warnings(rejected: tuple[CandidateEvaluation, ...]) -> tuple[str, ...]:
+    count = sum(
+        c.kind == CandidateKind.API
+        and any(
+            f.name in ("min_tps", "max_ttft") and f.measured == "not available" for f in c.failures
+        )
+        for c in rejected
+    )
+    return (
+        (
+            f"{count} API alternatives excluded with missing performance evidence. "
+            "Missing data is not measured failure.",
+        )
+        if count
+        else ()
     )
 
 
@@ -465,6 +491,7 @@ def evaluate_scenario(
         else None
     )
     return ScenarioResult(
+        catalog_fingerprint=hashlib.sha256(catalog.model_dump_json().encode()).hexdigest(),
         scenario=scenario,
         recommendation=recommendation,
         baselines=projection.baselines

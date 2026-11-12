@@ -1,0 +1,312 @@
+{
+  "purpose": "Review a user-supplied extraction; no new inference, coefficient fitting or production benchmark import.",
+  "source_manifest": "manifest.json",
+  "input_sha256": "0892790c98eedb80f46861ae4be18bb4e3b2ca803c9883b92b91a283612d4c08",
+  "input_json_records_present": false,
+  "primary_text_checks": {
+    "strata_engine_version_unknown": true,
+    "strata_prompt_metric_is_ttft": true,
+    "strata_engine_memory_not_kv_only": true,
+    "strata_per_sequence_kv_state_gb": true,
+    "macstories_single_runs": true,
+    "macstories_actual_output": true,
+    "five_prompts_old_pool": true,
+    "six_prompts_new_pool": true,
+    "tf_five_prose": true,
+    "tf_five_code": true,
+    "surogate_eight_agents_other_model": true
+  },
+  "verified_dataset_conditions": [
+    {
+      "id": "factory-qwen38-27b-apple-m5-pro-mac-mini",
+      "kind": "factory",
+      "recipe": "qwen38-27b",
+      "order": 20,
+      "model": "Qwen 3.8 27B",
+      "upstream": "Qwen/Qwen3.8-27B",
+      "mac": "Apple M5 Pro (Mac mini)",
+      "measured": "2026-11-02",
+      "quality_name": "Quality (top-1 match vs 8-bit)",
+      "test": "Speed: output tokens per second on a short chat (median of 3 after a warm-up). Memory: peak during a 4,096-token prompt. Quality: how often the version picks the same next word as a near-lossless 8-bit copy (top-1 match), plus 10 short questions with one right answer. mlx 0.32.4.",
+      "source_note": "Entered from the factory report as posted on the day; the full result files are on the Mac mini. Rows marked 'about' will be exact after the next run.",
+      "takeaway": "the standard 4-bit build runs well on a 32 GB+ Mac; neither tested change helped.",
+      "rows": [
+        {
+          "id": "q4-served",
+          "label": "Standard 4-bit (mlx-community)",
+          "role": "base",
+          "tps": 35.7,
+          "peak_gb": 18.26,
+          "disk_gb": 16.05,
+          "quality": 0.909,
+          "perplexity": 7.949,
+          "checks": "10/10"
+        },
+        {
+          "id": "mixed-3-6",
+          "label": "Mixed 3/6-bit",
+          "role": "version",
+          "speed_text": "slower",
+          "verdict": "worse",
+          "why": "slower and lower quality"
+        },
+        {
+          "id": "q4-served-kv8",
+          "label": "Standard 4-bit + 8-bit attention memory",
+          "role": "version",
+          "speed_text": "same",
+          "verdict": "no gain",
+          "why": "no difference on short chats"
+        },
+        {
+          "id": "q8-reference",
+          "label": "8-bit copy (quality yardstick, not served)",
+          "role": "reference",
+          "quality": 1.0,
+          "perplexity": 7.669,
+          "verdict": "reference",
+          "why": "quality yardstick"
+        }
+      ]
+    },
+    {
+      "id": "task-qwen38-27b-draft-ahead-apple-m5-pro-64-gb-mac-mini",
+      "kind": "task",
+      "order": 21,
+      "model": "Qwen 3.8 27B, draft-ahead decoding",
+      "upstream": "Qwen/Qwen3.8-27B",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-06",
+      "quality_name": "Quality (GSM8K, 200 problems right)",
+      "test": "draft-ahead (speculative) decoding: the small mlx-community/Qwen3.5-0.8B-MLX-4bit guesses 4 words at a time and Qwen 3.8 27B checks them in one pass; 76% of guesses were kept. 200 GSM8K problems, the same for both, measured with mlx-lm in Python, greedy, thinking off, up to 1,024 tokens. The standard build was timed again in the same sitting, with serving paused (this sitting's standard speed is lower than the 35.7 tok/s chat test above, which used a different prompt and length).",
+      "takeaway": "draft-ahead made Qwen 3.8 27B 81% faster with the same right answers and only 3% more memory, the first speed-up to beat a standard build on this page.",
+      "caution": "Important: this gain was measured greedy with thinking off. When our Mac app served it live at its default settings (temperature 0.6, thinking on), we did not see the speed-up, so the app has draft-ahead turned off again while we find out why. Do not expect this speed from Smarty Pants today.",
+      "rows": [
+        {
+          "id": "q4-served",
+          "label": "Standard 4-bit (mlx-community)",
+          "role": "base",
+          "tps": 17.8,
+          "peak_gb": 15.8,
+          "quality": 0.915
+        },
+        {
+          "id": "q4-served-draft4",
+          "label": "Standard 4-bit + guess 4 words ahead (test only, off in the app)",
+          "role": "version",
+          "tps": 32.2,
+          "peak_gb": 16.31,
+          "quality": 0.915,
+          "paired": "+1 / -1 (p = 1.0)",
+          "verdict": "faster",
+          "why": "81% faster, same right answers, 3% more memory (in this test setup; not yet in the live app)"
+        }
+      ]
+    },
+    {
+      "id": "task-qwen38-27b-gsm8k-full-apple-m5-pro-64-gb-mac-mini",
+      "kind": "task",
+      "order": 22,
+      "model": "Qwen 3.8 27B, smaller tuned build",
+      "upstream": "Qwen/Qwen3.8-27B",
+      "mac": "Apple M5 Pro, 64 GB (Mac mini)",
+      "measured": "2026-11-08",
+      "quality_name": "Quality (GSM8K, all 1,319 problems right)",
+      "test": "the full GSM8K test (1,319 problems), the same for both, served the way Smarty Pants serves it: thinking off, greedy, up to 1,024 tokens. Better needs answers as good (95% interval of the accuracy change above -2 points) plus at least 10% faster or 10% less memory. In the Mac app's own code, at temperature 0.6 with thinking on, the smaller build also ran faster: 20.3 vs 17.6 tok/s.",
+      "takeaway": "the smaller tuned build gives the same answers (94.6% vs 94.8%, no real difference) while running 15% faster on 15% less memory, so it fits more Macs.",
+      "credit": "the 3.80-bits-per-weight DWQ build is by AtomicChat ([AtomicChat/Qwen3.8-27B-MLX-AD-3.80bpw-DWQ-13.7GB](https://huggingface.co/AtomicChat/Qwen3.8-27B-MLX-AD-3.80bpw-DWQ-13.7GB), revision 9fa7ab0); we tested it.",
+      "rows": [
+        {
+          "id": "q4",
+          "label": "Standard 4-bit (mlx-community, revision 10c35ca)",
+          "role": "base",
+          "tps": 17.7,
+          "peak_gb": 15.88,
+          "quality": 0.948
+        },
+        {
+          "id": "dwq38",
+          "label": "AtomicChat 3.80-bit DWQ (tuned to copy the full model)",
+          "role": "version",
+          "tps": 20.4,
+          "peak_gb": 13.52,
+          "quality": 0.946,
+          "paired": "+22 / -25 (p = 0.77)",
+          "verdict": "faster",
+          "why": "15% faster and 15% less memory, answers as good (-1.2 to +0.8 points)"
+        }
+      ]
+    }
+  ],
+  "run_reviews": [
+    {
+      "run_id": "P1-M5MAX-STRATA-CAL",
+      "assessment": "Tables confirm no-MTP/MTP rates; isolated-prefill and uncached labels unsupported. Runtime absent, KV/artifact/prompt facts incomplete.",
+      "archived_primary_files": [
+        "strata/docs/MAC.md",
+        "strata/docs/QUANTS.md"
+      ],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P1-M5MAX-STRATA-CONC",
+      "assessment": "Confirms 1-4 requests at configured 36,864; engine total memory mislabeled KV/state; occupied prompt unknown. No 5 x 128K Mac validation.",
+      "archived_primary_files": [
+        "strata/docs/MAC.md"
+      ],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P1-DGX-VLLM-SWEEP",
+      "assessment": "Confirms five/six long prompts and large TTFT, but five used previous 27 GB pool, six used 31.15 GB. Sweep rows require separate historical recipes.",
+      "archived_primary_files": [
+        "fortunato/README.md",
+        "fortunato/.env.example"
+      ],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P1-DGX-TFOLD-5SLOT",
+      "assessment": "Confirms five-stream short-prompt results and separate cold-prefill ladder. Configured 262K is not five occupied 262K contexts. 199,730 / 100.7 is derived prompt/TTFT.",
+      "archived_primary_files": [
+        "tensorfold/README.md",
+        "tensorfold/tools/bench_streams.py.txt"
+      ],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P1-DGX-SUROGATE-8AG",
+      "assessment": "Confirms Flash-Next low-bit rows and separate eight-agent 35B-A3B model. Do not attach 1.88/2.53 warm TTFT to Flash-Next.",
+      "archived_primary_files": [
+        "surogate/BENCHMARKS.md",
+        "surogate/surogate/serve/tools/bench/agentic_long_bench.py.txt"
+      ],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P1-M5ULTRA-STRATA",
+      "assessment": "Video timestamp claims preserved; original transcript/terminal captures not supplied or independently verified. Summary is not raw logs.",
+      "archived_primary_files": [],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P1-M5ULTRA-OMLX",
+      "assessment": "MacStories prompt-series values confirmed; one run per size, exactly 512 output tokens; separate quant retest had three repetitions. Existing artifact/KV blockers remain.",
+      "archived_primary_files": [
+        "macstories-response.html"
+      ],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P1-TOMSHW-CALIB",
+      "assessment": "Cites secondary retellings instead of an identified primary Toms Hardware run; unverified lead.",
+      "archived_primary_files": [],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P1-M5PRO-64GB-MATRIX",
+      "assessment": "Dataset confirms distinct 35.7 chat, 17.8 200-problem baseline, 17.7 full-GSM8K. JSON is summaries, not per-request timings. Reddit subseries unverified here.",
+      "archived_primary_files": [
+        "smartypants/README.md",
+        "smartypants/results.json"
+      ],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P2-DGX-KUBESIMPLIFY",
+      "assessment": "Article recovers build, model revision, separate llama-bench/Ollama/vLLM protocols. UD-Q4_K_XL is mixed; server -c 32768 does not supply bench occupied depth.",
+      "archived_primary_files": [
+        "kubesimplify-response.html"
+      ],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P3-STRATA-DSV41",
+      "assessment": "Original DeepSeek archive retained. New Mac traffic facts describe another machine/run sharing cache with idle 60 GB Qwen; do not transplant 48/111 MB per token to RTX5070.",
+      "archived_primary_files": [
+        "strata/docs/DEEPSEEK_MAC.md"
+      ],
+      "strict_formula_admission": false
+    },
+    {
+      "run_id": "P4-API-STREAMED",
+      "assessment": "Requesty confirms production medians for Sonnet/Opus/Sol, differing request distributions. OpenRouter ranges/Gemini preview rows not independently snapshotted.",
+      "archived_primary_files": [
+        "requesty-response.html"
+      ],
+      "strict_formula_admission": false
+    }
+  ],
+  "strata_mac_non_mtp_reported_decode_tps": {
+    "Q2_0": {
+      "short": 87.4,
+      "story": 87.3
+    },
+    "IQ3_XXS": {
+      "short": 78.7,
+      "story": 78.6
+    },
+    "IQ3_S_first_table": {
+      "short": 74.5,
+      "story": 74.3
+    },
+    "IQ3_S_second_table": {
+      "short": 75.4,
+      "story": 74.8
+    },
+    "UD-Q4_K_XL": {
+      "short": 60.7,
+      "story": 59.7
+    }
+  },
+  "dgx_long_context_records": [
+    {
+      "requests": 5,
+      "prompt_tokens_range": [
+        246388,
+        253222
+      ],
+      "reported_output_tokens_each": 3000,
+      "kv_pool_gb": 27,
+      "last_ttft_s": 652,
+      "source": "fortunato/README.md"
+    },
+    {
+      "requests": 6,
+      "prompt_tokens_range": [
+        252700,
+        253222
+      ],
+      "reported_output_tokens_each": 3000,
+      "kv_pool_gb": 31.15,
+      "last_ttft_s": 790,
+      "source": "fortunato/README.md"
+    }
+  ],
+  "api_production_medians": [
+    {
+      "model": "Claude Sonnet 5.5",
+      "ttft_median_ms": 2786,
+      "ttft_p95_ms": 20158,
+      "reported_output_tps": 200
+    },
+    {
+      "model": "Claude Opus 5.5",
+      "ttft_median_ms": 3712,
+      "ttft_p95_ms": 16036,
+      "reported_output_tps": 140
+    },
+    {
+      "model": "GPT-6.1 Sol",
+      "ttft_median_ms": 4041,
+      "ttft_p95_ms": 18276,
+      "reported_output_tps": 71
+    }
+  ],
+  "production_changes": false,
+  "engine_version": "0.1.4",
+  "strict_comparable_count": 0,
+  "existing_exclusions": 13,
+  "mape_pct": null,
+  "hardware_access": "Author confirmed no benchmark machine available."
+}

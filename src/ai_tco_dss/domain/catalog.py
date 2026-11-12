@@ -5,6 +5,7 @@ from typing import Literal, Self
 from pydantic import Field, field_validator, model_validator
 
 from ai_tco_dss.domain.base import Contract, IsoDate, Money, Sourced, SourceTier
+from ai_tco_dss.domain.benchmark_conditions import BenchmarkConditions
 from ai_tco_dss.domain.enums import (
     AttentionMechanism,
     BenchmarkMetric,
@@ -138,6 +139,11 @@ class BenchmarkRecord(Contract):
     hardware_id: str | None = None
     precision: PrecisionFormat | None = None
     context_tokens: int | None = Field(default=None, ge=1)
+    # Legacy context is retained for audit; it is never treated as a measured prompt.
+    prompt_tokens: int | None = Field(default=None, ge=1)
+    configured_context_tokens: int | None = Field(default=None, ge=1)
+    conditions: BenchmarkConditions | None = None
+    uncertainty_reasons: tuple[str, ...] = ()
     engine: str | None = None
     source_id: str = Field(min_length=1)
     tier: SourceTier

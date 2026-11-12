@@ -75,6 +75,18 @@ def generate_candidates(inp: CandidateInput, params: EngineParameters) -> Candid
     models = sorted(catalog.models, key=lambda m: m.id)
     open_models = [m for m in models if m.type == "open-weights"]
     api_models = [m for m in models if m.type == "commercial-api"]
+    reference = next(
+        (
+            m
+            for m in models
+            if m.id
+            == (
+                scenario.decision.reference_api_model_id
+                or catalog.baseline_defaults.reference_api_model_id
+            )
+        ),
+        None,
+    )
     quality = {m.id: resolve_quality(catalog, m.id, use_case, ratios, params) for m in models}
     popularity = {e.model_id: e.value for e in catalog.popularity.entries}
     workloads = {
@@ -171,6 +183,10 @@ def generate_candidates(inp: CandidateInput, params: EngineParameters) -> Candid
                     hubs=catalog.hubs,
                     benchmarks=benchmarks[(hw.id, model.id)],
                     demand_share=demand_share,
+                    options=scenario.sizing,
+                    cloud_ttft_s=reference.api_ttft_s.value
+                    if reference and reference.api_ttft_s
+                    else None,
                 ),
                 params,
             )
@@ -315,9 +331,15 @@ def generate_candidates(inp: CandidateInput, params: EngineParameters) -> Candid
         for model in open_models:
             options = [local(hw, model, p, nodes) for p in precisions(hw, model)]
             fits = [c for c in options if c.sizing and c.sizing.is_feasible and c.tco]
+            peak_fits = [
+                c
+                for c in fits
+                if c.sizing
+                and c.sizing.max_concurrent_users >= scenario.workload.peak_concurrent_requests
+            ]
             chosen = (
                 min(
-                    fits,
+                    peak_fits or fits,
                     key=lambda c: (
                         -dict(BITS)[PrecisionFormat(str(c.precision))],
                         str(c.precision),
@@ -371,8 +393,34 @@ def generate_candidates(inp: CandidateInput, params: EngineParameters) -> Candid
                     }
                 )
             )
+    # Choose the cheapest local component that passes all constraints at its routed demand.
+    from ai_tco_dss.decision.filters import apply_hard_filters
+    from ai_tco_dss.domain import FilterInput
+
+    routed = [
+        c.model_copy(
+            update={
+                "utilization": c.utilization * scenario.financials.local_offload_ratio
+                if c.utilization is not None
+                else None
+            }
+        )
+        for c in onprem
+    ]
+    eligible_ids = {
+        c.candidate_id
+        for c in apply_hard_filters(
+            FilterInput(candidates=tuple(routed), scenario=scenario, use_case=use_case), params
+        ).feasible
+    }
     feasible_local = [
-        c for c in onprem if c.sizing and c.sizing.is_feasible and c.tco and not c.failures
+        c
+        for c in onprem
+        if c.sizing
+        and c.sizing.is_feasible
+        and c.tco
+        and not c.failures
+        and c.candidate_id in eligible_ids
     ]
     hybrids = []
     warnings: tuple[str, ...] = ()

@@ -6,6 +6,7 @@ from datetime import date
 
 from hypothesis import given
 from hypothesis import strategies as st
+from tests.benchmark_fixtures import conditions
 
 from ai_tco_dss.domain import BenchmarkMetric, BenchmarkRecord, SourceTier
 from ai_tco_dss.services import calibration_report as cr
@@ -46,6 +47,9 @@ def items(draw: st.DrawFn) -> tuple[BenchmarkRecord, float | None]:
         model_id=draw(st.sampled_from([*MODELS, "ghost-model"])),
         hardware_id=draw(st.sampled_from([*HW, "ghost-hw", None])),
         context_tokens=8_192,
+        prompt_tokens=8192,
+        precision="INT4",
+        conditions=conditions(prompt_cache_hit_rate=0, concurrency=1),
         source_id=draw(st.sampled_from(["S1", "S2", "S3"])),
         tier=SourceTier.COMMUNITY,
         accessed=date(2026, 11, 7),

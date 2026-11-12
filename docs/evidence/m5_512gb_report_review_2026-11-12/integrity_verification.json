@@ -1,0 +1,12 @@
+{
+  "manifest_files_verified": 43,
+  "sha256_and_lengths_match": true,
+  "response_status_counts": {
+    "input": 1,
+    "200": 40,
+    "403": 2
+  },
+  "empty_responses": [
+    "youtube-lead-captions.json"
+  ]
+}

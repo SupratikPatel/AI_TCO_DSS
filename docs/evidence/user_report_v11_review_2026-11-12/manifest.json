@@ -1,0 +1,310 @@
+{
+  "purpose": "Delta review of supplied v1.1; preserve prior archives and acquire only new leads.",
+  "files": [
+    {
+      "path": "submitted_report_v1.1.md",
+      "origin": "user-supplied revision v1.1",
+      "original_path": "C:\\Users\\supra\\Downloads\\ai_deployment_benchmark_evidence_report (1).md",
+      "archived_at": "2026-11-12T13:15:26.766722+00:00",
+      "bytes": 43806,
+      "sha256": "ebb9eb6496139fc194e0422f32a6fe8391a81cb762803e07f96def078fde6691"
+    },
+    {
+      "path": "heretik.html",
+      "url": "https://heretik.io/qwen38-flash-next-262k-macbook/",
+      "resolved_url": "https://heretik.io/qwen38-flash-next-262k-macbook/",
+      "retrieved_at": "2026-11-12T13:15:27.793407+00:00",
+      "status": 200,
+      "bytes": 26374,
+      "sha256": "aaeea136b929f19042c2a81244a7ee42e37d9944f0a68c981806ecb72adae8ce"
+    },
+    {
+      "path": "omlx/t9sos5mz.html",
+      "url": "https://omlx.ai/benchmarks/performance/t9sos5mz",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/t9sos5mz",
+      "retrieved_at": "2026-11-12T13:15:28.250877+00:00",
+      "status": 200,
+      "bytes": 34143,
+      "sha256": "b595750e444c01f8e96c50da27006cef16868ddf8aa765527764b20f7cfabd89"
+    },
+    {
+      "path": "omlx/6ll10w10.html",
+      "url": "https://omlx.ai/benchmarks/performance/6ll10w10",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/6ll10w10",
+      "retrieved_at": "2026-11-12T13:15:28.091951+00:00",
+      "status": 200,
+      "bytes": 34184,
+      "sha256": "835440a3a67641d79408cec7a7e10a543b50901372c6581c677e63848bf467c7"
+    },
+    {
+      "path": "omlx/2kf4wz4v.html",
+      "url": "https://omlx.ai/benchmarks/performance/2kf4wz4v",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/2kf4wz4v",
+      "retrieved_at": "2026-11-12T13:15:28.129446+00:00",
+      "status": 200,
+      "bytes": 33836,
+      "sha256": "29f8fdf918e0960264a36d878c53b33104884c309623a5702338b5533bd1d741"
+    },
+    {
+      "path": "omlx/b0zessb6.html",
+      "url": "https://omlx.ai/benchmarks/performance/b0zessb6",
+      "resolved_url": "https://omlx.ai/benchmarks/performance/b0zessb6",
+      "retrieved_at": "2026-11-12T13:15:28.265263+00:00",
+      "status": 200,
+      "bytes": 32983,
+      "sha256": "53f2b2d3b87fea1253ea7cc0f60f94f2d25efad28f328b3f3eba3ef4624b4251"
+    },
+    {
+      "path": "kapitsa-head.json",
+      "url": "https://api.github.com/repos/nace-ai/kapitsa/commits/HEAD",
+      "resolved_url": "https://api.github.com/repos/nace-ai/kapitsa/commits/HEAD",
+      "retrieved_at": "2026-11-12T13:15:28.478000+00:00",
+      "status": 200,
+      "bytes": 14906,
+      "sha256": "96d0f6b44b0438c6a15d92a8544276ee17d6eb11ebd38dd3eda32f321a482796"
+    },
+    {
+      "path": "sushi-head.json",
+      "url": "https://api.github.com/repos/beamivalice/sushi/commits/HEAD",
+      "resolved_url": "https://api.github.com/repos/beamivalice/sushi/commits/HEAD",
+      "retrieved_at": "2026-11-12T13:15:28.690654+00:00",
+      "status": 200,
+      "bytes": 4893,
+      "sha256": "d224d5f73d0e9a27ed09a1af5bcb4d2b24b1c0bbb1e856ff2f69cbdcd1404350"
+    },
+    {
+      "path": "mlx-serve-head.json",
+      "url": "https://api.github.com/repos/ddalcu/mlx-serve/commits/HEAD",
+      "resolved_url": "https://api.github.com/repos/ddalcu/mlx-serve/commits/HEAD",
+      "retrieved_at": "2026-11-12T13:15:28.886610+00:00",
+      "status": 200,
+      "bytes": 6696,
+      "sha256": "997705c51cae0add78b4871016ce30c28f6ba16541aa9ef9688ed1fdfac386c2"
+    },
+    {
+      "path": "kapitsa-tree.json",
+      "url": "https://api.github.com/repos/nace-ai/kapitsa/git/trees/5ca196fba4b052ca143cf911639e93c31b8e2a8a?recursive=1",
+      "resolved_url": "https://api.github.com/repos/nace-ai/kapitsa/git/trees/5ca196fba4b052ca143cf911639e93c31b8e2a8a?recursive=1",
+      "retrieved_at": "2026-11-12T13:15:55.292871+00:00",
+      "status": 200,
+      "bytes": 2947810,
+      "sha256": "7f3834e8c66c7c81c19207ab32f4e50fd320b6606bbfb9979a0178219e17c3da"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/README.md",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/README.md",
+      "retrieved_at": "2026-11-12T13:15:54.610939+00:00",
+      "status": 200,
+      "bytes": 5007,
+      "sha256": "3b674883000a1100c82e61f9ea499d7be424352f4036c6e57a5b41bdbc08711e"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-10-25-m5-max/README.md",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/README.md",
+      "retrieved_at": "2026-11-12T13:15:54.610939+00:00",
+      "status": 200,
+      "bytes": 11688,
+      "sha256": "ca3f6ea528335b605dcbaf34437fffa9cd2b77a34a695e164ecaf9391652d55c"
+    },
+    {
+      "path": "sushi-tree.json",
+      "url": "https://api.github.com/repos/beamivalice/sushi/git/trees/404e8b386b8ece983806cf190a780d6001b68072?recursive=1",
+      "resolved_url": "https://api.github.com/repos/beamivalice/sushi/git/trees/404e8b386b8ece983806cf190a780d6001b68072?recursive=1",
+      "retrieved_at": "2026-11-12T13:15:54.947907+00:00",
+      "status": 200,
+      "bytes": 240288,
+      "sha256": "152c65d6f284613e4824dd6d9f138d6359f93f7076a426013489217d53577ea7"
+    },
+    {
+      "path": "sushi/README.md",
+      "url": "https://raw.githubusercontent.com/beamivalice/sushi/404e8b386b8ece983806cf190a780d6001b68072/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/beamivalice/sushi/404e8b386b8ece983806cf190a780d6001b68072/README.md",
+      "retrieved_at": "2026-11-12T13:15:54.581395+00:00",
+      "status": 200,
+      "bytes": 8627,
+      "sha256": "bbc3172dc35ef73592cd7cd28aec516ee438d96799804c0e0aef8df76514add6"
+    },
+    {
+      "path": "sushi/docs/perf-baselines.md",
+      "url": "https://raw.githubusercontent.com/beamivalice/sushi/404e8b386b8ece983806cf190a780d6001b68072/docs/perf-baselines.md",
+      "resolved_url": "https://raw.githubusercontent.com/beamivalice/sushi/404e8b386b8ece983806cf190a780d6001b68072/docs/perf-baselines.md",
+      "retrieved_at": "2026-11-12T13:15:55.020615+00:00",
+      "status": 200,
+      "bytes": 41433,
+      "sha256": "5653dfb71de1a064b31358ead6ed9098e263aa2a9a407e80e032213742fd669d"
+    },
+    {
+      "path": "mlx-serve-tree.json",
+      "url": "https://api.github.com/repos/ddalcu/mlx-serve/git/trees/f87552989b62bef91c981abeb5425e46e83568df?recursive=1",
+      "resolved_url": "https://api.github.com/repos/ddalcu/mlx-serve/git/trees/f87552989b62bef91c981abeb5425e46e83568df?recursive=1",
+      "retrieved_at": "2026-11-12T13:15:56.014866+00:00",
+      "status": 200,
+      "bytes": 1010307,
+      "sha256": "0ce1385996446804cf87f54f99e17057f0fca8ebe650c20ae7271c85c6a00603"
+    },
+    {
+      "path": "mlx-serve/docs/performance.md",
+      "url": "https://raw.githubusercontent.com/ddalcu/mlx-serve/f87552989b62bef91c981abeb5425e46e83568df/docs/performance.md",
+      "resolved_url": "https://raw.githubusercontent.com/ddalcu/mlx-serve/f87552989b62bef91c981abeb5425e46e83568df/docs/performance.md",
+      "retrieved_at": "2026-11-12T13:15:54.999625+00:00",
+      "status": 200,
+      "bytes": 7908,
+      "sha256": "2b9a2489e156c6ecca5fa361169b5ea4695c0b5a50f641edfde7b39a20555518"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-10-25-m5-max/logs/q38-27b-mlxlm-20261025-053106.log",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/logs/q38-27b-mlxlm-20261025-053106.log",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/logs/q38-27b-mlxlm-20261025-053106.log",
+      "retrieved_at": "2026-11-12T13:17:07.767531+00:00",
+      "status": 200,
+      "bytes": 12311,
+      "sha256": "eac398faf57d3d9a80000e9899f7d5569a5127801d117ef861aeefd8c55e1346"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-10-25-m5-max/logs/q38-27b-mlxlm-20261025-082746.log",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/logs/q38-27b-mlxlm-20261025-082746.log",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/logs/q38-27b-mlxlm-20261025-082746.log",
+      "retrieved_at": "2026-11-12T13:17:07.749323+00:00",
+      "status": 200,
+      "bytes": 12311,
+      "sha256": "68cfbc4546535850f8411cb26ea8e6ca8d94f5f072c25f0480426afe14845c91"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-10-25-m5-max/logs/q38-27b-mlxlm-20261025-211754.log",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/logs/q38-27b-mlxlm-20261025-211754.log",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/logs/q38-27b-mlxlm-20261025-211754.log",
+      "retrieved_at": "2026-11-12T13:17:07.754899+00:00",
+      "status": 200,
+      "bytes": 12311,
+      "sha256": "e7dd5cffd7eaf7309a7904114b5a010f5b3a91243183be90cbb0ee21caf50ebb"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-053106.json",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-053106.json",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-053106.json",
+      "retrieved_at": "2026-11-12T13:17:07.817734+00:00",
+      "status": 200,
+      "bytes": 157238,
+      "sha256": "f9187d615e6390a6257be042f568e1a64517d48bafd53e1a2a7d39409c6d6455"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-082746.json",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-082746.json",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-082746.json",
+      "retrieved_at": "2026-11-12T13:17:07.812980+00:00",
+      "status": 200,
+      "bytes": 156640,
+      "sha256": "b4321363f1a56055767fd2cc692e8889dab943d33030b6f05d0006a6c3879063"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-211754.json",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-211754.json",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-10-25-m5-max/results/q38-27b-mlxlm-20261025-211754.json",
+      "retrieved_at": "2026-11-12T13:17:08.206098+00:00",
+      "status": 200,
+      "bytes": 154393,
+      "sha256": "930970836e7388179f6f17f31c160ae120fc9d522973f29c56f7ac0fd14a9f11"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/logs/flash-kapitsa-20261104-082044.log",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/logs/flash-kapitsa-20261104-082044.log",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/logs/flash-kapitsa-20261104-082044.log",
+      "retrieved_at": "2026-11-12T13:17:08.121091+00:00",
+      "status": 200,
+      "bytes": 10390,
+      "sha256": "2d94f1089491b60ff0e775c1c97cd4bdf215e2a8fe4d5e5a9b199ce9abcc9019"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/logs/flash-kapitsa-20261104-082454.log",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/logs/flash-kapitsa-20261104-082454.log",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/logs/flash-kapitsa-20261104-082454.log",
+      "retrieved_at": "2026-11-12T13:17:08.177266+00:00",
+      "status": 200,
+      "bytes": 10375,
+      "sha256": "996233c81f3d67d0bfe7d8db6abd1d594ae16f43173e3b7c66845012f38bbebf"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/logs/flash-kapitsa-20261104-082845.log",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/logs/flash-kapitsa-20261104-082845.log",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/logs/flash-kapitsa-20261104-082845.log",
+      "retrieved_at": "2026-11-12T13:17:08.214455+00:00",
+      "status": 200,
+      "bytes": 10384,
+      "sha256": "c47e7abdfe8a4e36b6959a76a0c3057efc3a86721e8b1995f7e25f9c8babf3d5"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/machine.json",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/machine.json",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/machine.json",
+      "retrieved_at": "2026-11-12T13:17:08.181255+00:00",
+      "status": 200,
+      "bytes": 2215,
+      "sha256": "31dca1ad48cf161fe953a992fa803883c0294d822a4fb324922bc5b2d294ea87"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082044.json",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082044.json",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082044.json",
+      "retrieved_at": "2026-11-12T13:17:08.559669+00:00",
+      "status": 200,
+      "bytes": 151955,
+      "sha256": "397e510537def72d8ef4cd00ccab667d113d8cbb525e2c6fceb8df82792e4a47"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082454.json",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082454.json",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082454.json",
+      "retrieved_at": "2026-11-12T13:17:08.613505+00:00",
+      "status": 200,
+      "bytes": 152408,
+      "sha256": "bbc073fd9dcf0b1252be6f1aad1b811ab41abd67c65f42cfe59cc74fef46e9e3"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082845.json",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082845.json",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/results/flash-kapitsa-20261104-082845.json",
+      "retrieved_at": "2026-11-12T13:17:08.633313+00:00",
+      "status": 200,
+      "bytes": 154222,
+      "sha256": "14a1904eedca300db94dee6e5c864aabcd63ea04d9dd6545f7875093bb473341"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/run_cell.sh.txt",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/run_cell.sh",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/run_cell.sh",
+      "retrieved_at": "2026-11-12T13:17:08.599720+00:00",
+      "status": 200,
+      "bytes": 1224,
+      "sha256": "9d5ccefed3bb712a56a552cec432bd85453fd9310d15beffc2a77a4cd603bfb6"
+    },
+    {
+      "path": "kapitsa/bench/results/2026-11-04-m5-max-flash-next/session.log",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/session.log",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/5ca196fba4b052ca143cf911639e93c31b8e2a8a/bench/results/2026-11-04-m5-max-flash-next/session.log",
+      "retrieved_at": "2026-11-12T13:17:08.622418+00:00",
+      "status": 200,
+      "bytes": 7572,
+      "sha256": "60a0b7a02260b6035cfb29ca18592a56e95c595e0b54fce0b526d301a4b7533e"
+    },
+    {
+      "path": "kapitsa/recorded-harness-af7d795-bench.py.txt",
+      "url": "https://raw.githubusercontent.com/nace-ai/kapitsa/af7d79580a176ffef45d1aaa72cc0b888f214453/bench/harness/bench.py",
+      "resolved_url": "https://raw.githubusercontent.com/nace-ai/kapitsa/af7d79580a176ffef45d1aaa72cc0b888f214453/bench/harness/bench.py",
+      "retrieved_at": "2026-11-12T13:18:24.578663+00:00",
+      "status": 200,
+      "bytes": 59597,
+      "sha256": "219e1eb002e0de5de1f7d91267420b8201309e7e6f684ca8c982f7719a649a73"
+    },
+    {
+      "path": "mlx-serve/tests/prefill_ab.sh.txt",
+      "url": "https://raw.githubusercontent.com/ddalcu/mlx-serve/f87552989b62bef91c981abeb5425e46e83568df/tests/prefill_ab.sh",
+      "resolved_url": "https://raw.githubusercontent.com/ddalcu/mlx-serve/f87552989b62bef91c981abeb5425e46e83568df/tests/prefill_ab.sh",
+      "retrieved_at": "2026-11-12T13:18:24.456421+00:00",
+      "status": 200,
+      "bytes": 2398,
+      "sha256": "e074484c98f80ab8b06dd4eee4d38213f2bedbb66a27b997e068309960fba8da"
+    }
+  ]
+}

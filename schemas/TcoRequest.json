@@ -1,5 +1,232 @@
 {
   "$defs": {
+    "BenchmarkConditions": {
+      "additionalProperties": false,
+      "properties": {
+        "accelerator_memory_gb": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Accelerator Memory Gb"
+        },
+        "cache_state": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cache State"
+        },
+        "concurrency": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Concurrency"
+        },
+        "kv_precision": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PrecisionFormat"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "model_revision": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model Revision"
+        },
+        "nodes": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nodes"
+        },
+        "optimized_backend": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Optimized Backend"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Tokens"
+        },
+        "prompt_cache_hit_rate": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Prompt Cache Hit Rate"
+        },
+        "protocol": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Protocol"
+        },
+        "quantization": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Quantization"
+        },
+        "residency": {
+          "anyOf": [
+            {
+              "enum": [
+                "resident",
+                "offload"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Residency"
+        },
+        "runtime": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Runtime"
+        },
+        "runtime_version": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Runtime Version"
+        },
+        "speculative_config": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Speculative Config"
+        },
+        "speculative_mode": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SpeculativeMode"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "system_ram_gb": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "System Ram Gb"
+        }
+      },
+      "title": "BenchmarkConditions",
+      "type": "object"
+    },
     "CriterionWeights": {
       "additionalProperties": false,
       "description": "Raw weights; non-negativity is checked by the ranking (Req 29.11), not here.",
@@ -63,6 +290,11 @@
           "default": null,
           "title": "Reference Api Model Id"
         },
+        "reward_excess_performance": {
+          "default": false,
+          "title": "Reward Excess Performance",
+          "type": "boolean"
+        },
         "use_case": {
           "$ref": "#/$defs/UseCaseId",
           "default": "agentic-coding"
@@ -107,6 +339,15 @@
           "minimum": 1.0,
           "title": "Cooling Pue",
           "type": "number"
+        },
+        "cost_model": {
+          "default": "enterprise",
+          "enum": [
+            "enterprise",
+            "self-managed"
+          ],
+          "title": "Cost Model",
+          "type": "string"
         },
         "currency": {
           "default": "USD",
@@ -178,6 +419,19 @@
           ],
           "default": 100000.0,
           "title": "Max Capex Budget Usd"
+        },
+        "max_tco_budget_usd": {
+          "anyOf": [
+            {
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Tco Budget Usd"
         },
         "nvidia_nim_license_per_gpu_yr_usd": {
           "default": 4500.0,
@@ -328,6 +582,17 @@
           "title": "Apply Mac Wired Memory Override",
           "type": "boolean"
         },
+        "benchmark_conditions": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BenchmarkConditions"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "enable_optimized_backend": {
           "default": true,
           "title": "Enable Optimized Backend",
@@ -348,6 +613,19 @@
           "default": false,
           "title": "Linux Amd Override",
           "type": "boolean"
+        },
+        "performance_prompt_tokens": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Performance Prompt Tokens"
         },
         "repo_workspace_gb": {
           "default": 4.0,

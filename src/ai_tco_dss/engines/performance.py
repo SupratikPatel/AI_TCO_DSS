@@ -26,7 +26,12 @@ from ai_tco_dss.domain import (
     WorkloadResult,
 )
 from ai_tco_dss.domain.errors import EngineInputError
-from ai_tco_dss.engines.resolver import select_benchmark
+from ai_tco_dss.engines.resolver import (
+    deployment_conditions,
+    evidence_gaps,
+    select_benchmark,
+    uses_offload,
+)
 from ai_tco_dss.engines.sizing import precision_bits
 
 PREFILL_1M_TOKENS = 1_000_000
@@ -60,7 +65,7 @@ def _measured(record: BenchmarkRecord, name: str, unit: str) -> tuple[Metric, Fo
     trace = FormulaTrace(
         name=name,
         symbolic=f"{name} = Benchmark_Record value",
-        substituted=f"{record.source_id} at {record.context_tokens} tokens = {record.value}",
+        substituted=f"{record.source_id} at {record.prompt_tokens} prompt tokens = {record.value}",
         result=record.value,
         unit=unit,
     )
@@ -160,10 +165,18 @@ def compute_performance(inp: PerformanceInput, params: EngineParameters) -> Perf
     warnings: list[str] = []
     traces: list[FormulaTrace] = []
 
-    def lookup(metric: BenchmarkMetric, target: int) -> BenchmarkRecord | None:
-        if not inp.use_measured:
+    def lookup(metric: BenchmarkMetric, target: int | None) -> BenchmarkRecord | None:
+        if not inp.use_measured or target is None:
             return None
         query = BenchmarkQuery(
+            conditions=deployment_conditions(
+                hardware,
+                inp.sizing.requested_nodes,
+                options,
+                inp.profile.peak_concurrent_requests,
+                inp.profile.prompt_cache_hit_rate,
+                round(inp.workload.out_think),
+            ),
             records=inp.benchmarks,
             metric=metric,
             model_id=model.id,
@@ -175,19 +188,40 @@ def compute_performance(inp: PerformanceInput, params: EngineParameters) -> Perf
         return select_benchmark(query)
 
     # Decode (20.1 to 20.7): formula inputs are checked even when a record matches.
-    decode, trace = _formula_decode(inp, params)
-    record = lookup(BenchmarkMetric.DECODE_TPS, context)
+    decode: Metric | None = None
+    offload = uses_offload(hardware)
+    if not offload:
+        decode, trace = _formula_decode(inp, params)
+    record = lookup(BenchmarkMetric.DECODE_TPS, options.performance_prompt_tokens)
     if record is not None:
         decode, trace = _measured(record, "decode_tps", TPS)
-    traces.append(trace)
+    if decode is not None:
+        traces.append(trace)
+    elif offload:
+        warnings.append(
+            "Offload performance unavailable: no comparable measurement; the "
+            "VRAM bandwidth formula does not model RAM/SSD execution and transfers."
+        )
+    for observation in inp.benchmarks.records:
+        if observation.metric in (
+            BenchmarkMetric.DECODE_TPS,
+            BenchmarkMetric.PREFILL_TPS,
+            BenchmarkMetric.TTFT_S,
+        ):
+            gaps = evidence_gaps(observation)
+            if gaps:
+                warnings.append(
+                    f"{observation.source_id} {observation.metric.value} excluded: "
+                    + "; ".join(gaps)
+                )
 
     # Prefill (21.1, 21.7)
     prefill: Metric | None = None
-    record = lookup(BenchmarkMetric.PREFILL_TPS, context)
+    record = lookup(BenchmarkMetric.PREFILL_TPS, options.performance_prompt_tokens)
     base = hardware.base_prefill_tps_at_32k
     if record is not None:
         prefill, trace = _measured(record, "prefill_tps", TPS)
-    elif base is not None:
+    elif base is not None and not offload:
         if base.value <= 0:
             raise EngineInputError("base_prefill_tps_at_32k", "> 0 tok/s", hardware.id)
         prefill, trace = _catalog_value("prefill_tps", base, TPS)
@@ -202,12 +236,23 @@ def compute_performance(inp: PerformanceInput, params: EngineParameters) -> Perf
 
     # TTFT (21.2, 21.3, 21.9): a measured TTFT record wins (9.4).
     ttft: Metric | None = None
-    record = lookup(BenchmarkMetric.TTFT_S, context)
+    # Latency concerns the effective workload prompt, not the decode context/capacity.
+    # No contract currently describes an observed eviction/rebuild event, so a plain
+    # TTFT observation cannot replace the formula's explicit rebuild term.
+    record = (
+        None
+        if inp.sizing.context_eviction_risk
+        else lookup(BenchmarkMetric.TTFT_S, round(inp.workload.t_in_hat))
+    )
     if record is not None:
         ttft, trace = _measured(record, "ttft_s", "s")
         traces.append(trace)
     elif prefill is not None:
-        beta = 1.0 if options.enable_optimized_backend else BETA_UNOPTIMIZED
+        beta = (
+            1.0
+            if prefill.origin.origin == "measured" or options.enable_optimized_backend
+            else BETA_UNOPTIMIZED
+        )
         rate = prefill.value * beta
         value = inp.workload.t_in_hat * (1 - r_cache) / rate
         symbolic = "TTFT = T_in_hat * (1 - r_cache) / (prefill_TPS * beta_backend)"
@@ -216,7 +261,7 @@ def compute_performance(inp: PerformanceInput, params: EngineParameters) -> Perf
             value += context / rate
             symbolic += " + target_context / (prefill_TPS * beta_backend)"
             substituted += f" + {context} / ({prefill.value} * {beta})"
-        ttft = Metric(value=value, unit="s", origin=prefill.origin)
+        ttft = Metric(value=value, unit="s", origin=_origin("formula", *prefill.origin.source_ids))
         traces.append(
             FormulaTrace(
                 name="ttft_s", symbolic=symbolic, substituted=substituted, result=value, unit="s"
@@ -225,7 +270,7 @@ def compute_performance(inp: PerformanceInput, params: EngineParameters) -> Perf
 
     # Effective TPS (21.4, 21.8)
     effective: Metric | None = None
-    if ttft is not None:
+    if ttft is not None and decode is not None:
         effective, trace = _effective(decode, ttft, inp.workload)
         traces.append(trace)
 

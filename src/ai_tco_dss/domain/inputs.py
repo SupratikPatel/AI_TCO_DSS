@@ -4,6 +4,7 @@ convention"). Every engine takes one input contract plus `EngineParameters`."""
 from pydantic import Field
 
 from ai_tco_dss.domain.base import Contract, Metric, Money
+from ai_tco_dss.domain.benchmark_conditions import BenchmarkConditions
 from ai_tco_dss.domain.catalog import (
     ApiPrices,
     BenchmarkRecord,
@@ -61,6 +62,7 @@ class SizingInput(Contract):
 
 
 class BenchmarkQuery(Contract):
+    conditions: BenchmarkConditions | None = None
     records: BenchmarkSet
     metric: BenchmarkMetric
     model_id: str
@@ -89,6 +91,7 @@ class ApiPerformanceInput(Contract):
 
 
 class TcoInput(Contract):
+    options: SizingOptions = Field(default_factory=SizingOptions)
     hardware: HardwareSpec
     nodes: int
     sizing: SizingResult
@@ -165,6 +168,8 @@ class FilterInput(Contract):
 
 
 class RankingInput(Contract):
+    tps_target: float | None = Field(None, gt=0)
+    ttft_target: float | None = Field(None, gt=0)
     feasible: tuple[CandidateEvaluation, ...]
     weights: CriterionWeights
     method: RankingMethod

@@ -6,6 +6,7 @@ from typing import Annotated, Literal
 from pydantic import Field, field_validator
 
 from ai_tco_dss.domain.base import Contract
+from ai_tco_dss.domain.benchmark_conditions import BenchmarkConditions
 from ai_tco_dss.domain.enums import (
     BenchmarkMetric,
     ElectricityTariffTier,
@@ -56,7 +57,9 @@ class WorkloadProfile(Contract):
 
 
 class EnterpriseFinancials(Contract):
+    cost_model: Literal["enterprise", "self-managed"] = "enterprise"
     currency: Literal["EUR", "USD"] = "USD"
+    max_tco_budget_usd: float | None = Field(None, ge=0.0)
     max_capex_budget_usd: float | None = Field(100_000.0, ge=0.0)
     electricity_tariff_tier: ElectricityTariffTier = ElectricityTariffTier.DE_INDUSTRIAL_BDEW
     cooling_pue: float = Field(1.20, ge=1.0, le=3.0)
@@ -74,8 +77,29 @@ class EnterpriseFinancials(Contract):
     include_resale_value: bool = False
     subscription_plan_id: str | None = None
 
+    def effective_costs(self) -> "EnterpriseFinancials":
+        """Self-managed ownership counts purchase and power, with no priced labor/time.
+
+        Keep the user's enterprise inputs intact so switching back restores them.
+        """
+        if self.cost_model == "enterprise":
+            return self
+        return self.model_copy(
+            update={
+                "devops_fte_allocation": 0.0,
+                "capital_opportunity_rate": 0.0,
+                "developer_hourly_opportunity_cost": 0.0,
+                "include_wait_time_penalty": False,
+                "enable_nvidia_nim_licensing": False,
+                "include_resale_value": False,
+                "cooling_pue": 1.0,
+            }
+        )
+
 
 class SizingOptions(Contract):
+    benchmark_conditions: BenchmarkConditions | None = None
+    performance_prompt_tokens: int | None = Field(None, ge=1)
     weight_precision: PrecisionFormat = PrecisionFormat.INT4
     kv_precision: PrecisionFormat = PrecisionFormat.FP16
     target_context_length: int = Field(128000, ge=1)
@@ -102,6 +126,7 @@ class CriterionWeights(Contract):
 
 
 class DecisionOptions(Contract):
+    reward_excess_performance: bool = False
     use_case: UseCaseId = UseCaseId.AGENTIC_CODING
     preset: PresetId = PresetId.BEST_FIT
     weights: CriterionWeights | None = None

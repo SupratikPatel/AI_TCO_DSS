@@ -21,7 +21,7 @@ from ai_tco_dss.domain import (
     ValueOrigin,
 )
 from ai_tco_dss.domain.errors import EngineInputError
-from ai_tco_dss.engines.resolver import select_benchmark
+from ai_tco_dss.engines.resolver import deployment_conditions, select_benchmark
 
 USD = "USD"
 TPS = "tok/s"
@@ -53,9 +53,9 @@ def classify_utilization(
     warnings: list[str] = []
     if utilization < params.idle_warning_threshold:
         warnings.append(
-            f"Idle capacity financial warning: Utilization {utilization:.3f} is below "
-            f"{params.idle_warning_threshold:.2f}; fixed amortization, idle power and MLOps FTE "
-            "costs are likely to exceed pay-as-you-go API costs"
+            f"Idle capacity financial warning: Utilization {utilization:.1%} is below "
+            f"{params.idle_warning_threshold:.0%}. Low utilization spreads fixed costs over less "
+            "work; compare modeled total costs before choosing local or API deployment."
         )
     insufficient = utilization > 1.0
     if insufficient:
@@ -115,9 +115,9 @@ def _validate(inp: TcoInput, params: EngineParameters) -> None:
     _check(_in_range(mu, low, high), "datacenter_multiplier", f"[{low}, {high}], got {mu}", hw.id)
     hours = profile.active_hours_per_month
     _check(
-        _in_range(hours, 0, params.hours_per_month),
+        _in_range(hours, 1, 744),
         "active_hours_per_month",
-        f"[0, {params.hours_per_month:g}] hours per month, got {hours}",
+        f"[1, 744] hours per month, got {hours}",
     )
     _check(hw.load_watts.value >= 0, "load_watts", ">= 0 W", hw.id)
     _check(hw.idle_watts.value >= 0, "idle_watts", ">= 0 W", hw.id)
@@ -144,7 +144,7 @@ def compute_tco(inp: TcoInput, params: EngineParameters) -> TcoResult:
     """Cost components, 60-month TCO and Utilization of one on-premise deployment."""
     hw, fin, profile, sizing, perf = (
         inp.hardware,
-        inp.financials,
+        inp.financials.effective_costs(),
         inp.profile,
         inp.sizing,
         inp.performance,
@@ -174,6 +174,10 @@ def compute_tco(inp: TcoInput, params: EngineParameters) -> TcoResult:
     street, mu = hw.street_price.value, hw.datacenter_multiplier.value
     kit = next((k for k in hw.cabling_kits if k.nodes == inp.nodes), None)
     kit_price = kit.price.value if kit is not None else 0.0
+    if inp.nodes > 1 and kit is None:
+        warnings.append(
+            "Networking cost unknown: no cabling/switch quote; modeled allowance is 0 USD."
+        )
     capex = units * street * mu + kit_price
     capex_sources = [hw.street_price.source_id, hw.datacenter_multiplier.source_id]
     if kit is not None:
@@ -190,7 +194,7 @@ def compute_tco(inp: TcoInput, params: EngineParameters) -> TcoResult:
 
     # Energy (22.3)
     h_active = profile.active_hours_per_month
-    h_idle = params.hours_per_month - h_active
+    h_idle = max(0.0, params.hours_per_month - h_active)
     w_load, w_idle, pue = hw.load_watts.value, hw.idle_watts.value, fin.cooling_pue
     energy = units * (h_active * w_load + h_idle * w_idle) / 1000 * pue * rate
     traces.append(
@@ -286,8 +290,12 @@ def compute_tco(inp: TcoInput, params: EngineParameters) -> TcoResult:
     # Eviction loss (22.8, 22.13)
     target_context = _target_context(sizing)
     eviction = 0.0
-    eviction_text = "no context eviction risk"
-    if sizing.context_eviction_risk:
+    eviction_text = (
+        "excluded by self-managed cost assumptions"
+        if fin.cost_model == "self-managed"
+        else "no context eviction risk"
+    )
+    if sizing.context_eviction_risk and fin.cost_model == "enterprise":
         n_ev, p_compute = params.eviction_events_per_month, params.eviction_compute_price_per_1m_usd
         agents = profile.concurrent_agent_instances
         wait_h = 0.0
@@ -296,7 +304,13 @@ def compute_tco(inp: TcoInput, params: EngineParameters) -> TcoResult:
                 "eviction loss excludes the developer wait time: the prefill rate is not available"
             )
         else:
-            wait_h = target_context / perf.prefill_tps.value / 3600
+            beta = (
+                1.0
+                if perf.prefill_tps.origin.origin == "measured"
+                or inp.options.enable_optimized_backend
+                else 0.035
+            )
+            wait_h = target_context / (perf.prefill_tps.value * beta) / 3600
         eviction = n_ev * (target_context / 1e6 * p_compute + wait_h * dev_rate / agents)
         eviction_text = (
             f"{n_ev:g} * ({target_context} / 1e6 * {p_compute} + {wait_h:.6f} * {dev_rate}"
@@ -405,21 +419,29 @@ def _aggregate_tps(
     hw, sizing = inp.hardware, inp.sizing
     record = select_benchmark(
         BenchmarkQuery(
+            conditions=deployment_conditions(
+                hw,
+                inp.nodes,
+                inp.options,
+                inp.profile.peak_concurrent_requests,
+                inp.profile.prompt_cache_hit_rate,
+                round(inp.workload.out_think),
+            ),
             records=inp.benchmarks,
             metric=BenchmarkMetric.AGGREGATE_TPS,
             model_id=sizing.model_id,
             hardware_id=hw.id,
             precision=sizing.precision,
-            target_context=target_context,
+            target_context=inp.options.performance_prompt_tokens,
             tolerance=params.context_match_tolerance,
         )
     )
-    if record is not None:
+    if record is not None and inp.options.performance_prompt_tokens is not None:
         value = record.value * units_factor
         trace = _trace(
             "aggregate_tps",
             "aggregate TPS = Benchmark_Record value * units_factor",
-            f"{record.source_id} at {record.context_tokens} tokens = {record.value}"
+            f"{record.source_id} at {record.prompt_tokens} prompt tokens = {record.value}"
             f" * {units_factor}",
             value,
             TPS,
